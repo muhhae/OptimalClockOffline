@@ -6,7 +6,7 @@
 ![1024mib](./graph/cluster50_1024MiB.png)
 ![2048mib](./graph/cluster50_2048MiB.png)
 ### Alibaba Block 7
-![128Mib](./graph/7_128Mib.png)
+![128Mib](./graph/7_128MiB.png)
 ![256mib](./graph/7_256MiB.png)
 ![512mib](./graph/7_512MiB.png)
 ![1024mib](./graph/7_1024MiB.png)
