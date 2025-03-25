@@ -1,5 +1,7 @@
 # RESULT
+---
 ### Cluster 50 Twitter
+---
 ![128mib](./graph/cluster50_128MiB.png)
 ![256mib](./graph/cluster50_256MiB.png)
 ![512mib](./graph/cluster50_512MiB.png)
@@ -12,8 +14,17 @@
 ![1024mib](./graph/7_1024MiB.png)
 ![2048mib](./graph/7_2048MiB.png)
 ### Wiki 2019
+---
 ![128Mib](./graph/wiki_2019t_128Mib.png)
 ![256mib](./graph/wiki_2019t_256MiB.png)
 ![512mib](./graph/wiki_2019t_512MiB.png)
 ![1024mib](./graph/wiki_2019t_1024MiB.png)
 ![2048mib](./graph/wiki_2019t_2048MiB.png)
+### CloudPhysicsIO (Small)
+---
+![128Mib](./graph/cloudPhysicsIO_128MiB.png)
+![256mib](./graph/cloudPhysicsIO_256MiB.png)
+![512mib](./graph/cloudPhysicsIO_512MiB.png)
+![1024mib](./graph/cloudPhysicsIO_1024MiB.png)
+![2048mib](./graph/cloudPhysicsIO_2048MiB.png)
+
