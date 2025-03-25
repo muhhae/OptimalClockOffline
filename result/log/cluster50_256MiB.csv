@@ -1,0 +1,11 @@
+trace_path,cache_size(MiB),miss_ratio,n_req,n_promoted
+"../../../data/cluster50.oracleGeneral.zst",256,0.645667,139655585,46084765
+"../../../data/cluster50.oracleGeneral.zst",256,0.639365,139655585,7012445
+"../../../data/cluster50.oracleGeneral.zst",256,0.659702,139655585,3199663
+"../../../data/cluster50.oracleGeneral.zst",256,0.666435,139655585,1893305
+"../../../data/cluster50.oracleGeneral.zst",256,0.669667,139655585,1301341
+"../../../data/cluster50.oracleGeneral.zst",256,0.671303,139655585,978992
+"../../../data/cluster50.oracleGeneral.zst",256,0.672334,139655585,782247
+"../../../data/cluster50.oracleGeneral.zst",256,0.67298,139655585,654812
+"../../../data/cluster50.oracleGeneral.zst",256,0.67343,139655585,567644
+"../../../data/cluster50.oracleGeneral.zst",256,0.673744,139655585,505984

@@ -1,0 +1,11 @@
+trace_path,cache_size(MiB),miss_ratio,n_req,n_promoted
+"../trace/cloudPhysicsIO.oracleGeneral.bin",128,0.819455,113872,3402
+"../trace/cloudPhysicsIO.oracleGeneral.bin",128,0.817936,113872,606
+"../trace/cloudPhysicsIO.oracleGeneral.bin",128,0.818235,113872,118
+"../trace/cloudPhysicsIO.oracleGeneral.bin",128,0.818278,113872,109
+"../trace/cloudPhysicsIO.oracleGeneral.bin",128,0.818287,113872,107
+"../trace/cloudPhysicsIO.oracleGeneral.bin",128,0.818296,113872,106
+"../trace/cloudPhysicsIO.oracleGeneral.bin",128,0.818296,113872,106
+"../trace/cloudPhysicsIO.oracleGeneral.bin",128,0.818296,113872,106
+"../trace/cloudPhysicsIO.oracleGeneral.bin",128,0.818296,113872,106
+"../trace/cloudPhysicsIO.oracleGeneral.bin",128,0.818296,113872,106
