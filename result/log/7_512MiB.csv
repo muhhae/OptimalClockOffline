@@ -1,0 +1,11 @@
+trace_path,cache_size(MiB),miss_ratio,n_req,n_promoted
+"../trace/7.oracleGeneral.zst",512,0.296151,265694431,16438200
+"../trace/7.oracleGeneral.zst",512,0.295617,265694431,3113124
+"../trace/7.oracleGeneral.zst",512,0.296846,265694431,2584837
+"../trace/7.oracleGeneral.zst",512,0.297488,265694431,2336878
+"../trace/7.oracleGeneral.zst",512,0.297984,265694431,2171642
+"../trace/7.oracleGeneral.zst",512,0.298362,265694431,2048555
+"../trace/7.oracleGeneral.zst",512,0.298669,265694431,1950828
+"../trace/7.oracleGeneral.zst",512,0.298924,265694431,1869811
+"../trace/7.oracleGeneral.zst",512,0.299149,265694431,1799958
+"../trace/7.oracleGeneral.zst",512,0.299341,265694431,1739943
