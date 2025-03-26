@@ -79,15 +79,10 @@ void RunClockExperiment(std::string trace_path, const trace_type_e trace_type,
   cache->evict = clock_custom_evict;
 
   std::string base_path = "/" + std::filesystem::path(trace_path).string();
-  size_t found = base_path.find(".oracleGeneral");
-  size_t pos = std::string::npos;
-  if (found != std::string::npos) {
-    pos = (pos == std::string::npos) ? found : std::min(pos, found);
+  size_t pos = base_path.find(".oracleGeneral");
+  if (pos != std::string::npos) {
+    base_path = base_path.substr(0, pos);
   }
-  base_path =
-      (pos != std::string::npos)
-          ? base_path.substr(0, pos - std::string(".oracleGeneral").length())
-          : base_path;
   base_path += "_" + std::to_string(cache_size / MiB) + "MiB";
   std::string log_path = output_dir + "/log" + base_path + ".csv";
   std::string graph_path = output_dir + "/graph" + base_path + ".png";
