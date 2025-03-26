@@ -35,3 +35,4 @@ build
 
 trace/**
 !trace/**.sh
+python/.venv
