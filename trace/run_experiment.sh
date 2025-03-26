@@ -2,7 +2,7 @@
 
 bash ./download_trace.sh
 
-for file in "./*; do
+for file in "./*"; do
     filename="$(basename "$file")"
     graph_file="../result/graph/${filename%%.*}_128MiB.png"
 
