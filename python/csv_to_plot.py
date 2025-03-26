@@ -25,6 +25,11 @@ for file in files:
     if Path(file).stat().st_size == 0:
         continue
 
+    output_path = os.path.join(output_dir, Path(file).stem + "_py.png")
+
+    if Path(output_path).exists():
+        continue
+
     df = pd.read_csv(file)
     if df.empty:
         continue
@@ -51,4 +56,4 @@ for file in files:
 
     plt.title(Path(file).stem)
     fig.tight_layout()
-    fig.savefig(os.path.join(output_dir, Path(file).stem + "_py.png"))
+    fig.savefig(output_path)
