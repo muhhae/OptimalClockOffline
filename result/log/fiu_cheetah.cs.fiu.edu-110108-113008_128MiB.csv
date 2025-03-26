@@ -1,0 +1,11 @@
+trace_path,cache_size(MiB),miss_ratio,n_req,n_promoted
+"fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst",128,0.897805,442393092,36144177
+"fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst",128,0.892899,442393092,6225368
+"fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst",128,0.899326,442393092,1345657
+"fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst",128,0.900247,442393092,408891
+"fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst",128,0.900457,442393092,163674
+"fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst",128,0.900513,442393092,90462
+"fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst",128,0.900507,442393092,57514
+"fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst",128,0.900518,442393092,36430
+"fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst",128,0.900525,442393092,32602
+"fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst",128,0.900527,442393092,30453
