@@ -11,8 +11,8 @@ for file in ./*.{oracleGeneral,oracleGeneral.zst}; do
         echo "Skipping processing: $filename (corresponding graph exists: $graph_file)"
     else
         echo "Processing: $filename"
-        ../build/cacheSimulator . $filename
-        git add -A && git commit -m "Added some ${filename%%.*} result (automatic)" && git push
+        ../build/cacheSimulator ../result $filename
+        git add ../result/**/${filename%%.}* && git commit -m "Added ${filename%%.*} result (automated)" && git push
     fi
 done
 
