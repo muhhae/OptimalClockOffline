@@ -12,7 +12,7 @@ for file in ./*.{oracleGeneral,oracleGeneral.zst}; do
     else
         echo "Processing: $filename"
         ../build/cacheSimulator ../result $filename
-        git add ../result/**/${filename%%.}* && git commit -m "Added ${filename%%.*} result (automated)" && git push
+        git add ../result/**/${filename%%.*}* && git commit -m "Added ${filename%%.*} result (automated)" && git push
     fi
 done
 
