@@ -12,8 +12,8 @@ for file in ./*.{oracleGeneral,oracleGeneral.zst}; do
     else
         echo "Processing: $filename"
         ../build/cacheSimulator . $filename
+        git add -A && git commit -m "Added some ${filename%%.*} result (automatic)" && git push
     fi
 done
 
 echo "All experiments done!"
-git add -A && git commit -m "Added some result (automatic)" && git push
