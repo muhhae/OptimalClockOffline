@@ -1,0 +1,11 @@
+trace_path,cache_size(MiB),miss_ratio,n_req,n_promoted
+"../trace/wiki_2019t.oracleGeneral.zst",2048,0.647887,207646002,34293293
+"../trace/wiki_2019t.oracleGeneral.zst",2048,0.641027,207646002,14280572
+"../trace/wiki_2019t.oracleGeneral.zst",2048,0.653799,207646002,9859143
+"../trace/wiki_2019t.oracleGeneral.zst",2048,0.658525,207646002,8267065
+"../trace/wiki_2019t.oracleGeneral.zst",2048,0.661602,207646002,7391019
+"../trace/wiki_2019t.oracleGeneral.zst",2048,0.663613,207646002,6813651
+"../trace/wiki_2019t.oracleGeneral.zst",2048,0.665128,207646002,6386225
+"../trace/wiki_2019t.oracleGeneral.zst",2048,0.666312,207646002,6049557
+"../trace/wiki_2019t.oracleGeneral.zst",2048,0.667292,207646002,5773402
+"../trace/wiki_2019t.oracleGeneral.zst",2048,0.668115,207646002,5541184
