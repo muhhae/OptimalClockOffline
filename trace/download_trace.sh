@@ -16,9 +16,9 @@ urls=(
 
 for url in "${urls[@]}"; do
     filename="$(basename "$url")"
-    graph_file="../result/graph/${filename%%.*}_128MiB.png"
+    graph_file="../result/graph/${filename%%.oracleGeneral*}_128MiB.png"
     if [ -f "$filename" ]; then
-        echo "Skipping: $filename (already exists)"
+        echo "Skipping download: $filename (already exists)"
     elif [ -f "$graph_file" ]; then
         echo "Skipping download: $filename (corresponding graph exists: $graph_file)"
     else

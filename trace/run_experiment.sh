@@ -1,11 +1,12 @@
 #!/bin/bash
 
-bash ./download_trace.sh
+# bash ./download_trace.sh
 shopt -s nullglob
 
-for file in ./*.{oracleGeneral,oracleGeneral.zst}; do
+for file in ./*.oracleGeneral*; do
     filename="$(basename "$file")"
-    graph_file="../result/graph/${filename%%.*}_128MiB.png"
+    graph_file="../result/graph/${filename%%.oracleGeneral*}_128MiB.png"
+    echo $graph_file
 
     if [ -f "$graph_file" ]; then
         echo "Skipping processing: $filename (corresponding graph exists: $graph_file)"
