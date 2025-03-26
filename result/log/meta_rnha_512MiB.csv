@@ -1,0 +1,11 @@
+trace_path,cache_size(MiB),miss_ratio,n_req,n_promoted
+"../trace/meta_rnha.oracleGeneral.zst",512,0.802995,96680668,7757460
+"../trace/meta_rnha.oracleGeneral.zst",512,0.798877,96680668,1561710
+"../trace/meta_rnha.oracleGeneral.zst",512,0.801702,96680668,954824
+"../trace/meta_rnha.oracleGeneral.zst",512,0.802525,96680668,778546
+"../trace/meta_rnha.oracleGeneral.zst",512,0.803114,96680668,690691
+"../trace/meta_rnha.oracleGeneral.zst",512,0.803455,96680668,636100
+"../trace/meta_rnha.oracleGeneral.zst",512,0.803706,96680668,598631
+"../trace/meta_rnha.oracleGeneral.zst",512,0.803891,96680668,570748
+"../trace/meta_rnha.oracleGeneral.zst",512,0.804043,96680668,548662
+"../trace/meta_rnha.oracleGeneral.zst",512,0.804167,96680668,530977
