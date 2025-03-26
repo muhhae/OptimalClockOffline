@@ -12,6 +12,7 @@ for file in ./*.{oracleGeneral,oracleGeneral.zst}; do
     else
         echo "Processing: $filename"
         ../build/cacheSimulator ../result $filename
+        ../python/.venv/bin/python ../python/csv_to_plot.py
         git add ../result/**/${filename%%.*}* && git commit -m "Added ${filename%%.*} result (automated)" && git push
     fi
 done
