@@ -15,3 +15,4 @@ for file in "./*"; do
 done
 
 echo "All experiments done!"
+git add -A && git commit -m "Added some result (automatic)" && git push
