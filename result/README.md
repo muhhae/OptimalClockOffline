@@ -16,7 +16,7 @@
 ![2048mib](./graph/7_2048MiB_py.png)
 ### Wiki 2019 (On Progress)
 ---
-![128Mib](./graph/wiki_2019t_128Mib_py.png)
+![128Mib](./graph/wiki_2019t_128MiB_py.png)
 ![256mib](./graph/wiki_2019t_256MiB_py.png)
 ![512mib](./graph/wiki_2019t_512MiB_py.png)
 ![1024mib](./graph/wiki_2019t_1024MiB_py.png)
