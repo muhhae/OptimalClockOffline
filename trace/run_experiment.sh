@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# bash ./download_trace.sh
+bash ./download_trace.sh
 shopt -s nullglob
 
 for file in ./*.oracleGeneral*; do
