@@ -1,6 +1,7 @@
 #!/bin/bash
 
 bash ./download_trace.sh
+shopt -s nullglob
 
 for file in ./*.{oracleGeneral,oracleGeneral.zst}; do
     filename="$(basename "$file")"
