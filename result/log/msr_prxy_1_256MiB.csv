@@ -1,0 +1,11 @@
+trace_path,cache_size(MiB),miss_ratio,n_req,n_promoted
+"msr_prxy_1.oracleGeneral.zst",256,0.00883136,168638964,3072713
+"msr_prxy_1.oracleGeneral.zst",256,0.00881145,168638964,2571480
+"msr_prxy_1.oracleGeneral.zst",256,0.00917464,168638964,2482685
+"msr_prxy_1.oracleGeneral.zst",256,0.00943291,168638964,2419631
+"msr_prxy_1.oracleGeneral.zst",256,0.0095536,168638964,2390499
+"msr_prxy_1.oracleGeneral.zst",256,0.00964358,168638964,2368005
+"msr_prxy_1.oracleGeneral.zst",256,0.00976426,168638964,2334695
+"msr_prxy_1.oracleGeneral.zst",256,0.00986711,168638964,2310413
+"msr_prxy_1.oracleGeneral.zst",256,0.00997638,168638964,2287532
+"msr_prxy_1.oracleGeneral.zst",256,0.0100666,168638964,2271103
