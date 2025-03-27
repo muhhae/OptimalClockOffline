@@ -1,0 +1,11 @@
+trace_path,cache_size(MiB),miss_ratio,n_req,n_promoted
+"w01.oracleGeneral.bin.zst",128,0.893095,215796257,14867761
+"w01.oracleGeneral.bin.zst",128,0.892553,215796257,4528959
+"w01.oracleGeneral.bin.zst",128,0.894802,215796257,3764420
+"w01.oracleGeneral.bin.zst",128,0.895431,215796257,3517390
+"w01.oracleGeneral.bin.zst",128,0.895881,215796257,3381178
+"w01.oracleGeneral.bin.zst",128,0.896169,215796257,3289705
+"w01.oracleGeneral.bin.zst",128,0.896382,215796257,3225247
+"w01.oracleGeneral.bin.zst",128,0.896531,215796257,3180484
+"w01.oracleGeneral.bin.zst",128,0.896636,215796257,3149277
+"w01.oracleGeneral.bin.zst",128,0.89671,215796257,3128184

@@ -1,0 +1,11 @@
+trace_path,cache_size(MiB),miss_ratio,n_req,n_promoted
+"meta_kvcache_traces_1.oracleGeneral.bin.zst",256,0.140241,335173084,31830471
+"meta_kvcache_traces_1.oracleGeneral.bin.zst",256,0.136015,335173084,11462716
+"meta_kvcache_traces_1.oracleGeneral.bin.zst",256,0.139344,335173084,9276932
+"meta_kvcache_traces_1.oracleGeneral.bin.zst",256,0.140901,335173084,8481192
+"meta_kvcache_traces_1.oracleGeneral.bin.zst",256,0.141924,335173084,8027135
+"meta_kvcache_traces_1.oracleGeneral.bin.zst",256,0.142619,335173084,7718621
+"meta_kvcache_traces_1.oracleGeneral.bin.zst",256,0.14314,335173084,7487999
+"meta_kvcache_traces_1.oracleGeneral.bin.zst",256,0.143562,335173084,7308099
+"meta_kvcache_traces_1.oracleGeneral.bin.zst",256,0.143909,335173084,7158635
+"meta_kvcache_traces_1.oracleGeneral.bin.zst",256,0.144208,335173084,7028254
