@@ -19,7 +19,7 @@ for file in ./*.oracleGeneral*; do
         batch_name+=(${filename%%.oracleGeneral*})
     fi
 
-    if ((${#batch[@]} == $batch)); then
+    if ((${#batch[@]} == $BATCH_SIZE)); then
         echo "Processing: ${batch[@]}"
         ../build/cacheSimulator ../result ${batch[@]}
         ../python/.venv/bin/python ../python/csv_to_plot.py
