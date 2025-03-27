@@ -25,7 +25,7 @@ for file in ./*.oracleGeneral*; do
         ../python/.venv/bin/python ../python/csv_to_plot.py
         git add ../result/**/* && git commit -m "Added ${batch_name[*]} result (automated)" && git push
         batch=()
-        batch_name()
+        batch_name=()
     fi
 done
 
