@@ -14,7 +14,7 @@ for file in ./*.oracleGeneral*; do
     if [ -f "$graph_file" ]; then
         echo "Skipping processing: $filename (corresponding graph exists: $graph_file)"
     else
-        batch+=(filename)
+        batch+=($filename)
     fi
 
     if ((${#batch[@]} == $batch)); then
