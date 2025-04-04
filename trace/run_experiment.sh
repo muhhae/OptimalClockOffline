@@ -16,6 +16,7 @@ offline_clock() {
         echo "Processing: $filename"
         ../build/cacheSimulator ../result $filename
         ../python/.venv/bin/python ../python/csv_to_plot.py
+        ../python/.venv/bin/python ../python/result_to_md.py
         git add ../result/**/* && git commit -m "Added $basename result (automated)" && git push
     fi
 }
