@@ -69,6 +69,6 @@ for file in files:
     readme.write(f"> **Trace Path**: {trace_path}  \n")
     readme.write(f"> **Cache Size**: {cache_size}MiB  \n")
     readme.write(f"> **Total Request**: {n_req:,}  \n")
-    readme.write(f"> **First Promotion**: {(logs[0].n_promoted,)}  \n")
-    readme.write(f"> **Last Promotion**: {(logs[-1].n_promoted,)}  \n")
+    readme.write(f"> **First Promotion**: {logs[0].n_promoted:,}  \n")
+    readme.write(f"> **Last Promotion**: {logs[-1].n_promoted:,}  \n")
     readme.write(f"> **Promotion Reduced**: {promotion_reduced:,}  \n\n")
