@@ -2,7 +2,7 @@
 
 PYSCRIPT=../../libCacheSim/scripts/data_gen.py
 
-echo "0 0.4 0.8 1 1.4 1.8 2" | xargs -n 1 -P "$(nproc --ignore=2)" bash -c '
+echo "0 0.3 0.7 1 1.3 1.7 2" | xargs -n 1 -P "$(nproc --ignore=2)" bash -c '
     alpha="$1"
     echo "working on alpha $alpha!"
     ../python/.venv/bin/python "'"$PYSCRIPT"'" -m 1000000 -n 100000000 --alpha "$alpha" --bin-output "../trace/zipf_${alpha}_10_100.oracleGeneral" &&
