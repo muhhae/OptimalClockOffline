@@ -195,7 +195,7 @@ int main(int argc, char **argv) {
     for (size_t i = 0; i < 5; i++) {
       tasks.emplace_back(std::async(std::launch::async, RunClockExperiment,
                                     p.string(), ORACLE_GENERAL_TRACE,
-                                    128 * std::pow(2, i) * MiB, 10));
+                                    128 * std::pow(2, i) * MiB, 20));
     }
   }
   for (auto &t : tasks) {

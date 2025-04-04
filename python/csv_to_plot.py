@@ -37,7 +37,7 @@ for file in files:
     df = df.rename(columns={"cache_size(MiB)": "cache_size"})
     logs = [OutputLog(**row) for row in df.to_dict(orient="records")]
 
-    iter = [i for i in range(1, 11)]
+    iter = [i for i in range(1, 21)]
     miss_ratio = [d.miss_ratio for d in logs]
     n_promotion = [d.n_promoted for d in logs]
 
