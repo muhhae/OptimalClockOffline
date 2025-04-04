@@ -1,5 +1,5 @@
 # RESULT
-## 1351
+## 1351 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentBlock/v2/traces/1351.oracleGeneral.zst
 > ![graph](./graph/1351_128MiB_py.png)  
 > **Trace Path**: 1351.oracleGeneral.zst  
 > **Cache Size**: 128MiB  
@@ -40,7 +40,7 @@
 > **Last Promotion**: 4,827,531  
 > **Promotion Reduced**: 36,573,926  
 
-## 2016_LUN1
+## 2016_LUN1 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/2016_LUN1.oracleGeneral.zst
 > ![graph](./graph/2016_LUN1_128MiB_py.png)  
 > **Trace Path**: 2016_LUN1.oracleGeneral.zst  
 > **Cache Size**: 128MiB  
@@ -81,7 +81,7 @@
 > **Last Promotion**: 7,417,291  
 > **Promotion Reduced**: 28,840,943  
 
-## 7
+## 7 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/v2/7.oracleGeneral.zst
 > ![graph](./graph/7_128MiB_py.png)  
 > **Trace Path**: ../trace/7.oracleGeneral.zst  
 > **Cache Size**: 128MiB  
@@ -122,7 +122,7 @@
 > **Last Promotion**: 1,071,944  
 > **Promotion Reduced**: 22,943,998  
 
-## block_traces_5
+## block_traces_5 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaStorage/block_traces_5.oracleGeneral.bin.zst
 > ![graph](./graph/block_traces_5_128MiB_py.png)  
 > **Trace Path**: block_traces_5.oracleGeneral.bin.zst  
 > **Cache Size**: 128MiB  
@@ -163,7 +163,7 @@
 > **Last Promotion**: 148,646  
 > **Promotion Reduced**: 2,744,134  
 
-## cloudPhysicsIO
+## cloudPhysicsIO 
 > ![graph](./graph/cloudPhysicsIO_128MiB_py.png)  
 > **Trace Path**: ../trace/cloudPhysicsIO.oracleGeneral.bin  
 > **Cache Size**: 128MiB  
@@ -204,7 +204,7 @@
 > **Last Promotion**: 0  
 > **Promotion Reduced**: 0  
 
-## cluster50
+## cluster50 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster50.oracleGeneral.zst
 > ![graph](./graph/cluster50_128MiB_py.png)  
 > **Trace Path**: ../../../data/cluster50.oracleGeneral.zst  
 > **Cache Size**: 128MiB  
@@ -245,7 +245,7 @@
 > **Last Promotion**: 6,142,735  
 > **Promotion Reduced**: 41,676,402  
 
-## fiu_cheetah.cs.fiu.edu-110108-113008
+## fiu_cheetah.cs.fiu.edu-110108-113008 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst
 > ![graph](./graph/fiu_cheetah.cs.fiu.edu-110108-113008_128MiB_py.png)  
 > **Trace Path**: fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst  
 > **Cache Size**: 128MiB  
@@ -286,7 +286,7 @@
 > **Last Promotion**: 30,655,504  
 > **Promotion Reduced**: 55,315,324  
 
-## meta_kvcache_traces_1
+## meta_kvcache_traces_1 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaKV/meta_kvcache_traces_1.oracleGeneral.bin.zst
 > ![graph](./graph/meta_kvcache_traces_1_128MiB_py.png)  
 > **Trace Path**: meta_kvcache_traces_1.oracleGeneral.bin.zst  
 > **Cache Size**: 128MiB  
@@ -327,7 +327,7 @@
 > **Last Promotion**: 5,449,771  
 > **Promotion Reduced**: 11,497,275  
 
-## meta_rnha
+## meta_rnha https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaCDN/meta_rnha.oracleGeneral.zst
 > ![graph](./graph/meta_rnha_128MiB_py.png)  
 > **Trace Path**: ../trace/meta_rnha.oracleGeneral.zst  
 > **Cache Size**: 128MiB  
@@ -368,7 +368,7 @@
 > **Last Promotion**: 649,650  
 > **Promotion Reduced**: 8,428,141  
 
-## msr_prxy_1
+## msr_prxy_1 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_prxy_1.oracleGeneral.zst
 > ![graph](./graph/msr_prxy_1_128MiB_py.png)  
 > **Trace Path**: msr_prxy_1.oracleGeneral.zst  
 > **Cache Size**: 128MiB  
@@ -409,7 +409,7 @@
 > **Last Promotion**: 265,687  
 > **Promotion Reduced**: 47,833  
 
-## w01
+## w01 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w01.oracleGeneral.bin.zst
 > ![graph](./graph/w01_128MiB_py.png)  
 > **Trace Path**: w01.oracleGeneral.bin.zst  
 > **Cache Size**: 128MiB  
@@ -450,7 +450,7 @@
 > **Last Promotion**: 798,823  
 > **Promotion Reduced**: 13,306,803  
 
-## wiki_2019t
+## wiki_2019t https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/wiki/wiki_2019t.oracleGeneral.zst
 > ![graph](./graph/wiki_2019t_128MiB_py.png)  
 > **Trace Path**: ../trace/wiki_2019t.oracleGeneral.zst  
 > **Cache Size**: 128MiB  
@@ -491,7 +491,7 @@
 > **Last Promotion**: 5,541,184  
 > **Promotion Reduced**: 28,752,109  
 
-## zipf_0.3_10_100
+## zipf_0.3_10_100 
 > ![graph](./graph/zipf_0.3_10_100_128MiB_py.png)  
 > **Trace Path**: zipf_0.3_10_100.oracleGeneral  
 > **Cache Size**: 128MiB  
@@ -532,7 +532,7 @@
 > **Last Promotion**: 4,480,624  
 > **Promotion Reduced**: 34,983,862  
 
-## zipf_0.7_10_100
+## zipf_0.7_10_100 
 > ![graph](./graph/zipf_0.7_10_100_128MiB_py.png)  
 > **Trace Path**: zipf_0.7_10_100.oracleGeneral  
 > **Cache Size**: 128MiB  
@@ -573,7 +573,7 @@
 > **Last Promotion**: 7,314,196  
 > **Promotion Reduced**: 20,397,484  
 
-## zipf_0_10_100
+## zipf_0_10_100 
 > ![graph](./graph/zipf_0_10_100_128MiB_py.png)  
 > **Trace Path**: zipf_0_10_100.oracleGeneral  
 > **Cache Size**: 128MiB  
@@ -614,7 +614,7 @@
 > **Last Promotion**: 2,000,281  
 > **Promotion Reduced**: 37,702,245  
 
-## zipf_1.3_10_100
+## zipf_1.3_10_100 
 > ![graph](./graph/zipf_1.3_10_100_128MiB_py.png)  
 > **Trace Path**: zipf_1.3_10_100.oracleGeneral  
 > **Cache Size**: 128MiB  
@@ -655,7 +655,7 @@
 > **Last Promotion**: 445,470  
 > **Promotion Reduced**: -108,674  
 
-## zipf_1.7_10_100
+## zipf_1.7_10_100 
 > ![graph](./graph/zipf_1.7_10_100_128MiB_py.png)  
 > **Trace Path**: zipf_1.7_10_100.oracleGeneral  
 > **Cache Size**: 128MiB  
@@ -696,7 +696,7 @@
 > **Last Promotion**: 0  
 > **Promotion Reduced**: 0  
 
-## zipf_1_10_100
+## zipf_1_10_100 
 > ![graph](./graph/zipf_1_10_100_128MiB_py.png)  
 > **Trace Path**: zipf_1_10_100.oracleGeneral  
 > **Cache Size**: 128MiB  
@@ -737,7 +737,7 @@
 > **Last Promotion**: 3,465,199  
 > **Promotion Reduced**: 5,052,850  
 
-## zipf_2_10_100
+## zipf_2_10_100 
 > ![graph](./graph/zipf_2_10_100_128MiB_py.png)  
 > **Trace Path**: zipf_2_10_100.oracleGeneral  
 > **Cache Size**: 128MiB  
