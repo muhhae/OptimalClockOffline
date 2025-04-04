@@ -1,4 +1,63 @@
 # RESULT
+## zipf_0.3_10_100 
+> ![graph](./graph/zipf_0.3_10_100_2048MiB_py.png)  
+> **Trace Path**: zipf_0.3_10_100.oracleGeneral  
+> **Cache Size**: 2048MiB  
+> **Total Request**: 100,000,000  
+> **First Promotion**: 39,461,100  
+> **Last Promotion**: 3,340,720  
+> **Promotion Reduced**: 36,120,380  
+
+## zipf_0.7_10_100 
+> ![graph](./graph/zipf_0.7_10_100_128MiB_py.png)  
+> **Trace Path**: zipf_0.7_10_100.oracleGeneral  
+> **Cache Size**: 128MiB  
+> **Total Request**: 100,000,000  
+> **First Promotion**: 11,321,938  
+> **Last Promotion**: 1,594,813  
+> **Promotion Reduced**: 9,727,125  
+
+> ![graph](./graph/zipf_0.7_10_100_256MiB_py.png)  
+> **Trace Path**: zipf_0.7_10_100.oracleGeneral  
+> **Cache Size**: 256MiB  
+> **Total Request**: 100,000,000  
+> **First Promotion**: 14,954,554  
+> **Last Promotion**: 2,168,446  
+> **Promotion Reduced**: 12,786,108  
+
+> ![graph](./graph/zipf_0.7_10_100_512MiB_py.png)  
+> **Trace Path**: zipf_0.7_10_100.oracleGeneral  
+> **Cache Size**: 512MiB  
+> **Total Request**: 100,000,000  
+> **First Promotion**: 19,433,669  
+> **Last Promotion**: 2,995,801  
+> **Promotion Reduced**: 16,437,868  
+
+> ![graph](./graph/zipf_0.7_10_100_1024MiB_py.png)  
+> **Trace Path**: zipf_0.7_10_100.oracleGeneral  
+> **Cache Size**: 1024MiB  
+> **Total Request**: 100,000,000  
+> **First Promotion**: 24,389,337  
+> **Last Promotion**: 4,248,631  
+> **Promotion Reduced**: 20,140,706  
+
+> ![graph](./graph/zipf_0.7_10_100_2048MiB_py.png)  
+> **Trace Path**: zipf_0.7_10_100.oracleGeneral  
+> **Cache Size**: 2048MiB  
+> **Total Request**: 100,000,000  
+> **First Promotion**: 27,707,555  
+> **Last Promotion**: 6,601,873  
+> **Promotion Reduced**: 21,105,682  
+
+## zipf_0_10_100 
+> ![graph](./graph/zipf_0_10_100_2048MiB_py.png)  
+> **Trace Path**: zipf_0_10_100.oracleGeneral  
+> **Cache Size**: 2048MiB  
+> **Total Request**: 100,000,000  
+> **First Promotion**: 39,701,982  
+> **Last Promotion**: 1,405,869  
+> **Promotion Reduced**: 38,296,113  
+
 ## zipf_1.3_10_100 
 > ![graph](./graph/zipf_1.3_10_100_128MiB_py.png)  
 > **Trace Path**: zipf_1.3_10_100.oracleGeneral  
