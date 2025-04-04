@@ -1,0 +1,11 @@
+trace_path,cache_size(MiB),miss_ratio,n_req,n_promoted
+"zipf_2_10_100.oracleGeneral",2048,0.00013713,100000000,0
+"zipf_2_10_100.oracleGeneral",2048,0,100000000,0
+"zipf_2_10_100.oracleGeneral",2048,0,100000000,0
+"zipf_2_10_100.oracleGeneral",2048,0,100000000,0
+"zipf_2_10_100.oracleGeneral",2048,0,100000000,0
+"zipf_2_10_100.oracleGeneral",2048,0,100000000,0
+"zipf_2_10_100.oracleGeneral",2048,0,100000000,0
+"zipf_2_10_100.oracleGeneral",2048,0,100000000,0
+"zipf_2_10_100.oracleGeneral",2048,0,100000000,0
+"zipf_2_10_100.oracleGeneral",2048,0,100000000,0
