@@ -3,37 +3,27 @@
 bash ./download_trace.sh
 shopt -s nullglob
 
-BATCH_SIZE=4
-batch=()
-batch_name=()
+offline_clock() {
+    file=$1
 
-for file in ./*.oracleGeneral*; do
     filename="$(basename "$file")"
+    basename="${filename%%.oracleGeneral*}"
     graph_file="../result/graph/${filename%%.oracleGeneral*}_128MiB.png"
-    echo $graph_file
 
     if [ -f "$graph_file" ]; then
         echo "Skipping processing: $filename (corresponding graph exists: $graph_file)"
     else
-        batch+=($filename)
-        batch_name+=(${filename%%.oracleGeneral*})
-    fi
-
-    if ((${#batch[@]} == $BATCH_SIZE)); then
-        echo "Processing: ${batch[@]}"
-        ../build/cacheSimulator ../result ${batch[@]}
+        echo "Processing: $filename"
+        ../build/cacheSimulator ../result $filename
         ../python/.venv/bin/python ../python/csv_to_plot.py
-        git add ../result/**/* && git commit -m "Added ${batch_name[*]} result (automated)" && git push
-        batch=()
-        batch_name=()
+        git add ../result/**/* && git commit -m "Added $basename result (automated)" && git push
     fi
-done
+}
 
-if ((${#batch[@]} > 0)); then
-    echo "Processing: ${batch[@]}"
-    ../build/cacheSimulator ../result ${batch[@]}
-    ../python/.venv/bin/python ../python/csv_to_plot.py
-    git add ../result/**/* && git commit -m "Added ${batch_name[*]} result (automated)" && git push
-fi
+export -f offline_clock
+
+echo ./*.oracleGeneral* | xargs -n 1 -P "$(nproc --ignore=2)" bash -c 'offline_clock $0'
+
+../python/.venv/bin/python ../python/result_to_md.py
 
 echo "All experiments done!"
