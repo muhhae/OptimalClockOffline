@@ -1,0 +1,11 @@
+trace_path,cache_size(MiB),miss_ratio,n_req,n_promoted
+"../trace/zipf_0_10_100.oracleGeneral",2048,0.464858,100000000,39703451
+"../trace/zipf_0_10_100.oracleGeneral",2048,0.385534,100000000,17587596
+"../trace/zipf_0_10_100.oracleGeneral",2048,0.402598,100000000,11564859
+"../trace/zipf_0_10_100.oracleGeneral",2048,0.418976,100000000,8126399
+"../trace/zipf_0_10_100.oracleGeneral",2048,0.430665,100000000,5919733
+"../trace/zipf_0_10_100.oracleGeneral",2048,0.438568,100000000,4448093
+"../trace/zipf_0_10_100.oracleGeneral",2048,0.443958,100000000,3451257
+"../trace/zipf_0_10_100.oracleGeneral",2048,0.447674,100000000,2771489
+"../trace/zipf_0_10_100.oracleGeneral",2048,0.45019,100000000,2310259
+"../trace/zipf_0_10_100.oracleGeneral",2048,0.451892,100000000,1999449
