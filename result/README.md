@@ -8,6 +8,14 @@
 > **Last Promotion**: 3,606  
 > **Promotion Reduced**: 3,943,561  
 
+> ![graph](./graph/zipf_0.3_10_100_256MiB_py.png)  
+> **Trace Path**: zipf_0.3_10_100.oracleGeneral  
+> **Cache Size**: 256MiB  
+> **Total Request**: 100,000,000  
+> **First Promotion**: 7,608,397  
+> **Last Promotion**: 19,506  
+> **Promotion Reduced**: 7,588,891  
+
 > ![graph](./graph/zipf_0.3_10_100_512MiB_py.png)  
 > **Trace Path**: zipf_0.3_10_100.oracleGeneral  
 > **Cache Size**: 512MiB  
