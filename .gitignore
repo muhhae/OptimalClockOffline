@@ -37,3 +37,4 @@ trace/**
 !trace/**.sh
 python/.venv
 .cache/clangd/index
+.nvim
