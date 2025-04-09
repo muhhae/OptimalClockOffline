@@ -56,4 +56,6 @@ for file in files:
 
     plt.title(Path(file).stem)
     fig.tight_layout()
+
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
     fig.savefig(output_path)
