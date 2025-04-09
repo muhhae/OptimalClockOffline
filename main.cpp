@@ -214,8 +214,7 @@ void RunExperiment(const options &o) {
       if (s.back() == '.')
         s.pop_back();
 
-      std::string desc =
-          "[" + s + "MiB" + (o.desc != "" ? "," : "") + o.desc + "]";
+      std::string desc = "[" + s + (o.desc != "" ? "," : "") + o.desc + "]";
       tasks.emplace_back(std::async(
           std::launch::async, RunClockExperiment, clone_reader(reader),
           o.output_directory / "log", o.output_directory / "datasets",
