@@ -8,6 +8,7 @@
 #include <fstream>
 #include <future>
 #include <iostream>
+#include <iterator>
 #include <libCacheSim/cache.h>
 #include <libCacheSim/const.h>
 
@@ -81,8 +82,7 @@ void RunClockExperiment(reader_t *reader, const std::filesystem::path log_dir,
   cache = Clock_init({.cache_size = cache_size}, NULL);
   cache->evict = clock_custom_evict;
 
-  std::string base_path =
-      "/" + std::filesystem::path(reader->trace_path).string();
+  std::string base_path = std::filesystem::path(reader->trace_path).filename();
   size_t pos = base_path.find(".oracleGeneral");
   if (pos != std::string::npos) {
     base_path = base_path.substr(0, pos);
@@ -178,10 +178,11 @@ struct options {
 
 void RunExperiment(const options &o) {
   std::vector<std::future<void>> tasks;
-  std::cout << csv_header;
 
-  std::filesystem::create_directories(o.output_directory / "csv");
-  std::filesystem::create_directories(o.output_directory / "graph");
+  std::cout << "output_directory = " << o.output_directory << std::endl;
+
+  std::filesystem::create_directories(o.output_directory / "log");
+  std::filesystem::create_directories(o.output_directory / "datasets");
 
   for (const auto &p : o.trace_paths) {
     reader_t *reader = open_trace(p.c_str(), ORACLE_GENERAL_TRACE, NULL);
@@ -193,17 +194,23 @@ void RunExperiment(const options &o) {
 
     int64_t wss = o.ignore_obj_size ? wss_obj : wss_byte;
 
-    for (const auto &f : o.fixed_cache_sizes) {
+    std::cout << csv_header;
+    for (const auto &fcs : o.fixed_cache_sizes) {
       tasks.emplace_back(std::async(
           std::launch::async, RunClockExperiment, clone_reader(reader),
-          o.output_directory / "log", o.output_directory / "datasets", f * MiB,
-          std::to_string(f) + "MiB", o.max_iteration));
+          o.output_directory / "log", o.output_directory / "datasets",
+          fcs * MiB, std::to_string(fcs) + "MiB", o.max_iteration));
     }
-    for (const auto &r : o.relative_cache_sizes) {
+    for (const auto &rcs : o.relative_cache_sizes) {
+      std::string s = std::to_string(rcs);
+      s = s.substr(0, s.find_last_not_of('0') + 1);
+      if (s.back() == '.')
+        s.pop_back();
+
       tasks.emplace_back(std::async(
           std::launch::async, RunClockExperiment, clone_reader(reader),
-          o.output_directory / "log", o.output_directory / "datasets", wss * r,
-          std::to_string(r), o.max_iteration));
+          o.output_directory / "log", o.output_directory / "datasets",
+          wss * rcs, s, o.max_iteration));
     }
   }
 
@@ -222,7 +229,7 @@ int main(int argc, char **argv) {
       "Relative cache sizes in floating number, can be more than one");
   app.add_option("-o,--output-directory", o.output_directory,
                  "Output directory")
-      ->default_str("./result");
+      ->default_val("./result");
   app.add_option("--ignore_obj_size", o.ignore_obj_size,
                  "Would ignore object sizes from trace")
       ->default_val(false);
