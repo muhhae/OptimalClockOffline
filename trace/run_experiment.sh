@@ -32,18 +32,16 @@ offline_clock() {
         fi
     done
 
-    if [ "${#do_cache_sizes[@]}" -eq 0 ]; then
-        echo "Nothing to process for $filename"
-        return
+    if ! [ "${#do_cache_sizes[@]}" -eq 0 ]; then
+        echo "Processing: $filename"
+        echo "Cache Size: ${do_cache_sizes[@]}"
+
+        ../build/cacheSimulator $filename -o ../result -r ${do_cache_sizes[@]} -i $max_iteration &&
     fi
 
-    echo "Processing: $filename"
-    echo "Cache Size: ${do_cache_sizes[@]}"
-
-    ../build/cacheSimulator $filename -o ../result -r ${do_cache_sizes[@]} -i $max_iteration &&
     ../python/.venv/bin/python ../python/csv_to_plot.py &&
     ../python/.venv/bin/python ../python/result_to_md.py &&
-    git add ../result/**/${basename}* && git commit -m "Added $basename result (automated)" && git push
+    git add ../result/**/* && git commit -m "Update result (automated)" && git push
 }
 
 export -f offline_clock
