@@ -1,32 +1,31 @@
+#include "lib/CLI11.hpp"
+#include "lib/cache_size.h"
+
 #include <algorithm>
 #include <cstdlib>
 #include <cstring>
 #include <filesystem>
 #include <fstream>
 #include <future>
+#include <iostream>
 #include <libCacheSim/cache.h>
 #include <libCacheSim/const.h>
-#include <matplot/core/figure_registry.h>
-#include <matplot/freestanding/axes_functions.h>
-#include <matplot/freestanding/axes_lim.h>
-#include <matplot/freestanding/plot.h>
-#include <matplot/matplot.h>
-#include <matplot/util/common.h>
 
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
 #include <cstdio>
-#include <matplot/util/keywords.h>
+#include <libCacheSim/enum.h>
+#include <libCacheSim/reader.h>
 #include <sstream>
 #include <string>
+#include <sys/types.h>
+#include <unistd.h>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
 
 #include "libCacheSim.h"
-
-std::string output_dir = "";
 
 const std::string csv_header =
     "trace_path,cache_size(MiB),miss_ratio,n_req,n_promoted\n";
@@ -37,9 +36,9 @@ struct obj_metadata {
   std::unordered_set<uint64_t> wasted_promotions;
 };
 
-thread_local int64_t n_hit = 0;
-thread_local int64_t n_req = 0;
-thread_local int64_t n_promoted = 0;
+thread_local uint64_t n_hit = 0;
+thread_local uint64_t n_req = 0;
+thread_local uint64_t n_promoted = 0;
 thread_local std::unordered_map<obj_id_t, obj_metadata> objs_metadata;
 
 void clock_custom_evict(cache_t *cache, const request_t *req) {
@@ -70,24 +69,29 @@ void clock_custom_evict(cache_t *cache, const request_t *req) {
   cache_evict_base(cache, obj_to_evict, true);
 }
 
-void RunClockExperiment(std::string trace_path, const trace_type_e trace_type,
+void RunClockExperiment(reader_t *reader, const std::filesystem::path log_dir,
+                        const std::filesystem::path datasets_dir,
                         const uint64_t cache_size,
-                        const uint64_t MAX_ITERATION) {
-  reader_t *reader = open_trace(trace_path.c_str(), trace_type, NULL);
+                        const std::string output_suffix,
+                        const uint64_t max_iteration = 10) {
+
   request_t *req = new_request();
-  cache_t *cache = Clock_init({.cache_size = cache_size}, NULL);
+  cache_t *cache;
+
+  cache = Clock_init({.cache_size = cache_size}, NULL);
   cache->evict = clock_custom_evict;
 
-  std::string base_path = "/" + std::filesystem::path(trace_path).string();
+  std::string base_path =
+      "/" + std::filesystem::path(reader->trace_path).string();
   size_t pos = base_path.find(".oracleGeneral");
   if (pos != std::string::npos) {
     base_path = base_path.substr(0, pos);
   }
-  base_path += "_" + std::to_string(cache_size / MiB) + "MiB";
-  std::string log_path = output_dir + "/log" + base_path + ".csv";
-  std::string graph_path = output_dir + "/graph" + base_path + ".png";
-  std::ofstream log_file(log_path);
-  log_file << csv_header;
+  std::filesystem::path log_path =
+      log_dir / (base_path + "_" + output_suffix + ".csv");
+
+  std::ofstream csv_file(log_path);
+  csv_file << csv_header;
 
   printf("\n\
 ============\n\
@@ -96,16 +100,14 @@ trace_path: %s\n\
 cache_size: %lld\n\
 iteration: %ld\n\
 log: %s\n\
-graph: %s\n\
 ============\n",
-         trace_path.c_str(), cache_size / MiB, MAX_ITERATION, log_path.c_str(),
-         graph_path.c_str());
+         reader->trace_path, cache_size / MiB, max_iteration, log_path.c_str());
 
   uint64_t first_promoted = 0;
   std::vector<uint64_t> promotions;
   std::vector<double> miss_ratios;
 
-  for (size_t i = 0; i < MAX_ITERATION; ++i) {
+  for (size_t i = 0; i < max_iteration; ++i) {
     n_hit = 0;
     n_req = 0;
     n_promoted = 0;
@@ -117,13 +119,14 @@ graph: %s\n\
       }
       n_req++;
     }
+
     miss_ratios.push_back(1 - (double)n_hit / n_req);
     promotions.push_back(n_promoted);
     std::ostringstream s;
-    s << "\"" << trace_path << "\"," << cache_size / MiB << ","
+    s << "\"" << reader->trace_path << "\"," << cache_size / MiB << ","
       << 1 - (double)n_hit / n_req << "," << n_req << "," << n_promoted << "\n";
     std::cout << s.str();
-    log_file << s.str();
+    csv_file << s.str();
 
     reset_reader(reader);
     if (i == 0)
@@ -133,24 +136,6 @@ graph: %s\n\
       e.second.last_promotion = 0;
     }
   }
-
-  std::string title = std::filesystem::path(graph_path).stem().string();
-  std::replace(title.begin(), title.end(), '_', ' ');
-
-  auto iteration = matplot::linspace(0, MAX_ITERATION, 10);
-  auto f = matplot::figure(true);
-  f->title(title);
-  auto ax = f->add_axes();
-
-  auto plt_pm = ax->plot(iteration, promotions);
-  matplot::hold(matplot::on);
-  auto plt_mr = ax->plot(iteration, miss_ratios)->use_y2(true);
-
-  ax->x_axis().label("Iteration");
-  ax->y2_axis().label("Miss Ratio").limits({0, 1});
-  ax->y_axis().label("Promotions");
-
-  f->save(graph_path);
 
   uint64_t sum = 0;
   for (const auto &e : objs_metadata) {
@@ -168,11 +153,10 @@ last_promoted: %ld\n\
 iteration: %ld\n\
 promotions_reduced: %ld\n\
 log: %s\n\
-graph: %s\n\
 ============\n",
-         trace_path.c_str(), cache_size / MiB, 1 - (double)n_hit / n_req, n_req,
-         first_promoted, n_promoted, MAX_ITERATION, first_promoted - n_promoted,
-         log_path.c_str(), graph_path.c_str());
+         reader->trace_path, cache_size / MiB, 1 - (double)n_hit / n_req, n_req,
+         first_promoted, n_promoted, max_iteration, first_promoted - n_promoted,
+         log_path.c_str());
 
   free_request(req);
   cache->cache_free(cache);
@@ -180,26 +164,75 @@ graph: %s\n\
   objs_metadata.clear();
 }
 
-int main(int argc, char **argv) {
+struct options {
+  std::vector<std::filesystem::path> trace_paths;
+  // std::vector<std::string> custom_suffixes;
+
+  std::vector<uint64_t> fixed_cache_sizes;
+  std::vector<float> relative_cache_sizes;
+
+  bool ignore_obj_size;
+  uint64_t max_iteration;
+  std::filesystem::path output_directory;
+};
+
+void RunExperiment(const options &o) {
   std::vector<std::future<void>> tasks;
-  if (argc < 3) {
-    std::cout << "usage: cacheSimulator <out_dir> <trace_dir>\n";
-    std::exit(1);
-  }
-  output_dir = argv[1];
   std::cout << csv_header;
-  std::filesystem::create_directories(output_dir + "/log");
-  std::filesystem::create_directories(output_dir + "/graph");
-  for (size_t i = 2; i < argc; i++) {
-    std::filesystem::path p(argv[i]);
-    for (size_t i = 0; i < 5; i++) {
-      tasks.emplace_back(std::async(std::launch::async, RunClockExperiment,
-                                    p.string(), ORACLE_GENERAL_TRACE,
-                                    128 * std::pow(2, i) * MiB, 20));
+
+  std::filesystem::create_directories(o.output_directory / "csv");
+  std::filesystem::create_directories(o.output_directory / "graph");
+
+  for (const auto &p : o.trace_paths) {
+    reader_t *reader = open_trace(p.c_str(), ORACLE_GENERAL_TRACE, NULL);
+    reader->ignore_obj_size = o.ignore_obj_size;
+
+    int64_t wss_obj = 0;
+    int64_t wss_byte = 0;
+    cal_working_set_size(reader, &wss_obj, &wss_byte);
+
+    int64_t wss = o.ignore_obj_size ? wss_obj : wss_byte;
+
+    for (const auto &f : o.fixed_cache_sizes) {
+      tasks.emplace_back(std::async(
+          std::launch::async, RunClockExperiment, clone_reader(reader),
+          o.output_directory / "log", o.output_directory / "datasets", f * MiB,
+          std::to_string(f) + "MiB", o.max_iteration));
+    }
+    for (const auto &r : o.relative_cache_sizes) {
+      tasks.emplace_back(std::async(
+          std::launch::async, RunClockExperiment, clone_reader(reader),
+          o.output_directory / "log", o.output_directory / "datasets", wss * r,
+          std::to_string(r), o.max_iteration));
     }
   }
+
   for (auto &t : tasks) {
     t.get();
   }
+}
+
+int main(int argc, char **argv) {
+  options o;
+  CLI::App app{"Offline Clock Simulator, based on libCacheSim"};
+  app.add_option("-f,--fixed-cache-sizes", o.fixed_cache_sizes,
+                 "Fixed cache sizes in MiB, can be more than one");
+  app.add_option(
+      "-r,--relative-cache-sizes", o.relative_cache_sizes,
+      "Relative cache sizes in floating number, can be more than one");
+  app.add_option("-o,--output-directory", o.output_directory,
+                 "Output directory")
+      ->default_str("./result");
+  app.add_option("--ignore_obj_size", o.ignore_obj_size,
+                 "Would ignore object sizes from trace")
+      ->default_val(false);
+  app.add_option("-i,--max-iteration", o.max_iteration,
+                 "Offline clock max iteration")
+      ->default_val(10);
+  app.add_option("trace_paths", o.trace_paths, "Can be more than one")
+      ->required();
+
+  CLI11_PARSE(app, argc, argv);
+  RunExperiment(o);
   return 0;
 }
