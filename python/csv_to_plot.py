@@ -59,3 +59,4 @@ for file in files:
 
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     fig.savefig(output_path)
+    plt.close()
