@@ -25,7 +25,7 @@ for file in files:
     if Path(file).stat().st_size == 0:
         continue
 
-    output_path = os.path.join(output_dir, Path(file).stem + "_py.png")
+    output_path = os.path.join(output_dir, Path(file).stem + ".png")
 
     if Path(output_path).exists():
         continue
