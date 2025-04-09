@@ -87,7 +87,9 @@ for file in files:
         readme.write(f" {url}\n")
         current_prefix = prefix
 
-    readme.write(f"> ![graph](./graph/{prefix[prefix.rfind('/') + 1 :]}{desc}.png)  \n")
+    readme.write(
+        f"> ![graph](./graph/{prefix[prefix.rfind('/') + 1 :]}[{desc}].png)  \n"
+    )
     readme.write(f"> **Trace Path**: {trace_path}  \n")
     readme.write(f"> **Desc**: {desc}  \n")
     readme.write(f"> **Cache Size**: {cache_size}MiB  \n")
