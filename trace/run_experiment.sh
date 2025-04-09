@@ -35,12 +35,11 @@ offline_clock() {
     if ! [ "${#do_cache_sizes[@]}" -eq 0 ]; then
         echo "Processing: $filename"
         echo "Cache Size: ${do_cache_sizes[@]}"
-
-        ../build/cacheSimulator $filename -o ../result -r ${do_cache_sizes[@]} -i $max_iteration &&
+        ../build/cacheSimulator $filename -o ../result -r ${do_cache_sizes[@]} -i $max_iteration
     fi
 
-    ../python/.venv/bin/python ../python/csv_to_plot.py &&
-    ../python/.venv/bin/python ../python/result_to_md.py &&
+    ../python/.venv/bin/python ../python/csv_to_plot.py
+    ../python/.venv/bin/python ../python/result_to_md.py
     git add ../result/**/* && git commit -m "Update result (automated)" && git push
 }
 
