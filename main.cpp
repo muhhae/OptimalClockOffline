@@ -1,13 +1,10 @@
 #include "lib/CLI11.hpp"
 #include "lib/cache_size.h"
 
-#include <format>
-
 #include <algorithm>
 #include <cstdlib>
 #include <cstring>
 #include <filesystem>
-#include <fmt/format.h>
 #include <fstream>
 #include <future>
 #include <iostream>
@@ -228,7 +225,6 @@ void RunExperiment(const options &o) {
 }
 
 int main(int argc, char **argv) {
-  std::cout << std::format("{}", "Hello, World");
   options o;
   CLI::App app{"Offline Clock Simulator, based on libCacheSim"};
   app.add_option("-f,--fixed-cache-sizes", o.fixed_cache_sizes,
