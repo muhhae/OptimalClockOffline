@@ -123,8 +123,9 @@ log: %s\n\
     miss_ratios.push_back(1 - (double)n_hit / n_req);
     promotions.push_back(n_promoted);
     std::ostringstream s;
-    s << "\"" << reader->trace_path << "\"," << cache_size / MiB << ","
-      << 1 - (double)n_hit / n_req << "," << n_req << "," << n_promoted << "\n";
+    s << std::filesystem::path(reader->trace_path).filename() << ","
+      << cache_size / MiB << "," << 1 - (double)n_hit / n_req << "," << n_req
+      << "," << n_promoted << "\n";
     std::cout << s.str();
     csv_file << s.str();
 
@@ -174,6 +175,7 @@ struct options {
   bool ignore_obj_size;
   uint64_t max_iteration;
   std::filesystem::path output_directory;
+  std::string desc;
 };
 
 void RunExperiment(const options &o) {
@@ -196,10 +198,12 @@ void RunExperiment(const options &o) {
 
     std::cout << csv_header;
     for (const auto &fcs : o.fixed_cache_sizes) {
+      std::string desc = "[" + std::to_string(fcs) + "MiB" +
+                         (o.desc != "" ? "," : "") + o.desc + "]";
       tasks.emplace_back(std::async(
           std::launch::async, RunClockExperiment, clone_reader(reader),
           o.output_directory / "log", o.output_directory / "datasets",
-          fcs * MiB, std::to_string(fcs) + "MiB", o.max_iteration));
+          fcs * MiB, desc, o.max_iteration));
     }
     for (const auto &rcs : o.relative_cache_sizes) {
       std::string s = std::to_string(rcs);
@@ -207,10 +211,12 @@ void RunExperiment(const options &o) {
       if (s.back() == '.')
         s.pop_back();
 
+      std::string desc =
+          "[" + s + "MiB" + (o.desc != "" ? "," : "") + o.desc + "]";
       tasks.emplace_back(std::async(
           std::launch::async, RunClockExperiment, clone_reader(reader),
           o.output_directory / "log", o.output_directory / "datasets",
-          wss * rcs, s, o.max_iteration));
+          wss * rcs, desc, o.max_iteration));
     }
   }
 
