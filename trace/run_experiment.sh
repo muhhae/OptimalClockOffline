@@ -1,24 +1,34 @@
 #!/bin/bash
 
-bash ./download_trace.sh
 shopt -s nullglob
 
 offline_clock() {
+    cache_sizes=(0.001 0.01 0.1 0.2 0.4)
+    max_iteration=20
+
     file=$1
+
+    do_cache_sizes=()
 
     filename="$(basename "$file")"
     basename="${filename%%.oracleGeneral*}"
-    graph_file="../result/graph/${filename%%.oracleGeneral*}_128MiB.png"
 
-    if [ -f "$graph_file" ]; then
-        echo "Skipping processing: $filename (corresponding graph exists: $graph_file)"
-    else
-        echo "Processing: $filename"
-        ../build/cacheSimulator ../result $filename
-        ../python/.venv/bin/python ../python/csv_to_plot.py
-        ../python/.venv/bin/python ../python/result_to_md.py
-        git add ../result/**/* && git commit -m "Added $basename result (automated)" && git push
-    fi
+    for cache_size in "${cache_sizes[@]}"; do
+        log_file="../result/log/${basename}[${cache_size}].csv"
+        if ! [ -s $log_file ]; then
+            do_cache_sizes+=($cache_size)
+        else
+            echo "Skipping processing: $filename $cache_size (corresponding result exists and not empty: $log_file)"
+        fi
+    done
+    echo ${do_cache_sizes[@]}
+
+    echo "Processing: $filename"
+
+    ../build/cacheSimulator $filename -o ../result -r ${do_cache_sizes[@]} -i $max_iteration &&
+    ../python/.venv/bin/python ../python/csv_to_plot.py &&
+    ../python/.venv/bin/python ../python/result_to_md.py &&
+    git add ../result/**/${basename}* && git commit -m "Added $basename result (automated)" && git push
 }
 
 export -f offline_clock
