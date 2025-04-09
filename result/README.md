@@ -138,6 +138,51 @@
 > **Promotion Reduced**: 15,052,069  
 
 ## block_traces_5 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaStorage/block_traces_5.oracleGeneral.bin.zst
+> ![graph](./graph/block_traces_5[0.001].png)  
+> **Trace Path**: block_traces_5.oracleGeneral.bin.zst  
+> **Desc**: 0.001  
+> **Cache Size**: 31349MiB  
+> **Total Request**: 14,556,172  
+> **First Promotion**: 2,799,029  
+> **Last Promotion**: 59,968  
+> **Promotion Reduced**: 2,739,061  
+
+> ![graph](./graph/block_traces_5[0.01].png)  
+> **Trace Path**: block_traces_5.oracleGeneral.bin.zst  
+> **Desc**: 0.01  
+> **Cache Size**: 313497MiB  
+> **Total Request**: 14,556,172  
+> **First Promotion**: 2,804,423  
+> **Last Promotion**: 21,377  
+> **Promotion Reduced**: 2,783,046  
+
+> ![graph](./graph/block_traces_5[0.1].png)  
+> **Trace Path**: block_traces_5.oracleGeneral.bin.zst  
+> **Desc**: 0.1  
+> **Cache Size**: 3134978MiB  
+> **Total Request**: 14,556,172  
+> **First Promotion**: 2,638,329  
+> **Last Promotion**: 210,171  
+> **Promotion Reduced**: 2,428,158  
+
+> ![graph](./graph/block_traces_5[0.2].png)  
+> **Trace Path**: block_traces_5.oracleGeneral.bin.zst  
+> **Desc**: 0.2  
+> **Cache Size**: 6269957MiB  
+> **Total Request**: 14,556,172  
+> **First Promotion**: 2,434,210  
+> **Last Promotion**: 403,360  
+> **Promotion Reduced**: 2,030,850  
+
+> ![graph](./graph/block_traces_5[0.4].png)  
+> **Trace Path**: block_traces_5.oracleGeneral.bin.zst  
+> **Desc**: 0.4  
+> **Cache Size**: 12539914MiB  
+> **Total Request**: 14,556,172  
+> **First Promotion**: 2,001,105  
+> **Last Promotion**: 748,099  
+> **Promotion Reduced**: 1,253,006  
+
 > ![graph](./graph/block_traces_5[1024MiB].png)  
 > **Trace Path**: block_traces_5.oracleGeneral.bin.zst  
 > **Desc**: 1024MiB  
