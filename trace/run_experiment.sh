@@ -32,6 +32,11 @@ offline_clock() {
         fi
     done
 
+    if [ "${#do_cache_sizes[@]}" -eq 0 ]; then
+        echo "Nothing to process for $filename"
+        return
+    fi
+
     echo "Processing: $filename"
     echo "Cache Size: ${do_cache_sizes[@]}"
 
