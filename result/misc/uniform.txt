@@ -1,12 +1,9 @@
 zipf_0_10_100.oracleGeneral evict:Clock[] admit:[] cache size     2GiB,        100000000 req, miss ratio 0.4649, throughput 7.83 MQPS
 zipf_0_10_100.oracleGeneral evict:Clock[] admit:[] cache size     2GiB,        100000000 req, miss ratio 0.4649, throughput 7.75 MQPS
 zipf_0_10_100.oracleGeneral evict:Clock[] admit:[] cache size     2GiB,        100000000 req, miss ratio 0.5015, throughput 7.70 MQPS
-
-
 zipf_0_10_100.oracleGeneral evict:LRU[] admit:[] cache size     2GiB,        100000000 req, miss ratio 0.4650, throughput 6.63 MQPS
 zipf_0_10_100.oracleGeneral evict:LRU[] admit:[] cache size     2GiB,        100000000 req, miss ratio 0.4650, throughput 6.57 MQPS
 zipf_0_10_100.oracleGeneral evict:LRU[] admit:[] cache size     2GiB,        100000000 req, miss ratio 0.5016, throughput 6.72 MQPS
-zipf_0_10_100.oracleGeneral evict:Random[] admit:[] cache size     2KiB,        100000000 req, miss ratio 1.0000, throughput 51.51 MQPS
 zipf_0_10_100.oracleGeneral evict:Random[] admit:[] cache size     2GiB,        100000000 req, miss ratio 0.4649, throughput 5.04 MQPS
 zipf_0_10_100.oracleGeneral evict:Random[] admit:[] cache size     2GiB,        100000000 req, miss ratio 0.4650, throughput 5.04 MQPS
 zipf_0_10_100.oracleGeneral evict:Random[] admit:[] cache size     2GiB,        100000000 req, miss ratio 0.5016, throughput 4.05 MQPS
