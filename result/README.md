@@ -824,10 +824,28 @@
 > **Last Promotion**: 5,548  
 > **Promotion Reduced**: 21,112,257  
 
+> ![graph](./graph/fiu_cheetah.cs.fiu.edu-110108-113008[0.001,obj_size_ignored].png)  
+> **Trace Path**: fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst  
+> **Desc**: 0.001,obj_size_ignored  
+> **Cache Size**: 0MiB  
+> **Total Request**: 442,393,092  
+> **First Promotion**: 21,117,805  
+> **Last Promotion**: 5,548  
+> **Promotion Reduced**: 21,112,257  
+
 > ![graph](./graph/fiu_cheetah.cs.fiu.edu-110108-113008[0.01].png)  
 > **Trace Path**: fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst  
 > **Desc**: 0.01  
 > **Cache Size**: 582MiB  
+> **Total Request**: 442,393,092  
+> **First Promotion**: 135,940,681  
+> **Last Promotion**: 3,706,277  
+> **Promotion Reduced**: 132,234,404  
+
+> ![graph](./graph/fiu_cheetah.cs.fiu.edu-110108-113008[0.01,obj_size_ignored].png)  
+> **Trace Path**: fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst  
+> **Desc**: 0.01,obj_size_ignored  
+> **Cache Size**: 0MiB  
 > **Total Request**: 442,393,092  
 > **First Promotion**: 135,940,681  
 > **Last Promotion**: 3,706,277  
