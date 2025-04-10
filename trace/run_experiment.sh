@@ -48,7 +48,7 @@ offline_clock() {
 
     ../python/.venv/bin/python ../python/csv_to_plot.py
     ../python/.venv/bin/python ../python/result_to_md.py
-    git pull --rebase && git add ../result/* && git commit -m "Update result (automated)" && git push
+    git add ../result/* && git commit -m "Update result (automated)" && git pull --rebase && git push
 }
 
 export -f offline_clock
