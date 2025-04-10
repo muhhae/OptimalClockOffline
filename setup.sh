@@ -8,5 +8,5 @@ sudo apt install gh libglib2.0-dev cmake python3.10-venv &&
 cd ~ &&
     cd ../OptimalClockOffline/python &&
     python -m venv .venv && .venv/bin/pip install -r requirement.txt &&
-    cd ../OptimalClockOffline && mkdir build && cd build && cmake .. && make . && cd ../trace &&
+    cd .. && mkdir build && cd build && cmake .. && make . && cd ../trace &&
     gh auth login && gh auth setup-git
