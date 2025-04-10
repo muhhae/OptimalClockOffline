@@ -45,6 +45,15 @@
 > **Last Promotion**: 3,261,868  
 > **Promotion Reduced**: 2,466,549  
 
+> ![graph](./graph/1351[0.4,obj_size_ignored].png)  
+> **Trace Path**: 1351.oracleGeneral.zst  
+> **Desc**: 0.4,obj_size_ignored  
+> **Cache Size**: 0MiB  
+> **Total Request**: 195,824,302  
+> **First Promotion**: 15,794,569  
+> **Last Promotion**: 9,211,067  
+> **Promotion Reduced**: 6,583,502  
+
 > ![graph](./graph/1351[1024MiB].png)  
 > **Trace Path**: 1351.oracleGeneral.zst  
 > **Desc**: 1024MiB  
@@ -53,6 +62,15 @@
 > **First Promotion**: 28,054,961  
 > **Last Promotion**: 3,797,001  
 > **Promotion Reduced**: 24,257,960  
+
+> ![graph](./graph/1351[1024MiB,obj_size_ignored].png)  
+> **Trace Path**: 1351.oracleGeneral.zst  
+> **Desc**: 1024MiB,obj_size_ignored  
+> **Cache Size**: 1024MiB  
+> **Total Request**: 195,824,302  
+> **First Promotion**: 0  
+> **Last Promotion**: 0  
+> **Promotion Reduced**: 0  
 
 > ![graph](./graph/1351[128MiB].png)  
 > **Trace Path**: 1351.oracleGeneral.zst  
@@ -63,6 +81,15 @@
 > **Last Promotion**: 53,709  
 > **Promotion Reduced**: 943,520  
 
+> ![graph](./graph/1351[128MiB,obj_size_ignored].png)  
+> **Trace Path**: 1351.oracleGeneral.zst  
+> **Desc**: 128MiB,obj_size_ignored  
+> **Cache Size**: 128MiB  
+> **Total Request**: 195,824,302  
+> **First Promotion**: 0  
+> **Last Promotion**: 0  
+> **Promotion Reduced**: 0  
+
 > ![graph](./graph/1351[2048MiB].png)  
 > **Trace Path**: 1351.oracleGeneral.zst  
 > **Desc**: 2048MiB  
@@ -71,6 +98,15 @@
 > **First Promotion**: 41,401,457  
 > **Last Promotion**: 3,727,483  
 > **Promotion Reduced**: 37,673,974  
+
+> ![graph](./graph/1351[2048MiB,obj_size_ignored].png)  
+> **Trace Path**: 1351.oracleGeneral.zst  
+> **Desc**: 2048MiB,obj_size_ignored  
+> **Cache Size**: 2048MiB  
+> **Total Request**: 195,824,302  
+> **First Promotion**: 0  
+> **Last Promotion**: 0  
+> **Promotion Reduced**: 0  
 
 > ![graph](./graph/1351[256MiB].png)  
 > **Trace Path**: 1351.oracleGeneral.zst  
@@ -81,6 +117,15 @@
 > **Last Promotion**: 223,986  
 > **Promotion Reduced**: 5,077,051  
 
+> ![graph](./graph/1351[256MiB,obj_size_ignored].png)  
+> **Trace Path**: 1351.oracleGeneral.zst  
+> **Desc**: 256MiB,obj_size_ignored  
+> **Cache Size**: 256MiB  
+> **Total Request**: 195,824,302  
+> **First Promotion**: 0  
+> **Last Promotion**: 0  
+> **Promotion Reduced**: 0  
+
 > ![graph](./graph/1351[512MiB].png)  
 > **Trace Path**: 1351.oracleGeneral.zst  
 > **Desc**: 512MiB  
@@ -89,6 +134,15 @@
 > **First Promotion**: 17,635,612  
 > **Last Promotion**: 2,341,384  
 > **Promotion Reduced**: 15,294,228  
+
+> ![graph](./graph/1351[512MiB,obj_size_ignored].png)  
+> **Trace Path**: 1351.oracleGeneral.zst  
+> **Desc**: 512MiB,obj_size_ignored  
+> **Cache Size**: 512MiB  
+> **Total Request**: 195,824,302  
+> **First Promotion**: 0  
+> **Last Promotion**: 0  
+> **Promotion Reduced**: 0  
 
 ## 2016_LUN1 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/2016_LUN1.oracleGeneral.zst
 > ![graph](./graph/2016_LUN1[0.001].png)  
@@ -526,6 +580,15 @@
 > **Last Promotion**: 5,585,833  
 > **Promotion Reduced**: 32,359,608  
 
+> ![graph](./graph/cluster50[0.1,obj_size_ignored].png)  
+> **Trace Path**: cluster50.oracleGeneral.zst  
+> **Desc**: 0.1,obj_size_ignored  
+> **Cache Size**: 0MiB  
+> **Total Request**: 139,655,585  
+> **First Promotion**: 36,062,844  
+> **Last Promotion**: 4,708,650  
+> **Promotion Reduced**: 31,354,194  
+
 > ![graph](./graph/cluster50[0.2].png)  
 > **Trace Path**: cluster50.oracleGeneral.zst  
 > **Desc**: 0.2  
@@ -534,6 +597,15 @@
 > **First Promotion**: 26,127,970  
 > **Last Promotion**: 4,990,049  
 > **Promotion Reduced**: 21,137,921  
+
+> ![graph](./graph/cluster50[0.2,obj_size_ignored].png)  
+> **Trace Path**: cluster50.oracleGeneral.zst  
+> **Desc**: 0.2,obj_size_ignored  
+> **Cache Size**: 0MiB  
+> **Total Request**: 139,655,585  
+> **First Promotion**: 24,628,231  
+> **Last Promotion**: 4,395,796  
+> **Promotion Reduced**: 20,232,435  
 
 > ![graph](./graph/cluster50[0.4].png)  
 > **Trace Path**: cluster50.oracleGeneral.zst  
