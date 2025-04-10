@@ -34,7 +34,7 @@ offline_clock() {
     done
 
     if [ "${#do_relative_cache_sizes[@]}" -ne 0 ] || [ "${#do_fixed_cache_sizes[@]}" -ne 0 ] ; then
-        arg = ""
+        arg=""
         if [ "${#do_relative_cache_sizes[@]}" -ne 0 ] ; then
             arg+="-r ${do_relative_cache_sizes[@]}"
         fi
