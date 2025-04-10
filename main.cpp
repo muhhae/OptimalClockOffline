@@ -70,11 +70,18 @@ void clock_custom_evict(cache_t *cache, const request_t *req) {
   cache_evict_base(cache, obj_to_evict, true);
 }
 
-void RunClockExperiment(reader_t *reader, const std::filesystem::path log_dir,
+void RunClockExperiment(const std::filesystem::path trace_path,
+                        const std::filesystem::path log_dir,
                         const std::filesystem::path datasets_dir,
-                        const uint64_t cache_size,
+                        const bool ignore_obj_size, const uint64_t cache_size,
                         const std::string output_suffix,
                         const uint64_t max_iteration = 10) {
+
+  reader_init_param_t param = default_reader_init_params();
+  param.ignore_obj_size = ignore_obj_size;
+
+  reader_t *reader =
+      open_trace(trace_path.c_str(), ORACLE_GENERAL_TRACE, &param);
 
   request_t *req = new_request();
   cache_t *cache;
@@ -199,6 +206,7 @@ void RunExperiment(const options &o) {
     if (!o.relative_cache_sizes.empty())
       cal_working_set_size(reader, &wss_obj, &wss_byte);
 
+    close_reader(reader);
     int64_t wss = o.ignore_obj_size ? wss_obj : wss_byte;
 
     std::cout << csv_header;
@@ -206,9 +214,9 @@ void RunExperiment(const options &o) {
       std::string desc = "[" + std::to_string(fcs) + "MiB" +
                          (o.desc != "" ? "," : "") + o.desc + "]";
       tasks.emplace_back(std::async(
-          std::launch::async, RunClockExperiment, clone_reader(reader),
-          o.output_directory / "log", o.output_directory / "datasets",
-          fcs * MiB, desc, o.max_iteration));
+          std::launch::async, RunClockExperiment, p, o.output_directory / "log",
+          o.output_directory / "datasets", o.ignore_obj_size, fcs * MiB, desc,
+          o.max_iteration));
     }
     for (const auto &rcs : o.relative_cache_sizes) {
       std::string s = std::to_string(rcs);
@@ -218,11 +226,10 @@ void RunExperiment(const options &o) {
 
       std::string desc = "[" + s + (o.desc != "" ? "," : "") + o.desc + "]";
       tasks.emplace_back(std::async(
-          std::launch::async, RunClockExperiment, clone_reader(reader),
-          o.output_directory / "log", o.output_directory / "datasets",
-          wss * rcs, desc, o.max_iteration));
+          std::launch::async, RunClockExperiment, p, o.output_directory / "log",
+          o.output_directory / "datasets", o.ignore_obj_size, wss * rcs, desc,
+          o.max_iteration));
     }
-    close_reader(reader);
   }
 
   for (auto &t : tasks) {
