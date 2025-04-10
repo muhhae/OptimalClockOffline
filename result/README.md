@@ -281,6 +281,15 @@
 > **Last Promotion**: 6,882,048  
 > **Promotion Reduced**: 3,684,619  
 
+> ![graph](./graph/7[0.4,obj_size_ignored].png)  
+> **Trace Path**: 7.oracleGeneral.zst  
+> **Desc**: 0.4,obj_size_ignored  
+> **Cache Size**: 1MiB  
+> **Total Request**: 265,694,431  
+> **First Promotion**: 18,359,000  
+> **Last Promotion**: 7,905,573  
+> **Promotion Reduced**: 10,453,427  
+
 > ![graph](./graph/7[1024MiB].png)  
 > **Trace Path**: 7.oracleGeneral.zst  
 > **Desc**: 1024MiB  
@@ -1389,6 +1398,15 @@
 > **Promotion Reduced**: 14,130,864  
 
 ## zipf_0.7_10_100 
+> ![graph](./graph/zipf_0.7_10_100[0.01,obj_size_ignored].png)  
+> **Trace Path**: zipf_0.7_10_100.oracleGeneral  
+> **Desc**: 0.01,obj_size_ignored  
+> **Cache Size**: 0MiB  
+> **Total Request**: 100,000,000  
+> **First Promotion**: 6,835,005  
+> **Last Promotion**: 952,025  
+> **Promotion Reduced**: 5,882,980  
+
 > ![graph](./graph/zipf_0.7_10_100[1024MiB].png)  
 > **Trace Path**: zipf_0.7_10_100.oracleGeneral  
 > **Desc**: 1024MiB  
