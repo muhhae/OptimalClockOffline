@@ -114,8 +114,9 @@ ignore_obj_size: %d\n\
 iteration: %ld\n\
 log: %s\n\
 ============\n",
-         reader->trace_path, cache_size / MiB, reader->ignore_obj_size,
-         max_iteration, log_path.c_str());
+         reader->trace_path,
+         reader->ignore_obj_size ? cache_size : cache_size / MiB,
+         reader->ignore_obj_size, max_iteration, log_path.c_str());
 
   uint64_t first_promoted = 0;
 
@@ -134,8 +135,8 @@ log: %s\n\
 
     std::ostringstream s;
     s << std::filesystem::path(reader->trace_path).filename() << ","
-      << cache_size / MiB << "," << 1 - (double)n_hit / n_req << "," << n_req
-      << "," << n_promoted << "\n";
+      << (reader->ignore_obj_size ? cache_size : cache_size / MiB) << ","
+      << 1 - (double)n_hit / n_req << "," << n_req << "," << n_promoted << "\n";
     std::cout << s.str();
     csv_file << s.str();
 
@@ -166,9 +167,11 @@ iteration: %ld\n\
 promotions_reduced: %ld\n\
 log: %s\n\
 ============\n",
-         reader->trace_path, cache_size / MiB, reader->ignore_obj_size,
-         1 - (double)n_hit / n_req, n_req, first_promoted, n_promoted,
-         max_iteration, first_promoted - n_promoted, log_path.c_str());
+         reader->trace_path,
+         reader->ignore_obj_size ? cache_size : cache_size / MiB,
+         reader->ignore_obj_size, 1 - (double)n_hit / n_req, n_req,
+         first_promoted, n_promoted, max_iteration, first_promoted - n_promoted,
+         log_path.c_str());
 
   free_request(req);
   cache->cache_free(cache);
@@ -211,12 +214,13 @@ void RunExperiment(const options &o) {
 
     std::cout << csv_header;
     for (const auto &fcs : o.fixed_cache_sizes) {
-      std::string desc = "[" + std::to_string(fcs) + "MiB" +
+      std::string desc = "[" + std::to_string(fcs) +
+                         (o.ignore_obj_size ? "" : "MiB") +
                          (o.desc != "" ? "," : "") + o.desc + "]";
       tasks.emplace_back(std::async(
           std::launch::async, RunClockExperiment, p, o.output_directory / "log",
-          o.output_directory / "datasets", o.ignore_obj_size, fcs * MiB, desc,
-          o.max_iteration));
+          o.output_directory / "datasets", o.ignore_obj_size,
+          o.ignore_obj_size ? fcs : fcs * MiB, desc, o.max_iteration));
     }
     for (const auto &rcs : o.relative_cache_sizes) {
       std::string s = std::to_string(rcs);
@@ -241,7 +245,8 @@ int main(int argc, char **argv) {
   options o;
   CLI::App app{"Offline Clock Simulator, based on libCacheSim"};
   app.add_option("-f,--fixed-cache-sizes", o.fixed_cache_sizes,
-                 "Fixed cache sizes in MiB, can be more than one");
+                 "Fixed cache sizes in MiB or object count if given "
+                 "--ignore-obj-size, can be more than one");
   app.add_option(
       "-r,--relative-cache-sizes", o.relative_cache_sizes,
       "Relative cache sizes in floating number, can be more than one");
