@@ -1186,6 +1186,15 @@
 > **Last Promotion**: 159,048  
 > **Promotion Reduced**: 9,676,603  
 
+> ![graph](./graph/meta_rnha[0.001,obj_size_ignored].png)  
+> **Trace Path**: meta_rnha.oracleGeneral.zst  
+> **Desc**: 0.001,obj_size_ignored  
+> **Cache Size**: 0MiB  
+> **Total Request**: 96,680,668  
+> **First Promotion**: 9,925,546  
+> **Last Promotion**: 228,231  
+> **Promotion Reduced**: 9,697,315  
+
 > ![graph](./graph/meta_rnha[0.01].png)  
 > **Trace Path**: meta_rnha.oracleGeneral.zst  
 > **Desc**: 0.01  
@@ -1194,6 +1203,15 @@
 > **First Promotion**: 11,986,705  
 > **Last Promotion**: 536,889  
 > **Promotion Reduced**: 11,449,816  
+
+> ![graph](./graph/meta_rnha[0.01,obj_size_ignored].png)  
+> **Trace Path**: meta_rnha.oracleGeneral.zst  
+> **Desc**: 0.01,obj_size_ignored  
+> **Cache Size**: 0MiB  
+> **Total Request**: 96,680,668  
+> **First Promotion**: 12,174,665  
+> **Last Promotion**: 746,099  
+> **Promotion Reduced**: 11,428,566  
 
 > ![graph](./graph/meta_rnha[0.1].png)  
 > **Trace Path**: meta_rnha.oracleGeneral.zst  
@@ -1204,6 +1222,15 @@
 > **Last Promotion**: 2,091,905  
 > **Promotion Reduced**: 11,710,817  
 
+> ![graph](./graph/meta_rnha[0.1,obj_size_ignored].png)  
+> **Trace Path**: meta_rnha.oracleGeneral.zst  
+> **Desc**: 0.1,obj_size_ignored  
+> **Cache Size**: 3MiB  
+> **Total Request**: 96,680,668  
+> **First Promotion**: 14,264,934  
+> **Last Promotion**: 2,732,414  
+> **Promotion Reduced**: 11,532,520  
+
 > ![graph](./graph/meta_rnha[0.2].png)  
 > **Trace Path**: meta_rnha.oracleGeneral.zst  
 > **Desc**: 0.2  
@@ -1212,6 +1239,15 @@
 > **First Promotion**: 13,923,286  
 > **Last Promotion**: 3,713,235  
 > **Promotion Reduced**: 10,210,051  
+
+> ![graph](./graph/meta_rnha[0.2,obj_size_ignored].png)  
+> **Trace Path**: meta_rnha.oracleGeneral.zst  
+> **Desc**: 0.2,obj_size_ignored  
+> **Cache Size**: 6MiB  
+> **Total Request**: 96,680,668  
+> **First Promotion**: 14,297,699  
+> **Last Promotion**: 4,595,865  
+> **Promotion Reduced**: 9,701,834  
 
 > ![graph](./graph/meta_rnha[0.4].png)  
 > **Trace Path**: meta_rnha.oracleGeneral.zst  
@@ -1222,6 +1258,15 @@
 > **Last Promotion**: 4,890,692  
 > **Promotion Reduced**: 5,448,934  
 
+> ![graph](./graph/meta_rnha[0.4,obj_size_ignored].png)  
+> **Trace Path**: meta_rnha.oracleGeneral.zst  
+> **Desc**: 0.4,obj_size_ignored  
+> **Cache Size**: 13MiB  
+> **Total Request**: 96,680,668  
+> **First Promotion**: 12,976,801  
+> **Last Promotion**: 7,399,024  
+> **Promotion Reduced**: 5,577,777  
+
 > ![graph](./graph/meta_rnha[1024MiB].png)  
 > **Trace Path**: meta_rnha.oracleGeneral.zst  
 > **Desc**: 1024MiB  
@@ -1230,6 +1275,15 @@
 > **First Promotion**: 8,399,364  
 > **Last Promotion**: 489,022  
 > **Promotion Reduced**: 7,910,342  
+
+> ![graph](./graph/meta_rnha[1024MiB,obj_size_ignored].png)  
+> **Trace Path**: meta_rnha.oracleGeneral.zst  
+> **Desc**: 1024MiB,obj_size_ignored  
+> **Cache Size**: 1024MiB  
+> **Total Request**: 96,680,668  
+> **First Promotion**: 0  
+> **Last Promotion**: 0  
+> **Promotion Reduced**: 0  
 
 > ![graph](./graph/meta_rnha[128MiB].png)  
 > **Trace Path**: meta_rnha.oracleGeneral.zst  
@@ -1240,6 +1294,15 @@
 > **Last Promotion**: 243,190  
 > **Promotion Reduced**: 6,002,890  
 
+> ![graph](./graph/meta_rnha[128MiB,obj_size_ignored].png)  
+> **Trace Path**: meta_rnha.oracleGeneral.zst  
+> **Desc**: 128MiB,obj_size_ignored  
+> **Cache Size**: 128MiB  
+> **Total Request**: 96,680,668  
+> **First Promotion**: 0  
+> **Last Promotion**: 0  
+> **Promotion Reduced**: 0  
+
 > ![graph](./graph/meta_rnha[2048MiB].png)  
 > **Trace Path**: meta_rnha.oracleGeneral.zst  
 > **Desc**: 2048MiB  
@@ -1248,6 +1311,15 @@
 > **First Promotion**: 9,077,791  
 > **Last Promotion**: 522,376  
 > **Promotion Reduced**: 8,555,415  
+
+> ![graph](./graph/meta_rnha[2048MiB,obj_size_ignored].png)  
+> **Trace Path**: meta_rnha.oracleGeneral.zst  
+> **Desc**: 2048MiB,obj_size_ignored  
+> **Cache Size**: 2048MiB  
+> **Total Request**: 96,680,668  
+> **First Promotion**: 0  
+> **Last Promotion**: 0  
+> **Promotion Reduced**: 0  
 
 > ![graph](./graph/meta_rnha[256MiB].png)  
 > **Trace Path**: meta_rnha.oracleGeneral.zst  
@@ -1258,6 +1330,15 @@
 > **Last Promotion**: 338,549  
 > **Promotion Reduced**: 6,643,078  
 
+> ![graph](./graph/meta_rnha[256MiB,obj_size_ignored].png)  
+> **Trace Path**: meta_rnha.oracleGeneral.zst  
+> **Desc**: 256MiB,obj_size_ignored  
+> **Cache Size**: 256MiB  
+> **Total Request**: 96,680,668  
+> **First Promotion**: 0  
+> **Last Promotion**: 0  
+> **Promotion Reduced**: 0  
+
 > ![graph](./graph/meta_rnha[512MiB].png)  
 > **Trace Path**: meta_rnha.oracleGeneral.zst  
 > **Desc**: 512MiB  
@@ -1266,6 +1347,15 @@
 > **First Promotion**: 7,757,460  
 > **Last Promotion**: 443,715  
 > **Promotion Reduced**: 7,313,745  
+
+> ![graph](./graph/meta_rnha[512MiB,obj_size_ignored].png)  
+> **Trace Path**: meta_rnha.oracleGeneral.zst  
+> **Desc**: 512MiB,obj_size_ignored  
+> **Cache Size**: 512MiB  
+> **Total Request**: 96,680,668  
+> **First Promotion**: 0  
+> **Last Promotion**: 0  
+> **Promotion Reduced**: 0  
 
 ## msr_prxy_1 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_prxy_1.oracleGeneral.zst
 > ![graph](./graph/msr_prxy_1[0.001].png)  
