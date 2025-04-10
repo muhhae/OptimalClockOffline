@@ -103,7 +103,7 @@ void RunClockExperiment(reader_t *reader, const std::filesystem::path log_dir,
 ---start!---\n\
 trace_path: %s\n\
 cache_size: %lld\n\
-ignore_obj_size: %b\n\
+ignore_obj_size: %d\n\
 iteration: %ld\n\
 log: %s\n\
 ============\n",
@@ -150,7 +150,7 @@ log: %s\n\
 -COMPLETED!-\n\
 trace_path: %s\n\
 cache_size: %lld\n\
-ignore_obj_size: %b\n\
+ignore_obj_size: %d\n\
 miss_ratio: %f\n\
 n_req: %ld\n\
 first_promoted: %ld\n\
