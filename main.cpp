@@ -89,23 +89,28 @@ void RunClockExperiment(reader_t *reader, const std::filesystem::path log_dir,
   }
   std::filesystem::path log_path =
       log_dir / (base_path + output_suffix + ".csv");
+  std::filesystem::path dataset_path =
+      datasets_dir / (base_path + output_suffix + ".csv");
 
   std::ofstream csv_file(log_path);
   csv_file << csv_header;
+
+  std::ofstream dataset(dataset_path);
+  dataset << "";
 
   printf("\n\
 ============\n\
 ---start!---\n\
 trace_path: %s\n\
 cache_size: %lld\n\
+ignore_obj_size: %b\n\
 iteration: %ld\n\
 log: %s\n\
 ============\n",
-         reader->trace_path, cache_size / MiB, max_iteration, log_path.c_str());
+         reader->trace_path, cache_size / MiB, reader->ignore_obj_size,
+         max_iteration, log_path.c_str());
 
   uint64_t first_promoted = 0;
-  std::vector<uint64_t> promotions;
-  std::vector<double> miss_ratios;
 
   for (size_t i = 0; i < max_iteration; ++i) {
     n_hit = 0;
@@ -120,8 +125,6 @@ log: %s\n\
       n_req++;
     }
 
-    miss_ratios.push_back(1 - (double)n_hit / n_req);
-    promotions.push_back(n_promoted);
     std::ostringstream s;
     s << std::filesystem::path(reader->trace_path).filename() << ","
       << cache_size / MiB << "," << 1 - (double)n_hit / n_req << "," << n_req
@@ -147,6 +150,7 @@ log: %s\n\
 -COMPLETED!-\n\
 trace_path: %s\n\
 cache_size: %lld\n\
+ignore_obj_size: %b\n\
 miss_ratio: %f\n\
 n_req: %ld\n\
 first_promoted: %ld\n\
@@ -155,9 +159,9 @@ iteration: %ld\n\
 promotions_reduced: %ld\n\
 log: %s\n\
 ============\n",
-         reader->trace_path, cache_size / MiB, 1 - (double)n_hit / n_req, n_req,
-         first_promoted, n_promoted, max_iteration, first_promoted - n_promoted,
-         log_path.c_str());
+         reader->trace_path, cache_size / MiB, reader->ignore_obj_size,
+         1 - (double)n_hit / n_req, n_req, first_promoted, n_promoted,
+         max_iteration, first_promoted - n_promoted, log_path.c_str());
 
   free_request(req);
   cache->cache_free(cache);
@@ -181,18 +185,19 @@ struct options {
 void RunExperiment(const options &o) {
   std::vector<std::future<void>> tasks;
 
-  std::cout << "output_directory = " << o.output_directory << std::endl;
-
   std::filesystem::create_directories(o.output_directory / "log");
   std::filesystem::create_directories(o.output_directory / "datasets");
 
   for (const auto &p : o.trace_paths) {
-    reader_t *reader = open_trace(p.c_str(), ORACLE_GENERAL_TRACE, NULL);
-    reader->ignore_obj_size = o.ignore_obj_size;
+    reader_init_param_t reader_init_param = {.ignore_obj_size =
+                                                 o.ignore_obj_size};
+    reader_t *reader =
+        open_trace(p.c_str(), ORACLE_GENERAL_TRACE, &reader_init_param);
 
     int64_t wss_obj = 0;
     int64_t wss_byte = 0;
-    cal_working_set_size(reader, &wss_obj, &wss_byte);
+    if (!o.relative_cache_sizes.empty())
+      cal_working_set_size(reader, &wss_obj, &wss_byte);
 
     int64_t wss = o.ignore_obj_size ? wss_obj : wss_byte;
 
@@ -217,6 +222,7 @@ void RunExperiment(const options &o) {
           o.output_directory / "log", o.output_directory / "datasets",
           wss * rcs, desc, o.max_iteration));
     }
+    close_reader(reader);
   }
 
   for (auto &t : tasks) {
@@ -235,12 +241,15 @@ int main(int argc, char **argv) {
   app.add_option("-o,--output-directory", o.output_directory,
                  "Output directory")
       ->default_val("./result");
-  app.add_option("--ignore_obj_size", o.ignore_obj_size,
-                 "Would ignore object sizes from trace")
+  app.add_flag("--ignore-obj-size", o.ignore_obj_size,
+               "Would ignore object sizes from trace")
       ->default_val(false);
   app.add_option("-i,--max-iteration", o.max_iteration,
                  "Offline clock max iteration")
       ->default_val(10);
+  app.add_option(
+      "-d,--description", o.desc,
+      "Additional description for experiment, would shows on filename");
   app.add_option("trace_paths", o.trace_paths, "Can be more than one")
       ->required();
 
