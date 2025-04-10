@@ -186,7 +186,7 @@ for i in all_i:
     plt.xlabel("Cache Size")
     plt.ylabel("Promotions")
     os.makedirs(os.path.dirname(overal_path), exist_ok=True)
-    plt.savefig(overal_path + "/mr_i_" + str(i) + ".png")
+    plt.savefig(overal_path + "/p_i_" + str(i) + ".png")
 
 for desc in overall_promotions:
     data = []
