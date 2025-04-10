@@ -34,13 +34,13 @@ urls = [
 ]
 
 
-def extract_key(filename):
+def extract_desc(filename):
     prefix = filename[: filename.rfind("[")]
     desc = filename[filename.rfind("[") + 1 : filename.rfind("]")]
     return (prefix, desc)
 
 
-files = sorted(glob.glob(os.path.join(result_dir, "*.csv")), key=extract_key)
+files = sorted(glob.glob(os.path.join(result_dir, "*.csv")), key=extract_desc)
 readme = open("../result/README.md", "w")
 readme.write("# RESULT\n")
 
@@ -76,7 +76,7 @@ for file in files:
     promotion_reduced = logs[0].n_promoted - logs[-1].n_promoted
     n_req = logs[0].n_req
 
-    prefix, desc = extract_key(file)
+    prefix, desc = extract_desc(file)
     if current_prefix != prefix:
         readme.write(f"## {prefix[prefix.rfind('/') + 1 :]}")
         url = ""
