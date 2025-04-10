@@ -1,0 +1,3 @@
+zipf_0_10_100.oracleGeneral evict:Clock[] admit:[] cache size     2GiB,        100000000 req, miss ratio 0.4649, throughput 7.83 MQPS
+zipf_0_10_100.oracleGeneral evict:Clock[] admit:[] cache size     2GiB,        100000000 req, miss ratio 0.4649, throughput 7.75 MQPS
+zipf_0_10_100.oracleGeneral evict:Clock[] admit:[] cache size     2GiB,        100000000 req, miss ratio 0.5015, throughput 7.70 MQPS
