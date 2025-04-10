@@ -16,7 +16,7 @@ offline_clock() {
     basename="${filename%%.oracleGeneral*}"
 
     for cache_size in "${relative_cache_sizes[@]}"; do
-        log_file="../result/log/${basename}[${cache_size}].csv"
+        log_file="../result/log/${basename}[${cache_size},obj_size_ignored].csv"
         if ! [ -s $log_file ]; then
             do_relative_cache_sizes+=($cache_size)
         else
@@ -25,7 +25,7 @@ offline_clock() {
     done
 
     for cache_size in "${fixed_cache_sizes[@]}"; do
-        log_file="../result/log/${basename}[${cache_size}MiB].csv"
+        log_file="../result/log/${basename}[${cache_size}MiB,obj_size_ignored].csv"
         if ! [ -s $log_file ]; then
             do_fixed_cache_sizes+=($cache_size)
         else
@@ -43,7 +43,7 @@ offline_clock() {
         fi
         echo "Processing: $filename"
         echo "Cache Size: ${do_relative_cache_sizes[@]}"
-        ../build/cacheSimulator $filename -o ../result $arg -i $max_iteration
+        ../build/cacheSimulator $filename -o ../result $arg -i $max_iteration --ignore-obj-size -d "obj_size_ignored"
     fi
 
     ../python/.venv/bin/python ../python/csv_to_plot.py
