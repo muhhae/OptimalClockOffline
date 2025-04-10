@@ -819,6 +819,51 @@
 > **Promotion Reduced**: 576,189  
 
 ## w01 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w01.oracleGeneral.bin.zst
+> ![graph](./graph/w01[0.001].png)  
+> **Trace Path**: w01.oracleGeneral.bin.zst  
+> **Desc**: 0.001  
+> **Cache Size**: 654MiB  
+> **Total Request**: 215,796,257  
+> **First Promotion**: 16,173,662  
+> **Last Promotion**: 2,248,734  
+> **Promotion Reduced**: 13,924,928  
+
+> ![graph](./graph/w01[0.01].png)  
+> **Trace Path**: w01.oracleGeneral.bin.zst  
+> **Desc**: 0.01  
+> **Cache Size**: 6541MiB  
+> **Total Request**: 215,796,257  
+> **First Promotion**: 13,650,281  
+> **Last Promotion**: 222,609  
+> **Promotion Reduced**: 13,427,672  
+
+> ![graph](./graph/w01[0.1].png)  
+> **Trace Path**: w01.oracleGeneral.bin.zst  
+> **Desc**: 0.1  
+> **Cache Size**: 65417MiB  
+> **Total Request**: 215,796,257  
+> **First Promotion**: 13,060,808  
+> **Last Promotion**: 1,650,568  
+> **Promotion Reduced**: 11,410,240  
+
+> ![graph](./graph/w01[0.2].png)  
+> **Trace Path**: w01.oracleGeneral.bin.zst  
+> **Desc**: 0.2  
+> **Cache Size**: 130835MiB  
+> **Total Request**: 215,796,257  
+> **First Promotion**: 13,471,298  
+> **Last Promotion**: 3,253,301  
+> **Promotion Reduced**: 10,217,997  
+
+> ![graph](./graph/w01[0.4].png)  
+> **Trace Path**: w01.oracleGeneral.bin.zst  
+> **Desc**: 0.4  
+> **Cache Size**: 261670MiB  
+> **Total Request**: 215,796,257  
+> **First Promotion**: 18,615,984  
+> **Last Promotion**: 8,188,342  
+> **Promotion Reduced**: 10,427,642  
+
 > ![graph](./graph/w01[1024MiB].png)  
 > **Trace Path**: w01.oracleGeneral.bin.zst  
 > **Desc**: 1024MiB  
