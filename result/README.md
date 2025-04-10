@@ -987,6 +987,15 @@
 > **Last Promotion**: 1,545,194  
 > **Promotion Reduced**: 40,592,400  
 
+> ![graph](./graph/meta_kvcache_traces_1[0.001,obj_size_ignored].png)  
+> **Trace Path**: meta_kvcache_traces_1.oracleGeneral.bin.zst  
+> **Desc**: 0.001,obj_size_ignored  
+> **Cache Size**: 0MiB  
+> **Total Request**: 335,173,084  
+> **First Promotion**: 41,440,439  
+> **Last Promotion**: 1,043,027  
+> **Promotion Reduced**: 40,397,412  
+
 > ![graph](./graph/meta_kvcache_traces_1[0.01].png)  
 > **Trace Path**: meta_kvcache_traces_1.oracleGeneral.bin.zst  
 > **Desc**: 0.01  
