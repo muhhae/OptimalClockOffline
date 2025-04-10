@@ -1322,6 +1322,15 @@
 > **Promotion Reduced**: 7,153,075  
 
 ## zipf_2_10_100 
+> ![graph](./graph/zipf_2_10_100[0.001].png)  
+> **Trace Path**: zipf_2_10_100.oracleGeneral  
+> **Desc**: 0.001  
+> **Cache Size**: 0MiB  
+> **Total Request**: 100,000,000  
+> **First Promotion**: 8,253,615  
+> **Last Promotion**: 3,765,484  
+> **Promotion Reduced**: 4,488,131  
+
 > ![graph](./graph/zipf_2_10_100[0.01].png)  
 > **Trace Path**: zipf_2_10_100.oracleGeneral  
 > **Desc**: 0.01  
