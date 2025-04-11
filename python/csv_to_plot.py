@@ -51,11 +51,9 @@ for file in files:
     n_promotion = [d.n_promoted for d in logs]
 
     iter_2 = [i for i in range(2, 21)]
-    d_miss_ratio = [
-        miss_ratio[i] - miss_ratio[i - 1] for i in range(1, len(miss_ratio))
-    ]
+    d_miss_ratio = [miss_ratio[i] - miss_ratio[0] for i in range(1, len(miss_ratio))]
     d_n_promotion = [
-        (n_promotion[i] - n_promotion[i - 1]) * -1 for i in range(1, len(n_promotion))
+        n_promotion[0] - n_promotion[i] for i in range(1, len(n_promotion))
     ]
 
     _, desc = extract_desc(file)
@@ -135,6 +133,7 @@ overall_missratio = dict(sorted(overall_missratio.items()))
 overall_promotions = dict(sorted(overall_promotions.items()))
 
 all_i = sorted({i for desc in overall_missratio.values() for i in desc})
+os.makedirs(os.path.dirname(overal_path), exist_ok=True)
 
 for i in all_i:
     data = []
@@ -145,12 +144,12 @@ for i in all_i:
             labels.append(desc)
 
     plt.figure()
-    plt.boxplot(data, labels=labels)
+    plt.boxplot(data, tick_labels=labels)
     plt.title(f"Miss ratio across cache size (i = {i})")
     plt.xlabel("cache size")
     plt.ylabel("Miss Ratio")
-    os.makedirs(os.path.dirname(overal_path), exist_ok=True)
     plt.savefig(overal_path + "/mr_i_" + str(i) + ".png")
+    plt.close()
 
 for desc in overall_missratio:
     data = []
@@ -163,12 +162,12 @@ for desc in overall_missratio:
         desc = "All"
 
     plt.figure()
-    plt.boxplot(data, labels=labels)
+    plt.boxplot(data, tick_labels=labels)
     plt.title(f"Miss ratio across i (cache size = {desc})")
     plt.xlabel("Iteration")
     plt.ylabel("Miss Ratio")
-    os.makedirs(os.path.dirname(overal_path), exist_ok=True)
     plt.savefig(overal_path + "/mr_s_" + str(desc) + ".png")
+    plt.close()
 
 all_i = sorted({i for desc in overall_promotions.values() for i in desc})
 
@@ -181,12 +180,12 @@ for i in all_i:
             labels.append(desc)
 
     plt.figure()
-    plt.boxplot(data, labels=labels)
+    plt.boxplot(data, tick_labels=labels)
     plt.title(f"Promotions across cache size (i = {i})")
     plt.xlabel("Cache Size")
     plt.ylabel("Promotions")
-    os.makedirs(os.path.dirname(overal_path), exist_ok=True)
     plt.savefig(overal_path + "/p_i_" + str(i) + ".png")
+    plt.close()
 
 for desc in overall_promotions:
     data = []
@@ -199,12 +198,12 @@ for desc in overall_promotions:
         desc = "All"
 
     plt.figure()
-    plt.boxplot(data, labels=labels)
+    plt.boxplot(data, tick_labels=labels)
     plt.title(f"Promotions across i (cache size = {desc})")
     plt.xlabel("Iteration")
     plt.ylabel("Promotions")
-    os.makedirs(os.path.dirname(overal_path), exist_ok=True)
     plt.savefig(overal_path + "/p_s_" + str(desc) + ".png")
+    plt.close()
 
 overall_d_missratio = dict(sorted(overall_d_missratio.items()))
 overall_d_promotions = dict(sorted(overall_d_promotions.items()))
@@ -220,12 +219,12 @@ for i in all_i:
             labels.append(desc)
 
     plt.figure()
-    plt.boxplot(data, labels=labels)
+    plt.boxplot(data, tick_labels=labels)
     plt.title(f"Miss ratio increased across cache size (i = {i})")
     plt.xlabel("cache size")
     plt.ylabel("$\\Delta$ Miss Ratio")
-    os.makedirs(os.path.dirname(overal_path), exist_ok=True)
     plt.savefig(overal_path + "/dmr_i_" + str(i) + ".png")
+    plt.close()
 
 for desc in overall_d_missratio:
     data = []
@@ -238,12 +237,12 @@ for desc in overall_d_missratio:
         desc = "All"
 
     plt.figure()
-    plt.boxplot(data, labels=labels)
+    plt.boxplot(data, tick_labels=labels)
     plt.title(f"Miss ratio increased across i (cache size = {desc})")
     plt.xlabel("Iteration")
     plt.ylabel("$\\Delta$ Miss Ratio")
-    os.makedirs(os.path.dirname(overal_path), exist_ok=True)
     plt.savefig(overal_path + "/dmr_s_" + str(desc) + ".png")
+    plt.close()
 
 all_i = sorted({i for desc in overall_d_promotions.values() for i in desc})
 
@@ -256,12 +255,12 @@ for i in all_i:
             labels.append(desc)
 
     plt.figure()
-    plt.boxplot(data, labels=labels)
+    plt.boxplot(data, tick_labels=labels)
     plt.title(f"Promotions reduced across cache size (i = {i})")
     plt.xlabel("Cache Size")
     plt.ylabel("$\\Delta$ Promotions")
-    os.makedirs(os.path.dirname(overal_path), exist_ok=True)
     plt.savefig(overal_path + "/dp_i_" + str(i) + ".png")
+    plt.close()
 
 for desc in overall_d_promotions:
     data = []
@@ -274,9 +273,9 @@ for desc in overall_d_promotions:
         desc = "All"
 
     plt.figure()
-    plt.boxplot(data, labels=labels)
+    plt.boxplot(data, tick_labels=labels)
     plt.title(f"Promotions reduced across i (cache size = {desc})")
     plt.xlabel("Iteration")
     plt.ylabel("$\\Delta$ Promotions")
-    os.makedirs(os.path.dirname(overal_path), exist_ok=True)
     plt.savefig(overal_path + "/dp_s_" + str(desc) + ".png")
+    plt.close()
