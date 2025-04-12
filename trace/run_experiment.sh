@@ -3,7 +3,7 @@
 shopt -s nullglob
 
 offline_clock() {
-    fixed_cache_sizes=(128 256 512 1024 2048)
+    fixed_cache_sizes=()
     relative_cache_sizes=(0.001 0.01 0.1 0.2 0.4)
     max_iteration=20
 
