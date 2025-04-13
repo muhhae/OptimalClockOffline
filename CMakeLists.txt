@@ -27,7 +27,14 @@ if("${ZSTD_LIBRARIES}" STREQUAL "")
   message(FATAL_ERROR "zstd not found")
 endif()
 
-add_executable(cacheSimulator main.cpp)
+add_executable(cacheSimulator
+  src/main.cpp
+  src/custom_clock.cpp
+  src/experiment.cpp
+  src/obj_metadata.cpp
+)
+target_include_directories(cacheSimulator PRIVATE src)
+
 target_link_libraries(
   cacheSimulator PUBLIC libCacheSim m ${GLib_LIBRARY} ${ZSTD_LIBRARIES}
 )
