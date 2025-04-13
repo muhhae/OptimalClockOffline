@@ -10,6 +10,9 @@
 #include <iostream>
 #include <stdexcept>
 
+const std::string csv_header =
+    "trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted\n";
+
 void Simulate(cache_t *cache, const std::filesystem::path trace_path,
               const std::filesystem::path log_dir,
               const std::filesystem::path datasets_dir,
@@ -69,6 +72,7 @@ log: %s\n\
 
     std::ostringstream s;
     s << std::filesystem::path(reader->trace_path).filename() << ","
+      << reader->ignore_obj_size << ","
       << (reader->ignore_obj_size ? cache->cache_size : cache->cache_size / MiB)
       << "," << 1 - (double)n_hit / n_req << "," << n_req << "," << n_promoted
       << "\n";

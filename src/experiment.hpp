@@ -6,9 +6,6 @@
 #include <filesystem>
 #include <vector>
 
-const std::string csv_header =
-    "trace_path,cache_size(MiB),miss_ratio,n_req,n_promoted\n";
-
 void Simulate(cache_t *cache, const std::filesystem::path trace_path,
               const std::filesystem::path log_dir,
               const std::filesystem::path datasets_dir,
