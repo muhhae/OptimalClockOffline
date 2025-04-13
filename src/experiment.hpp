@@ -16,13 +16,14 @@ void Simulate(cache_t *cache, const std::filesystem::path trace_path,
               const uint64_t max_iteration = 10);
 
 struct options {
+  std::string algorithm;
   std::vector<std::filesystem::path> trace_paths;
   // std::vector<std::string> custom_suffixes;
 
   std::vector<uint64_t> fixed_cache_sizes;
   std::vector<float> relative_cache_sizes;
 
-  bool ignore_obj_size;
+  bool ignore_obj_size = false;
   uint64_t max_iteration;
   std::filesystem::path output_directory;
   std::string desc;

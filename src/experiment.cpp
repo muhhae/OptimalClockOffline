@@ -5,8 +5,10 @@
 
 #include <cstdint>
 #include <fstream>
+#include <functional>
 #include <future>
 #include <iostream>
+#include <stdexcept>
 
 void Simulate(cache_t *cache, const std::filesystem::path trace_path,
               const std::filesystem::path log_dir,
@@ -114,6 +116,16 @@ log: %s\n\
 
 void RunExperiment(const options &o) {
   std::vector<std::future<void>> tasks;
+  std::function<cache_t *(const common_cache_params_t ccache_params,
+                          const char *cache_specific_params)>
+      CacheInit;
+  if (o.algorithm == "default") {
+    CacheInit = cclock::CustomClockInit;
+  } else if (o.algorithm == "bob") {
+    throw std::runtime_error("bob's algorithm hasn't been implemented");
+  } else {
+    throw std::runtime_error("algorithm not found");
+  }
 
   std::filesystem::create_directories(o.output_directory / "log");
   std::filesystem::create_directories(o.output_directory / "datasets");
