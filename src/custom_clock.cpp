@@ -1,5 +1,6 @@
 #include "custom_clock.hpp"
 
+#include <cmath>
 #include <libCacheSim/cache.h>
 #include <libCacheSim/evictionAlgo.h>
 
@@ -10,11 +11,11 @@ void CustomClockEvict(cache_t *cache, const request_t *req) {
   cache_obj_t *obj_to_evict = params->q_tail;
   while (obj_to_evict->clock.freq >= 1) {
     auto &data = objs_metadata[obj_to_evict->obj_id];
-    if (data.wasted_promotions.find(data.access_counter) !=
+    data.last_promotion = data.access_counter;
+    if (data.wasted_promotions.find(data.last_promotion) !=
         data.wasted_promotions.end()) {
       break;
     }
-    data.last_promotion = data.access_counter;
     obj_to_evict->clock.freq -= 1;
     params->n_obj_rewritten += 1;
     params->n_byte_rewritten += obj_to_evict->obj_size;
