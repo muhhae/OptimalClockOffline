@@ -186,7 +186,7 @@ struct options {
   std::vector<uint64_t> fixed_cache_sizes;
   std::vector<float> relative_cache_sizes;
 
-  bool ignore_obj_size;
+  bool ignore_obj_size = false;
   uint64_t max_iteration;
   std::filesystem::path output_directory;
   std::string desc;
@@ -254,8 +254,7 @@ int main(int argc, char **argv) {
                  "Output directory")
       ->default_val("./result");
   app.add_flag("--ignore-obj-size", o.ignore_obj_size,
-               "Would ignore object sizes from trace")
-      ->default_val(false);
+               "Would ignore object sizes from trace");
   app.add_option("-i,--max-iteration", o.max_iteration,
                  "Offline clock max iteration")
       ->default_val(10);
