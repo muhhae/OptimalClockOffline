@@ -72,8 +72,8 @@ for file in files:
         overall_d_promotions[size][i].append(e)
         overall_d_promotions[0][i].append(e)
 
-    if Path(output_path).exists():
-        continue
+    # if Path(output_path).exists():
+    #     continue
 
     fig, axs = plt.subplots(3, 1, figsize=(10, 5 * 3))
     axs[0].set_xlabel("Iteration")
@@ -91,7 +91,7 @@ for file in files:
 
     plt.title(Path(file).stem)
 
-    axs[1].set_xlabel("Auto Scale")
+    axs[1].set_xlabel("Iteration")
     axs[1].set_ylabel("$\\Delta$ Promotion", color="blue")
     axs[1].plot(iter_2, d_n_promotion, marker="o", linestyle="-", color="blue")
     axs[1].tick_params(axis="y", labelcolor="blue")
