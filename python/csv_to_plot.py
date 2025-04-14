@@ -223,7 +223,7 @@ for i in all_i:
     plt.boxplot(data, tick_labels=labels)
     plt.title(f"Miss ratio increased across cache size (i = {i})")
     plt.xlabel("cache size")
-    plt.ylabel("$\\Delta$ Miss Ratio")
+    plt.ylabel("current_missratio - first_missratio")
     plt.savefig(overal_path + "/dmr_i_" + str(i) + ".png")
     plt.close()
 
@@ -241,7 +241,7 @@ for desc in overall_d_missratio:
     plt.boxplot(data, tick_labels=labels)
     plt.title(f"Miss ratio increased across i (cache size = {desc})")
     plt.xlabel("Iteration")
-    plt.ylabel("$\\Delta$ Miss Ratio")
+    plt.ylabel("current_missratio - first_missratio")
     plt.savefig(overal_path + "/dmr_s_" + str(desc) + ".png")
     plt.close()
 
@@ -259,7 +259,7 @@ for i in all_i:
     plt.boxplot(data, tick_labels=labels)
     plt.title(f"Promotions reduced across cache size (i = {i})")
     plt.xlabel("Cache Size")
-    plt.ylabel("$\\Delta$ Promotions")
+    plt.ylabel("first_promotion - current_promotions")
     plt.savefig(overal_path + "/dp_i_" + str(i) + ".png")
     plt.close()
 
@@ -277,6 +277,6 @@ for desc in overall_d_promotions:
     plt.boxplot(data, tick_labels=labels)
     plt.title(f"Promotions reduced across i (cache size = {desc})")
     plt.xlabel("Iteration")
-    plt.ylabel("$\\Delta$ Promotions")
+    plt.ylabel("first_promotion - current_promotions")
     plt.savefig(overal_path + "/dp_s_" + str(desc) + ".png")
     plt.close()
