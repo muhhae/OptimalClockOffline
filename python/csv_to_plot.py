@@ -18,6 +18,7 @@ def extract_desc(filename):
 class OutputLog:
     trace_path: str
     cache_size: int
+    ignore_obj_size: bool
     miss_ratio: float
     n_req: int
     n_promoted: int

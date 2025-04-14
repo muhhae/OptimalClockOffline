@@ -12,6 +12,7 @@ class OutputLog:
     trace_path: str
     cache_size: int
     miss_ratio: float
+    ignore_obj_size: bool
     n_req: int
     n_promoted: int
 
@@ -69,7 +70,6 @@ for file in files:
     if df.empty:
         continue
 
-    df = df.rename(columns={"cache_size(MiB)": "cache_size"})
     logs = [OutputLog(**row) for row in df.to_dict(orient="records")]
     trace_path = logs[0].trace_path
     cache_size = logs[0].cache_size
@@ -92,7 +92,8 @@ for file in files:
     )
     readme.write(f"> **Trace Path**: {trace_path}  \n")
     readme.write(f"> **Desc**: {desc}  \n")
-    readme.write(f"> **Cache Size**: {cache_size}MiB  \n")
+    readme.write(f"> **Cache Size**: {cache_size}  \n")
+    readme.write(f"> **Ignore Obj Size**: {logs[0].ignore_obj_size}  \n")
     readme.write(f"> **Total Request**: {n_req:,}  \n")
     readme.write(f"> **First Promotion**: {logs[0].n_promoted:,}  \n")
     readme.write(f"> **Last Promotion**: {logs[-1].n_promoted:,}  \n")
