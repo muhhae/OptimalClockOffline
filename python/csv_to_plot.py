@@ -30,9 +30,11 @@ output_dir = "../result/graph"
 files = glob.glob(os.path.join(result_dir, "*.csv"))
 
 overall_missratio = defaultdict(lambda: defaultdict(list))
+overall_percent_missratio = defaultdict(lambda: defaultdict(list))
 overall_promotions = defaultdict(lambda: defaultdict(list))
 overall_percent_promotions = defaultdict(lambda: defaultdict(list))
 overall_d_missratio = defaultdict(lambda: defaultdict(list))
+overall_d_percent_missratio = defaultdict(lambda: defaultdict(list))
 overall_d_promotions = defaultdict(lambda: defaultdict(list))
 overall_d_percent_promotions = defaultdict(lambda: defaultdict(list))
 
@@ -49,37 +51,55 @@ for file in files:
     logs = [OutputLog(**row) for row in df.to_dict(orient="records")]
 
     iter = [i for i in range(1, 21)]
-    miss_ratio = [d.miss_ratio for d in logs]
-    n_promotion = [d.n_promoted for d in logs]
-    n_percent_promotion = [d.n_promoted / logs[0].n_promoted for d in logs]
-
     iter_2 = [i for i in range(2, 21)]
-    d_miss_ratio = [miss_ratio[i] - miss_ratio[0] for i in range(1, len(miss_ratio))]
+
+    _, desc = extract_desc(file)
+    size = float(desc)
+
+    miss_ratio = [d.miss_ratio for d in logs]
+    for i, e in zip(iter, miss_ratio):
+        overall_missratio[size][i].append(e)
+        overall_missratio[0][i].append(e)
+
+    d_miss_ratio = [miss_ratio[0] - miss_ratio[1] for i in range(1, len(miss_ratio))]
+    for i, e in zip(iter_2, d_miss_ratio):
+        overall_d_missratio[size][i].append(e)
+        overall_d_missratio[0][i].append(e)
+
+    percent_missratio = [d.miss_ratio / logs[0].miss_ratio for d in logs]
+    for i, e in zip(iter, percent_missratio):
+        overall_percent_missratio[size][i].append(e)
+        overall_percent_missratio[0][i].append(e)
+
+    d_percent_missratio = [
+        percent_missratio[0] - percent_missratio[i]
+        for i in range(1, len(percent_missratio))
+    ]
+    for i, e in zip(iter_2, d_percent_missratio):
+        overall_d_percent_missratio[size][i].append(e)
+        overall_d_percent_missratio[0][i].append(e)
+
+    n_promotion = [d.n_promoted for d in logs]
+    for i, e in zip(iter, n_promotion):
+        overall_promotions[size][i].append(e)
+        overall_promotions[0][i].append(e)
+
     d_n_promotion = [
         n_promotion[0] - n_promotion[i] for i in range(1, len(n_promotion))
     ]
+    for i, e in zip(iter_2, d_n_promotion):
+        overall_d_promotions[size][i].append(e)
+        overall_d_promotions[0][i].append(e)
+
+    n_percent_promotion = [d.n_promoted / logs[0].n_promoted for d in logs]
+    for i, e in zip(iter, n_percent_promotion):
+        overall_percent_promotions[size][i].append(e)
+        overall_percent_promotions[0][i].append(e)
+
     d_n_percent_promotion = [
         n_percent_promotion[0] - n_percent_promotion[i]
         for i in range(1, len(n_percent_promotion))
     ]
-
-    _, desc = extract_desc(file)
-    size = float(desc)
-    for i, e in zip(iter, miss_ratio):
-        overall_missratio[size][i].append(e)
-        overall_missratio[0][i].append(e)
-    for i, e in zip(iter, n_promotion):
-        overall_promotions[size][i].append(e)
-        overall_promotions[0][i].append(e)
-    for i, e in zip(iter, n_percent_promotion):
-        overall_percent_promotions[size][i].append(e)
-        overall_percent_promotions[0][i].append(e)
-    for i, e in zip(iter_2, d_miss_ratio):
-        overall_d_missratio[size][i].append(e)
-        overall_d_missratio[0][i].append(e)
-    for i, e in zip(iter_2, d_n_promotion):
-        overall_d_promotions[size][i].append(e)
-        overall_d_promotions[0][i].append(e)
     for i, e in zip(iter_2, d_n_percent_promotion):
         overall_d_percent_promotions[size][i].append(e)
         overall_d_percent_promotions[0][i].append(e)
@@ -140,230 +160,84 @@ for file in files:
     fig.savefig(output_path)
     plt.close()
 
-overal_path = "../result/overall"
 
-overall_missratio = dict(sorted(overall_missratio.items()))
-overall_promotions = dict(sorted(overall_promotions.items()))
-overall_percent_promotions = dict(sorted(overall_percent_promotions.items()))
+def box_plot(d, title, y_label, prefix):
+    overal_path = "../result/overall"
+    d = dict(sorted(d.items()))
+    all_i = sorted({i for desc in d.values() for i in desc})
 
-all_i = sorted({i for desc in overall_missratio.values() for i in desc})
-os.makedirs(os.path.dirname(overal_path), exist_ok=True)
+    for i in all_i:
+        data = []
+        labels = []
+        for desc in d:
+            if i in d[desc]:
+                data.append(d[desc][i])
+                labels.append(desc)
 
-for i in all_i:
-    data = []
-    labels = []
-    for desc in overall_missratio:
-        if i in overall_missratio[desc]:
-            data.append(overall_missratio[desc][i])
-            labels.append(desc)
+        plt.figure()
+        plt.boxplot(data, tick_labels=labels)
+        plt.title(f"{title} across cache size (i = {i})")
+        plt.xlabel("Cache Size")
+        plt.ylabel(y_label)
+        plt.gca().yaxis.set_major_locator(ticker.MaxNLocator(nbins=10))
+        plt.savefig(f"{overal_path}/{prefix}_i_{str(i)}.png")
+        plt.close()
 
-    plt.figure()
-    plt.boxplot(data, tick_labels=labels)
-    plt.title(f"Miss ratio across cache size (i = {i})")
-    plt.xlabel("cache size")
-    plt.ylabel("Miss Ratio")
-    plt.savefig(overal_path + "/miss_ratio_i_" + str(i) + ".png")
-    plt.close()
+    for desc in d:
+        data = []
+        labels = []
+        for i in sorted(d[desc]):
+            data.append(d[desc][i])
+            labels.append(str(i))
 
-for desc in overall_missratio:
-    data = []
-    labels = []
-    for i in sorted(overall_missratio[desc]):
-        data.append(overall_missratio[desc][i])
-        labels.append(str(i))
+        if desc == 0:
+            desc = "All"
 
-    if desc == 0:
-        desc = "All"
-
-    plt.figure()
-    plt.boxplot(data, tick_labels=labels)
-    plt.title(f"Miss ratio across i (cache size = {desc})")
-    plt.xlabel("Iteration")
-    plt.ylabel("Miss Ratio")
-    plt.savefig(overal_path + "/miss_ratio_s_" + str(desc) + ".png")
-    plt.close()
-
-all_i = sorted({i for desc in overall_promotions.values() for i in desc})
-
-for i in all_i:
-    data = []
-    labels = []
-    for desc in overall_promotions:
-        if i in overall_promotions[desc]:
-            data.append(overall_promotions[desc][i])
-            labels.append(desc)
-
-    plt.figure()
-    plt.boxplot(data, tick_labels=labels)
-    plt.title(f"Promotions across cache size (i = {i})")
-    plt.xlabel("Cache Size")
-    plt.ylabel("Promotions")
-    plt.savefig(overal_path + "/promotions_i_" + str(i) + ".png")
-    plt.close()
-
-for desc in overall_promotions:
-    data = []
-    labels = []
-    for i in sorted(overall_promotions[desc]):
-        data.append(overall_promotions[desc][i])
-        labels.append(str(i))
-
-    if desc == 0:
-        desc = "All"
-
-    plt.figure()
-    plt.boxplot(data, tick_labels=labels)
-    plt.title(f"Promotions across i (cache size = {desc})")
-    plt.xlabel("Iteration")
-    plt.ylabel("Promotions")
-    plt.savefig(overal_path + "/promotions_s_" + str(desc) + ".png")
-    plt.close()
-
-all_i = sorted({i for desc in overall_percent_promotions.values() for i in desc})
-
-for i in all_i:
-    data = []
-    labels = []
-    for desc in overall_percent_promotions:
-        if i in overall_percent_promotions[desc]:
-            data.append(overall_percent_promotions[desc][i])
-            labels.append(desc)
-
-    plt.figure()
-    plt.boxplot(data, tick_labels=labels)
-    plt.title(f"Promotions across cache size (i = {i})")
-    plt.xlabel("Cache Size")
-    plt.ylabel("Promotions")
-    plt.savefig(overal_path + "/promotions_percent_i_" + str(i) + ".png")
-    plt.close()
-
-for desc in overall_percent_promotions:
-    data = []
-    labels = []
-    for i in sorted(overall_percent_promotions[desc]):
-        data.append(overall_percent_promotions[desc][i])
-        labels.append(str(i))
-
-    if desc == 0:
-        desc = "All"
-
-    plt.figure()
-    plt.boxplot(data, tick_labels=labels)
-    plt.title(f"Promotions across i (cache size = {desc})")
-    plt.xlabel("Iteration")
-    plt.ylabel("Promotions")
-    plt.savefig(overal_path + "/promotions_percent_s_" + str(desc) + ".png")
-    plt.close()
+        plt.figure()
+        plt.boxplot(data, tick_labels=labels)
+        plt.title(f"{title} across i (cache size = {desc})")
+        plt.xlabel("Iteration")
+        plt.ylabel(y_label)
+        plt.gca().yaxis.set_major_locator(ticker.MaxNLocator(nbins=10))
+        plt.savefig(f"{overal_path}/{prefix}_s_{str(desc)}.png")
+        plt.close()
 
 
-overall_d_missratio = dict(sorted(overall_d_missratio.items()))
-overall_d_promotions = dict(sorted(overall_d_promotions.items()))
-overall_d_percent_promotions = dict(sorted(overall_d_promotions.items()))
-
-all_i = sorted({i for desc in overall_d_missratio.values() for i in desc})
-
-for i in all_i:
-    data = []
-    labels = []
-    for desc in overall_d_missratio:
-        if i in overall_d_missratio[desc]:
-            data.append(overall_d_missratio[desc][i])
-            labels.append(desc)
-
-    plt.figure()
-    plt.boxplot(data, tick_labels=labels)
-    plt.title(f"Miss ratio increased across cache size (i = {i})")
-    plt.xlabel("cache size")
-    plt.ylabel("current_missratio - first_missratio")
-    plt.savefig(overal_path + "/d_miss_ratio_i_" + str(i) + ".png")
-    plt.close()
-
-for desc in overall_d_missratio:
-    data = []
-    labels = []
-    for i in sorted(overall_d_missratio[desc]):
-        data.append(overall_d_missratio[desc][i])
-        labels.append(str(i))
-
-    if desc == 0:
-        desc = "All"
-
-    plt.figure()
-    plt.boxplot(data, tick_labels=labels)
-    plt.title(f"Miss ratio increased across i (cache size = {desc})")
-    plt.xlabel("Iteration")
-    plt.ylabel("current_missratio - first_missratio")
-    plt.savefig(overal_path + "/d_miss_ratio_s_" + str(desc) + ".png")
-    plt.close()
-
-all_i = sorted({i for desc in overall_d_promotions.values() for i in desc})
-
-for i in all_i:
-    data = []
-    labels = []
-    for desc in overall_d_promotions:
-        if i in overall_d_promotions[desc]:
-            data.append(overall_d_promotions[desc][i])
-            labels.append(desc)
-
-    plt.figure()
-    plt.boxplot(data, tick_labels=labels)
-    plt.title(f"Promotions reduced across cache size (i = {i})")
-    plt.xlabel("Cache Size")
-    plt.ylabel("first_promotion - current_promotions")
-    plt.savefig(overal_path + "/d_promotions_i_" + str(i) + ".png")
-    plt.close()
-
-for desc in overall_d_promotions:
-    data = []
-    labels = []
-    for i in sorted(overall_d_promotions[desc]):
-        data.append(overall_d_promotions[desc][i])
-        labels.append(str(i))
-
-    if desc == 0:
-        desc = "All"
-
-    plt.figure()
-    plt.boxplot(data, tick_labels=labels)
-    plt.title(f"Promotions reduced across i (cache size = {desc})")
-    plt.xlabel("Iteration")
-    plt.ylabel("first_promotion - current_promotions")
-    plt.savefig(overal_path + "/d_promotions_s_" + str(desc) + ".png")
-    plt.close()
-
-all_i = sorted({i for desc in overall_d_percent_promotions.values() for i in desc})
-
-for i in all_i:
-    data = []
-    labels = []
-    for desc in overall_d_percent_promotions:
-        if i in overall_d_percent_promotions[desc]:
-            data.append(overall_d_percent_promotions[desc][i])
-            labels.append(desc)
-
-    plt.figure()
-    plt.boxplot(data, tick_labels=labels)
-    plt.title(f"Promotions reduced across cache size (i = {i})")
-    plt.xlabel("Cache Size")
-    plt.ylabel("first_percent_promotion - current_percent_promotions")
-    plt.savefig(overal_path + "/d_promotions_percent_i_" + str(i) + ".png")
-    plt.close()
-
-for desc in overall_d_percent_promotions:
-    data = []
-    labels = []
-    for i in sorted(overall_d_percent_promotions[desc]):
-        data.append(overall_d_percent_promotions[desc][i])
-        labels.append(str(i))
-
-    if desc == 0:
-        desc = "All"
-
-    plt.figure()
-    plt.boxplot(data, tick_labels=labels)
-    plt.title(f"Promotions reduced across i (cache size = {desc})")
-    plt.xlabel("Iteration")
-    plt.ylabel("first_percent_promotion - current_percent_promotions")
-    plt.savefig(overal_path + "/d_promotions_percent_s_" + str(desc) + ".png")
-    plt.close()
+box_plot(overall_missratio, "Miss Ratio", "Miss Ratio", "miss_ratio")
+box_plot(
+    overall_percent_missratio,
+    "Miss Ratio (relative)",
+    "Miss Ratio (relative)",
+    "miss_ratio_percent",
+)
+box_plot(overall_promotions, "Promotions", "Promotions", "promotions")
+box_plot(
+    overall_percent_promotions,
+    "Promotions (relative)",
+    "Promotions (relative)",
+    "promotions_percent",
+)
+box_plot(
+    overall_d_missratio,
+    "Miss Ratio reduced",
+    "First Miss Ratio - Current Miss Ratio",
+    "d_miss_ratio",
+)
+box_plot(
+    overall_d_percent_missratio,
+    "Miss Ratio (relative) reduced",
+    "First Miss Ratio - Current Miss Ratio (relative)",
+    "d_miss_ratio_percent",
+)
+box_plot(
+    overall_d_promotions,
+    "Promotions reduced",
+    "First Promotions - Current Promotions",
+    "d_promotions",
+)
+box_plot(
+    overall_d_percent_promotions,
+    "Promotions (relative) reduced",
+    "First Promotions - Current Promotions (relative)",
+    "d_promotions_percent",
+)
