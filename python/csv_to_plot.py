@@ -46,7 +46,6 @@ for file in files:
     if df.empty:
         continue
 
-    df = df.rename(columns={"cache_size(MiB)": "cache_size"})
     logs = [OutputLog(**row) for row in df.to_dict(orient="records")]
 
     iter = [i for i in range(1, 21)]
@@ -72,7 +71,7 @@ for file in files:
     for i, e in zip(iter, n_promotion):
         overall_promotions[size][i].append(e)
         overall_promotions[0][i].append(e)
-    for i, e in zip(iter, n_promotion):
+    for i, e in zip(iter, n_percent_promotion):
         overall_percent_promotions[size][i].append(e)
         overall_percent_promotions[0][i].append(e)
     for i, e in zip(iter_2, d_miss_ratio):
@@ -81,7 +80,7 @@ for file in files:
     for i, e in zip(iter_2, d_n_promotion):
         overall_d_promotions[size][i].append(e)
         overall_d_promotions[0][i].append(e)
-    for i, e in zip(iter_2, d_n_promotion):
+    for i, e in zip(iter_2, d_n_percent_promotion):
         overall_d_percent_promotions[size][i].append(e)
         overall_d_percent_promotions[0][i].append(e)
 
