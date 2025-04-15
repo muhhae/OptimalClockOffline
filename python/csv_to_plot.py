@@ -54,7 +54,8 @@ for file in files:
     iter_2 = [i for i in range(2, 21)]
 
     _, desc = extract_desc(file)
-    size = float(desc)
+    desc = desc.split(",")
+    size = float(desc[0])
 
     miss_ratio = [d.miss_ratio for d in logs]
     for i, e in zip(iter, miss_ratio):
