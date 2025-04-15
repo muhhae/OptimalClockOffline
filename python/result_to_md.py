@@ -43,7 +43,11 @@ def extract_desc(filename):
 
 files = sorted(glob.glob(os.path.join(result_dir, "*.csv")), key=extract_desc)
 readme = open("../result/README.md", "w")
-readme.write("# RESULT\n")
+readme.write("""# RESULT
+# [Box Plot](./overall/README.md)
+# [Box Plot (obj_size_ignored)](./overall/README_obj_size_ignored.md)
+# Line Plot
+""")
 
 """
 ### Cluster 50 Twitter (139.655.585 req)

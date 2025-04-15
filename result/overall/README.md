@@ -1,3 +1,7 @@
+# [IGNORING OBJ SIZE](README_obj_size_ignored.md)
+
+# NOT IGNORING OBJ SIZE
+
 # All Cache Size
 ![graph](miss_ratio_percent_s_All.png)
 ![graph](promotions_percent_s_All.png)

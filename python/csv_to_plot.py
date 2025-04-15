@@ -174,7 +174,23 @@ for file in files:
     # if Path(output_path).exists():
     #     continue
 
-    fig, axs = plt.subplots(3, 1, figsize=(10, 5 * 3))
+    max_iteration = 19
+    if d_miss_ratio.count(0) and d_n_promotion.count(0):
+        max_iteration = (
+            d_miss_ratio.index(0)
+            if d_miss_ratio.index(0) > d_n_promotion.index(0)
+            else d_n_promotion.index(0)
+        )
+
+    iter = [i for i in range(1, max_iteration + 2)]
+    iter_2 = [i for i in range(2, max_iteration + 2)]
+
+    n_promotion = n_promotion[: max_iteration + 1]
+    miss_ratio = miss_ratio[: max_iteration + 1]
+    d_n_promotion = d_n_promotion[:max_iteration]
+    d_miss_ratio = d_miss_ratio[:max_iteration]
+
+    fig, axs = plt.subplots(2, 1, figsize=(12, 5 * 2))
     axs[0].set_xlabel("Iteration")
     axs[0].set_ylabel("Promotion", color="blue")
     axs[0].plot(iter, n_promotion, marker="o", linestyle="-", color="blue")
@@ -205,21 +221,21 @@ for file in files:
 
     plt.title("Relative")
 
-    axs[2].set_xlabel("Iteration")
-    axs[2].set_ylabel("Promotion", color="blue")
-    axs[2].plot(iter, n_promotion, marker="o", linestyle="-", color="blue")
-    axs[2].tick_params(axis="y", labelcolor="blue")
-    axs[2].yaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
-    axs[2].xaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
+    # axs[2].set_xlabel("Iteration")
+    # axs[2].set_ylabel("Promotion", color="blue")
+    # axs[2].plot(iter, n_promotion, marker="o", linestyle="-", color="blue")
+    # axs[2].tick_params(axis="y", labelcolor="blue")
+    # axs[2].yaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
+    # axs[2].xaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
+    #
+    # ax4 = axs[2].twinx()
+    # ax4.set_ylabel("Miss Ratio", color="red")
+    # ax4.plot(iter, miss_ratio, marker="s", linestyle="--", color="red")
+    # ax4.tick_params(axis="y", labelcolor="red")
+    # ax4.yaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
+    # ax4.set_ylim(0, 1)
 
-    ax4 = axs[2].twinx()
-    ax4.set_ylabel("Miss Ratio", color="red")
-    ax4.plot(iter, miss_ratio, marker="s", linestyle="--", color="red")
-    ax4.tick_params(axis="y", labelcolor="red")
-    ax4.yaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
-    ax4.set_ylim(0, 1)
-
-    plt.title("Fixed Scale")
+    # plt.title("Fixed Scale")
 
     fig.tight_layout()
 
