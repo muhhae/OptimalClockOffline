@@ -1,0 +1,1148 @@
+2025-04-14 22:55:45 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/ [3422/3422] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets.tmp.tmp" [1]
+https://ftp.pdl.cmu.edu/robots.txt:
+2025-04-14 22:55:45 ERROR 404: Not Found.
+2025-04-14 22:55:46 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/?C=N;O=D [3422/3422] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/index.html?C=N;O=D.tmp.tmp" [1]
+2025-04-14 22:55:47 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/?C=M;O=A [3422/3422] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/index.html?C=M;O=A.tmp.tmp" [1]
+2025-04-14 22:55:47 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/?C=S;O=A [3422/3422] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/index.html?C=S;O=A.tmp.tmp" [1]
+2025-04-14 22:55:47 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/?C=D;O=A [3422/3422] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/index.html?C=D;O=A.tmp.tmp" [1]
+2025-04-14 22:55:48 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/ [2440/2440] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/index.html.tmp.tmp" [1]
+2025-04-14 22:55:48 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/README [1817/1817] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/README.tmp.tmp" [1]
+2025-04-14 22:55:48 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/ [1264/1264] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/index.html.tmp.tmp" [1]
+2025-04-14 22:55:48 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/ [25392] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/index.html.tmp.tmp" [1]
+2025-04-14 22:55:49 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/ [3636/3636] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/index.html.tmp.tmp" [1]
+2025-04-14 22:55:49 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaCDN/ [1587/1587] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaCDN/index.html.tmp.tmp" [1]
+2025-04-14 22:55:49 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaKV/ [2215/2215] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaKV/index.html.tmp.tmp" [1]
+2025-04-14 22:55:49 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaStorage/ [2155/2155] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaStorage/index.html.tmp.tmp" [1]
+2025-04-14 22:55:49 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/ [4178/4178] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/index.html.tmp.tmp" [1]
+2025-04-14 22:55:50 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/ [2680/2680] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/index.html.tmp.tmp" [1]
+2025-04-14 22:55:50 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentBlock/ [1264/1264] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentBlock/index.html.tmp.tmp" [1]
+2025-04-14 22:55:50 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentPhoto/ [1382/1382] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentPhoto/index.html.tmp.tmp" [1]
+2025-04-14 22:55:51 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/ [13748] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/index.html.tmp.tmp" [1]
+2025-04-14 22:55:51 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/wiki/ [1587/1587] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/wiki/index.html.tmp.tmp" [1]
+2025-04-14 22:55:52 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/?C=N;O=A [3422/3422] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/index.html?C=N;O=A.tmp.tmp" [1]
+2025-04-14 22:55:52 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/?C=M;O=D [3422/3422] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/index.html?C=M;O=D.tmp.tmp" [1]
+2025-04-14 22:55:53 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/?C=S;O=D [3422/3422] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/index.html?C=S;O=D.tmp.tmp" [1]
+2025-04-14 22:55:53 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/?C=D;O=D [3422/3422] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/index.html?C=D;O=D.tmp.tmp" [1]
+2025-04-14 22:55:53 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/?C=N;O=D [2440/2440] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/index.html?C=N;O=D.tmp.tmp" [1]
+2025-04-14 22:55:54 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/?C=M;O=A [2440/2440] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/index.html?C=M;O=A.tmp.tmp" [1]
+2025-04-14 22:55:54 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/?C=S;O=A [2440/2440] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/index.html?C=S;O=A.tmp.tmp" [1]
+2025-04-14 22:55:54 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/?C=D;O=A [2440/2440] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/index.html?C=D;O=A.tmp.tmp" [1]
+2025-04-14 22:55:54 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/fast23_glcache/ [1485/1485] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/fast23_glcache/index.html.tmp.tmp" [1]
+2025-04-14 22:55:55 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/ [2436/2436] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/index.html.tmp.tmp" [1]
+2025-04-14 22:55:55 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/nsdi21_segcache/ [1883/1883] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/nsdi21_segcache/index.html.tmp.tmp" [1]
+2025-04-14 22:55:58 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/ [13141] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/index.html.tmp.tmp" [1]
+2025-04-14 22:55:59 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/osdi20_workload/ [1060/1060] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/osdi20_workload/index.html.tmp.tmp" [1]
+2025-04-14 22:55:59 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/sosp23/ [1039/1039] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/sosp23/index.html.tmp.tmp" [1]
+2025-04-14 22:55:59 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/ [3889/3889] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/index.html.tmp.tmp" [1]
+2025-04-14 22:55:59 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/?C=N;O=D [1264/1264] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/index.html?C=N;O=D.tmp.tmp" [1]
+2025-04-14 22:56:00 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/?C=M;O=A [1264/1264] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/index.html?C=M;O=A.tmp.tmp" [1]
+2025-04-14 22:56:00 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/?C=S;O=A [1264/1264] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/index.html?C=S;O=A.tmp.tmp" [1]
+2025-04-14 22:56:00 URL:https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/?C=D;O=A [1264/1264] -> "ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/index.html?C=D;O=A.tmp.tmp" [1]
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/v1/:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/v2/:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/?C=N;O=D:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/?C=M;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/?C=S;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/?C=D;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w01.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:04 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w02.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w03.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w04.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:05 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w05.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w06.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:06 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w07.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w08.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w09.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:07 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w10.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w11.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w12.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:08 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w13.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w14.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w15.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:09 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w16.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w17.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w18.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:10 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w19.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w20.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:11 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w21.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w22.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w23.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:12 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w24.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w25.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w26.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:13 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w27.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w28.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w29.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:14 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w30.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w31.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w32.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:15 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w33.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w34.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:16 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w35.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w36.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w37.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:17 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w38.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w39.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w40.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:18 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w41.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w42.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w43.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:19 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w44.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w45.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w46.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:20 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w47.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w48.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:21 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w49.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w50.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w51.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:22 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w52.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w53.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w54.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:23 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w55.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w56.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w57.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:24 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w58.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w59.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:25 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w60.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w61.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w62.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:26 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w63.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w64.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w65.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:27 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w66.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w67.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w68.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:28 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w69.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w70.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w71.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:29 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w72.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w73.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:30 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w74.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w75.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w76.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:31 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w77.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w78.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w79.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:32 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w80.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w81.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w82.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:33 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w83.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w84.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w85.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:34 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w86.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w87.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:35 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w88.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w89.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w90.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:36 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w91.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w92.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w93.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:37 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w94.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w95.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w96.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:38 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w97.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w98.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w99.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:39 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w100.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w101.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w102.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:40 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w103.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w104.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:41 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w105.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w106.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/?C=N;O=D:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/?C=M;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/?C=S;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/?C=D;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/fiu_casa-110108-112108.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/fiu_homes-110108-112108.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/fiu_ikki-110108-112108.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/fiu_madmax-110108-112108.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/fiu_online.cs.fiu.edu-110108-113008.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/fiu_webmail+online.cs.fiu.edu-110108-113008.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/fiu_webmail.cs.fiu.edu-110108-113008.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/fiu_webresearch-030409-033109.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/fiu_webusers-030409-033109.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaCDN/?C=N;O=D:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaCDN/?C=M;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaCDN/?C=S;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaCDN/?C=D;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaCDN/meta_reag.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaCDN/meta_rnha.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaCDN/meta_rprn.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaKV/?C=N;O=D:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaKV/?C=M;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaKV/?C=S;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaKV/?C=D;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaKV/202206_kv_traces_all.csv.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:56 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaKV/202210_kv_traces_all_sort.csv.oracleGeneral.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaKV/202312_kv_traces_all.csv.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaKV/202401_kv_traces_all_sort.csv.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:56:57 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaKV/meta_kvcache_traces_1.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaStorage/?C=N;O=D:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaStorage/?C=M;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaStorage/?C=S;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaStorage/?C=D;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaStorage/block_traces_1.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:57:00 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaStorage/block_traces_2.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaStorage/block_traces_3.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaStorage/block_traces_4.oracleGeneral.bin.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:57:01 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaStorage/block_traces_5.oracleGeneral.bin.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/?C=N;O=D:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/?C=M;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/?C=S;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/?C=D;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_hm_0.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_prn_0.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_prn_1.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_proj_0.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_proj_1.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_proj_2.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_proj_4.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_prxy_0.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_prxy_1.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_src1_0.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_src1_1.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_usr_1.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_usr_2.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_web_2.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/?C=N;O=D:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/?C=M;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/?C=S;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/?C=D;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/2016_LUN0.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/2016_LUN1.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/2016_LUN2.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/2016_LUN3.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/2016_LUN4.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/2016_LUN6.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:57:17 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/README.txt 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/conv.py:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentBlock/?C=N;O=D:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentBlock/?C=M;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentBlock/?C=S;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentBlock/?C=D;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentBlock/v1/:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentBlock/v2/:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentPhoto/?C=N;O=D:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentPhoto/?C=M;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentPhoto/?C=S;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentPhoto/?C=D;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentPhoto/tencent_photo1.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentPhoto/tencent_photo2.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/?C=N;O=D:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/?C=M;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/?C=S;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/?C=D;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster1.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster2.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster3.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster4.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster5.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster6.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster7.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster8.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster9.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster10.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster11.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster12.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster13.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster14.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster15.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster16.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster17.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster18.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster19.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster20.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster21.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster22.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster23.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster24.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster25.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster26.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster27.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster28.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster29.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster30.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster31.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster32.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster33.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster34.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster35.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster36.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster37.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster38.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster39.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster40.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster41.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster42.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster43.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster44.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster45.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster46.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster47.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster48.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster49.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster50.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster51.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster52.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster53.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster54.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/sample/:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/wiki/?C=N;O=D:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/wiki/?C=M;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/wiki/?C=S;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/wiki/?C=D;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/wiki/wiki_2016u.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/wiki/wiki_2019t.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/wiki/wiki_2019u.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/?C=N;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/?C=M;O=D:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/?C=S;O=D:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/?C=D;O=D:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/fast23_glcache/?C=N;O=D:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/fast23_glcache/?C=M;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/fast23_glcache/?C=S;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/fast23_glcache/?C=D;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/fast23_glcache/cloudphysics/:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/fast23_glcache/msr/:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/fast23_glcache/wiki_2016u.oracleGeneral.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/?C=N;O=D:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/?C=M;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/?C=S;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/?C=D;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/alibabaBlock/:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/cloudphysics/:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/fiu/:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/msr/:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/tencentBlock/:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/tencentPhoto/:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/twitter/:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/wiki/:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/nsdi21_segcache/?C=N;O=D:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/nsdi21_segcache/?C=M;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/nsdi21_segcache/?C=S;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/nsdi21_segcache/?C=D;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/nsdi21_segcache/c.sbin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/nsdi21_segcache/mix1_cache.sbin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/nsdi21_segcache/n.sbin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/nsdi21_segcache/u1.sbin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/nsdi21_segcache/u2.sbin.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/?C=N;O=D:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/?C=M;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/?C=S;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/?C=D;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster1.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster2.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster3.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster4.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster5.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster6.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster7.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster8.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster9.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster10.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster11.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster12.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster13.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster14.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster15.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster16.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster17.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster18.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster19.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster20.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster21.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster22.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster23.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster24.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster25.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster26.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster27.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster28.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster29.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster30.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster31.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster32.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster33.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster34.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster35.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster36.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster37.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster38.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster39.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster40.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster41.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster42.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster43.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster44.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster45.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster46.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster47.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster48.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster49.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster50.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster51.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster52.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster53.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster54.sort.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/sample10/:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/sample100/:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/sha1sum:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/osdi20_workload/?C=N;O=D:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/osdi20_workload/?C=M;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/osdi20_workload/?C=S;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/osdi20_workload/?C=D;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/osdi20_workload/open_source/:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/sosp23/?C=N;O=D:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/sosp23/?C=M;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/sosp23/?C=S;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/sosp23/?C=D;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/sosp23/oneHit.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/?C=N;O=D:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/?C=M;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/?C=S;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/?C=D;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/alibabaBlock.sample10.txt.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:59:04 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/alibabaBlock.sample100.txt.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/metaCDN.sample10.txt.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/metaCDN.txt.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:59:05 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/metaKV.sample10.txt.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/metaKV.sample100.txt.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/tencentBlock.sample10.txt.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:59:06 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/tencentBlock.sample100.txt.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/tencentPhoto.sample10.txt.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/tencentPhoto.sample100.txt.zst:
+Remote file does not exist -- broken link!!!
+2025-04-14 22:59:07 URL: https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/twiter_cluster52.sample10.txt.zst 200 OK
+unlink: No such file or directory
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/twiter_cluster52.sample100.txt.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/w01_vscsi2.vscsitrace.pre_lcs.lcs_v2.zst:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/?C=N;O=A:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/?C=M;O=D:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/?C=S;O=D:
+Remote file does not exist -- broken link!!!
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/?C=D;O=D:
+Remote file does not exist -- broken link!!!
+Found 336 broken links.
+
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_src1_1.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_prxy_0.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/conv.py
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster22.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/?C=M;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster34.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/cloudphysics/
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaKV/202206_kv_traces_all.csv.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w08.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w18.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w28.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_prn_1.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w48.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w68.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w78.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/sample/
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/fast23_glcache/?C=S;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w98.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster13.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster15.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/wiki/?C=N;O=D
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/?C=M;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster20.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster17.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster19.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/sample10/
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/w01_vscsi2.vscsitrace.pre_lcs.lcs_v2.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaStorage/?C=M;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaCDN/meta_rprn.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/twitter/
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/sosp23/?C=D;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w03.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w23.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaCDN/?C=D;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster5.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentPhoto/tencent_photo2.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_proj_1.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/twiter_cluster52.sample100.txt.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster30.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster32.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster34.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/sample100/
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/sosp23/?C=S;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster41.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster53.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaCDN/?C=S;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/?C=D;O=D
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster3.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster27.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster39.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/2016_LUN0.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/?C=N;O=D
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/?C=D;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster40.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster42.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w15.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w25.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster44.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w45.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w65.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w75.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentPhoto/?C=N;O=D
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w95.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w85.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster46.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster48.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/nsdi21_segcache/n.sbin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/osdi20_workload/?C=D;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/?C=N;O=D
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/?C=M;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster25.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster13.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/?C=S;O=D
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/?C=S;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w20.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/?C=D;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w40.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w50.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/alibabaBlock/
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/fast23_glcache/?C=M;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaKV/?C=D;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w90.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w70.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster23.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster11.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/osdi20_workload/?C=S;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/sosp23/oneHit.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/nsdi21_segcache/u2.sbin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaCDN/meta_reag.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_usr_1.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaKV/?C=S;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/?C=S;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster2.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/fast23_glcache/msr/
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster4.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster46.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaKV/202312_kv_traces_all.csv.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster6.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster8.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster8.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w12.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w22.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w32.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w42.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_proj_4.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w62.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/?C=N;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w82.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w92.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster11.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/wiki/wiki_2016u.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/sosp23/?C=M;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster44.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster32.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/fiu/
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaCDN/?C=M;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster18.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/fiu_webresearch-030409-033109.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaStorage/block_traces_4.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/2016_LUN3.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w104.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster21.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster23.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster25.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/wiki/?C=D;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster27.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaCDN/meta_rnha.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster29.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster42.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster30.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_hm_0.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/sha1sum
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster28.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster16.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/2016_LUN1.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/metaCDN.txt.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/nsdi21_segcache/?C=N;O=D
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster37.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/?C=M;O=D
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster39.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/fiu_webmail+online.cs.fiu.edu-110108-113008.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/?C=M;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/tencentPhoto.sample10.txt.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/osdi20_workload/open_source/
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/msr/
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/wiki/?C=S;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w106.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/osdi20_workload/?C=M;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster14.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/fiu_homes-110108-112108.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster51.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaKV/?C=M;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/?C=M;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentBlock/?C=N;O=D
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/?C=D;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster37.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaStorage/block_traces_1.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w101.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster1.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/?C=N;O=D
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster49.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster50.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster52.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster54.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentPhoto/?C=D;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/?C=D;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/wiki/
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/?C=N;O=D
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_prxy_1.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster35.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster47.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w17.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w37.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/?C=S;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w57.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/2016_LUN6.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w67.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w87.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/?C=S;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentPhoto/?C=S;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/?C=N;O=D
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/metaKV.sample100.txt.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_src1_0.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster33.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster21.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaStorage/?C=N;O=D
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster12.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster19.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster14.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster16.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster18.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_prn_0.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w09.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w29.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w39.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w59.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/wiki/?C=M;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w79.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w89.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w99.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/?C=D;O=D
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster6.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_proj_2.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster54.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w04.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w14.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w34.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster31.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster4.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentPhoto/tencent_photo1.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w64.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_proj_0.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w84.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w54.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster33.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster35.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/tencentBlock.sample10.txt.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/?C=S;O=D
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/nsdi21_segcache/c.sbin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_web_2.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster41.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster52.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster40.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/?C=N;O=D
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster43.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/tencentBlock/
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/nsdi21_segcache/?C=D;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster45.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster38.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster2.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster26.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster47.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster49.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/?C=M;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaKV/202401_kv_traces_all_sort.csv.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentBlock/v1/
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/?C=M;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w06.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/fast23_glcache/?C=N;O=D
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentPhoto/?C=M;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w36.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w46.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w56.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w26.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w76.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w96.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster12.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster24.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/nsdi21_segcache/?C=S;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/fiu_webusers-030409-033109.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentBlock/v2/
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/fast23_glcache/cloudphysics/
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/nsdi21_segcache/u1.sbin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_usr_2.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/wiki/wiki_2019t.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentBlock/?C=D;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster10.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w01.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w11.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/?C=D;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w31.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w51.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w61.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w71.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w81.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster9.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster1.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster3.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster5.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/?C=D;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster7.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster9.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/sosp23/?C=N;O=D
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaStorage/block_traces_3.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaCDN/?C=N;O=D
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentBlock/?C=S;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster45.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster10.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/?C=S;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster7.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/2016_LUN4.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/fiu_madmax-110108-112108.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/?C=D;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/?C=M;O=D
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w43.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/?C=S;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w53.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w73.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaStorage/?C=D;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w93.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster31.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster43.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster20.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster22.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster24.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/?C=N;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster26.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster17.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/2016_LUN2.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster29.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster28.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/metaCDN.sample10.txt.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/?C=N;O=D
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/v1/
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/?C=S;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster36.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/osdi20_workload/?C=N;O=D
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster38.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/fiu_online.cs.fiu.edu-110108-113008.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/alibabaBlock.sample10.txt.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster15.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaStorage/?C=S;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/nsdi21_segcache/?C=M;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/txt/tencentPhoto.sample100.txt.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/v2/
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaKV/?C=N;O=D
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/?C=N;O=D
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/fiu_ikki-110108-112108.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/nsdi21_segcache/mix1_cache.sbin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster51.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/?C=D;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/open_source/cluster53.sort.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/wiki/wiki_2019u.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/fiu_webmail.cs.fiu.edu-110108-113008.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/fiu_casa-110108-112108.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster50.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster48.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster36.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentBlock/?C=M;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/?C=M;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w102.oracleGeneral.bin.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/fast23_glcache/?C=D;O=A
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/fast23_glcache/wiki_2016u.oracleGeneral.zst
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/hotos23_QDLP/tencentPhoto/
+https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/?C=S;O=A
+
+FINISHED --2025-04-14 22:59:10--
+Total wall clock time: 3m 27s
+Downloaded: 38 files, 133K in 0.09s (1.41 MB/s)

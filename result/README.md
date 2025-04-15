@@ -469,6 +469,16 @@
 > **Last Promotion**: 1,706,336  
 > **Promotion Reduced**: 11,354,472  
 
+> ![graph](./graph/w01[0.2].png)  
+> **Trace Path**: w01.oracleGeneral.bin.zst  
+> **Desc**: 0.2  
+> **Cache Size**: 130835  
+> **Ignore Obj Size**: 0  
+> **Total Request**: 215,796,257  
+> **First Promotion**: 13,471,298  
+> **Last Promotion**: 3,356,367  
+> **Promotion Reduced**: 10,114,931  
+
 > ![graph](./graph/w01[0.4].png)  
 > **Trace Path**: w01.oracleGeneral.bin.zst  
 > **Desc**: 0.4  
