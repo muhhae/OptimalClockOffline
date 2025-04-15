@@ -163,7 +163,7 @@ for i in all_i:
     plt.title(f"Miss ratio across cache size (i = {i})")
     plt.xlabel("cache size")
     plt.ylabel("Miss Ratio")
-    plt.savefig(overal_path + "/mr_i_" + str(i) + ".png")
+    plt.savefig(overal_path + "/miss_ratio_i_" + str(i) + ".png")
     plt.close()
 
 for desc in overall_missratio:
@@ -181,7 +181,7 @@ for desc in overall_missratio:
     plt.title(f"Miss ratio across i (cache size = {desc})")
     plt.xlabel("Iteration")
     plt.ylabel("Miss Ratio")
-    plt.savefig(overal_path + "/mr_s_" + str(desc) + ".png")
+    plt.savefig(overal_path + "/miss_ratio_s_" + str(desc) + ".png")
     plt.close()
 
 all_i = sorted({i for desc in overall_promotions.values() for i in desc})
@@ -199,7 +199,7 @@ for i in all_i:
     plt.title(f"Promotions across cache size (i = {i})")
     plt.xlabel("Cache Size")
     plt.ylabel("Promotions")
-    plt.savefig(overal_path + "/p_i_" + str(i) + ".png")
+    plt.savefig(overal_path + "/promotions_i_" + str(i) + ".png")
     plt.close()
 
 for desc in overall_promotions:
@@ -217,7 +217,7 @@ for desc in overall_promotions:
     plt.title(f"Promotions across i (cache size = {desc})")
     plt.xlabel("Iteration")
     plt.ylabel("Promotions")
-    plt.savefig(overal_path + "/p_s_" + str(desc) + ".png")
+    plt.savefig(overal_path + "/promotions_s_" + str(desc) + ".png")
     plt.close()
 
 all_i = sorted({i for desc in overall_percent_promotions.values() for i in desc})
@@ -235,7 +235,7 @@ for i in all_i:
     plt.title(f"Promotions across cache size (i = {i})")
     plt.xlabel("Cache Size")
     plt.ylabel("Promotions")
-    plt.savefig(overal_path + "/p_i_" + str(i) + ".png")
+    plt.savefig(overal_path + "/promotions_percent_i_" + str(i) + ".png")
     plt.close()
 
 for desc in overall_percent_promotions:
@@ -253,7 +253,7 @@ for desc in overall_percent_promotions:
     plt.title(f"Promotions across i (cache size = {desc})")
     plt.xlabel("Iteration")
     plt.ylabel("Promotions")
-    plt.savefig(overal_path + "/p_s_" + str(desc) + ".png")
+    plt.savefig(overal_path + "/promotions_percent_s_" + str(desc) + ".png")
     plt.close()
 
 
@@ -276,7 +276,7 @@ for i in all_i:
     plt.title(f"Miss ratio increased across cache size (i = {i})")
     plt.xlabel("cache size")
     plt.ylabel("current_missratio - first_missratio")
-    plt.savefig(overal_path + "/dmr_i_" + str(i) + ".png")
+    plt.savefig(overal_path + "/d_miss_ratio_i_" + str(i) + ".png")
     plt.close()
 
 for desc in overall_d_missratio:
@@ -294,7 +294,7 @@ for desc in overall_d_missratio:
     plt.title(f"Miss ratio increased across i (cache size = {desc})")
     plt.xlabel("Iteration")
     plt.ylabel("current_missratio - first_missratio")
-    plt.savefig(overal_path + "/dmr_s_" + str(desc) + ".png")
+    plt.savefig(overal_path + "/d_miss_ratio_s_" + str(desc) + ".png")
     plt.close()
 
 all_i = sorted({i for desc in overall_d_promotions.values() for i in desc})
@@ -312,7 +312,7 @@ for i in all_i:
     plt.title(f"Promotions reduced across cache size (i = {i})")
     plt.xlabel("Cache Size")
     plt.ylabel("first_promotion - current_promotions")
-    plt.savefig(overal_path + "/dp_i_" + str(i) + ".png")
+    plt.savefig(overal_path + "/d_promotions_i_" + str(i) + ".png")
     plt.close()
 
 for desc in overall_d_promotions:
@@ -330,7 +330,7 @@ for desc in overall_d_promotions:
     plt.title(f"Promotions reduced across i (cache size = {desc})")
     plt.xlabel("Iteration")
     plt.ylabel("first_promotion - current_promotions")
-    plt.savefig(overal_path + "/dp_s_" + str(desc) + ".png")
+    plt.savefig(overal_path + "/d_promotions_s_" + str(desc) + ".png")
     plt.close()
 
 all_i = sorted({i for desc in overall_d_percent_promotions.values() for i in desc})
@@ -348,7 +348,7 @@ for i in all_i:
     plt.title(f"Promotions reduced across cache size (i = {i})")
     plt.xlabel("Cache Size")
     plt.ylabel("first_percent_promotion - current_percent_promotions")
-    plt.savefig(overal_path + "/dp_i_" + str(i) + ".png")
+    plt.savefig(overal_path + "/d_promotions_percent_i_" + str(i) + ".png")
     plt.close()
 
 for desc in overall_d_percent_promotions:
@@ -366,5 +366,5 @@ for desc in overall_d_percent_promotions:
     plt.title(f"Promotions reduced across i (cache size = {desc})")
     plt.xlabel("Iteration")
     plt.ylabel("first_percent_promotion - current_percent_promotions")
-    plt.savefig(overal_path + "/dp_s_" + str(desc) + ".png")
+    plt.savefig(overal_path + "/d_promotions_percent_s_" + str(desc) + ".png")
     plt.close()
