@@ -81,6 +81,16 @@
 > **Last Promotion**: 65,063,839  
 > **Promotion Reduced**: 46,103,281  
 
+> ![graph](./graph/2016_LUN1[0.4].png)  
+> **Trace Path**: 2016_LUN1.oracleGeneral.zst  
+> **Desc**: 0.4  
+> **Cache Size**: 915064  
+> **Ignore Obj Size**: 0  
+> **Total Request**: 492,030,661  
+> **First Promotion**: 59,773,712  
+> **Last Promotion**: 41,153,782  
+> **Promotion Reduced**: 18,619,930  
+
 ## 7 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/v2/7.oracleGeneral.zst
 > ![graph](./graph/7[0.001].png)  
 > **Trace Path**: 7.oracleGeneral.zst  
