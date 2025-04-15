@@ -114,6 +114,16 @@
 > **Last Promotion**: 10,830,932  
 > **Promotion Reduced**: 25,334,365  
 
+> ![graph](./graph/2016_LUN1[0.001,ignore_obj_size].png)  
+> **Trace Path**: 2016_LUN1.oracleGeneral.zst  
+> **Desc**: 0.001,ignore_obj_size  
+> **Cache Size**: 60241  
+> **Ignore Obj Size**: 1  
+> **Total Request**: 492,030,661  
+> **First Promotion**: 37,197,962  
+> **Last Promotion**: 12,127,617  
+> **Promotion Reduced**: 25,070,345  
+
 > ![graph](./graph/2016_LUN1[0.01].png)  
 > **Trace Path**: 2016_LUN1.oracleGeneral.zst  
 > **Desc**: 0.01  
@@ -123,6 +133,16 @@
 > **First Promotion**: 47,432,356  
 > **Last Promotion**: 12,375,484  
 > **Promotion Reduced**: 35,056,872  
+
+> ![graph](./graph/2016_LUN1[0.01,ignore_obj_size].png)  
+> **Trace Path**: 2016_LUN1.oracleGeneral.zst  
+> **Desc**: 0.01,ignore_obj_size  
+> **Cache Size**: 602419  
+> **Ignore Obj Size**: 1  
+> **Total Request**: 492,030,661  
+> **First Promotion**: 44,445,347  
+> **Last Promotion**: 10,815,119  
+> **Promotion Reduced**: 33,630,228  
 
 > ![graph](./graph/2016_LUN1[0.1].png)  
 > **Trace Path**: 2016_LUN1.oracleGeneral.zst  
@@ -173,6 +193,16 @@
 > **First Promotion**: 59,773,712  
 > **Last Promotion**: 41,153,782  
 > **Promotion Reduced**: 18,619,930  
+
+> ![graph](./graph/2016_LUN1[0.4,ignore_obj_size].png)  
+> **Trace Path**: 2016_LUN1.oracleGeneral.zst  
+> **Desc**: 0.4,ignore_obj_size  
+> **Cache Size**: 24096764  
+> **Ignore Obj Size**: 1  
+> **Total Request**: 492,030,661  
+> **First Promotion**: 61,435,620  
+> **Last Promotion**: 40,928,407  
+> **Promotion Reduced**: 20,507,213  
 
 ## 7 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/v2/7.oracleGeneral.zst
 > ![graph](./graph/7[0.001].png)  
