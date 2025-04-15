@@ -8,9 +8,14 @@ from pathlib import Path
 from collections import defaultdict
 
 
-def extract_desc(filename):
+def extract_desc(filename: str) -> (str, list):
     prefix = filename[: filename.rfind("[")]
     desc = filename[filename.rfind("[") + 1 : filename.rfind("]")]
+    desc = desc.split(",")
+    desc = [
+        {x[: x.find("=")]: x[x.find("=") + 1 :]} if x.find("=") != -1 else x
+        for x in desc
+    ]
     return (prefix, desc)
 
 
@@ -38,6 +43,15 @@ overall_d_percent_missratio = defaultdict(lambda: defaultdict(list))
 overall_d_promotions = defaultdict(lambda: defaultdict(list))
 overall_d_percent_promotions = defaultdict(lambda: defaultdict(list))
 
+ignore_obj_size_overall_missratio = defaultdict(lambda: defaultdict(list))
+ignore_obj_size_overall_percent_missratio = defaultdict(lambda: defaultdict(list))
+ignore_obj_size_overall_promotions = defaultdict(lambda: defaultdict(list))
+ignore_obj_size_overall_percent_promotions = defaultdict(lambda: defaultdict(list))
+ignore_obj_size_overall_d_missratio = defaultdict(lambda: defaultdict(list))
+ignore_obj_size_overall_d_percent_missratio = defaultdict(lambda: defaultdict(list))
+ignore_obj_size_overall_d_promotions = defaultdict(lambda: defaultdict(list))
+ignore_obj_size_overall_d_percent_promotions = defaultdict(lambda: defaultdict(list))
+
 for file in files:
     if Path(file).stat().st_size == 0:
         continue
@@ -54,56 +68,108 @@ for file in files:
     iter_2 = [i for i in range(2, 21)]
 
     _, desc = extract_desc(file)
-    desc = desc.split(",")
     size = float(desc[0])
 
-    miss_ratio = [d.miss_ratio for d in logs]
-    for i, e in zip(iter, miss_ratio):
-        overall_missratio[size][i].append(e)
-        overall_missratio[0][i].append(e)
+    if desc.count("ignore_obj_size"):
+        miss_ratio = [d.miss_ratio for d in logs]
+        for i, e in zip(iter, miss_ratio):
+            ignore_obj_size_overall_missratio[size][i].append(e)
+            ignore_obj_size_overall_missratio[0][i].append(e)
 
-    d_miss_ratio = [miss_ratio[0] - miss_ratio[1] for i in range(1, len(miss_ratio))]
-    for i, e in zip(iter_2, d_miss_ratio):
-        overall_d_missratio[size][i].append(e)
-        overall_d_missratio[0][i].append(e)
+        d_miss_ratio = [
+            miss_ratio[0] - miss_ratio[1] for i in range(1, len(miss_ratio))
+        ]
+        for i, e in zip(iter_2, d_miss_ratio):
+            ignore_obj_size_overall_d_missratio[size][i].append(e)
+            ignore_obj_size_overall_d_missratio[0][i].append(e)
 
-    percent_missratio = [d.miss_ratio / logs[0].miss_ratio for d in logs]
-    for i, e in zip(iter, percent_missratio):
-        overall_percent_missratio[size][i].append(e)
-        overall_percent_missratio[0][i].append(e)
+        percent_missratio = [d.miss_ratio / logs[0].miss_ratio for d in logs]
+        for i, e in zip(iter, percent_missratio):
+            ignore_obj_size_overall_percent_missratio[size][i].append(e)
+            ignore_obj_size_overall_percent_missratio[0][i].append(e)
 
-    d_percent_missratio = [
-        percent_missratio[0] - percent_missratio[i]
-        for i in range(1, len(percent_missratio))
-    ]
-    for i, e in zip(iter_2, d_percent_missratio):
-        overall_d_percent_missratio[size][i].append(e)
-        overall_d_percent_missratio[0][i].append(e)
+        d_percent_missratio = [
+            percent_missratio[0] - percent_missratio[i]
+            for i in range(1, len(percent_missratio))
+        ]
+        for i, e in zip(iter_2, d_percent_missratio):
+            ignore_obj_size_overall_d_percent_missratio[size][i].append(e)
+            ignore_obj_size_overall_d_percent_missratio[0][i].append(e)
 
-    n_promotion = [d.n_promoted for d in logs]
-    for i, e in zip(iter, n_promotion):
-        overall_promotions[size][i].append(e)
-        overall_promotions[0][i].append(e)
+        n_promotion = [d.n_promoted for d in logs]
+        for i, e in zip(iter, n_promotion):
+            ignore_obj_size_overall_promotions[size][i].append(e)
+            ignore_obj_size_overall_promotions[0][i].append(e)
 
-    d_n_promotion = [
-        n_promotion[0] - n_promotion[i] for i in range(1, len(n_promotion))
-    ]
-    for i, e in zip(iter_2, d_n_promotion):
-        overall_d_promotions[size][i].append(e)
-        overall_d_promotions[0][i].append(e)
+        d_n_promotion = [
+            n_promotion[0] - n_promotion[i] for i in range(1, len(n_promotion))
+        ]
+        for i, e in zip(iter_2, d_n_promotion):
+            ignore_obj_size_overall_d_promotions[size][i].append(e)
+            ignore_obj_size_overall_d_promotions[0][i].append(e)
 
-    n_percent_promotion = [d.n_promoted / logs[0].n_promoted for d in logs]
-    for i, e in zip(iter, n_percent_promotion):
-        overall_percent_promotions[size][i].append(e)
-        overall_percent_promotions[0][i].append(e)
+        n_percent_promotion = [d.n_promoted / logs[0].n_promoted for d in logs]
+        for i, e in zip(iter, n_percent_promotion):
+            ignore_obj_size_overall_percent_promotions[size][i].append(e)
+            ignore_obj_size_overall_percent_promotions[0][i].append(e)
 
-    d_n_percent_promotion = [
-        n_percent_promotion[0] - n_percent_promotion[i]
-        for i in range(1, len(n_percent_promotion))
-    ]
-    for i, e in zip(iter_2, d_n_percent_promotion):
-        overall_d_percent_promotions[size][i].append(e)
-        overall_d_percent_promotions[0][i].append(e)
+        d_n_percent_promotion = [
+            n_percent_promotion[0] - n_percent_promotion[i]
+            for i in range(1, len(n_percent_promotion))
+        ]
+        for i, e in zip(iter_2, d_n_percent_promotion):
+            ignore_obj_size_overall_d_percent_promotions[size][i].append(e)
+            ignore_obj_size_overall_d_percent_promotions[0][i].append(e)
+    else:
+        miss_ratio = [d.miss_ratio for d in logs]
+        for i, e in zip(iter, miss_ratio):
+            overall_missratio[size][i].append(e)
+            overall_missratio[0][i].append(e)
+
+        d_miss_ratio = [
+            miss_ratio[0] - miss_ratio[1] for i in range(1, len(miss_ratio))
+        ]
+        for i, e in zip(iter_2, d_miss_ratio):
+            overall_d_missratio[size][i].append(e)
+            overall_d_missratio[0][i].append(e)
+
+        percent_missratio = [d.miss_ratio / logs[0].miss_ratio for d in logs]
+        for i, e in zip(iter, percent_missratio):
+            overall_percent_missratio[size][i].append(e)
+            overall_percent_missratio[0][i].append(e)
+
+        d_percent_missratio = [
+            percent_missratio[0] - percent_missratio[i]
+            for i in range(1, len(percent_missratio))
+        ]
+        for i, e in zip(iter_2, d_percent_missratio):
+            overall_d_percent_missratio[size][i].append(e)
+            overall_d_percent_missratio[0][i].append(e)
+
+        n_promotion = [d.n_promoted for d in logs]
+        for i, e in zip(iter, n_promotion):
+            overall_promotions[size][i].append(e)
+            overall_promotions[0][i].append(e)
+
+        d_n_promotion = [
+            n_promotion[0] - n_promotion[i] for i in range(1, len(n_promotion))
+        ]
+        for i, e in zip(iter_2, d_n_promotion):
+            overall_d_promotions[size][i].append(e)
+            overall_d_promotions[0][i].append(e)
+
+        n_percent_promotion = [d.n_promoted / logs[0].n_promoted for d in logs]
+        for i, e in zip(iter, n_percent_promotion):
+            overall_percent_promotions[size][i].append(e)
+            overall_percent_promotions[0][i].append(e)
+
+        d_n_percent_promotion = [
+            n_percent_promotion[0] - n_percent_promotion[i]
+            for i in range(1, len(n_percent_promotion))
+        ]
+        for i, e in zip(iter_2, d_n_percent_promotion):
+            overall_d_percent_promotions[size][i].append(e)
+            overall_d_percent_promotions[0][i].append(e)
 
     # if Path(output_path).exists():
     #     continue
@@ -241,4 +307,45 @@ box_plot(
     "Promotions (relative) reduced",
     "First Promotions - Current Promotions (relative)",
     "d_promotions_percent",
+)
+
+box_plot(
+    ignore_obj_size_overall_missratio, "Miss Ratio", "Miss Ratio", "osi_miss_ratio"
+)
+box_plot(
+    ignore_obj_size_overall_percent_missratio,
+    "Miss Ratio (relative)",
+    "Miss Ratio (relative)",
+    "osi_miss_ratio_percent",
+)
+box_plot(overall_promotions, "Promotions", "Promotions", "osi_promotions")
+box_plot(
+    ignore_obj_size_overall_percent_promotions,
+    "Promotions (relative)",
+    "Promotions (relative)",
+    "osi_promotions_percent",
+)
+box_plot(
+    ignore_obj_size_overall_d_missratio,
+    "Miss Ratio reduced",
+    "First Miss Ratio - Current Miss Ratio",
+    "osi_d_miss_ratio",
+)
+box_plot(
+    ignore_obj_size_overall_d_percent_missratio,
+    "Miss Ratio (relative) reduced",
+    "First Miss Ratio - Current Miss Ratio (relative)",
+    "osi_d_miss_ratio_percent",
+)
+box_plot(
+    ignore_obj_size_overall_d_promotions,
+    "Promotions reduced",
+    "First Promotions - Current Promotions",
+    "osi_d_promotions",
+)
+box_plot(
+    ignore_obj_size_overall_d_percent_promotions,
+    "Promotions (relative) reduced",
+    "First Promotions - Current Promotions (relative)",
+    "osi_d_promotions_percent",
 )
