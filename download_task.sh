@@ -1,7 +1,7 @@
 #!/bin/bash
 
 input_file="traces.txt"
-output_file="~/task"
+output_file="$HOME/task"
 
 while IFS= read -r link; do
     if [ -z "$link" ] || [[ "$link" == \#* ]]; then
