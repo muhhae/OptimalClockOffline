@@ -95,6 +95,7 @@ for file in files:
         f"> ![graph](./graph/{prefix[prefix.rfind('/') + 1 :]}[{desc}].png)  \n"
     )
     readme.write(f"> **Trace Path**: {trace_path}  \n")
+    readme.write(f"> **Log Path**: [{file}]({file})  \n")
     readme.write(f"> **Desc**: {desc}  \n")
     readme.write(f"> **Cache Size**: {cache_size}  \n")
     readme.write(f"> **Ignore Obj Size**: {logs[0].ignore_obj_size}  \n")

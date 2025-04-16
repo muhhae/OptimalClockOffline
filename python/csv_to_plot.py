@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from dataclasses import dataclass
@@ -175,12 +176,11 @@ for file in files:
     #     continue
 
     max_iteration = 19
-    if d_miss_ratio.count(0) and d_n_promotion.count(0):
-        max_iteration = (
-            d_miss_ratio.index(0)
-            if d_miss_ratio.index(0) > d_n_promotion.index(0)
-            else d_n_promotion.index(0)
-        )
+    diffs = np.diff(n_promotion)
+    if np.any(diffs != 0):
+        max_iteration = np.max(np.where(diffs != 0)) + 1
+    else:
+        max_iteration = 1
 
     iter = [i for i in range(1, max_iteration + 2)]
     iter_2 = [i for i in range(2, max_iteration + 2)]
@@ -196,7 +196,9 @@ for file in files:
     axs[0].plot(iter, n_promotion, marker="o", linestyle="-", color="blue")
     axs[0].tick_params(axis="y", labelcolor="blue")
     axs[0].yaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
-    axs[0].xaxis.set_major_locator(ticker.MaxNLocator(nbins=21))
+    axs[0].xaxis.set_major_locator(
+        ticker.MaxNLocator(nbins=len(n_promotion), integer=True)
+    )
 
     ax2 = axs[0].twinx()
     ax2.set_ylabel("Miss Ratio", color="red")
@@ -211,7 +213,9 @@ for file in files:
     axs[1].plot(iter_2, d_n_promotion, marker="o", linestyle="-", color="blue")
     axs[1].tick_params(axis="y", labelcolor="blue")
     axs[1].yaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
-    axs[1].xaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
+    axs[1].xaxis.set_major_locator(
+        ticker.MaxNLocator(nbins=len(d_n_promotion), integer=True)
+    )
 
     ax3 = axs[1].twinx()
     ax3.set_ylabel("$\\Delta$ Miss Ratio", color="red")

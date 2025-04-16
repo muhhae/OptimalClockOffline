@@ -5,6 +5,7 @@
 ## 1351 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentBlock/v2/traces/1351.oracleGeneral.zst
 > ![graph](./graph/1351[0.001].png)  
 > **Trace Path**: 1351.oracleGeneral.zst  
+> **Log Path**: [../result/log/1351[0.001].csv](../result/log/1351[0.001].csv)  
 > **Desc**: 0.001  
 > **Cache Size**: 191  
 > **Ignore Obj Size**: 0  
@@ -15,6 +16,7 @@
 
 > ![graph](./graph/1351[0.001,ignore_obj_size].png)  
 > **Trace Path**: 1351.oracleGeneral.zst  
+> **Log Path**: [../result/log/1351[0.001,ignore_obj_size].csv](../result/log/1351[0.001,ignore_obj_size].csv)  
 > **Desc**: 0.001,ignore_obj_size  
 > **Cache Size**: 1496  
 > **Ignore Obj Size**: 1  
@@ -25,6 +27,7 @@
 
 > ![graph](./graph/1351[0.01].png)  
 > **Trace Path**: 1351.oracleGeneral.zst  
+> **Log Path**: [../result/log/1351[0.01].csv](../result/log/1351[0.01].csv)  
 > **Desc**: 0.01  
 > **Cache Size**: 1911  
 > **Ignore Obj Size**: 0  
@@ -35,6 +38,7 @@
 
 > ![graph](./graph/1351[0.01,ignore_obj_size].png)  
 > **Trace Path**: 1351.oracleGeneral.zst  
+> **Log Path**: [../result/log/1351[0.01,ignore_obj_size].csv](../result/log/1351[0.01,ignore_obj_size].csv)  
 > **Desc**: 0.01,ignore_obj_size  
 > **Cache Size**: 14965  
 > **Ignore Obj Size**: 1  
@@ -45,6 +49,7 @@
 
 > ![graph](./graph/1351[0.1].png)  
 > **Trace Path**: 1351.oracleGeneral.zst  
+> **Log Path**: [../result/log/1351[0.1].csv](../result/log/1351[0.1].csv)  
 > **Desc**: 0.1  
 > **Cache Size**: 19112  
 > **Ignore Obj Size**: 0  
@@ -55,6 +60,7 @@
 
 > ![graph](./graph/1351[0.1,ignore_obj_size].png)  
 > **Trace Path**: 1351.oracleGeneral.zst  
+> **Log Path**: [../result/log/1351[0.1,ignore_obj_size].csv](../result/log/1351[0.1,ignore_obj_size].csv)  
 > **Desc**: 0.1,ignore_obj_size  
 > **Cache Size**: 149651  
 > **Ignore Obj Size**: 1  
@@ -65,6 +71,7 @@
 
 > ![graph](./graph/1351[0.2].png)  
 > **Trace Path**: 1351.oracleGeneral.zst  
+> **Log Path**: [../result/log/1351[0.2].csv](../result/log/1351[0.2].csv)  
 > **Desc**: 0.2  
 > **Cache Size**: 38224  
 > **Ignore Obj Size**: 0  
@@ -75,6 +82,7 @@
 
 > ![graph](./graph/1351[0.2,ignore_obj_size].png)  
 > **Trace Path**: 1351.oracleGeneral.zst  
+> **Log Path**: [../result/log/1351[0.2,ignore_obj_size].csv](../result/log/1351[0.2,ignore_obj_size].csv)  
 > **Desc**: 0.2,ignore_obj_size  
 > **Cache Size**: 299303  
 > **Ignore Obj Size**: 1  
@@ -85,6 +93,7 @@
 
 > ![graph](./graph/1351[0.4].png)  
 > **Trace Path**: 1351.oracleGeneral.zst  
+> **Log Path**: [../result/log/1351[0.4].csv](../result/log/1351[0.4].csv)  
 > **Desc**: 0.4  
 > **Cache Size**: 76449  
 > **Ignore Obj Size**: 0  
@@ -95,6 +104,7 @@
 
 > ![graph](./graph/1351[0.4,ignore_obj_size].png)  
 > **Trace Path**: 1351.oracleGeneral.zst  
+> **Log Path**: [../result/log/1351[0.4,ignore_obj_size].csv](../result/log/1351[0.4,ignore_obj_size].csv)  
 > **Desc**: 0.4,ignore_obj_size  
 > **Cache Size**: 598606  
 > **Ignore Obj Size**: 1  
@@ -106,6 +116,7 @@
 ## 2016_LUN1 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/2016_LUN1.oracleGeneral.zst
 > ![graph](./graph/2016_LUN1[0.001].png)  
 > **Trace Path**: 2016_LUN1.oracleGeneral.zst  
+> **Log Path**: [../result/log/2016_LUN1[0.001].csv](../result/log/2016_LUN1[0.001].csv)  
 > **Desc**: 0.001  
 > **Cache Size**: 2287  
 > **Ignore Obj Size**: 0  
@@ -116,6 +127,7 @@
 
 > ![graph](./graph/2016_LUN1[0.001,ignore_obj_size].png)  
 > **Trace Path**: 2016_LUN1.oracleGeneral.zst  
+> **Log Path**: [../result/log/2016_LUN1[0.001,ignore_obj_size].csv](../result/log/2016_LUN1[0.001,ignore_obj_size].csv)  
 > **Desc**: 0.001,ignore_obj_size  
 > **Cache Size**: 60241  
 > **Ignore Obj Size**: 1  
@@ -126,6 +138,7 @@
 
 > ![graph](./graph/2016_LUN1[0.01].png)  
 > **Trace Path**: 2016_LUN1.oracleGeneral.zst  
+> **Log Path**: [../result/log/2016_LUN1[0.01].csv](../result/log/2016_LUN1[0.01].csv)  
 > **Desc**: 0.01  
 > **Cache Size**: 22876  
 > **Ignore Obj Size**: 0  
@@ -136,6 +149,7 @@
 
 > ![graph](./graph/2016_LUN1[0.01,ignore_obj_size].png)  
 > **Trace Path**: 2016_LUN1.oracleGeneral.zst  
+> **Log Path**: [../result/log/2016_LUN1[0.01,ignore_obj_size].csv](../result/log/2016_LUN1[0.01,ignore_obj_size].csv)  
 > **Desc**: 0.01,ignore_obj_size  
 > **Cache Size**: 602419  
 > **Ignore Obj Size**: 1  
@@ -146,6 +160,7 @@
 
 > ![graph](./graph/2016_LUN1[0.1].png)  
 > **Trace Path**: 2016_LUN1.oracleGeneral.zst  
+> **Log Path**: [../result/log/2016_LUN1[0.1].csv](../result/log/2016_LUN1[0.1].csv)  
 > **Desc**: 0.1  
 > **Cache Size**: 228766  
 > **Ignore Obj Size**: 0  
@@ -156,6 +171,7 @@
 
 > ![graph](./graph/2016_LUN1[0.1,ignore_obj_size].png)  
 > **Trace Path**: 2016_LUN1.oracleGeneral.zst  
+> **Log Path**: [../result/log/2016_LUN1[0.1,ignore_obj_size].csv](../result/log/2016_LUN1[0.1,ignore_obj_size].csv)  
 > **Desc**: 0.1,ignore_obj_size  
 > **Cache Size**: 6024191  
 > **Ignore Obj Size**: 1  
@@ -166,6 +182,7 @@
 
 > ![graph](./graph/2016_LUN1[0.2].png)  
 > **Trace Path**: 2016_LUN1.oracleGeneral.zst  
+> **Log Path**: [../result/log/2016_LUN1[0.2].csv](../result/log/2016_LUN1[0.2].csv)  
 > **Desc**: 0.2  
 > **Cache Size**: 457532  
 > **Ignore Obj Size**: 0  
@@ -176,6 +193,7 @@
 
 > ![graph](./graph/2016_LUN1[0.2,ignore_obj_size].png)  
 > **Trace Path**: 2016_LUN1.oracleGeneral.zst  
+> **Log Path**: [../result/log/2016_LUN1[0.2,ignore_obj_size].csv](../result/log/2016_LUN1[0.2,ignore_obj_size].csv)  
 > **Desc**: 0.2,ignore_obj_size  
 > **Cache Size**: 12048382  
 > **Ignore Obj Size**: 1  
@@ -186,6 +204,7 @@
 
 > ![graph](./graph/2016_LUN1[0.4].png)  
 > **Trace Path**: 2016_LUN1.oracleGeneral.zst  
+> **Log Path**: [../result/log/2016_LUN1[0.4].csv](../result/log/2016_LUN1[0.4].csv)  
 > **Desc**: 0.4  
 > **Cache Size**: 915064  
 > **Ignore Obj Size**: 0  
@@ -196,6 +215,7 @@
 
 > ![graph](./graph/2016_LUN1[0.4,ignore_obj_size].png)  
 > **Trace Path**: 2016_LUN1.oracleGeneral.zst  
+> **Log Path**: [../result/log/2016_LUN1[0.4,ignore_obj_size].csv](../result/log/2016_LUN1[0.4,ignore_obj_size].csv)  
 > **Desc**: 0.4,ignore_obj_size  
 > **Cache Size**: 24096764  
 > **Ignore Obj Size**: 1  
@@ -207,6 +227,7 @@
 ## 7 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/alibabaBlock/v2/7.oracleGeneral.zst
 > ![graph](./graph/7[0.001].png)  
 > **Trace Path**: 7.oracleGeneral.zst  
+> **Log Path**: [../result/log/7[0.001].csv](../result/log/7[0.001].csv)  
 > **Desc**: 0.001  
 > **Cache Size**: 131  
 > **Ignore Obj Size**: 0  
@@ -217,6 +238,7 @@
 
 > ![graph](./graph/7[0.001,ignore_obj_size].png)  
 > **Trace Path**: 7.oracleGeneral.zst  
+> **Log Path**: [../result/log/7[0.001,ignore_obj_size].csv](../result/log/7[0.001,ignore_obj_size].csv)  
 > **Desc**: 0.001,ignore_obj_size  
 > **Cache Size**: 4808  
 > **Ignore Obj Size**: 1  
@@ -227,6 +249,7 @@
 
 > ![graph](./graph/7[0.01].png)  
 > **Trace Path**: 7.oracleGeneral.zst  
+> **Log Path**: [../result/log/7[0.01].csv](../result/log/7[0.01].csv)  
 > **Desc**: 0.01  
 > **Cache Size**: 1314  
 > **Ignore Obj Size**: 0  
@@ -237,6 +260,7 @@
 
 > ![graph](./graph/7[0.01,ignore_obj_size].png)  
 > **Trace Path**: 7.oracleGeneral.zst  
+> **Log Path**: [../result/log/7[0.01,ignore_obj_size].csv](../result/log/7[0.01,ignore_obj_size].csv)  
 > **Desc**: 0.01,ignore_obj_size  
 > **Cache Size**: 48085  
 > **Ignore Obj Size**: 1  
@@ -247,6 +271,7 @@
 
 > ![graph](./graph/7[0.1].png)  
 > **Trace Path**: 7.oracleGeneral.zst  
+> **Log Path**: [../result/log/7[0.1].csv](../result/log/7[0.1].csv)  
 > **Desc**: 0.1  
 > **Cache Size**: 13148  
 > **Ignore Obj Size**: 0  
@@ -257,6 +282,7 @@
 
 > ![graph](./graph/7[0.1,ignore_obj_size].png)  
 > **Trace Path**: 7.oracleGeneral.zst  
+> **Log Path**: [../result/log/7[0.1,ignore_obj_size].csv](../result/log/7[0.1,ignore_obj_size].csv)  
 > **Desc**: 0.1,ignore_obj_size  
 > **Cache Size**: 480854  
 > **Ignore Obj Size**: 1  
@@ -267,6 +293,7 @@
 
 > ![graph](./graph/7[0.2].png)  
 > **Trace Path**: 7.oracleGeneral.zst  
+> **Log Path**: [../result/log/7[0.2].csv](../result/log/7[0.2].csv)  
 > **Desc**: 0.2  
 > **Cache Size**: 26296  
 > **Ignore Obj Size**: 0  
@@ -277,6 +304,7 @@
 
 > ![graph](./graph/7[0.2,ignore_obj_size].png)  
 > **Trace Path**: 7.oracleGeneral.zst  
+> **Log Path**: [../result/log/7[0.2,ignore_obj_size].csv](../result/log/7[0.2,ignore_obj_size].csv)  
 > **Desc**: 0.2,ignore_obj_size  
 > **Cache Size**: 961708  
 > **Ignore Obj Size**: 1  
@@ -287,6 +315,7 @@
 
 > ![graph](./graph/7[0.4].png)  
 > **Trace Path**: 7.oracleGeneral.zst  
+> **Log Path**: [../result/log/7[0.4].csv](../result/log/7[0.4].csv)  
 > **Desc**: 0.4  
 > **Cache Size**: 52593  
 > **Ignore Obj Size**: 0  
@@ -297,6 +326,7 @@
 
 > ![graph](./graph/7[0.4,ignore_obj_size].png)  
 > **Trace Path**: 7.oracleGeneral.zst  
+> **Log Path**: [../result/log/7[0.4,ignore_obj_size].csv](../result/log/7[0.4,ignore_obj_size].csv)  
 > **Desc**: 0.4,ignore_obj_size  
 > **Cache Size**: 1923416  
 > **Ignore Obj Size**: 1  
@@ -308,6 +338,7 @@
 ## block_traces_5 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaStorage/block_traces_5.oracleGeneral.bin.zst
 > ![graph](./graph/block_traces_5[0.001].png)  
 > **Trace Path**: block_traces_5.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/block_traces_5[0.001].csv](../result/log/block_traces_5[0.001].csv)  
 > **Desc**: 0.001  
 > **Cache Size**: 31349  
 > **Ignore Obj Size**: 0  
@@ -318,6 +349,7 @@
 
 > ![graph](./graph/block_traces_5[0.001,ignore_obj_size].png)  
 > **Trace Path**: block_traces_5.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/block_traces_5[0.001,ignore_obj_size].csv](../result/log/block_traces_5[0.001,ignore_obj_size].csv)  
 > **Desc**: 0.001,ignore_obj_size  
 > **Cache Size**: 7110  
 > **Ignore Obj Size**: 1  
@@ -328,6 +360,7 @@
 
 > ![graph](./graph/block_traces_5[0.01].png)  
 > **Trace Path**: block_traces_5.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/block_traces_5[0.01].csv](../result/log/block_traces_5[0.01].csv)  
 > **Desc**: 0.01  
 > **Cache Size**: 313497  
 > **Ignore Obj Size**: 0  
@@ -338,6 +371,7 @@
 
 > ![graph](./graph/block_traces_5[0.01,ignore_obj_size].png)  
 > **Trace Path**: block_traces_5.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/block_traces_5[0.01,ignore_obj_size].csv](../result/log/block_traces_5[0.01,ignore_obj_size].csv)  
 > **Desc**: 0.01,ignore_obj_size  
 > **Cache Size**: 71104  
 > **Ignore Obj Size**: 1  
@@ -348,6 +382,7 @@
 
 > ![graph](./graph/block_traces_5[0.1].png)  
 > **Trace Path**: block_traces_5.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/block_traces_5[0.1].csv](../result/log/block_traces_5[0.1].csv)  
 > **Desc**: 0.1  
 > **Cache Size**: 3134978  
 > **Ignore Obj Size**: 0  
@@ -358,6 +393,7 @@
 
 > ![graph](./graph/block_traces_5[0.1,ignore_obj_size].png)  
 > **Trace Path**: block_traces_5.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/block_traces_5[0.1,ignore_obj_size].csv](../result/log/block_traces_5[0.1,ignore_obj_size].csv)  
 > **Desc**: 0.1,ignore_obj_size  
 > **Cache Size**: 711041  
 > **Ignore Obj Size**: 1  
@@ -368,6 +404,7 @@
 
 > ![graph](./graph/block_traces_5[0.2].png)  
 > **Trace Path**: block_traces_5.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/block_traces_5[0.2].csv](../result/log/block_traces_5[0.2].csv)  
 > **Desc**: 0.2  
 > **Cache Size**: 6269957  
 > **Ignore Obj Size**: 0  
@@ -378,6 +415,7 @@
 
 > ![graph](./graph/block_traces_5[0.2,ignore_obj_size].png)  
 > **Trace Path**: block_traces_5.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/block_traces_5[0.2,ignore_obj_size].csv](../result/log/block_traces_5[0.2,ignore_obj_size].csv)  
 > **Desc**: 0.2,ignore_obj_size  
 > **Cache Size**: 1422082  
 > **Ignore Obj Size**: 1  
@@ -388,6 +426,7 @@
 
 > ![graph](./graph/block_traces_5[0.4].png)  
 > **Trace Path**: block_traces_5.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/block_traces_5[0.4].csv](../result/log/block_traces_5[0.4].csv)  
 > **Desc**: 0.4  
 > **Cache Size**: 12539914  
 > **Ignore Obj Size**: 0  
@@ -398,6 +437,7 @@
 
 > ![graph](./graph/block_traces_5[0.4,ignore_obj_size].png)  
 > **Trace Path**: block_traces_5.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/block_traces_5[0.4,ignore_obj_size].csv](../result/log/block_traces_5[0.4,ignore_obj_size].csv)  
 > **Desc**: 0.4,ignore_obj_size  
 > **Cache Size**: 2844165  
 > **Ignore Obj Size**: 1  
@@ -409,6 +449,7 @@
 ## cluster50 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster50.oracleGeneral.zst
 > ![graph](./graph/cluster50[0.001].png)  
 > **Trace Path**: cluster50.oracleGeneral.zst  
+> **Log Path**: [../result/log/cluster50[0.001].csv](../result/log/cluster50[0.001].csv)  
 > **Desc**: 0.001  
 > **Cache Size**: 41  
 > **Ignore Obj Size**: 0  
@@ -419,6 +460,7 @@
 
 > ![graph](./graph/cluster50[0.001,ignore_obj_size].png)  
 > **Trace Path**: cluster50.oracleGeneral.zst  
+> **Log Path**: [../result/log/cluster50[0.001,ignore_obj_size].csv](../result/log/cluster50[0.001,ignore_obj_size].csv)  
 > **Desc**: 0.001,ignore_obj_size  
 > **Cache Size**: 2660  
 > **Ignore Obj Size**: 1  
@@ -429,6 +471,7 @@
 
 > ![graph](./graph/cluster50[0.01].png)  
 > **Trace Path**: cluster50.oracleGeneral.zst  
+> **Log Path**: [../result/log/cluster50[0.01].csv](../result/log/cluster50[0.01].csv)  
 > **Desc**: 0.01  
 > **Cache Size**: 413  
 > **Ignore Obj Size**: 0  
@@ -439,6 +482,7 @@
 
 > ![graph](./graph/cluster50[0.01,ignore_obj_size].png)  
 > **Trace Path**: cluster50.oracleGeneral.zst  
+> **Log Path**: [../result/log/cluster50[0.01,ignore_obj_size].csv](../result/log/cluster50[0.01,ignore_obj_size].csv)  
 > **Desc**: 0.01,ignore_obj_size  
 > **Cache Size**: 26609  
 > **Ignore Obj Size**: 1  
@@ -449,6 +493,7 @@
 
 > ![graph](./graph/cluster50[0.1].png)  
 > **Trace Path**: cluster50.oracleGeneral.zst  
+> **Log Path**: [../result/log/cluster50[0.1].csv](../result/log/cluster50[0.1].csv)  
 > **Desc**: 0.1  
 > **Cache Size**: 4133  
 > **Ignore Obj Size**: 0  
@@ -459,6 +504,7 @@
 
 > ![graph](./graph/cluster50[0.1,ignore_obj_size].png)  
 > **Trace Path**: cluster50.oracleGeneral.zst  
+> **Log Path**: [../result/log/cluster50[0.1,ignore_obj_size].csv](../result/log/cluster50[0.1,ignore_obj_size].csv)  
 > **Desc**: 0.1,ignore_obj_size  
 > **Cache Size**: 266098  
 > **Ignore Obj Size**: 1  
@@ -469,6 +515,7 @@
 
 > ![graph](./graph/cluster50[0.2].png)  
 > **Trace Path**: cluster50.oracleGeneral.zst  
+> **Log Path**: [../result/log/cluster50[0.2].csv](../result/log/cluster50[0.2].csv)  
 > **Desc**: 0.2  
 > **Cache Size**: 8267  
 > **Ignore Obj Size**: 0  
@@ -479,6 +526,7 @@
 
 > ![graph](./graph/cluster50[0.2,ignore_obj_size].png)  
 > **Trace Path**: cluster50.oracleGeneral.zst  
+> **Log Path**: [../result/log/cluster50[0.2,ignore_obj_size].csv](../result/log/cluster50[0.2,ignore_obj_size].csv)  
 > **Desc**: 0.2,ignore_obj_size  
 > **Cache Size**: 532197  
 > **Ignore Obj Size**: 1  
@@ -489,6 +537,7 @@
 
 > ![graph](./graph/cluster50[0.4].png)  
 > **Trace Path**: cluster50.oracleGeneral.zst  
+> **Log Path**: [../result/log/cluster50[0.4].csv](../result/log/cluster50[0.4].csv)  
 > **Desc**: 0.4  
 > **Cache Size**: 16535  
 > **Ignore Obj Size**: 0  
@@ -499,6 +548,7 @@
 
 > ![graph](./graph/cluster50[0.4,ignore_obj_size].png)  
 > **Trace Path**: cluster50.oracleGeneral.zst  
+> **Log Path**: [../result/log/cluster50[0.4,ignore_obj_size].csv](../result/log/cluster50[0.4,ignore_obj_size].csv)  
 > **Desc**: 0.4,ignore_obj_size  
 > **Cache Size**: 1064395  
 > **Ignore Obj Size**: 1  
@@ -510,6 +560,7 @@
 ## fiu_cheetah.cs.fiu.edu-110108-113008 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst
 > ![graph](./graph/fiu_cheetah.cs.fiu.edu-110108-113008[0.001].png)  
 > **Trace Path**: fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst  
+> **Log Path**: [../result/log/fiu_cheetah.cs.fiu.edu-110108-113008[0.001].csv](../result/log/fiu_cheetah.cs.fiu.edu-110108-113008[0.001].csv)  
 > **Desc**: 0.001  
 > **Cache Size**: 58  
 > **Ignore Obj Size**: 0  
@@ -520,6 +571,7 @@
 
 > ![graph](./graph/fiu_cheetah.cs.fiu.edu-110108-113008[0.001,ignore_obj_size].png)  
 > **Trace Path**: fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst  
+> **Log Path**: [../result/log/fiu_cheetah.cs.fiu.edu-110108-113008[0.001,ignore_obj_size].csv](../result/log/fiu_cheetah.cs.fiu.edu-110108-113008[0.001,ignore_obj_size].csv)  
 > **Desc**: 0.001,ignore_obj_size  
 > **Cache Size**: 14909  
 > **Ignore Obj Size**: 1  
@@ -530,6 +582,7 @@
 
 > ![graph](./graph/fiu_cheetah.cs.fiu.edu-110108-113008[0.01].png)  
 > **Trace Path**: fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst  
+> **Log Path**: [../result/log/fiu_cheetah.cs.fiu.edu-110108-113008[0.01].csv](../result/log/fiu_cheetah.cs.fiu.edu-110108-113008[0.01].csv)  
 > **Desc**: 0.01  
 > **Cache Size**: 582  
 > **Ignore Obj Size**: 0  
@@ -540,6 +593,7 @@
 
 > ![graph](./graph/fiu_cheetah.cs.fiu.edu-110108-113008[0.01,ignore_obj_size].png)  
 > **Trace Path**: fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst  
+> **Log Path**: [../result/log/fiu_cheetah.cs.fiu.edu-110108-113008[0.01,ignore_obj_size].csv](../result/log/fiu_cheetah.cs.fiu.edu-110108-113008[0.01,ignore_obj_size].csv)  
 > **Desc**: 0.01,ignore_obj_size  
 > **Cache Size**: 149091  
 > **Ignore Obj Size**: 1  
@@ -550,6 +604,7 @@
 
 > ![graph](./graph/fiu_cheetah.cs.fiu.edu-110108-113008[0.1].png)  
 > **Trace Path**: fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst  
+> **Log Path**: [../result/log/fiu_cheetah.cs.fiu.edu-110108-113008[0.1].csv](../result/log/fiu_cheetah.cs.fiu.edu-110108-113008[0.1].csv)  
 > **Desc**: 0.1  
 > **Cache Size**: 5823  
 > **Ignore Obj Size**: 0  
@@ -560,6 +615,7 @@
 
 > ![graph](./graph/fiu_cheetah.cs.fiu.edu-110108-113008[0.1,ignore_obj_size].png)  
 > **Trace Path**: fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst  
+> **Log Path**: [../result/log/fiu_cheetah.cs.fiu.edu-110108-113008[0.1,ignore_obj_size].csv](../result/log/fiu_cheetah.cs.fiu.edu-110108-113008[0.1,ignore_obj_size].csv)  
 > **Desc**: 0.1,ignore_obj_size  
 > **Cache Size**: 1490918  
 > **Ignore Obj Size**: 1  
@@ -570,6 +626,7 @@
 
 > ![graph](./graph/fiu_cheetah.cs.fiu.edu-110108-113008[0.2].png)  
 > **Trace Path**: fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst  
+> **Log Path**: [../result/log/fiu_cheetah.cs.fiu.edu-110108-113008[0.2].csv](../result/log/fiu_cheetah.cs.fiu.edu-110108-113008[0.2].csv)  
 > **Desc**: 0.2  
 > **Cache Size**: 11647  
 > **Ignore Obj Size**: 0  
@@ -580,6 +637,7 @@
 
 > ![graph](./graph/fiu_cheetah.cs.fiu.edu-110108-113008[0.2,ignore_obj_size].png)  
 > **Trace Path**: fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst  
+> **Log Path**: [../result/log/fiu_cheetah.cs.fiu.edu-110108-113008[0.2,ignore_obj_size].csv](../result/log/fiu_cheetah.cs.fiu.edu-110108-113008[0.2,ignore_obj_size].csv)  
 > **Desc**: 0.2,ignore_obj_size  
 > **Cache Size**: 2981836  
 > **Ignore Obj Size**: 1  
@@ -590,6 +648,7 @@
 
 > ![graph](./graph/fiu_cheetah.cs.fiu.edu-110108-113008[0.4].png)  
 > **Trace Path**: fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst  
+> **Log Path**: [../result/log/fiu_cheetah.cs.fiu.edu-110108-113008[0.4].csv](../result/log/fiu_cheetah.cs.fiu.edu-110108-113008[0.4].csv)  
 > **Desc**: 0.4  
 > **Cache Size**: 23295  
 > **Ignore Obj Size**: 0  
@@ -600,6 +659,7 @@
 
 > ![graph](./graph/fiu_cheetah.cs.fiu.edu-110108-113008[0.4,ignore_obj_size].png)  
 > **Trace Path**: fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst  
+> **Log Path**: [../result/log/fiu_cheetah.cs.fiu.edu-110108-113008[0.4,ignore_obj_size].csv](../result/log/fiu_cheetah.cs.fiu.edu-110108-113008[0.4,ignore_obj_size].csv)  
 > **Desc**: 0.4,ignore_obj_size  
 > **Cache Size**: 5963672  
 > **Ignore Obj Size**: 1  
@@ -611,6 +671,7 @@
 ## meta_kvcache_traces_1 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaKV/meta_kvcache_traces_1.oracleGeneral.bin.zst
 > ![graph](./graph/meta_kvcache_traces_1[0.001].png)  
 > **Trace Path**: meta_kvcache_traces_1.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/meta_kvcache_traces_1[0.001].csv](../result/log/meta_kvcache_traces_1[0.001].csv)  
 > **Desc**: 0.001  
 > **Cache Size**: 15  
 > **Ignore Obj Size**: 0  
@@ -621,6 +682,7 @@
 
 > ![graph](./graph/meta_kvcache_traces_1[0.001,ignore_obj_size].png)  
 > **Trace Path**: meta_kvcache_traces_1.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/meta_kvcache_traces_1[0.001,ignore_obj_size].csv](../result/log/meta_kvcache_traces_1[0.001,ignore_obj_size].csv)  
 > **Desc**: 0.001,ignore_obj_size  
 > **Cache Size**: 17112  
 > **Ignore Obj Size**: 1  
@@ -631,6 +693,7 @@
 
 > ![graph](./graph/meta_kvcache_traces_1[0.01].png)  
 > **Trace Path**: meta_kvcache_traces_1.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/meta_kvcache_traces_1[0.01].csv](../result/log/meta_kvcache_traces_1[0.01].csv)  
 > **Desc**: 0.01  
 > **Cache Size**: 153  
 > **Ignore Obj Size**: 0  
@@ -641,6 +704,7 @@
 
 > ![graph](./graph/meta_kvcache_traces_1[0.01,ignore_obj_size].png)  
 > **Trace Path**: meta_kvcache_traces_1.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/meta_kvcache_traces_1[0.01,ignore_obj_size].csv](../result/log/meta_kvcache_traces_1[0.01,ignore_obj_size].csv)  
 > **Desc**: 0.01,ignore_obj_size  
 > **Cache Size**: 171120  
 > **Ignore Obj Size**: 1  
@@ -651,6 +715,7 @@
 
 > ![graph](./graph/meta_kvcache_traces_1[0.1].png)  
 > **Trace Path**: meta_kvcache_traces_1.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/meta_kvcache_traces_1[0.1].csv](../result/log/meta_kvcache_traces_1[0.1].csv)  
 > **Desc**: 0.1  
 > **Cache Size**: 1538  
 > **Ignore Obj Size**: 0  
@@ -661,6 +726,7 @@
 
 > ![graph](./graph/meta_kvcache_traces_1[0.1,ignore_obj_size].png)  
 > **Trace Path**: meta_kvcache_traces_1.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/meta_kvcache_traces_1[0.1,ignore_obj_size].csv](../result/log/meta_kvcache_traces_1[0.1,ignore_obj_size].csv)  
 > **Desc**: 0.1,ignore_obj_size  
 > **Cache Size**: 1711209  
 > **Ignore Obj Size**: 1  
@@ -671,6 +737,7 @@
 
 > ![graph](./graph/meta_kvcache_traces_1[0.2].png)  
 > **Trace Path**: meta_kvcache_traces_1.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/meta_kvcache_traces_1[0.2].csv](../result/log/meta_kvcache_traces_1[0.2].csv)  
 > **Desc**: 0.2  
 > **Cache Size**: 3077  
 > **Ignore Obj Size**: 0  
@@ -681,6 +748,7 @@
 
 > ![graph](./graph/meta_kvcache_traces_1[0.2,ignore_obj_size].png)  
 > **Trace Path**: meta_kvcache_traces_1.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/meta_kvcache_traces_1[0.2,ignore_obj_size].csv](../result/log/meta_kvcache_traces_1[0.2,ignore_obj_size].csv)  
 > **Desc**: 0.2,ignore_obj_size  
 > **Cache Size**: 3422419  
 > **Ignore Obj Size**: 1  
@@ -691,6 +759,7 @@
 
 > ![graph](./graph/meta_kvcache_traces_1[0.4].png)  
 > **Trace Path**: meta_kvcache_traces_1.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/meta_kvcache_traces_1[0.4].csv](../result/log/meta_kvcache_traces_1[0.4].csv)  
 > **Desc**: 0.4  
 > **Cache Size**: 6155  
 > **Ignore Obj Size**: 0  
@@ -701,6 +770,7 @@
 
 > ![graph](./graph/meta_kvcache_traces_1[0.4,ignore_obj_size].png)  
 > **Trace Path**: meta_kvcache_traces_1.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/meta_kvcache_traces_1[0.4,ignore_obj_size].csv](../result/log/meta_kvcache_traces_1[0.4,ignore_obj_size].csv)  
 > **Desc**: 0.4,ignore_obj_size  
 > **Cache Size**: 6844838  
 > **Ignore Obj Size**: 1  
@@ -712,6 +782,7 @@
 ## meta_rnha https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaCDN/meta_rnha.oracleGeneral.zst
 > ![graph](./graph/meta_rnha[0.001].png)  
 > **Trace Path**: meta_rnha.oracleGeneral.zst  
+> **Log Path**: [../result/log/meta_rnha[0.001].csv](../result/log/meta_rnha[0.001].csv)  
 > **Desc**: 0.001  
 > **Cache Size**: 729265  
 > **Ignore Obj Size**: 0  
@@ -722,6 +793,7 @@
 
 > ![graph](./graph/meta_rnha[0.001,ignore_obj_size].png)  
 > **Trace Path**: meta_rnha.oracleGeneral.zst  
+> **Log Path**: [../result/log/meta_rnha[0.001,ignore_obj_size].csv](../result/log/meta_rnha[0.001,ignore_obj_size].csv)  
 > **Desc**: 0.001,ignore_obj_size  
 > **Cache Size**: 35040  
 > **Ignore Obj Size**: 1  
@@ -732,6 +804,7 @@
 
 > ![graph](./graph/meta_rnha[0.01].png)  
 > **Trace Path**: meta_rnha.oracleGeneral.zst  
+> **Log Path**: [../result/log/meta_rnha[0.01].csv](../result/log/meta_rnha[0.01].csv)  
 > **Desc**: 0.01  
 > **Cache Size**: 7292652  
 > **Ignore Obj Size**: 0  
@@ -742,6 +815,7 @@
 
 > ![graph](./graph/meta_rnha[0.01,ignore_obj_size].png)  
 > **Trace Path**: meta_rnha.oracleGeneral.zst  
+> **Log Path**: [../result/log/meta_rnha[0.01,ignore_obj_size].csv](../result/log/meta_rnha[0.01,ignore_obj_size].csv)  
 > **Desc**: 0.01,ignore_obj_size  
 > **Cache Size**: 350402  
 > **Ignore Obj Size**: 1  
@@ -752,6 +826,7 @@
 
 > ![graph](./graph/meta_rnha[0.1].png)  
 > **Trace Path**: meta_rnha.oracleGeneral.zst  
+> **Log Path**: [../result/log/meta_rnha[0.1].csv](../result/log/meta_rnha[0.1].csv)  
 > **Desc**: 0.1  
 > **Cache Size**: 72926528  
 > **Ignore Obj Size**: 0  
@@ -762,6 +837,7 @@
 
 > ![graph](./graph/meta_rnha[0.1,ignore_obj_size].png)  
 > **Trace Path**: meta_rnha.oracleGeneral.zst  
+> **Log Path**: [../result/log/meta_rnha[0.1,ignore_obj_size].csv](../result/log/meta_rnha[0.1,ignore_obj_size].csv)  
 > **Desc**: 0.1,ignore_obj_size  
 > **Cache Size**: 3504028  
 > **Ignore Obj Size**: 1  
@@ -772,6 +848,7 @@
 
 > ![graph](./graph/meta_rnha[0.2].png)  
 > **Trace Path**: meta_rnha.oracleGeneral.zst  
+> **Log Path**: [../result/log/meta_rnha[0.2].csv](../result/log/meta_rnha[0.2].csv)  
 > **Desc**: 0.2  
 > **Cache Size**: 145853056  
 > **Ignore Obj Size**: 0  
@@ -782,6 +859,7 @@
 
 > ![graph](./graph/meta_rnha[0.2,ignore_obj_size].png)  
 > **Trace Path**: meta_rnha.oracleGeneral.zst  
+> **Log Path**: [../result/log/meta_rnha[0.2,ignore_obj_size].csv](../result/log/meta_rnha[0.2,ignore_obj_size].csv)  
 > **Desc**: 0.2,ignore_obj_size  
 > **Cache Size**: 7008056  
 > **Ignore Obj Size**: 1  
@@ -792,6 +870,7 @@
 
 > ![graph](./graph/meta_rnha[0.4].png)  
 > **Trace Path**: meta_rnha.oracleGeneral.zst  
+> **Log Path**: [../result/log/meta_rnha[0.4].csv](../result/log/meta_rnha[0.4].csv)  
 > **Desc**: 0.4  
 > **Cache Size**: 291706112  
 > **Ignore Obj Size**: 0  
@@ -802,6 +881,7 @@
 
 > ![graph](./graph/meta_rnha[0.4,ignore_obj_size].png)  
 > **Trace Path**: meta_rnha.oracleGeneral.zst  
+> **Log Path**: [../result/log/meta_rnha[0.4,ignore_obj_size].csv](../result/log/meta_rnha[0.4,ignore_obj_size].csv)  
 > **Desc**: 0.4,ignore_obj_size  
 > **Cache Size**: 14016112  
 > **Ignore Obj Size**: 1  
@@ -813,6 +893,7 @@
 ## msr_prxy_1 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_prxy_1.oracleGeneral.zst
 > ![graph](./graph/msr_prxy_1[0.001].png)  
 > **Trace Path**: msr_prxy_1.oracleGeneral.zst  
+> **Log Path**: [../result/log/msr_prxy_1[0.001].csv](../result/log/msr_prxy_1[0.001].csv)  
 > **Desc**: 0.001  
 > **Cache Size**: 15  
 > **Ignore Obj Size**: 0  
@@ -823,6 +904,7 @@
 
 > ![graph](./graph/msr_prxy_1[0.001,ignore_obj_size].png)  
 > **Trace Path**: msr_prxy_1.oracleGeneral.zst  
+> **Log Path**: [../result/log/msr_prxy_1[0.001,ignore_obj_size].csv](../result/log/msr_prxy_1[0.001,ignore_obj_size].csv)  
 > **Desc**: 0.001,ignore_obj_size  
 > **Cache Size**: 390  
 > **Ignore Obj Size**: 1  
@@ -833,6 +915,7 @@
 
 > ![graph](./graph/msr_prxy_1[0.01].png)  
 > **Trace Path**: msr_prxy_1.oracleGeneral.zst  
+> **Log Path**: [../result/log/msr_prxy_1[0.01].csv](../result/log/msr_prxy_1[0.01].csv)  
 > **Desc**: 0.01  
 > **Cache Size**: 157  
 > **Ignore Obj Size**: 0  
@@ -843,6 +926,7 @@
 
 > ![graph](./graph/msr_prxy_1[0.01,ignore_obj_size].png)  
 > **Trace Path**: msr_prxy_1.oracleGeneral.zst  
+> **Log Path**: [../result/log/msr_prxy_1[0.01,ignore_obj_size].csv](../result/log/msr_prxy_1[0.01,ignore_obj_size].csv)  
 > **Desc**: 0.01,ignore_obj_size  
 > **Cache Size**: 3902  
 > **Ignore Obj Size**: 1  
@@ -853,6 +937,7 @@
 
 > ![graph](./graph/msr_prxy_1[0.1].png)  
 > **Trace Path**: msr_prxy_1.oracleGeneral.zst  
+> **Log Path**: [../result/log/msr_prxy_1[0.1].csv](../result/log/msr_prxy_1[0.1].csv)  
 > **Desc**: 0.1  
 > **Cache Size**: 1571  
 > **Ignore Obj Size**: 0  
@@ -863,6 +948,7 @@
 
 > ![graph](./graph/msr_prxy_1[0.1,ignore_obj_size].png)  
 > **Trace Path**: msr_prxy_1.oracleGeneral.zst  
+> **Log Path**: [../result/log/msr_prxy_1[0.1,ignore_obj_size].csv](../result/log/msr_prxy_1[0.1,ignore_obj_size].csv)  
 > **Desc**: 0.1,ignore_obj_size  
 > **Cache Size**: 39022  
 > **Ignore Obj Size**: 1  
@@ -873,6 +959,7 @@
 
 > ![graph](./graph/msr_prxy_1[0.2].png)  
 > **Trace Path**: msr_prxy_1.oracleGeneral.zst  
+> **Log Path**: [../result/log/msr_prxy_1[0.2].csv](../result/log/msr_prxy_1[0.2].csv)  
 > **Desc**: 0.2  
 > **Cache Size**: 3143  
 > **Ignore Obj Size**: 0  
@@ -883,6 +970,7 @@
 
 > ![graph](./graph/msr_prxy_1[0.2,ignore_obj_size].png)  
 > **Trace Path**: msr_prxy_1.oracleGeneral.zst  
+> **Log Path**: [../result/log/msr_prxy_1[0.2,ignore_obj_size].csv](../result/log/msr_prxy_1[0.2,ignore_obj_size].csv)  
 > **Desc**: 0.2,ignore_obj_size  
 > **Cache Size**: 78045  
 > **Ignore Obj Size**: 1  
@@ -893,6 +981,7 @@
 
 > ![graph](./graph/msr_prxy_1[0.4].png)  
 > **Trace Path**: msr_prxy_1.oracleGeneral.zst  
+> **Log Path**: [../result/log/msr_prxy_1[0.4].csv](../result/log/msr_prxy_1[0.4].csv)  
 > **Desc**: 0.4  
 > **Cache Size**: 6287  
 > **Ignore Obj Size**: 0  
@@ -903,6 +992,7 @@
 
 > ![graph](./graph/msr_prxy_1[0.4,ignore_obj_size].png)  
 > **Trace Path**: msr_prxy_1.oracleGeneral.zst  
+> **Log Path**: [../result/log/msr_prxy_1[0.4,ignore_obj_size].csv](../result/log/msr_prxy_1[0.4,ignore_obj_size].csv)  
 > **Desc**: 0.4,ignore_obj_size  
 > **Cache Size**: 156090  
 > **Ignore Obj Size**: 1  
@@ -914,6 +1004,7 @@
 ## w01 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/cloudphysics/w01.oracleGeneral.bin.zst
 > ![graph](./graph/w01[0.001].png)  
 > **Trace Path**: w01.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/w01[0.001].csv](../result/log/w01[0.001].csv)  
 > **Desc**: 0.001  
 > **Cache Size**: 654  
 > **Ignore Obj Size**: 0  
@@ -924,6 +1015,7 @@
 
 > ![graph](./graph/w01[0.001,ignore_obj_size].png)  
 > **Trace Path**: w01.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/w01[0.001,ignore_obj_size].csv](../result/log/w01[0.001,ignore_obj_size].csv)  
 > **Desc**: 0.001,ignore_obj_size  
 > **Cache Size**: 122804  
 > **Ignore Obj Size**: 1  
@@ -934,6 +1026,7 @@
 
 > ![graph](./graph/w01[0.01].png)  
 > **Trace Path**: w01.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/w01[0.01].csv](../result/log/w01[0.01].csv)  
 > **Desc**: 0.01  
 > **Cache Size**: 6541  
 > **Ignore Obj Size**: 0  
@@ -944,6 +1037,7 @@
 
 > ![graph](./graph/w01[0.01,ignore_obj_size].png)  
 > **Trace Path**: w01.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/w01[0.01,ignore_obj_size].csv](../result/log/w01[0.01,ignore_obj_size].csv)  
 > **Desc**: 0.01,ignore_obj_size  
 > **Cache Size**: 1228040  
 > **Ignore Obj Size**: 1  
@@ -954,6 +1048,7 @@
 
 > ![graph](./graph/w01[0.1].png)  
 > **Trace Path**: w01.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/w01[0.1].csv](../result/log/w01[0.1].csv)  
 > **Desc**: 0.1  
 > **Cache Size**: 65417  
 > **Ignore Obj Size**: 0  
@@ -964,6 +1059,7 @@
 
 > ![graph](./graph/w01[0.1,ignore_obj_size].png)  
 > **Trace Path**: w01.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/w01[0.1,ignore_obj_size].csv](../result/log/w01[0.1,ignore_obj_size].csv)  
 > **Desc**: 0.1,ignore_obj_size  
 > **Cache Size**: 12280402  
 > **Ignore Obj Size**: 1  
@@ -974,6 +1070,7 @@
 
 > ![graph](./graph/w01[0.2].png)  
 > **Trace Path**: w01.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/w01[0.2].csv](../result/log/w01[0.2].csv)  
 > **Desc**: 0.2  
 > **Cache Size**: 130835  
 > **Ignore Obj Size**: 0  
@@ -984,6 +1081,7 @@
 
 > ![graph](./graph/w01[0.2,ignore_obj_size].png)  
 > **Trace Path**: w01.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/w01[0.2,ignore_obj_size].csv](../result/log/w01[0.2,ignore_obj_size].csv)  
 > **Desc**: 0.2,ignore_obj_size  
 > **Cache Size**: 24560804  
 > **Ignore Obj Size**: 1  
@@ -994,6 +1092,7 @@
 
 > ![graph](./graph/w01[0.4].png)  
 > **Trace Path**: w01.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/w01[0.4].csv](../result/log/w01[0.4].csv)  
 > **Desc**: 0.4  
 > **Cache Size**: 261670  
 > **Ignore Obj Size**: 0  
@@ -1004,6 +1103,7 @@
 
 > ![graph](./graph/w01[0.4,ignore_obj_size].png)  
 > **Trace Path**: w01.oracleGeneral.bin.zst  
+> **Log Path**: [../result/log/w01[0.4,ignore_obj_size].csv](../result/log/w01[0.4,ignore_obj_size].csv)  
 > **Desc**: 0.4,ignore_obj_size  
 > **Cache Size**: 49121608  
 > **Ignore Obj Size**: 1  
@@ -1015,6 +1115,7 @@
 ## wiki_2019t https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/wiki/wiki_2019t.oracleGeneral.zst
 > ![graph](./graph/wiki_2019t[0.001].png)  
 > **Trace Path**: wiki_2019t.oracleGeneral.zst  
+> **Log Path**: [../result/log/wiki_2019t[0.001].csv](../result/log/wiki_2019t[0.001].csv)  
 > **Desc**: 0.001  
 > **Cache Size**: 409  
 > **Ignore Obj Size**: 0  
@@ -1025,6 +1126,7 @@
 
 > ![graph](./graph/wiki_2019t[0.001,ignore_obj_size].png)  
 > **Trace Path**: wiki_2019t.oracleGeneral.zst  
+> **Log Path**: [../result/log/wiki_2019t[0.001,ignore_obj_size].csv](../result/log/wiki_2019t[0.001,ignore_obj_size].csv)  
 > **Desc**: 0.001,ignore_obj_size  
 > **Cache Size**: 18377  
 > **Ignore Obj Size**: 1  
@@ -1035,6 +1137,7 @@
 
 > ![graph](./graph/wiki_2019t[0.01].png)  
 > **Trace Path**: wiki_2019t.oracleGeneral.zst  
+> **Log Path**: [../result/log/wiki_2019t[0.01].csv](../result/log/wiki_2019t[0.01].csv)  
 > **Desc**: 0.01  
 > **Cache Size**: 4094  
 > **Ignore Obj Size**: 0  
@@ -1045,6 +1148,7 @@
 
 > ![graph](./graph/wiki_2019t[0.01,ignore_obj_size].png)  
 > **Trace Path**: wiki_2019t.oracleGeneral.zst  
+> **Log Path**: [../result/log/wiki_2019t[0.01,ignore_obj_size].csv](../result/log/wiki_2019t[0.01,ignore_obj_size].csv)  
 > **Desc**: 0.01,ignore_obj_size  
 > **Cache Size**: 183771  
 > **Ignore Obj Size**: 1  
@@ -1055,6 +1159,7 @@
 
 > ![graph](./graph/wiki_2019t[0.1].png)  
 > **Trace Path**: wiki_2019t.oracleGeneral.zst  
+> **Log Path**: [../result/log/wiki_2019t[0.1].csv](../result/log/wiki_2019t[0.1].csv)  
 > **Desc**: 0.1  
 > **Cache Size**: 40945  
 > **Ignore Obj Size**: 0  
@@ -1065,6 +1170,7 @@
 
 > ![graph](./graph/wiki_2019t[0.1,ignore_obj_size].png)  
 > **Trace Path**: wiki_2019t.oracleGeneral.zst  
+> **Log Path**: [../result/log/wiki_2019t[0.1,ignore_obj_size].csv](../result/log/wiki_2019t[0.1,ignore_obj_size].csv)  
 > **Desc**: 0.1,ignore_obj_size  
 > **Cache Size**: 1837711  
 > **Ignore Obj Size**: 1  
@@ -1075,6 +1181,7 @@
 
 > ![graph](./graph/wiki_2019t[0.2].png)  
 > **Trace Path**: wiki_2019t.oracleGeneral.zst  
+> **Log Path**: [../result/log/wiki_2019t[0.2].csv](../result/log/wiki_2019t[0.2].csv)  
 > **Desc**: 0.2  
 > **Cache Size**: 81890  
 > **Ignore Obj Size**: 0  
@@ -1085,6 +1192,7 @@
 
 > ![graph](./graph/wiki_2019t[0.2,ignore_obj_size].png)  
 > **Trace Path**: wiki_2019t.oracleGeneral.zst  
+> **Log Path**: [../result/log/wiki_2019t[0.2,ignore_obj_size].csv](../result/log/wiki_2019t[0.2,ignore_obj_size].csv)  
 > **Desc**: 0.2,ignore_obj_size  
 > **Cache Size**: 3675423  
 > **Ignore Obj Size**: 1  
@@ -1095,6 +1203,7 @@
 
 > ![graph](./graph/wiki_2019t[0.4].png)  
 > **Trace Path**: wiki_2019t.oracleGeneral.zst  
+> **Log Path**: [../result/log/wiki_2019t[0.4].csv](../result/log/wiki_2019t[0.4].csv)  
 > **Desc**: 0.4  
 > **Cache Size**: 163780  
 > **Ignore Obj Size**: 0  
@@ -1105,6 +1214,7 @@
 
 > ![graph](./graph/wiki_2019t[0.4,ignore_obj_size].png)  
 > **Trace Path**: wiki_2019t.oracleGeneral.zst  
+> **Log Path**: [../result/log/wiki_2019t[0.4,ignore_obj_size].csv](../result/log/wiki_2019t[0.4,ignore_obj_size].csv)  
 > **Desc**: 0.4,ignore_obj_size  
 > **Cache Size**: 7350846  
 > **Ignore Obj Size**: 1  
@@ -1116,6 +1226,7 @@
 ## zipf_0 
 > ![graph](./graph/zipf_0[0.001].png)  
 > **Trace Path**: zipf_0.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0[0.001].csv](../result/log/zipf_0[0.001].csv)  
 > **Desc**: 0.001  
 > **Cache Size**: 3  
 > **Ignore Obj Size**: 0  
@@ -1126,6 +1237,7 @@
 
 > ![graph](./graph/zipf_0[0.001,ignore_obj_size].png)  
 > **Trace Path**: zipf_0.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0[0.001,ignore_obj_size].csv](../result/log/zipf_0[0.001,ignore_obj_size].csv)  
 > **Desc**: 0.001,ignore_obj_size  
 > **Cache Size**: 1000  
 > **Ignore Obj Size**: 1  
@@ -1136,6 +1248,7 @@
 
 > ![graph](./graph/zipf_0[0.01].png)  
 > **Trace Path**: zipf_0.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0[0.01].csv](../result/log/zipf_0[0.01].csv)  
 > **Desc**: 0.01  
 > **Cache Size**: 38  
 > **Ignore Obj Size**: 0  
@@ -1146,6 +1259,7 @@
 
 > ![graph](./graph/zipf_0[0.01,ignore_obj_size].png)  
 > **Trace Path**: zipf_0.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0[0.01,ignore_obj_size].csv](../result/log/zipf_0[0.01,ignore_obj_size].csv)  
 > **Desc**: 0.01,ignore_obj_size  
 > **Cache Size**: 10000  
 > **Ignore Obj Size**: 1  
@@ -1156,6 +1270,7 @@
 
 > ![graph](./graph/zipf_0[0.1].png)  
 > **Trace Path**: zipf_0.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0[0.1].csv](../result/log/zipf_0[0.1].csv)  
 > **Desc**: 0.1  
 > **Cache Size**: 182  
 > **Ignore Obj Size**: 0  
@@ -1166,6 +1281,7 @@
 
 > ![graph](./graph/zipf_0[0.1,ignore_obj_size].png)  
 > **Trace Path**: zipf_0.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0[0.1,ignore_obj_size].csv](../result/log/zipf_0[0.1,ignore_obj_size].csv)  
 > **Desc**: 0.1,ignore_obj_size  
 > **Cache Size**: 100001  
 > **Ignore Obj Size**: 1  
@@ -1176,6 +1292,7 @@
 
 > ![graph](./graph/zipf_0[0.2].png)  
 > **Trace Path**: zipf_0.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0[0.2].csv](../result/log/zipf_0[0.2].csv)  
 > **Desc**: 0.2  
 > **Cache Size**: 762  
 > **Ignore Obj Size**: 0  
@@ -1186,6 +1303,7 @@
 
 > ![graph](./graph/zipf_0[0.2,ignore_obj_size].png)  
 > **Trace Path**: zipf_0.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0[0.2,ignore_obj_size].csv](../result/log/zipf_0[0.2,ignore_obj_size].csv)  
 > **Desc**: 0.2,ignore_obj_size  
 > **Cache Size**: 200002  
 > **Ignore Obj Size**: 1  
@@ -1196,6 +1314,7 @@
 
 > ![graph](./graph/zipf_0[0.4].png)  
 > **Trace Path**: zipf_0.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0[0.4].csv](../result/log/zipf_0[0.4].csv)  
 > **Desc**: 0.4  
 > **Cache Size**: 729  
 > **Ignore Obj Size**: 0  
@@ -1206,6 +1325,7 @@
 
 > ![graph](./graph/zipf_0[0.4,ignore_obj_size].png)  
 > **Trace Path**: zipf_0.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0[0.4,ignore_obj_size].csv](../result/log/zipf_0[0.4,ignore_obj_size].csv)  
 > **Desc**: 0.4,ignore_obj_size  
 > **Cache Size**: 400004  
 > **Ignore Obj Size**: 1  
@@ -1217,6 +1337,7 @@
 ## zipf_0.3 
 > ![graph](./graph/zipf_0.3[0.001].png)  
 > **Trace Path**: zipf_0.3.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0.3[0.001].csv](../result/log/zipf_0.3[0.001].csv)  
 > **Desc**: 0.001  
 > **Cache Size**: 2  
 > **Ignore Obj Size**: 0  
@@ -1227,6 +1348,7 @@
 
 > ![graph](./graph/zipf_0.3[0.001,ignore_obj_size].png)  
 > **Trace Path**: zipf_0.3.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0.3[0.001,ignore_obj_size].csv](../result/log/zipf_0.3[0.001,ignore_obj_size].csv)  
 > **Desc**: 0.001,ignore_obj_size  
 > **Cache Size**: 1000  
 > **Ignore Obj Size**: 1  
@@ -1237,6 +1359,7 @@
 
 > ![graph](./graph/zipf_0.3[0.01].png)  
 > **Trace Path**: zipf_0.3.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0.3[0.01].csv](../result/log/zipf_0.3[0.01].csv)  
 > **Desc**: 0.01  
 > **Cache Size**: 31  
 > **Ignore Obj Size**: 0  
@@ -1247,6 +1370,7 @@
 
 > ![graph](./graph/zipf_0.3[0.01,ignore_obj_size].png)  
 > **Trace Path**: zipf_0.3.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0.3[0.01,ignore_obj_size].csv](../result/log/zipf_0.3[0.01,ignore_obj_size].csv)  
 > **Desc**: 0.01,ignore_obj_size  
 > **Cache Size**: 10000  
 > **Ignore Obj Size**: 1  
@@ -1257,6 +1381,7 @@
 
 > ![graph](./graph/zipf_0.3[0.1].png)  
 > **Trace Path**: zipf_0.3.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0.3[0.1].csv](../result/log/zipf_0.3[0.1].csv)  
 > **Desc**: 0.1  
 > **Cache Size**: 381  
 > **Ignore Obj Size**: 0  
@@ -1267,6 +1392,7 @@
 
 > ![graph](./graph/zipf_0.3[0.1,ignore_obj_size].png)  
 > **Trace Path**: zipf_0.3.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0.3[0.1,ignore_obj_size].csv](../result/log/zipf_0.3[0.1,ignore_obj_size].csv)  
 > **Desc**: 0.1,ignore_obj_size  
 > **Cache Size**: 100001  
 > **Ignore Obj Size**: 1  
@@ -1277,6 +1403,7 @@
 
 > ![graph](./graph/zipf_0.3[0.2].png)  
 > **Trace Path**: zipf_0.3.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0.3[0.2].csv](../result/log/zipf_0.3[0.2].csv)  
 > **Desc**: 0.2  
 > **Cache Size**: 762  
 > **Ignore Obj Size**: 0  
@@ -1287,6 +1414,7 @@
 
 > ![graph](./graph/zipf_0.3[0.2,ignore_obj_size].png)  
 > **Trace Path**: zipf_0.3.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0.3[0.2,ignore_obj_size].csv](../result/log/zipf_0.3[0.2,ignore_obj_size].csv)  
 > **Desc**: 0.2,ignore_obj_size  
 > **Cache Size**: 200002  
 > **Ignore Obj Size**: 1  
@@ -1297,6 +1425,7 @@
 
 > ![graph](./graph/zipf_0.3[0.4].png)  
 > **Trace Path**: zipf_0.3.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0.3[0.4].csv](../result/log/zipf_0.3[0.4].csv)  
 > **Desc**: 0.4  
 > **Cache Size**: 1525  
 > **Ignore Obj Size**: 0  
@@ -1307,6 +1436,7 @@
 
 > ![graph](./graph/zipf_0.3[0.4,ignore_obj_size].png)  
 > **Trace Path**: zipf_0.3.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0.3[0.4,ignore_obj_size].csv](../result/log/zipf_0.3[0.4,ignore_obj_size].csv)  
 > **Desc**: 0.4,ignore_obj_size  
 > **Cache Size**: 400004  
 > **Ignore Obj Size**: 1  
@@ -1318,6 +1448,7 @@
 ## zipf_0.7 
 > ![graph](./graph/zipf_0.7[0.001].png)  
 > **Trace Path**: zipf_0.7.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0.7[0.001].csv](../result/log/zipf_0.7[0.001].csv)  
 > **Desc**: 0.001  
 > **Cache Size**: 1  
 > **Ignore Obj Size**: 0  
@@ -1328,6 +1459,7 @@
 
 > ![graph](./graph/zipf_0.7[0.001,ignore_obj_size].png)  
 > **Trace Path**: zipf_0.7.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0.7[0.001,ignore_obj_size].csv](../result/log/zipf_0.7[0.001,ignore_obj_size].csv)  
 > **Desc**: 0.001,ignore_obj_size  
 > **Cache Size**: 1000  
 > **Ignore Obj Size**: 1  
@@ -1338,6 +1470,7 @@
 
 > ![graph](./graph/zipf_0.7[0.01].png)  
 > **Trace Path**: zipf_0.7.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0.7[0.01].csv](../result/log/zipf_0.7[0.01].csv)  
 > **Desc**: 0.01  
 > **Cache Size**: 36  
 > **Ignore Obj Size**: 0  
@@ -1348,6 +1481,7 @@
 
 > ![graph](./graph/zipf_0.7[0.01,ignore_obj_size].png)  
 > **Trace Path**: zipf_0.7.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0.7[0.01,ignore_obj_size].csv](../result/log/zipf_0.7[0.01,ignore_obj_size].csv)  
 > **Desc**: 0.01,ignore_obj_size  
 > **Cache Size**: 10000  
 > **Ignore Obj Size**: 1  
@@ -1358,6 +1492,7 @@
 
 > ![graph](./graph/zipf_0.7[0.1].png)  
 > **Trace Path**: zipf_0.7.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0.7[0.1].csv](../result/log/zipf_0.7[0.1].csv)  
 > **Desc**: 0.1  
 > **Cache Size**: 381  
 > **Ignore Obj Size**: 0  
@@ -1368,6 +1503,7 @@
 
 > ![graph](./graph/zipf_0.7[0.1,ignore_obj_size].png)  
 > **Trace Path**: zipf_0.7.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0.7[0.1,ignore_obj_size].csv](../result/log/zipf_0.7[0.1,ignore_obj_size].csv)  
 > **Desc**: 0.1,ignore_obj_size  
 > **Cache Size**: 100001  
 > **Ignore Obj Size**: 1  
@@ -1378,6 +1514,7 @@
 
 > ![graph](./graph/zipf_0.7[0.2].png)  
 > **Trace Path**: zipf_0.7.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0.7[0.2].csv](../result/log/zipf_0.7[0.2].csv)  
 > **Desc**: 0.2  
 > **Cache Size**: 461  
 > **Ignore Obj Size**: 0  
@@ -1388,6 +1525,7 @@
 
 > ![graph](./graph/zipf_0.7[0.2,ignore_obj_size].png)  
 > **Trace Path**: zipf_0.7.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0.7[0.2,ignore_obj_size].csv](../result/log/zipf_0.7[0.2,ignore_obj_size].csv)  
 > **Desc**: 0.2,ignore_obj_size  
 > **Cache Size**: 200002  
 > **Ignore Obj Size**: 1  
@@ -1398,6 +1536,7 @@
 
 > ![graph](./graph/zipf_0.7[0.4].png)  
 > **Trace Path**: zipf_0.7.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0.7[0.4].csv](../result/log/zipf_0.7[0.4].csv)  
 > **Desc**: 0.4  
 > **Cache Size**: 1525  
 > **Ignore Obj Size**: 0  
@@ -1408,6 +1547,7 @@
 
 > ![graph](./graph/zipf_0.7[0.4,ignore_obj_size].png)  
 > **Trace Path**: zipf_0.7.oracleGeneral  
+> **Log Path**: [../result/log/zipf_0.7[0.4,ignore_obj_size].csv](../result/log/zipf_0.7[0.4,ignore_obj_size].csv)  
 > **Desc**: 0.4,ignore_obj_size  
 > **Cache Size**: 400004  
 > **Ignore Obj Size**: 1  
@@ -1419,6 +1559,7 @@
 ## zipf_1 
 > ![graph](./graph/zipf_1[0.001].png)  
 > **Trace Path**: zipf_1.oracleGeneral  
+> **Log Path**: [../result/log/zipf_1[0.001].csv](../result/log/zipf_1[0.001].csv)  
 > **Desc**: 0.001  
 > **Cache Size**: 3  
 > **Ignore Obj Size**: 0  
@@ -1429,6 +1570,7 @@
 
 > ![graph](./graph/zipf_1[0.001,ignore_obj_size].png)  
 > **Trace Path**: zipf_1.oracleGeneral  
+> **Log Path**: [../result/log/zipf_1[0.001,ignore_obj_size].csv](../result/log/zipf_1[0.001,ignore_obj_size].csv)  
 > **Desc**: 0.001,ignore_obj_size  
 > **Cache Size**: 999  
 > **Ignore Obj Size**: 1  
@@ -1439,6 +1581,7 @@
 
 > ![graph](./graph/zipf_1[0.01].png)  
 > **Trace Path**: zipf_1.oracleGeneral  
+> **Log Path**: [../result/log/zipf_1[0.01].csv](../result/log/zipf_1[0.01].csv)  
 > **Desc**: 0.01  
 > **Cache Size**: 38  
 > **Ignore Obj Size**: 0  
@@ -1449,6 +1592,7 @@
 
 > ![graph](./graph/zipf_1[0.01,ignore_obj_size].png)  
 > **Trace Path**: zipf_1.oracleGeneral  
+> **Log Path**: [../result/log/zipf_1[0.01,ignore_obj_size].csv](../result/log/zipf_1[0.01,ignore_obj_size].csv)  
 > **Desc**: 0.01,ignore_obj_size  
 > **Cache Size**: 9998  
 > **Ignore Obj Size**: 1  
@@ -1459,6 +1603,7 @@
 
 > ![graph](./graph/zipf_1[0.1].png)  
 > **Trace Path**: zipf_1.oracleGeneral  
+> **Log Path**: [../result/log/zipf_1[0.1].csv](../result/log/zipf_1[0.1].csv)  
 > **Desc**: 0.1  
 > **Cache Size**: 160  
 > **Ignore Obj Size**: 0  
@@ -1469,6 +1614,7 @@
 
 > ![graph](./graph/zipf_1[0.1,ignore_obj_size].png)  
 > **Trace Path**: zipf_1.oracleGeneral  
+> **Log Path**: [../result/log/zipf_1[0.1,ignore_obj_size].csv](../result/log/zipf_1[0.1,ignore_obj_size].csv)  
 > **Desc**: 0.1,ignore_obj_size  
 > **Cache Size**: 99988  
 > **Ignore Obj Size**: 1  
@@ -1479,6 +1625,7 @@
 
 > ![graph](./graph/zipf_1[0.2].png)  
 > **Trace Path**: zipf_1.oracleGeneral  
+> **Log Path**: [../result/log/zipf_1[0.2].csv](../result/log/zipf_1[0.2].csv)  
 > **Desc**: 0.2  
 > **Cache Size**: 762  
 > **Ignore Obj Size**: 0  
@@ -1489,6 +1636,7 @@
 
 > ![graph](./graph/zipf_1[0.2,ignore_obj_size].png)  
 > **Trace Path**: zipf_1.oracleGeneral  
+> **Log Path**: [../result/log/zipf_1[0.2,ignore_obj_size].csv](../result/log/zipf_1[0.2,ignore_obj_size].csv)  
 > **Desc**: 0.2,ignore_obj_size  
 > **Cache Size**: 199977  
 > **Ignore Obj Size**: 1  
@@ -1499,6 +1647,7 @@
 
 > ![graph](./graph/zipf_1[0.4].png)  
 > **Trace Path**: zipf_1.oracleGeneral  
+> **Log Path**: [../result/log/zipf_1[0.4].csv](../result/log/zipf_1[0.4].csv)  
 > **Desc**: 0.4  
 > **Cache Size**: 516  
 > **Ignore Obj Size**: 0  
@@ -1509,6 +1658,7 @@
 
 > ![graph](./graph/zipf_1[0.4,ignore_obj_size].png)  
 > **Trace Path**: zipf_1.oracleGeneral  
+> **Log Path**: [../result/log/zipf_1[0.4,ignore_obj_size].csv](../result/log/zipf_1[0.4,ignore_obj_size].csv)  
 > **Desc**: 0.4,ignore_obj_size  
 > **Cache Size**: 399955  
 > **Ignore Obj Size**: 1  
@@ -1520,6 +1670,7 @@
 ## zipf_1.3 
 > ![graph](./graph/zipf_1.3[0.001].png)  
 > **Trace Path**: zipf_1.3.oracleGeneral  
+> **Log Path**: [../result/log/zipf_1.3[0.001].csv](../result/log/zipf_1.3[0.001].csv)  
 > **Desc**: 0.001  
 > **Cache Size**: 2  
 > **Ignore Obj Size**: 0  
@@ -1530,6 +1681,7 @@
 
 > ![graph](./graph/zipf_1.3[0.001,ignore_obj_size].png)  
 > **Trace Path**: zipf_1.3.oracleGeneral  
+> **Log Path**: [../result/log/zipf_1.3[0.001,ignore_obj_size].csv](../result/log/zipf_1.3[0.001,ignore_obj_size].csv)  
 > **Desc**: 0.001,ignore_obj_size  
 > **Cache Size**: 670  
 > **Ignore Obj Size**: 1  
@@ -1540,6 +1692,7 @@
 
 > ![graph](./graph/zipf_1.3[0.01].png)  
 > **Trace Path**: zipf_1.3.oracleGeneral  
+> **Log Path**: [../result/log/zipf_1.3[0.01].csv](../result/log/zipf_1.3[0.01].csv)  
 > **Desc**: 0.01  
 > **Cache Size**: 4  
 > **Ignore Obj Size**: 0  
@@ -1550,6 +1703,7 @@
 
 > ![graph](./graph/zipf_1.3[0.01,ignore_obj_size].png)  
 > **Trace Path**: zipf_1.3.oracleGeneral  
+> **Log Path**: [../result/log/zipf_1.3[0.01,ignore_obj_size].csv](../result/log/zipf_1.3[0.01,ignore_obj_size].csv)  
 > **Desc**: 0.01,ignore_obj_size  
 > **Cache Size**: 6701  
 > **Ignore Obj Size**: 1  
@@ -1560,6 +1714,7 @@
 
 > ![graph](./graph/zipf_1.3[0.1].png)  
 > **Trace Path**: zipf_1.3.oracleGeneral  
+> **Log Path**: [../result/log/zipf_1.3[0.1].csv](../result/log/zipf_1.3[0.1].csv)  
 > **Desc**: 0.1  
 > **Cache Size**: 26  
 > **Ignore Obj Size**: 0  
@@ -1570,6 +1725,7 @@
 
 > ![graph](./graph/zipf_1.3[0.1,ignore_obj_size].png)  
 > **Trace Path**: zipf_1.3.oracleGeneral  
+> **Log Path**: [../result/log/zipf_1.3[0.1,ignore_obj_size].csv](../result/log/zipf_1.3[0.1,ignore_obj_size].csv)  
 > **Desc**: 0.1,ignore_obj_size  
 > **Cache Size**: 67017  
 > **Ignore Obj Size**: 1  
@@ -1580,6 +1736,7 @@
 
 > ![graph](./graph/zipf_1.3[0.2].png)  
 > **Trace Path**: zipf_1.3.oracleGeneral  
+> **Log Path**: [../result/log/zipf_1.3[0.2].csv](../result/log/zipf_1.3[0.2].csv)  
 > **Desc**: 0.2  
 > **Cache Size**: 104  
 > **Ignore Obj Size**: 0  
@@ -1590,6 +1747,7 @@
 
 > ![graph](./graph/zipf_1.3[0.2,ignore_obj_size].png)  
 > **Trace Path**: zipf_1.3.oracleGeneral  
+> **Log Path**: [../result/log/zipf_1.3[0.2,ignore_obj_size].csv](../result/log/zipf_1.3[0.2,ignore_obj_size].csv)  
 > **Desc**: 0.2,ignore_obj_size  
 > **Cache Size**: 134035  
 > **Ignore Obj Size**: 1  
@@ -1600,6 +1758,7 @@
 
 > ![graph](./graph/zipf_1.3[0.4].png)  
 > **Trace Path**: zipf_1.3.oracleGeneral  
+> **Log Path**: [../result/log/zipf_1.3[0.4].csv](../result/log/zipf_1.3[0.4].csv)  
 > **Desc**: 0.4  
 > **Cache Size**: 150  
 > **Ignore Obj Size**: 0  
@@ -1610,6 +1769,7 @@
 
 > ![graph](./graph/zipf_1.3[0.4,ignore_obj_size].png)  
 > **Trace Path**: zipf_1.3.oracleGeneral  
+> **Log Path**: [../result/log/zipf_1.3[0.4,ignore_obj_size].csv](../result/log/zipf_1.3[0.4,ignore_obj_size].csv)  
 > **Desc**: 0.4,ignore_obj_size  
 > **Cache Size**: 268070  
 > **Ignore Obj Size**: 1  
