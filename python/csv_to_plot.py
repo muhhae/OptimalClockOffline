@@ -53,6 +53,10 @@ ignore_obj_size_overall_d_percent_missratio = defaultdict(lambda: defaultdict(li
 ignore_obj_size_overall_d_promotions = defaultdict(lambda: defaultdict(list))
 ignore_obj_size_overall_d_percent_promotions = defaultdict(lambda: defaultdict(list))
 
+overall_max_iteration = defaultdict(list)
+ignore_obj_size_overall_max_iteration = defaultdict(list)
+
+
 for file in files:
     if Path(file).stat().st_size == 0:
         continue
@@ -182,6 +186,11 @@ for file in files:
     else:
         max_iteration = 1
 
+    if desc.count("ignore_obj_size"):
+        ignore_obj_size_overall_max_iteration[size].append(max_iteration)
+    else:
+        overall_max_iteration[size].append(max_iteration)
+
     iter = [i for i in range(1, max_iteration + 2)]
     iter_2 = [i for i in range(2, max_iteration + 2)]
 
@@ -246,6 +255,28 @@ for file in files:
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     fig.savefig(output_path)
     plt.close()
+
+
+def max_iteration_boxplot(d: dict, title, y_label, prefix):
+    overal_path = "../result/overall"
+
+    labels = sorted(d.keys())
+    data = [d[k] for k in labels]
+
+    plt.figure()
+    plt.boxplot(data, tick_labels=labels)
+    plt.title(f"{title} across cache size")
+    plt.xlabel("Cache Size")
+    plt.ylabel(y_label)
+    plt.gca().yaxis.set_major_locator(ticker.MaxNLocator(nbins=10))
+    plt.savefig(f"{overal_path}/{prefix}max_iteration.png")
+    plt.close()
+
+
+max_iteration_boxplot(
+    ignore_obj_size_overall_max_iteration, "Max Iteration", "Max Iteration", ""
+)
+max_iteration_boxplot(overall_max_iteration, "Max Iteration", "Max Iteration", "osi_")
 
 
 def box_plot(d, title, y_label, prefix):

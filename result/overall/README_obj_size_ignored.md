@@ -1,6 +1,10 @@
-# [NOT IGNORING OBJ SIZE](README_obj_size_ignored.md)
-
 # IGNORING OBJ SIZE
+
+> [!IMPORTANT] 
+> IF YOU LOOK FOR NOT IGNORING OBJ SIZE -> [HERE](README.md)
+
+# Max Iteration
+![graph](osi_max_iteration.png)
 
 # All Cache Size
 ![graph](osi_miss_ratio_percent_s_All.png)
