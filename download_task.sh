@@ -8,6 +8,9 @@ while IFS= read -r link; do
         continue
     fi
     filename=$(basename $link)
+    if [ -f /mnt/gv1/traces/$filename]; then
+        continue
+    fi
     echo "shell:1:1:1:LC_ALL=C wget -O /mnt/gv1/traces/$filename $link" >> $output_file
 
 done < "$input_file"
