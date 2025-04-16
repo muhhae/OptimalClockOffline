@@ -1,7 +1,7 @@
 # IGNORING OBJ SIZE
 
 > [!IMPORTANT] 
-> Click this [link](README.md) if you look for not ignoring obj size 
+> Click this [link](README.md) if you look for not NOT IGNORING OBJ SIZE
 
 # Max Iteration
 ![graph](osi_max_iteration.png)
