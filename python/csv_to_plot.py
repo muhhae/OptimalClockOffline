@@ -59,6 +59,22 @@ ignore_obj_size_overall_max_iteration = defaultdict(list)
 # DEBUG_SAMPLE = 4
 # DEBUG_COUNT = 0
 
+my_algo = {}
+
+for file in files:
+    if Path(file).stat().st_size == 0:
+        continue
+    df = pd.read_csv(file)
+    if df.empty:
+        continue
+    logs = [OutputLog(**row) for row in df.to_dict(orient="records")]
+    prefix, desc = extract_desc(file)
+    size = float(desc[0])
+    if desc.count("my_algo"):
+        my_algo[prefix, size, desc.count("ignore_obj_size")] = logs[0]
+        continue
+
+
 for file in files:
     # if DEBUG_COUNT == DEBUG_SAMPLE:
     #     exit(1)
@@ -77,8 +93,11 @@ for file in files:
     iter = [i for i in range(1, 21)]
     iter_2 = [i for i in range(2, 21)]
 
-    _, desc = extract_desc(file)
+    prefix, desc = extract_desc(file)
     size = float(desc[0])
+
+    if desc.count("my_algo"):
+        continue
 
     if desc.count("ignore_obj_size"):
         miss_ratio = [d.miss_ratio for d in logs]
@@ -229,6 +248,29 @@ for file in files:
     ax2.tick_params(axis="y", labelcolor="red")
     ax2.yaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
 
+    if (prefix, size, desc.count("ignore_obj_size")) in my_algo:
+        y1 = my_algo[(prefix, size, desc.count("ignore_obj_size"))].n_promoted
+        y2 = my_algo[(prefix, size, desc.count("ignore_obj_size"))].miss_ratio
+        axs[0].axhline(
+            y=y1,
+            color="purple",
+            linestyle="--",
+            label="My Clock Promotion",
+        )
+        axs[0].axhline(
+            y=y2,
+            color="green",
+            linestyle=":",
+            label="My Clock Miss Ratio",
+        )
+        ymin, ymax = axs[0].get_ylim()
+        new_ymin = min(ymin, y1, y2)
+        new_ymax = max(ymax, y1, y2)
+        axs[0].set_ylim(new_ymin, new_ymax)
+    lines1, labels1 = axs[0].get_legend_handles_labels()
+    lines2, labels2 = ax2.get_legend_handles_labels()
+    axs[0].legend(lines1 + lines2, labels1 + labels2, loc="upper right")
+
     plt.title(Path(file).stem)
 
     axs[1].set_xlabel("Iteration")
@@ -245,6 +287,35 @@ for file in files:
     ax3.plot(iter_2, d_miss_ratio, marker="s", linestyle="--", color="red")
     ax3.tick_params(axis="y", labelcolor="red")
     ax3.yaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
+
+    if (prefix, size, desc.count("ignore_obj_size")) in my_algo:
+        y1 = (
+            n_promotion[0]
+            - my_algo[(prefix, size, desc.count("ignore_obj_size"))].n_promoted
+        )
+        y2 = (
+            miss_ratio[0]
+            - my_algo[(prefix, size, desc.count("ignore_obj_size"))].miss_ratio
+        )
+        axs[1].axhline(
+            y=y1,
+            color="purple",
+            linestyle="--",
+            label="My Clock Promotion",
+        )
+        axs[1].axhline(
+            y=y2,
+            color="green",
+            linestyle=":",
+            label="My Clock Miss Ratio",
+        )
+        ymin, ymax = axs[1].get_ylim()
+        new_ymin = min(ymin, y1, y2)
+        new_ymax = max(ymax, y1, y2)
+        axs[1].set_ylim(new_ymin, new_ymax)
+    lines1, labels1 = axs[1].get_legend_handles_labels()
+    lines2, labels2 = ax3.get_legend_handles_labels()
+    axs[1].legend(lines1 + lines2, labels1 + labels2, loc="upper right")
 
     plt.title("Relative")
 
