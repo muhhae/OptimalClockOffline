@@ -1,7 +1,7 @@
 #!/bin/bash
 
 input_file="$1"
-if [[ -z $input_file]]; then
+if [[ -z $input_file ]]; then
   echo "[arg] input_file required"
   exit 1
 fi
