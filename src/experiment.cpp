@@ -1,8 +1,10 @@
 #include "experiment.hpp"
-#include "custom_clock.hpp"
+#include "cache/custom_clock.hpp"
+#include "cache/my_clock.hpp"
 #include "lib/cache_size.h"
 
 #include <cstdint>
+#include <cstdio>
 #include <fstream>
 #include <functional>
 #include <future>
@@ -138,6 +140,8 @@ void RunExperiment(const options &o) {
       CacheInit;
   if (o.algorithm == "default") {
     CacheInit = cclock::CustomClockInit;
+  } else if (o.algorithm == "my") {
+    CacheInit = myclock::MyClockInit;
   } else if (o.algorithm == "bob") {
     throw std::runtime_error("bob's algorithm hasn't been implemented");
   } else {
@@ -168,8 +172,7 @@ void RunExperiment(const options &o) {
                          (o.desc != "" ? "," : "") + o.desc + "]";
       tasks.emplace_back(std::async(
           std::launch::async, Simulate,
-          cclock::CustomClockInit(
-              {.cache_size = o.ignore_obj_size ? fcs : fcs * MiB}, NULL),
+          CacheInit({.cache_size = o.ignore_obj_size ? fcs : fcs * MiB}, NULL),
           p, o.output_directory / "log", o.output_directory / "datasets",
           o.ignore_obj_size, desc, o.max_iteration, o.generate_datasets));
     }
@@ -182,7 +185,7 @@ void RunExperiment(const options &o) {
       std::string desc = "[" + s + (o.desc != "" ? "," : "") + o.desc + "]";
       tasks.emplace_back(std::async(
           std::launch::async, Simulate,
-          cclock::CustomClockInit({.cache_size = uint64_t(wss * rcs)}, NULL), p,
+          CacheInit({.cache_size = uint64_t(wss * rcs)}, NULL), p,
           o.output_directory / "log", o.output_directory / "datasets",
           o.ignore_obj_size, desc, o.max_iteration, o.generate_datasets));
     }

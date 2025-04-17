@@ -1,3 +1,5 @@
+#include <algorithm>
+#include <iostream>
 #include <libCacheSim.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -35,10 +37,11 @@ int main(int argc, char **argv) {
       "Additional description for experiment, would shows on filename");
   app.add_option("trace_paths", o.trace_paths, "Can be more than one")
       ->required();
-  app.add_option("--algo,-a", o.algorithm, "available [default, bob]")
+  app.add_option("-a,--algo", o.algorithm, "available [default, my]")
       ->default_val("default");
 
   CLI11_PARSE(app, argc, argv);
+  std::cout << "Algo " << o.algorithm << "\n";
   RunExperiment(o);
   return 0;
 }
