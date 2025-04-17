@@ -4,9 +4,15 @@ max_iteration=20
 MIN_SIZE=$(( 1024*1024*512 )) # 512 MB
 MAX_SIZE=$(( 1024*1024*1024*32 )) # 32 GB
 
+traces_dir="$1"
+if [[ -z $traces_dir]]; then
+  echo "[arg] traces_dir required"
+  exit 1
+fi
+
 rm ~/task
 
-for file in /mnt/gv0/traces/*; do
+for file in $traces_dir; do
     filename="$(basename "$file")"
     basename="${filename%%.oracleGeneral*}"
     size=$(stat --format="%s" "$file")

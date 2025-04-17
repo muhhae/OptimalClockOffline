@@ -2,7 +2,7 @@
 
 input_file="$1"
 if [[ -z $input_file]]; then
-  echo "input_file empty"
+  echo "[arg] input_file required"
   exit 1
 fi
 
