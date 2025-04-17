@@ -20,6 +20,18 @@ while IFS= read -r link; do
     link="https://$link"
     file_size=$(get_file_size "$link")
 
+    retry_count=0
+    max_retries=5
+
+    while [ -z "$file_size" ] && [ "$retry_count" -lt "$max_retries" ]; do
+        file_size=$(get_file_size "$link")
+        if [ -z "$file_size" ]; then
+            retry_count=$((retry_count + 1))
+            echo "Retry $retry_count: failed to get size for $link"
+            sleep 1
+        fi
+    done
+
     if [ -z "$file_size" ]; then
         echo "Skipped $link"
         echo "size is empty"
