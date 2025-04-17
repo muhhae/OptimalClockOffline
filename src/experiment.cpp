@@ -7,6 +7,7 @@
 #include <functional>
 #include <future>
 #include <iostream>
+#include <libCacheSim/cache.h>
 #include <stdexcept>
 
 const std::string csv_header =
@@ -16,7 +17,7 @@ void Simulate(cache_t *cache, const std::filesystem::path trace_path,
               const std::filesystem::path log_dir,
               const std::filesystem::path datasets_dir,
               const bool ignore_obj_size, const std::string output_suffix,
-              const uint64_t max_iteration) {
+              const uint64_t max_iteration, bool generate_datasets) {
   reader_init_param_t param = default_reader_init_params();
   param.ignore_obj_size = ignore_obj_size;
 
@@ -38,9 +39,6 @@ void Simulate(cache_t *cache, const std::filesystem::path trace_path,
   std::ofstream csv_file(log_path);
   csv_file << csv_header;
 
-  std::ofstream dataset(dataset_path);
-  dataset << "";
-
   printf("\n\
 ============\n\
 ---start!---\n\
@@ -58,10 +56,19 @@ log: %s\n\
   cclock::Custom_clock_params *custom_params =
       (cclock::Custom_clock_params *)cache->eviction_params;
 
+  custom_params->datasets = std::ofstream(dataset_path);
+  custom_params->datasets << "second_to_last_promotion" << ","
+                          << "second_to_last_promotion_is_wasted" << ","
+                          << "last_promotion" << ","
+                          << "last_promotion_is_wasted" << "\n";
+
   for (size_t i = 0; i < max_iteration; ++i) {
     custom_params->n_hit = 0;
     custom_params->n_req = 0;
     custom_params->n_promoted = 0;
+    if (i == max_iteration - 1) {
+      custom_params->generate_datasets = generate_datasets;
+    }
 
     while (read_one_req(reader, req) == 0) {
       custom_params->objs_metadata[req->obj_id].access_counter += 1;
@@ -88,6 +95,9 @@ log: %s\n\
       e.second.last_promotion = 0;
     }
   }
+
+  custom_params->datasets.close();
+  csv_file.close();
 
   uint64_t sum = 0;
   for (const auto &e : custom_params->objs_metadata) {
@@ -161,7 +171,7 @@ void RunExperiment(const options &o) {
           cclock::CustomClockInit(
               {.cache_size = o.ignore_obj_size ? fcs : fcs * MiB}, NULL),
           p, o.output_directory / "log", o.output_directory / "datasets",
-          o.ignore_obj_size, desc, o.max_iteration));
+          o.ignore_obj_size, desc, o.max_iteration, o.generate_datasets));
     }
     for (const auto &rcs : o.relative_cache_sizes) {
       std::string s = std::to_string(rcs);
@@ -174,7 +184,7 @@ void RunExperiment(const options &o) {
           std::launch::async, Simulate,
           cclock::CustomClockInit({.cache_size = uint64_t(wss * rcs)}, NULL), p,
           o.output_directory / "log", o.output_directory / "datasets",
-          o.ignore_obj_size, desc, o.max_iteration));
+          o.ignore_obj_size, desc, o.max_iteration, o.generate_datasets));
     }
   }
 

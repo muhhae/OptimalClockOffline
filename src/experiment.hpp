@@ -10,7 +10,7 @@ void Simulate(cache_t *cache, const std::filesystem::path trace_path,
               const std::filesystem::path log_dir,
               const std::filesystem::path datasets_dir,
               const bool ignore_obj_size, const std::string output_suffix,
-              const uint64_t max_iteration = 10);
+              const uint64_t max_iteration, bool generate_datasets);
 
 struct options {
   std::string algorithm;

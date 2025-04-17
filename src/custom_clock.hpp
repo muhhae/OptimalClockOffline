@@ -1,8 +1,8 @@
 #pragma once
 
+#include <fstream>
 #include <libCacheSim/cache.h>
 #include <libCacheSim/evictionAlgo.h>
-#include <string>
 #include <unordered_map>
 #include <unordered_set>
 
@@ -15,6 +15,13 @@ struct obj_metadata {
 
 class Custom_clock_params : public Clock_params_t {
 public:
+  Custom_clock_params() = default;
+  Custom_clock_params(const Clock_params_t &base) {
+    *(Clock_params_t *)this = base;
+  }
+
+public:
+  std::ofstream datasets;
   std::unordered_map<obj_id_t, obj_metadata> objs_metadata;
 
   uint64_t n_hit;
