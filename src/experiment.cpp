@@ -1,7 +1,6 @@
 #include "experiment.hpp"
 #include "custom_clock.hpp"
 #include "lib/cache_size.h"
-#include "obj_metadata.hpp"
 
 #include <cstdint>
 #include <fstream>
@@ -56,40 +55,42 @@ log: %s\n\
          reader->ignore_obj_size, max_iteration, log_path.c_str());
 
   uint64_t first_promoted = 0;
+  cclock::Custom_clock_params *custom_params =
+      (cclock::Custom_clock_params *)cache->eviction_params;
 
   for (size_t i = 0; i < max_iteration; ++i) {
-    n_hit = 0;
-    n_req = 0;
-    n_promoted = 0;
+    custom_params->n_hit = 0;
+    custom_params->n_req = 0;
+    custom_params->n_promoted = 0;
 
     while (read_one_req(reader, req) == 0) {
-      objs_metadata[req->obj_id].access_counter += 1;
+      custom_params->objs_metadata[req->obj_id].access_counter += 1;
       if (cache->get(cache, req)) {
-        n_hit++;
+        custom_params->n_hit++;
       }
-      n_req++;
+      custom_params->n_req++;
     }
 
     std::ostringstream s;
     s << std::filesystem::path(reader->trace_path).filename() << ","
       << reader->ignore_obj_size << ","
       << (reader->ignore_obj_size ? cache->cache_size : cache->cache_size / MiB)
-      << "," << 1 - (double)n_hit / n_req << "," << n_req << "," << n_promoted
-      << "\n";
+      << "," << 1 - (double)custom_params->n_hit / custom_params->n_req << ","
+      << custom_params->n_req << "," << custom_params->n_promoted << "\n";
     std::cout << s.str();
     csv_file << s.str();
 
     reset_reader(reader);
     if (i == 0)
-      first_promoted = n_promoted;
-    for (auto &e : objs_metadata) {
+      first_promoted = custom_params->n_promoted;
+    for (auto &e : custom_params->objs_metadata) {
       e.second.access_counter = 0;
       e.second.last_promotion = 0;
     }
   }
 
   uint64_t sum = 0;
-  for (const auto &e : objs_metadata) {
+  for (const auto &e : custom_params->objs_metadata) {
     sum += e.second.wasted_promotions.size();
   }
   printf("\n\
@@ -108,14 +109,16 @@ log: %s\n\
 ============\n",
          reader->trace_path,
          reader->ignore_obj_size ? cache->cache_size : cache->cache_size / MiB,
-         reader->ignore_obj_size, 1 - (double)n_hit / n_req, n_req,
-         first_promoted, n_promoted, max_iteration, first_promoted - n_promoted,
+         reader->ignore_obj_size,
+         1 - (double)custom_params->n_hit / custom_params->n_req,
+         custom_params->n_req, first_promoted, custom_params->n_promoted,
+         max_iteration, first_promoted - custom_params->n_promoted,
          log_path.c_str());
 
+  custom_params->objs_metadata.clear();
   free_request(req);
   cache->cache_free(cache);
   close_reader(reader);
-  objs_metadata.clear();
 }
 
 void RunExperiment(const options &o) {

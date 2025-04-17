@@ -21,6 +21,7 @@ struct options {
   std::vector<float> relative_cache_sizes;
 
   bool ignore_obj_size = false;
+  bool generate_datasets = false;
   uint64_t max_iteration;
   std::filesystem::path output_directory;
   std::string desc;

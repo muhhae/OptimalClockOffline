@@ -25,6 +25,8 @@ int main(int argc, char **argv) {
       ->default_val("./result");
   app.add_flag("--ignore-obj-size", o.ignore_obj_size,
                "Would ignore object sizes from trace");
+  app.add_flag("--generate-datasets", o.generate_datasets,
+               "Would generate datasets from simulation");
   app.add_option("-i,--max-iteration", o.max_iteration,
                  "Offline clock max iteration")
       ->default_val(10);
