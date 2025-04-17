@@ -31,7 +31,6 @@ add_executable(cacheSimulator
   src/main.cpp
   src/custom_clock.cpp
   src/experiment.cpp
-  src/obj_metadata.cpp
 )
 target_include_directories(cacheSimulator PRIVATE src)
 
