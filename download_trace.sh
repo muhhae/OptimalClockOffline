@@ -1,7 +1,10 @@
 #!/bin/bash
 
 input_file="$1"
-if [[ -z $input_file]]; do echo ""
+if [[ -z $input_file]]; then
+  echo "input_file empty"
+  exit 1
+fi
 
 while IFS= read -r link; do
     if [ -z "$link" ] || [[ "$link" == \#* ]]; then
