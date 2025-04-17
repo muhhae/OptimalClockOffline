@@ -5,7 +5,7 @@ MIN_SIZE=$(( 1024*1024*512 )) # 512 MB
 MAX_SIZE=$(( 1024*1024*1024*32 )) # 32 GB
 
 traces_dir="$1"
-if [[ -z $traces_dir]]; then
+if [[ -z $traces_dir ]]; then
   echo "[arg] traces_dir required"
   exit 1
 fi
