@@ -15,7 +15,7 @@ while IFS= read -r link; do
         echo "Skipping downloading trace, $filename exist"
         continue
     fi
-    wget -O /mnt/gv0/traces/$filename $link"
+    wget -O /mnt/gv0/traces/$filename $link
     echo "Finished downloading trace $filename"
 done < "$input_file"
 
