@@ -37,3 +37,4 @@ trace/**.oracleGeneral*
 python/.venv
 .cache/clangd/index
 .nvim
+result/datasets
