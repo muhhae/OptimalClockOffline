@@ -13,7 +13,7 @@ while IFS= read -r link; do
         continue
     fi
     filename=$(basename $link)
-    if [ -f /mnt/gv0/traces/$filename ]; then
+    if [ -s /mnt/gv0/traces/$filename ]; then
         echo "Skipping downloading trace, $filename exist"
         continue
     fi
