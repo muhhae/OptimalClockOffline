@@ -38,4 +38,20 @@ while IFS= read -r link; do
             echo "Skipping processing: $filename $cache_size (corresponding result exists and not empty: $log_file)"
         fi
     done
+    for cache_size in "${relative_cache_sizes[@]}"; do
+        log_file="/mnt/gv0/OptimalClockOffline/result/log/${basename}[${cache_size},ignore_obj_size,my_algo].csv"
+        if ! [ -s $log_file ]; then
+            echo "shell:1:$min_dram:2:~/OptimalClockOffline/build/cacheSimulator $file -o /mnt/gv0/OptimalClockOffline/result -r $cache_size -i 1 --ignore-obj-size -d ignore_obj_size -d my_algo -a my" >> ~/task
+        else
+            echo "Skipping processing: $filename $cache_size (corresponding result exists and not empty: $log_file)"
+        fi
+    done
+    for cache_size in "${relative_cache_sizes[@]}"; do
+        log_file="/mnt/gv0/OptimalClockOffline/result/log/${basename}[${cache_size},my_algo].csv"
+        if ! [ -s $log_file ]; then
+            echo "shell:1:$min_dram:2:~/OptimalClockOffline/build/cacheSimulator $file -o /mnt/gv0/OptimalClockOffline/result -r $cache_size -i 1 -d my_algo -a my" >> ~/task
+        else
+            echo "Skipping processing: $filename $cache_size (corresponding result exists and not empty: $log_file)"
+        fi
+    done
 done < "$traces_txt"
