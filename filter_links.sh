@@ -21,7 +21,9 @@ while IFS= read -r link; do
 
     if [ -n "$file_size" ] && [ "$file_size" -ge "$MIN_SIZE" ] && [ "$file_size" -le "$MAX_SIZE" ]; then
         echo "$link" >> "$output_file"
-        echo "Added $link with size $file_size bytes."
+        echo "Added $link with size $(( $file_size/1024/1024/1024 )) GB"
+    else
+        echo "Skipped $link with size $(( $file_size/1024/1024/1024 )) GB"
     fi
 done < "$input_file"
 
