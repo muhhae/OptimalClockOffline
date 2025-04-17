@@ -19,12 +19,19 @@ while IFS= read -r link; do
 
     file_size=$(get_file_size "$link")
 
-    if [ -n "$file_size" ] && [ "$file_size" -ge "$MIN_SIZE" ] && [ "$file_size" -le "$MAX_SIZE" ]; then
-        echo "$link" >> "$output_file"
-        echo "Added $link with size $(( $file_size/1024/1024/1024 )) GB"
-    else
-        echo "Skipped $link with size $(( $file_size/1024/1024/1024 )) GB"
+    if [ -n "$file_size" ]; then
+        echo "Skipped $link"
+        echo "$link size is empty"
     fi
+    if [ "$file_size" -le "$MIN_SIZE" ]; then
+        echo "Skipped $link with size $(( file_size/1024/1024 )) MB"
+        echo "$link size is less then $(( MIN_SIZE/1024/1024 )) MB"
+    fi
+    if [ "$file_size" -ge "$MAX_SIZE" ]; then
+        echo "Skipped $link with size $(( file_size/1024/1024/1024 )) GB"
+        echo "$link size is greater then $(( MAX_SIZE/1024/1024/1024 )) GB"
+    fi
+    echo "$link" >> "$output_file"
 done < "$input_file"
 
 echo "Finished checking links. Valid links are in $output_file."
