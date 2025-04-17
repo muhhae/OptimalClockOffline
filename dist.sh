@@ -6,7 +6,7 @@ MAX_SIZE=$(( 1024*1024*1024*32 )) # 32 GB
 
 rm ~/task
 
-for file in /mnt/gv1/traces/*; do
+for file in /mnt/gv0/traces/*; do
     filename="$(basename "$file")"
     basename="${filename%%.oracleGeneral*}"
     size=$(stat --format="%s" "$file")
