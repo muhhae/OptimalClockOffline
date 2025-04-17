@@ -4,16 +4,21 @@ max_iteration=20
 MIN_SIZE=$(( 1024*1024*512 )) # 512 MB
 MAX_SIZE=$(( 1024*1024*1024*32 )) # 32 GB
 
-traces_dir="$1"
-if [[ -z $traces_dir ]]; then
-  echo "[arg] traces_dir required"
+traces_txt="$1"
+if [[ -z $traces_txt ]]; then
+  echo "[arg] traces_txt required"
   exit 1
 fi
 
 rm ~/task
 
-for file in $traces_dir; do
-    filename="$(basename "$file")"
+while IFS= read -r link; do
+    if [ -z "$link" ] || [[ "$link" == \#* ]]; then
+        continue
+    fi
+    filename=$(basename $link)
+    file="/mnt/gv0/traces/$filename"
+
     basename="${filename%%.oracleGeneral*}"
     size=$(stat --format="%s" "$file")
     if [ $size -lt $MIN_SIZE ] || [ $size -gt $MAX_SIZE ]; then
@@ -40,4 +45,4 @@ for file in $traces_dir; do
             echo "Skipping processing: $filename $cache_size (corresponding result exists and not empty: $log_file)"
         fi
     done
-done
+done < "$traces_txt"
