@@ -56,8 +56,13 @@ ignore_obj_size_overall_d_percent_promotions = defaultdict(lambda: defaultdict(l
 overall_max_iteration = defaultdict(list)
 ignore_obj_size_overall_max_iteration = defaultdict(list)
 
+# DEBUG_SAMPLE = 4
+# DEBUG_COUNT = 0
 
 for file in files:
+    # if DEBUG_COUNT == DEBUG_SAMPLE:
+    #     exit(1)
+    # DEBUG_COUNT += 1
     if Path(file).stat().st_size == 0:
         continue
 
@@ -180,11 +185,19 @@ for file in files:
     #     continue
 
     max_iteration = 19
-    diffs = np.diff(n_promotion)
-    if np.any(diffs != 0):
-        max_iteration = np.max(np.where(diffs != 0)) + 1
-    else:
-        max_iteration = 1
+    # MIN_PROMOTION_DIFF = 1e-8
+    MIN_PROMOTION_DIFF = 0
+
+    diffs = abs(np.diff(n_percent_promotion))
+    cond = np.where(diffs > MIN_PROMOTION_DIFF)[0]
+    # print("diffs", diffs, "\n")
+    # print("cond", cond, "\n")
+    max_iteration = np.max(cond) + 1
+
+    if max_iteration > 19:
+        max_iteration = 19
+
+    # print("Max Iteration", max_iteration, "\n")
 
     if desc.count("ignore_obj_size"):
         ignore_obj_size_overall_max_iteration[size].append(max_iteration)
@@ -195,6 +208,7 @@ for file in files:
     iter_2 = [i for i in range(2, max_iteration + 2)]
 
     n_promotion = n_promotion[: max_iteration + 1]
+    # print(n_promotion, "\n")
     miss_ratio = miss_ratio[: max_iteration + 1]
     d_n_promotion = d_n_promotion[:max_iteration]
     d_miss_ratio = d_miss_ratio[:max_iteration]
@@ -206,7 +220,7 @@ for file in files:
     axs[0].tick_params(axis="y", labelcolor="blue")
     axs[0].yaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
     axs[0].xaxis.set_major_locator(
-        ticker.MaxNLocator(nbins=len(n_promotion), integer=True)
+        ticker.MaxNLocator(nbins=len(n_promotion) + 1, integer=True)
     )
 
     ax2 = axs[0].twinx()
@@ -223,7 +237,7 @@ for file in files:
     axs[1].tick_params(axis="y", labelcolor="blue")
     axs[1].yaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
     axs[1].xaxis.set_major_locator(
-        ticker.MaxNLocator(nbins=len(d_n_promotion), integer=True)
+        ticker.MaxNLocator(nbins=len(d_n_promotion) + 1, integer=True)
     )
 
     ax3 = axs[1].twinx()
