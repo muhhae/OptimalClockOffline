@@ -17,21 +17,22 @@ while IFS= read -r link; do
         continue
     fi
 
+    link="https://$link"
     file_size=$(get_file_size "$link")
 
     if [ -z "$file_size" ]; then
         echo "Skipped $link"
-        echo "$link size is empty"
+        echo "size is empty"
         continue
     fi
     if [ "$file_size" -le "$MIN_SIZE" ]; then
         echo "Skipped $link with size $(( file_size/1024/1024 )) MB"
-        echo "$link size is less then $(( MIN_SIZE/1024/1024 )) MB"
+        echo "size is less then $(( MIN_SIZE/1024/1024 )) MB"
         continue
     fi
     if [ "$file_size" -ge "$MAX_SIZE" ]; then
         echo "Skipped $link with size $(( file_size/1024/1024/1024 )) GB"
-        echo "$link size is greater then $(( MAX_SIZE/1024/1024/1024 )) GB"
+        echo "size is greater then $(( MAX_SIZE/1024/1024/1024 )) GB"
         continue
     fi
     echo "$link" >> "$output_file"
