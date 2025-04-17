@@ -6,6 +6,8 @@ if [[ -z $input_file ]]; then
   exit 1
 fi
 
+mkdir -p /mnt/gv0/traces
+
 while IFS= read -r link; do
     if [ -z "$link" ] || [[ "$link" == \#* ]]; then
         continue
