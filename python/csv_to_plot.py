@@ -257,16 +257,19 @@ for file in files:
             linestyle="--",
             label="My Clock Promotion",
         )
-        axs[0].axhline(
+        ax2.axhline(
             y=y2,
             color="green",
             linestyle=":",
             label="My Clock Miss Ratio",
         )
+
         ymin, ymax = axs[0].get_ylim()
-        new_ymin = min(ymin, y1, y2)
-        new_ymax = max(ymax, y1, y2)
-        axs[0].set_ylim(new_ymin, new_ymax)
+        axs[0].set_ylim(min(ymin, y1), max(ymax, y1))
+
+        ymin2, ymax2 = ax2.get_ylim()
+        ax2.set_ylim(min(ymin2, y2), max(ymax2, y2))
+
     lines1, labels1 = axs[0].get_legend_handles_labels()
     lines2, labels2 = ax2.get_legend_handles_labels()
     axs[0].legend(lines1 + lines2, labels1 + labels2, loc="upper right")
@@ -303,16 +306,18 @@ for file in files:
             linestyle="--",
             label="My Clock Promotion",
         )
-        axs[1].axhline(
+        ax3.axhline(
             y=y2,
             color="green",
             linestyle=":",
             label="My Clock Miss Ratio",
         )
+
         ymin, ymax = axs[1].get_ylim()
-        new_ymin = min(ymin, y1, y2)
-        new_ymax = max(ymax, y1, y2)
-        axs[1].set_ylim(new_ymin, new_ymax)
+        axs[1].set_ylim(min(ymin, y1), max(ymax, y1))
+        ymin2, ymax2 = ax3.get_ylim()
+        ax3.set_ylim(min(ymin2, y2), max(ymax2, y2))
+
     lines1, labels1 = axs[1].get_legend_handles_labels()
     lines2, labels2 = ax3.get_legend_handles_labels()
     axs[1].legend(lines1 + lines2, labels1 + labels2, loc="upper right")
