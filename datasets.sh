@@ -4,8 +4,13 @@ basedir="/mnt/v0"
 
 traces_txt="$1"
 if [[ -z $traces_txt ]]; then
-  echo "[arg] traces_txt required"
+  echo "[arg1] traces_txt required"
   exit 1
+fi
+
+out_dir="$2"
+if [[ -z $out_dir ]]; then
+  out_dir="./result"
 fi
 
 rm ~/task
@@ -23,15 +28,15 @@ while IFS= read -r link; do
     min_dram=$(( gb+1 ))
 
     for cache_size in "${relative_cache_sizes[@]}"; do
-        datasets="$basedir/OptimalClockOffline/result/datasets/${basename}[${cache_size},ignore_obj_size].csv"
+        datasets="$out_dir/datasets/${basename}[${cache_size},ignore_obj_size].csv"
         if ! [ -s $datasets ]; then
-            echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file -o $basedir/OptimalClockOffline/result -r $cache_size -i $max_iteration --generate-datasets --ignore-obj-size -d ignore_obj_size && python ~/OptimalClockOffline/python/describe_csv.py $datasets > $datasets.desc" >> ~/task
+            echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file -o $out_dir -r $cache_size -i $max_iteration --generate-datasets --ignore-obj-size -d ignore_obj_size && python ~/OptimalClockOffline/python/describe_csv.py $datasets > $datasets.desc" >> ~/task
         else
             echo "Skipping processing: $filename $cache_size (corresponding result exists and not empty: $datasets)"
         fi
-        datasets="$basedir/OptimalClockOffline/result/datasets/${basename}[${cache_size}].csv"
+        datasets="$out_dir/datasets/${basename}[${cache_size}].csv"
         if ! [ -s $datasets ]; then
-            echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file -o $basedir/OptimalClockOffline/result -r $cache_size -i $max_iteration --generate-datasets && python ~/OptimalClockOffline/python/describe_csv.py $datasets > $datasets.desc" >> ~/task
+            echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file -o $out_dir -r $cache_size -i $max_iteration --generate-datasets && python ~/OptimalClockOffline/python/describe_csv.py $datasets > $datasets.desc" >> ~/task
         else
             echo "Skipping processing: $filename $cache_size (corresponding result exists and not empty: $datasets)"
         fi
