@@ -1,6 +1,6 @@
 trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted
 "block_traces_5.oracleGeneral.bin.zst",1,71104,0.511102,14556172,2803707
-"block_traces_5.oracleGeneral.bin.zst",1,71104,0.510696,14556172,41400
+"block_traces_5.oracleGeneral.bin.zst",1,71104,0.510696,14556172,24696
 "block_traces_5.oracleGeneral.bin.zst",1,71104,0.510693,14556172,21761
 "block_traces_5.oracleGeneral.bin.zst",1,71104,0.510693,14556172,21742
 "block_traces_5.oracleGeneral.bin.zst",1,71104,0.510693,14556172,21741

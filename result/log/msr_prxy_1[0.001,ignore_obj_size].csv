@@ -1,7 +1,7 @@
 trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted
 "msr_prxy_1.oracleGeneral.zst",1,390,0.70563,168638964,22655033
-"msr_prxy_1.oracleGeneral.zst",1,390,0.705401,168638964,551567
-"msr_prxy_1.oracleGeneral.zst",1,390,0.705397,168638964,511894
+"msr_prxy_1.oracleGeneral.zst",1,390,0.705401,168638964,551531
+"msr_prxy_1.oracleGeneral.zst",1,390,0.705397,168638964,511893
 "msr_prxy_1.oracleGeneral.zst",1,390,0.705396,168638964,511180
 "msr_prxy_1.oracleGeneral.zst",1,390,0.705396,168638964,511103
 "msr_prxy_1.oracleGeneral.zst",1,390,0.705396,168638964,511096

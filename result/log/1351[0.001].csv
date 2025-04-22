@@ -1,6 +1,6 @@
 trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted
 "1351.oracleGeneral.zst",0,191,0.98325,195824302,2710642
-"1351.oracleGeneral.zst",0,191,0.983141,195824302,392810
+"1351.oracleGeneral.zst",0,191,0.983141,195824302,392803
 "1351.oracleGeneral.zst",0,191,0.983132,195824302,371517
 "1351.oracleGeneral.zst",0,191,0.983131,195824302,370424
 "1351.oracleGeneral.zst",0,191,0.983131,195824302,370295

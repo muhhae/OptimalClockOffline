@@ -1,2 +1,0 @@
-trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted
-"msr_prxy_1.oracleGeneral.zst",1,156090,0.00242306,168638964,103176

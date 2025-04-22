@@ -1,2 +1,0 @@
-trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted
-"fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst",0,582,0.548839,442393092,41315912
