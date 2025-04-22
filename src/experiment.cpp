@@ -1,6 +1,7 @@
 #include "experiment.hpp"
 #include "cache/custom_clock.hpp"
 #include "cache/my_clock.hpp"
+#include "glib.h"
 #include "lib/cache_size.h"
 
 #include <cstdint>
@@ -11,6 +12,8 @@
 #include <iostream>
 #include <libCacheSim/cache.h>
 #include <stdexcept>
+
+#define VAR_NAME(x) #x
 
 const std::string csv_header =
     "trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted\n";
@@ -62,10 +65,10 @@ log: %s\n\
       (cclock::Custom_clock_params *)cache->eviction_params;
 
   custom_params->datasets = std::ofstream(dataset_path);
-  custom_params->datasets << "second_to_last_promotion" << ","
-                          << "second_to_last_promotion_is_wasted" << ","
-                          << "last_promotion" << ","
-                          << "last_promotion_is_wasted" << "\n";
+  custom_params->datasets
+      << "prev_promotion, prev_is_wasted, last_promotion, last_access_rtime, "
+         "last_access_vtime, create_rtime, clock_time, compulsory_miss, "
+         "first_seen, obj_size, wasted\n";
 
   for (size_t i = 0; i < max_iteration; ++i) {
     auto tmp = clone_cache(cache);
@@ -81,7 +84,11 @@ log: %s\n\
       tmp_custom_params->generate_datasets = generate_datasets;
     }
     while (read_one_req(reader, req) == 0) {
-      tmp_custom_params->objs_metadata[req->obj_id].access_counter += 1;
+      auto &data = tmp_custom_params->objs_metadata[req->obj_id];
+      data.access_counter += 1;
+      data.prev_req_metadata = data.current_req_metadata;
+      data.current_req_metadata = cclock::req_metadata(*req);
+
       if (tmp->get(tmp, req)) {
         tmp_custom_params->n_hit++;
       }
@@ -111,8 +118,7 @@ log: %s\n\
     std::swap(tmp_custom_params->n_req, custom_params->n_req);
     std::swap(tmp_custom_params->n_promoted, custom_params->n_promoted);
 
-    free(tmp);
-    // cclock::clear_cache(cache);
+    tmp->cache_free(tmp);
   }
 
   custom_params->datasets.close();
