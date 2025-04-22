@@ -4,6 +4,7 @@
 #include "glib.h"
 #include "lib/cache_size.h"
 
+#include <algorithm>
 #include <cstdint>
 #include <cstdio>
 #include <fstream>
@@ -67,7 +68,8 @@ log: %s\n\
   custom_params->datasets = std::ofstream(dataset_path);
   custom_params->datasets
       << "prev_promotion, prev_is_wasted, last_promotion, last_access_rtime, "
-         "last_access_vtime, create_rtime, clock_time, compulsory_miss, "
+         "last_access_vtime, create_rtime, clock_time, clock_time_between, "
+         "compulsory_miss, "
          "first_seen, obj_size, wasted\n";
 
   for (size_t i = 0; i < max_iteration; ++i) {
@@ -86,9 +88,7 @@ log: %s\n\
     while (read_one_req(reader, req) == 0) {
       auto &data = tmp_custom_params->objs_metadata[req->obj_id];
       data.access_counter += 1;
-      data.prev_req_metadata = data.current_req_metadata;
-      data.current_req_metadata = cclock::req_metadata(*req);
-
+      data.current_req_metadata.Track(req);
       if (tmp->get(tmp, req)) {
         tmp_custom_params->n_hit++;
       }
@@ -111,6 +111,7 @@ log: %s\n\
     for (auto &e : tmp_custom_params->objs_metadata) {
       e.second.access_counter = 0;
       e.second.last_promotion = 0;
+      e.second.current_req_metadata = {};
     }
     std::swap(tmp_custom_params->objs_metadata, custom_params->objs_metadata);
     std::swap(tmp_custom_params->datasets, custom_params->datasets);

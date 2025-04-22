@@ -1,13 +1,11 @@
 #pragma once
 
 #include <cstdint>
-#include <exception>
 #include <fstream>
 #include <libCacheSim/cache.h>
 #include <libCacheSim/cacheObj.h>
 #include <libCacheSim/evictionAlgo.h>
 #include <libCacheSim/request.h>
-#include <string>
 #include <unordered_map>
 #include <unordered_set>
 
@@ -16,32 +14,33 @@ void clear_cache(cache_t *c);
 
 struct req_metadata {
   req_metadata() = default;
-  req_metadata(const request_t &req) {
-    clock_time = req.clock_time;
-    last_access_vtime = req.vtime_since_last_access;
-    last_access_rtime = req.rtime_since_last_access;
-    obj_size = req.obj_size;
-    create_rtime = req.create_rtime;
-    first_seen = req.first_seen_in_window;
-    compulsory_miss = req.compulsory_miss;
+  void Track(const request_t *req) {
+    clock_time_between = req->clock_time - clock_time;
+    clock_time = req->clock_time;
+    last_access_vtime = req->vtime_since_last_access;
+    last_access_rtime = req->rtime_since_last_access;
+    obj_size = req->obj_size;
+    create_rtime = req->create_rtime;
+    first_seen = req->first_seen_in_window;
+    compulsory_miss = req->compulsory_miss;
   }
 
-  int64_t clock_time;
-  int64_t last_access_vtime;
-  int64_t last_access_rtime;
-  int64_t obj_size;
+  int64_t clock_time_between = 0;
+  int64_t clock_time = 0;
+  int64_t last_access_vtime = 0;
+  int64_t last_access_rtime = 0;
+  int64_t obj_size = 0;
 
-  int32_t create_rtime;
+  int32_t create_rtime = 0;
 
-  bool first_seen;
-  bool compulsory_miss;
+  bool first_seen = 0;
+  bool compulsory_miss = 0;
 };
 
 struct obj_metadata {
   uint64_t access_counter = 0;
   uint64_t last_promotion = 0;
   req_metadata current_req_metadata;
-  req_metadata prev_req_metadata;
   std::unordered_set<uint64_t> wasted_promotions;
 };
 

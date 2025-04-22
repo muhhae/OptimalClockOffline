@@ -43,6 +43,7 @@ static void CustomClockEvict(cache_t *cache, const request_t *req) {
                   data.current_req_metadata.last_access_vtime,
                   data.current_req_metadata.create_rtime,
                   data.current_req_metadata.clock_time,
+                  data.current_req_metadata.clock_time_between,
                   data.current_req_metadata.compulsory_miss,
                   data.current_req_metadata.first_seen,
                   data.current_req_metadata.obj_size, wasted);

@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <iostream>
 #include <libCacheSim.h>
 #include <sys/types.h>
