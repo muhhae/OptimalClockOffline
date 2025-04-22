@@ -7,6 +7,8 @@
 #include <unordered_set>
 
 namespace cclock {
+void clear_cache(cache_t *c);
+
 struct obj_metadata {
   uint64_t access_counter = 0;
   uint64_t last_promotion = 0;
@@ -33,4 +35,6 @@ public:
 
 cache_t *CustomClockInit(const common_cache_params_t ccache_params,
                          const char *cache_specific_params);
+cache_t *TestClockInit(const common_cache_params_t ccache_params,
+                       const char *cache_specific_params);
 } // namespace cclock

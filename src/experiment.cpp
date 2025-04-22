@@ -55,6 +55,9 @@ log: %s\n\
          reader->ignore_obj_size, max_iteration, log_path.c_str());
 
   uint64_t first_promoted = 0;
+  common_cache_params_t *params =
+      (common_cache_params_t *)cache->eviction_params;
+
   cclock::Custom_clock_params *custom_params =
       (cclock::Custom_clock_params *)cache->eviction_params;
 
@@ -65,37 +68,51 @@ log: %s\n\
                           << "last_promotion_is_wasted" << "\n";
 
   for (size_t i = 0; i < max_iteration; ++i) {
-    custom_params->n_hit = 0;
-    custom_params->n_req = 0;
-    custom_params->n_promoted = 0;
-    if (i == max_iteration - 1) {
-      custom_params->generate_datasets = generate_datasets;
-    }
+    auto tmp = clone_cache(cache);
+    auto tmp_custom_params =
+        (cclock::Custom_clock_params *)tmp->eviction_params;
+    std::swap(tmp_custom_params->objs_metadata, custom_params->objs_metadata);
+    std::swap(tmp_custom_params->datasets, custom_params->datasets);
 
+    tmp_custom_params->n_hit = 0;
+    tmp_custom_params->n_req = 0;
+    tmp_custom_params->n_promoted = 0;
+    if (i == max_iteration - 1) {
+      tmp_custom_params->generate_datasets = generate_datasets;
+    }
     while (read_one_req(reader, req) == 0) {
-      custom_params->objs_metadata[req->obj_id].access_counter += 1;
-      if (cache->get(cache, req)) {
-        custom_params->n_hit++;
+      tmp_custom_params->objs_metadata[req->obj_id].access_counter += 1;
+      if (tmp->get(tmp, req)) {
+        tmp_custom_params->n_hit++;
       }
-      custom_params->n_req++;
+      tmp_custom_params->n_req++;
     }
 
     std::ostringstream s;
     s << std::filesystem::path(reader->trace_path).filename() << ","
       << reader->ignore_obj_size << ","
       << (reader->ignore_obj_size ? cache->cache_size : cache->cache_size / MiB)
-      << "," << 1 - (double)custom_params->n_hit / custom_params->n_req << ","
-      << custom_params->n_req << "," << custom_params->n_promoted << "\n";
+      << "," << 1 - (double)tmp_custom_params->n_hit / tmp_custom_params->n_req
+      << "," << tmp_custom_params->n_req << "," << tmp_custom_params->n_promoted
+      << "\n";
     std::cout << s.str();
     csv_file << s.str();
 
     reset_reader(reader);
     if (i == 0)
-      first_promoted = custom_params->n_promoted;
-    for (auto &e : custom_params->objs_metadata) {
+      first_promoted = tmp_custom_params->n_promoted;
+    for (auto &e : tmp_custom_params->objs_metadata) {
       e.second.access_counter = 0;
       e.second.last_promotion = 0;
     }
+    std::swap(tmp_custom_params->objs_metadata, custom_params->objs_metadata);
+    std::swap(tmp_custom_params->datasets, custom_params->datasets);
+    std::swap(tmp_custom_params->n_hit, custom_params->n_hit);
+    std::swap(tmp_custom_params->n_req, custom_params->n_req);
+    std::swap(tmp_custom_params->n_promoted, custom_params->n_promoted);
+
+    free(tmp);
+    // cclock::clear_cache(cache);
   }
 
   custom_params->datasets.close();
@@ -140,12 +157,17 @@ void RunExperiment(const options &o) {
       CacheInit;
   if (o.algorithm == "default") {
     CacheInit = cclock::CustomClockInit;
+  } else if (o.algorithm == "test") {
+    CacheInit = cclock::TestClockInit;
   } else if (o.algorithm == "my") {
     CacheInit = myclock::MyClockInit;
   } else if (o.algorithm == "bob") {
     throw std::runtime_error("bob's algorithm hasn't been implemented");
   } else {
     throw std::runtime_error("algorithm not found");
+  }
+
+  if (o.algorithm != "default") {
   }
 
   std::filesystem::create_directories(o.output_directory / "log");

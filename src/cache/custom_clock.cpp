@@ -1,11 +1,31 @@
 #include "custom_clock.hpp"
 
 #include <cmath>
+#include <cstddef>
 #include <cstdint>
 #include <cstdio>
 #include <fstream>
+#include <iostream>
 #include <libCacheSim/cache.h>
 #include <libCacheSim/evictionAlgo.h>
+
+void cclock::clear_cache(cache_t *c) {
+  Clock_params_t *params = (Clock_params_t *)c->eviction_params;
+  while (params->q_tail != NULL && params->q_tail != params->q_head) {
+    remove_obj_from_list(&params->q_head, &params->q_tail, params->q_tail);
+    cache_evict_base(c, params->q_tail, true);
+  }
+  params->q_tail = NULL;
+  params->q_head = NULL;
+}
+
+template <typename T, typename... Args>
+void out_dataset(std::ofstream &output, T first, Args... rest) {
+  output << first << (sizeof...(rest) > 0 ? "," : "\n");
+  if constexpr (sizeof...(rest) > 0) {
+    out_dataset(output, rest...);
+  }
+}
 
 void CustomClockEvict(cache_t *cache, const request_t *req) {
   Clock_params_t *params = (Clock_params_t *)cache->eviction_params;
@@ -28,9 +48,9 @@ void CustomClockEvict(cache_t *cache, const request_t *req) {
                   data.wasted_promotions.end();
 
     if (custom_params->generate_datasets) {
-      custom_params->datasets << second_to_last_promotion << ","
-                              << second_to_last_promotion_is_wasted << ","
-                              << data.last_promotion << "," << wasted << "\n";
+      out_dataset(custom_params->datasets, second_to_last_promotion,
+                  second_to_last_promotion_is_wasted, data.last_promotion,
+                  wasted);
     }
     if (wasted) {
       break;
@@ -47,6 +67,20 @@ void CustomClockEvict(cache_t *cache, const request_t *req) {
   data.wasted_promotions.insert(data.last_promotion);
   remove_obj_from_list(&params->q_head, &params->q_tail, obj_to_evict);
   cache_evict_base(cache, obj_to_evict, true);
+}
+
+cache_t *cclock::TestClockInit(const common_cache_params_t ccache_params,
+                               const char *cache_specific_params) {
+  auto custom_clock = Clock_init(ccache_params, cache_specific_params);
+
+  custom_clock->cache_init = TestClockInit;
+
+  Custom_clock_params *params =
+      new Custom_clock_params(*(Clock_params_t *)custom_clock->eviction_params);
+  free(custom_clock->eviction_params);
+
+  custom_clock->eviction_params = params;
+  return custom_clock;
 }
 
 cache_t *cclock::CustomClockInit(const common_cache_params_t ccache_params,

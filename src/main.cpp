@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
       "Additional description for experiment, would shows on filename");
   app.add_option("trace_paths", o.trace_paths, "Can be more than one")
       ->required();
-  app.add_option("-a,--algo", o.algorithm, "available [default, my]")
+  app.add_option("-a,--algo", o.algorithm, "available [default, my, test]")
       ->default_val("default");
 
   CLI11_PARSE(app, argc, argv);
