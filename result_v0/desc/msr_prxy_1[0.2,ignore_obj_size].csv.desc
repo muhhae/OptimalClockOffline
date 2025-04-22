@@ -1,0 +1,66 @@
+
+🧾 Basic Info:
+------------------------------------------------------------
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 270670 entries, 0 to 270669
+Data columns (total 11 columns):
+ #   Column              Non-Null Count   Dtype
+---  ------              --------------   -----
+ 0   prev_promotion      270670 non-null  int64
+ 1    prev_is_wasted     270670 non-null  int64
+ 2    last_promotion     270670 non-null  int64
+ 3    last_access_rtime  270670 non-null  int64
+ 4    last_access_vtime  270670 non-null  int64
+ 5    create_rtime       270670 non-null  int64
+ 6    clock_time         270670 non-null  int64
+ 7    compulsory_miss    270670 non-null  int64
+ 8    first_seen         270670 non-null  int64
+ 9    obj_size           270670 non-null  int64
+ 10   wasted             270670 non-null  int64
+dtypes: int64(11)
+memory usage: 22.7 MB
+None
+
+📊 Summary Statistics (Numerical Columns):
+------------------------------------------------------------
+       prev_promotion   prev_is_wasted  ...   obj_size         wasted
+count    2.706700e+05    270670.000000  ...   270670.0  270670.000000
+mean     2.623520e+03         0.021849  ...        1.0       0.165002
+std      4.420740e+04         0.146192  ...        0.0       0.371183
+min      0.000000e+00         0.000000  ...        1.0       0.000000
+25%      0.000000e+00         0.000000  ...        1.0       0.000000
+50%      6.800000e+01         0.000000  ...        1.0       0.000000
+75%      1.187000e+03         0.000000  ...        1.0       0.000000
+max      8.340088e+06         1.000000  ...        1.0       1.000000
+
+[8 rows x 11 columns]
+
+📌 Missing Values:
+------------------------------------------------------------
+prev_promotion        0
+ prev_is_wasted       0
+ last_promotion       0
+ last_access_rtime    0
+ last_access_vtime    0
+ create_rtime         0
+ clock_time           0
+ compulsory_miss      0
+ first_seen           0
+ obj_size             0
+ wasted               0
+dtype: int64
+
+🆔 Unique Values per Column:
+------------------------------------------------------------
+prev_promotion         9106
+ prev_is_wasted           2
+ last_promotion       11081
+ last_access_rtime        1
+ last_access_vtime        1
+ create_rtime             1
+ clock_time           53678
+ compulsory_miss          1
+ first_seen               1
+ obj_size                 1
+ wasted                   2
+dtype: int64

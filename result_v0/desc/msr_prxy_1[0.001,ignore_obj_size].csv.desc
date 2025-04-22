@@ -1,0 +1,66 @@
+
+🧾 Basic Info:
+------------------------------------------------------------
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 22588315 entries, 0 to 22588314
+Data columns (total 11 columns):
+ #   Column              Dtype
+---  ------              -----
+ 0   prev_promotion      int64
+ 1    prev_is_wasted     int64
+ 2    last_promotion     int64
+ 3    last_access_rtime  int64
+ 4    last_access_vtime  int64
+ 5    create_rtime       int64
+ 6    clock_time         int64
+ 7    compulsory_miss    int64
+ 8    first_seen         int64
+ 9    obj_size           int64
+ 10   wasted             int64
+dtypes: int64(11)
+memory usage: 1.9 GB
+None
+
+📊 Summary Statistics (Numerical Columns):
+------------------------------------------------------------
+       prev_promotion   prev_is_wasted  ...    obj_size        wasted
+count    2.258832e+07     2.258832e+07  ...  22588315.0  2.258832e+07
+mean     7.193792e+04     9.772163e-01  ...         1.0  9.773734e-01
+std      5.594849e+05     1.492134e-01  ...         0.0  1.487098e-01
+min      0.000000e+00     0.000000e+00  ...         1.0  0.000000e+00
+25%      7.442000e+03     1.000000e+00  ...         1.0  1.000000e+00
+50%      1.622200e+04     1.000000e+00  ...         1.0  1.000000e+00
+75%      2.662400e+04     1.000000e+00  ...         1.0  1.000000e+00
+max      8.801872e+06     1.000000e+00  ...         1.0  1.000000e+00
+
+[8 rows x 11 columns]
+
+📌 Missing Values:
+------------------------------------------------------------
+prev_promotion        0
+ prev_is_wasted       0
+ last_promotion       0
+ last_access_rtime    0
+ last_access_vtime    0
+ create_rtime         0
+ clock_time           0
+ compulsory_miss      0
+ first_seen           0
+ obj_size             0
+ wasted               0
+dtype: int64
+
+🆔 Unique Values per Column:
+------------------------------------------------------------
+prev_promotion        268095
+ prev_is_wasted            2
+ last_promotion       268099
+ last_access_rtime         1
+ last_access_vtime         1
+ create_rtime              1
+ clock_time           441253
+ compulsory_miss           1
+ first_seen                1
+ obj_size                  1
+ wasted                    2
+dtype: int64
