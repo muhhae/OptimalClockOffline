@@ -6,6 +6,7 @@ if [ -z "$datasets_dir" ] || [ -z "$out_dir" ]; then
 fi
 relative_size=(0.001 0.01 0.1 0.2 0.4)
 shopt -s nullglob
+rm ~/task
 for size in ${relative_size[@]}; do
     datasets=""
     for file in $datasets_dir/*\["$size"\].csv; do
@@ -18,5 +19,5 @@ for size in ${relative_size[@]}; do
     # ram_usage=$(python -c "import common;common.AddDatasets($datasets);import var;print(int(var.df.memory_usage(deep=True).sum()/1024**3))")
     ram_usage=32
     # echo "Ram Usage: $ram_usage"
-    echo "shell:1:$ram_usage:2:python -c \"import common as c;c.AddDatasets($datasets);c.SetupData();c.SetupModel(1000);c.Train();c.SaveModel('$out_dir/model[$size].pkl')\"" >> ~/task
+    echo "shell:1:$ram_usage:2:python -c \"import common as c;c.AddDatasets($datasets);c.SetupData();lr.SetupModel(1000);lr.Train();c.SaveModel('$out_dir/model[$size].pkl')\"" >> ~/task
 done
