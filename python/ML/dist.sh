@@ -16,8 +16,23 @@ for size in ${relative_size[@]}; do
         continue
     fi
     datasets=${datasets%?}
-    # ram_usage=$(python -c "import common;common.AddDatasets($datasets);import var;print(int(var.df.memory_usage(deep=True).sum()/1024**3))")
-    ram_usage=32
+    ram_usage=$(python -c "import common;common.AddDatasets($datasets);import var;print(int(var.df.memory_usage(deep=True).sum()/1024**3))")
+    ram_usage=$((ram_usage+4))
+    # ram_usage=32
     # echo "Ram Usage: $ram_usage"
-    echo "shell:1:$ram_usage:2:cd ~/OptimalClockOffline/python/ML && python -c \"import common as c;c.AddDatasets($datasets);c.SetupData();lr.SetupModel(1000);lr.Train();c.SaveModel('$out_dir/model[$size].pkl')\"" >> ~/task
+    echo "shell:1:$ram_usage:2:cd ~/OptimalClockOffline/python/ML && python -c \"import common as c;c.AddDatasets($datasets);c.SetupData();c.lr.SetupModel(1000);c.lr.Train();c.SaveModel('$out_dir/logistic_regression[$size].pkl')\"" >> ~/task
+
+    datasets=""
+    for file in $datasets_dir/*\["$size,ignore_obj_size"\].csv; do
+        datasets+="'$file',"
+    done
+    if [ -z "$datasets" ]; then
+        continue
+    fi
+    datasets=${datasets%?}
+    ram_usage=$(python -c "import common;common.AddDatasets($datasets);import var;print(int(var.df.memory_usage(deep=True).sum()/1024**3))")
+    ram_usage=$((ram_usage+4))
+    # ram_usage=32
+    # echo "Ram Usage: $ram_usage"
+    echo "shell:1:$ram_usage:2:cd ~/OptimalClockOffline/python/ML && python -c \"import common as c;c.AddDatasets($datasets);c.SetupData();c.lr.SetupModel(1000);c.lr.Train();c.SaveModel('$out_dir/logistic_regression[$size,ignore_obj_size].pkl')\"" >> ~/task
 done
