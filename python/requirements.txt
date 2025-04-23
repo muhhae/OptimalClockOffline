@@ -6,9 +6,6 @@ cycler==0.12.1
 decorator==5.2.1
 executing==2.2.0
 fonttools==4.56.0
-ipython==9.1.0
-ipython_pygments_lexers==1.1.1
-itermplot==0.331
 jedi==0.19.2
 joblib==1.4.2
 kiwisolver==1.4.8
@@ -24,10 +21,6 @@ parso==0.8.4
 pexpect==4.9.0
 pillow==11.1.0
 prompt_toolkit==3.0.51
-protobuf==6.30.2
-ptipython==1.0.1
-ptpython==3.0.30
-ptyprocess==0.7.0
 pure_eval==0.2.3
 pydantic_core==2.27.2
 Pygments==2.19.1
