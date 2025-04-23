@@ -15,6 +15,6 @@ for size in ${relative_size[@]}; do
         continue
     fi
     datasets=${datasets%?}
-    ram_usage=$(python -c "import common;common.AddDatasets($datasets);print(int(common.df.memory_usage(deep=True).sum()/1024**3))")
+    ram_usage=$(python -c "import common;common.AddDatasets($datasets);import var;print(int(var.df.memory_usage(deep=True).sum()/1024**3))")
     echo "Ram Usage: $ram_usage"
 done
