@@ -17,4 +17,5 @@ for size in ${relative_size[@]}; do
     datasets=${datasets%?}
     ram_usage=$(python -c "import common;common.AddDatasets($datasets);import var;print(int(var.df.memory_usage(deep=True).sum()/1024**3))")
     echo "Ram Usage: $ram_usage"
+    echo "shell:1:$ram_usage:2:python -c \"import common as c;c.AddDatasets($datasets);c.SetupData();c.SetupModel(1000);c.Train();c.SaveModel($out_dir/model\[$size\].pkl)\""
 done
