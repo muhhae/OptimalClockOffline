@@ -1,0 +1,137 @@
+from skl2onnx import to_onnx
+import joblib
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
+from sklearn.model_selection import train_test_split
+
+import var
+import logistic_regression as lr
+
+
+def DescribeData():
+    if var.df is None:
+        raise Exception("Datasets has not been set up")
+        print("\n🧾 Basic Info:")
+
+    print("-" * 60)
+    print(var.df.info())
+
+    print("\n📊 Summary Statistics (Numerical Columns):")
+    print("-" * 60)
+    print(var.df.describe(include=[float, int]))
+
+    print("\n📌 Missing Values:")
+    print("-" * 60)
+    print(var.df.isnull().sum())
+
+    print("\n🆔 Unique Values per Column:")
+    print("-" * 60)
+    print(var.df.nunique())
+
+    if "wasted" in var.df.columns:
+        print("\n🚫 Subset: wasted == 0")
+        print("-" * 60)
+        print(var.df[var.df["wasted"] == 0].describe(include=[float, int]))
+
+        print("\n✅ Subset: wasted == 1")
+        print("-" * 60)
+        print(var.df[var.df["wasted"] == 1].describe(include=[float, int]))
+    else:
+        print("\n⚠️ Column 'wasted' not found in CSV.")
+
+
+def AddDatasets(*paths: str):
+    new_df = pd.concat([pd.read_csv(p) for p in paths], ignore_index=True)
+    new_df.columns = new_df.columns.str.strip()
+    new_df = new_df.drop(
+        [
+            "last_access_rtime",
+            "last_access_vtime",
+            "create_rtime",
+            "compulsory_miss",
+            "first_seen",
+        ],
+        axis=1,
+    )
+    if var.df is None:
+        var.df = new_df
+    else:
+        var.df = pd.concat([var.df, new_df], ignore_index=True)
+
+
+def SetupData():
+    X = var.df.iloc[:, :-1]
+    y = var.df.wasted
+    var.X_train, var.X_test, var.y_train, var.y_test = train_test_split(
+        X, y, test_size=0.2, random_state=9, stratify=y
+    )
+
+
+def LoadModel(path: str = "model.pkl"):
+    var.model = joblib.load(path)
+
+
+def SaveModel(path: str = "model.pkl"):
+    if var.model is None:
+        raise Exception("Model has not been set up")
+    joblib.dump(var.model, path)
+
+
+def ExportONNX(path: str = "model.onxx"):
+    if var.model is None:
+        raise Exception("Model has not been set up")
+    onx = to_onnx(var.model, var.X_train[:1])
+    file = open(path, "wb")
+    file.write(onx.SerializeToString())
+    file.close()
+    print(f"Model exported to {path} with var {var.X_train[:1]}")
+
+
+def Test():
+    if var.df is None:
+        raise Exception("Datasets has not been set up")
+    if var.model is None:
+        raise Exception("Model has not been set up")
+    predictions = var.model.predict(var.X_test)
+    print("Classification Report:")
+    print(classification_report(var.y_test, var.predictions))
+    print("Accuracy:", accuracy_score(var.y_test, var.predictions))
+    cm = confusion_matrix(var.y_test, predictions)
+    print("Confusion Matrix:")
+    print(cm)
+    print("Confusion Matrix (%):")
+    print(cm / cm.sum() * 100)
+
+
+def PlotSave(path: str = "plot.png"):
+    plt.figure(figsize=(6, 5))
+    sns.heatmap(
+        confusion_matrix(var.y_test, var.model.predict(var.X_test)),
+        annot=True,
+        fmt="d",
+        cmap="Blues",
+        xticklabels=["Not Wasted (0)", "Wasted (1)"],
+        yticklabels=["Not Wasted (0)", "Wasted (1)"],
+    )
+    plt.title("Confusion Matrix")
+    plt.xlabel("Predicted")
+    plt.ylabel("True")
+    plt.savefig(path)
+
+
+def PlotShow():
+    plt.figure(figsize=(6, 5))
+    sns.heatmap(
+        confusion_matrix(var.y_test, var.model.predict(var.X_test)),
+        annot=True,
+        fmt="d",
+        cmap="Blues",
+        xticklabels=["Not Wasted (0)", "Wasted (1)"],
+        yticklabels=["Not Wasted (0)", "Wasted (1)"],
+    )
+    plt.title("Confusion Matrix")
+    plt.xlabel("Predicted")
+    plt.ylabel("True")
+    plt.show()
