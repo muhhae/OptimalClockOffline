@@ -15,12 +15,16 @@ kiwisolver==1.4.8
 matplotlib==3.10.1
 matplotlib-inline==0.1.7
 numpy==2.2.4
+onnx==1.17.0
+onnxconverter-common==1.14.0
+onnxmltools==1.13.0
 packaging==24.2
 pandas==2.2.3
 parso==0.8.4
 pexpect==4.9.0
 pillow==11.1.0
 prompt_toolkit==3.0.51
+protobuf==6.30.2
 ptipython==1.0.1
 ptpython==3.0.30
 ptyprocess==0.7.0
@@ -34,6 +38,7 @@ scikit-learn==1.6.1
 scipy==1.15.2
 seaborn==0.13.2
 six==1.17.0
+skl2onnx==1.18.0
 stack-data==0.6.3
 threadpoolctl==3.6.0
 traitlets==5.14.3
