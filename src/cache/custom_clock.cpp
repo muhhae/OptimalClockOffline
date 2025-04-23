@@ -1,12 +1,10 @@
 #include "custom_clock.hpp"
 
 #include <cmath>
-#include <cstddef>
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <fstream>
-#include <iostream>
 #include <libCacheSim/cache.h>
 #include <libCacheSim/evictionAlgo.h>
 
@@ -26,19 +24,11 @@ static void CustomClockEvict(cache_t *cache, const request_t *req) {
   cache_obj_t *obj_to_evict = params->q_tail;
   while (obj_to_evict->clock.freq >= 1) {
     auto &data = custom_params->objs_metadata[obj_to_evict->obj_id];
-
-    uint64_t prev_promotion = data.last_promotion;
-    bool prev_is_wasted = data.wasted_promotions.find(data.last_promotion) !=
-                          data.wasted_promotions.end();
     data.last_promotion = data.access_counter;
-
-    uint64_t gap_between_last_promotion = data.last_promotion - prev_promotion;
     bool wasted = data.wasted_promotions.find(data.last_promotion) !=
                   data.wasted_promotions.end();
-
     if (custom_params->generate_datasets) {
-      out_dataset(custom_params->datasets, prev_promotion, prev_is_wasted,
-                  data.last_promotion,
+      out_dataset(custom_params->datasets,
                   data.current_req_metadata.last_access_rtime,
                   data.current_req_metadata.last_access_vtime,
                   data.current_req_metadata.create_rtime,
@@ -46,12 +36,12 @@ static void CustomClockEvict(cache_t *cache, const request_t *req) {
                   data.current_req_metadata.clock_time_between,
                   data.current_req_metadata.compulsory_miss,
                   data.current_req_metadata.first_seen,
-                  data.current_req_metadata.obj_size, wasted);
+                  data.current_req_metadata.obj_size, obj_to_evict->clock.freq,
+                  data.access_counter, wasted);
     }
     if (wasted) {
       break;
     }
-
     obj_to_evict->clock.freq -= 1;
     params->n_obj_rewritten += 1;
     params->n_byte_rewritten += obj_to_evict->obj_size;
