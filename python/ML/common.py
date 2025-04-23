@@ -12,8 +12,8 @@ import logistic_regression as lr
 
 def DescribeData():
     if var.df is None:
-        raise Exception("Datasets has not been set up")
-        print("\n🧾 Basic Info:")
+        raise Exception("Datasets has not been loaded, exec AddDatasets")
+    print("\n🧾 Basic Info:")
 
     print("-" * 60)
     print(var.df.info())
@@ -62,6 +62,8 @@ def AddDatasets(*paths: str):
 
 
 def SetupData():
+    if var.df is None:
+        raise Exception("Datasets has not been loaded, exec AddDatasets")
     X = var.df.iloc[:, :-1]
     y = var.df.wasted
     var.X_train, var.X_test, var.y_train, var.y_test = train_test_split(
@@ -75,13 +77,13 @@ def LoadModel(path: str = "model.pkl"):
 
 def SaveModel(path: str = "model.pkl"):
     if var.model is None:
-        raise Exception("Model has not been set up")
+        raise Exception("Model has not been set up, exec SetupModel and Train")
     joblib.dump(var.model, path)
 
 
 def ExportONNX(path: str = "model.onxx"):
     if var.model is None:
-        raise Exception("Model has not been set up")
+        raise Exception("Model has not been set up, exec SetupModel and Train")
     onx = to_onnx(var.model, var.X_train[:1])
     file = open(path, "wb")
     file.write(onx.SerializeToString())
@@ -90,14 +92,14 @@ def ExportONNX(path: str = "model.onxx"):
 
 
 def Test():
-    if var.df is None:
-        raise Exception("Datasets has not been set up")
+    if var.X_test is None:
+        raise Exception("Datasets has not been set up, exec SetupData")
     if var.model is None:
-        raise Exception("Model has not been set up")
+        raise Exception("Model has not been set up, exec SetupModel and Train")
     predictions = var.model.predict(var.X_test)
     print("Classification Report:")
-    print(classification_report(var.y_test, var.predictions))
-    print("Accuracy:", accuracy_score(var.y_test, var.predictions))
+    print(classification_report(var.y_test, predictions))
+    print("Accuracy:", accuracy_score(var.y_test, predictions))
     cm = confusion_matrix(var.y_test, predictions)
     print("Confusion Matrix:")
     print(cm)
@@ -106,6 +108,8 @@ def Test():
 
 
 def PlotSave(path: str = "plot.png"):
+    if var.model is None:
+        raise Exception("Model has not been set up, exec SetupModel and Train")
     plt.figure(figsize=(6, 5))
     sns.heatmap(
         confusion_matrix(var.y_test, var.model.predict(var.X_test)),
@@ -122,6 +126,8 @@ def PlotSave(path: str = "plot.png"):
 
 
 def PlotShow():
+    if var.model is None:
+        raise Exception("Model has not been set up, exec SetupModel and Train")
     plt.figure(figsize=(6, 5))
     sns.heatmap(
         confusion_matrix(var.y_test, var.model.predict(var.X_test)),
