@@ -9,14 +9,14 @@ shopt -s nullglob
 for size in ${relative_size[@]}; do
     datasets=""
     for file in $datasets_dir/*\["$size"\].csv; do
-        datasets+="\"$file\","
+        datasets+="'$file',"
     done
     if [ -z "$datasets" ]; then
         continue
     fi
     datasets=${datasets%?}
-    ram_usage=$(python -c "import common;common.AddDatasets($datasets);import var;print(int(var.df.memory_usage(deep=True).sum()/1024**3))")
-    ram_usage=$((ram_usage+2))
-    echo "Ram Usage: $ram_usage"
-    echo "shell:1:$ram_usage:2:python -c \"import common as c;c.AddDatasets($datasets);c.SetupData();c.SetupModel(1000);c.Train();c.SaveModel($out_dir/model\[$size\].pkl)\"" >> ~/task
+    # ram_usage=$(python -c "import common;common.AddDatasets($datasets);import var;print(int(var.df.memory_usage(deep=True).sum()/1024**3))")
+    ram_usage=32
+    # echo "Ram Usage: $ram_usage"
+    echo "shell:1:$ram_usage:2:python -c \"import common as c;c.AddDatasets($datasets);c.SetupData();c.SetupModel(1000);c.Train();c.SaveModel('$out_dir/model\[$size\].pkl')\"" >> ~/task
 done
