@@ -70,7 +70,7 @@ log: %s\n\
       << "last_access_rtime, "
          "last_access_vtime, create_rtime, clock_time, clock_time_between, "
          "compulsory_miss, "
-         "first_seen, obj_size, clock_freq, lifetime_freq, wasted\n";
+         "first_seen, cache_size, obj_size, clock_freq, lifetime_freq, wasted\n";
 
   for (size_t i = 0; i < max_iteration; ++i) {
     auto tmp = clone_cache(cache);

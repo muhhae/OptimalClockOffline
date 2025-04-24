@@ -1,0 +1,22 @@
+[
+{
+  "directory": "/mnt/v0/OptimalClockOffline/_build",
+  "command": "/usr/bin/c++  -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/mnt/v0/OptimalClockOffline/src  -o CMakeFiles/cacheSimulator.dir/src/main.cpp.o -c /mnt/v0/OptimalClockOffline/src/main.cpp",
+  "file": "/mnt/v0/OptimalClockOffline/src/main.cpp"
+},
+{
+  "directory": "/mnt/v0/OptimalClockOffline/_build",
+  "command": "/usr/bin/c++  -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/mnt/v0/OptimalClockOffline/src  -o CMakeFiles/cacheSimulator.dir/src/experiment.cpp.o -c /mnt/v0/OptimalClockOffline/src/experiment.cpp",
+  "file": "/mnt/v0/OptimalClockOffline/src/experiment.cpp"
+},
+{
+  "directory": "/mnt/v0/OptimalClockOffline/_build",
+  "command": "/usr/bin/c++  -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/mnt/v0/OptimalClockOffline/src  -o CMakeFiles/cacheSimulator.dir/src/cache/custom_clock.cpp.o -c /mnt/v0/OptimalClockOffline/src/cache/custom_clock.cpp",
+  "file": "/mnt/v0/OptimalClockOffline/src/cache/custom_clock.cpp"
+},
+{
+  "directory": "/mnt/v0/OptimalClockOffline/_build",
+  "command": "/usr/bin/c++  -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/mnt/v0/OptimalClockOffline/src  -o CMakeFiles/cacheSimulator.dir/src/cache/my_clock.cpp.o -c /mnt/v0/OptimalClockOffline/src/cache/my_clock.cpp",
+  "file": "/mnt/v0/OptimalClockOffline/src/cache/my_clock.cpp"
+}
+]
