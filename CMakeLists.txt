@@ -27,6 +27,11 @@ if("${ZSTD_LIBRARIES}" STREQUAL "")
   message(FATAL_ERROR "zstd not found")
 endif()
 
+find_library(ONNXRUNTIME_LIB onnxruntime)
+find_path(onnxruntimeInclude onnxruntime)
+message(STATUS "ONNX runtime found? ${onnxruntime} ${libCacheSimInclude}")
+include_directories(onnxruntimeInclude)
+
 add_executable(cacheSimulator
   src/main.cpp
   src/experiment.cpp
@@ -38,5 +43,5 @@ add_executable(cacheSimulator
 target_include_directories(cacheSimulator PRIVATE src)
 
 target_link_libraries(
-  cacheSimulator PUBLIC libCacheSim m ${GLib_LIBRARY} ${ZSTD_LIBRARIES}
+  cacheSimulator PUBLIC libCacheSim onnxruntime m ${GLib_LIBRARY} ${ZSTD_LIBRARIES}
 )

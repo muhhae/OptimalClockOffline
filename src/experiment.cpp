@@ -94,6 +94,7 @@ void RunExperiment(const options &o) {
 
 void Simulate(cache_t *cache, const std::filesystem::path trace_path,
               const options o, const std::string desc) {
+
   reader_init_param_t param = default_reader_init_params();
   param.ignore_obj_size = o.ignore_obj_size;
 
@@ -115,19 +116,6 @@ void Simulate(cache_t *cache, const std::filesystem::path trace_path,
   std::ofstream csv_file(log_path);
   csv_file << csv_header;
 
-  printf("\n\
-============\n\
----start!---\n\
-trace_path: %s\n\
-cache_size: %lld\n\
-ignore_obj_size: %d\n\
-iteration: %ld\n\
-log: %s\n\
-============\n",
-         reader->trace_path,
-         reader->ignore_obj_size ? cache->cache_size : cache->cache_size / MiB,
-         reader->ignore_obj_size, o.max_iteration, log_path.c_str());
-
   uint64_t first_promoted = 0;
   common_cache_params_t *params =
       (common_cache_params_t *)cache->eviction_params;
@@ -142,7 +130,22 @@ log: %s\n\
          "compulsory_miss, "
          "first_seen, cache_size, obj_size, clock_freq, lifetime_freq, "
          "wasted\n";
+  if (o.algorithm == "ML") {
+    ((mlclock::MLClockParam *)custom_params)->LoadModel(o.ml_model);
+  }
 
+  printf("\n\
+============\n\
+---start!---\n\
+trace_path: %s\n\
+cache_size: %lld\n\
+ignore_obj_size: %d\n\
+iteration: %ld\n\
+log: %s\n\
+============\n",
+         reader->trace_path,
+         reader->ignore_obj_size ? cache->cache_size : cache->cache_size / MiB,
+         reader->ignore_obj_size, o.max_iteration, log_path.c_str());
   for (size_t i = 0; i < o.max_iteration; ++i) {
     auto tmp = clone_cache(cache);
     auto tmp_custom_params =
@@ -152,7 +155,13 @@ log: %s\n\
     std::swap(tmp_custom_params->n_hit, custom_params->n_hit);
     std::swap(tmp_custom_params->n_req, custom_params->n_req);
     std::swap(tmp_custom_params->n_promoted, custom_params->n_promoted);
-
+    if (o.algorithm == "ML") {
+      auto tmp_ml_param = (mlclock::MLClockParam *)tmp_custom_params;
+      auto ml_param = (mlclock::MLClockParam *)custom_params;
+      std::swap(tmp_ml_param->session, ml_param->session);
+      std::swap(tmp_ml_param->session_options, ml_param->session_options);
+      std::swap(tmp_ml_param->env, ml_param->env);
+    }
     tmp_custom_params->n_hit = 0;
     tmp_custom_params->n_req = 0;
     tmp_custom_params->n_promoted = 0;
@@ -192,7 +201,13 @@ log: %s\n\
     std::swap(tmp_custom_params->n_hit, custom_params->n_hit);
     std::swap(tmp_custom_params->n_req, custom_params->n_req);
     std::swap(tmp_custom_params->n_promoted, custom_params->n_promoted);
-
+    if (o.algorithm == "ML") {
+      auto tmp_ml_param = (mlclock::MLClockParam *)tmp_custom_params;
+      auto ml_param = (mlclock::MLClockParam *)custom_params;
+      std::swap(tmp_ml_param->session, ml_param->session);
+      std::swap(tmp_ml_param->session_options, ml_param->session_options);
+      std::swap(tmp_ml_param->env, ml_param->env);
+    }
     tmp->cache_free(tmp);
   }
 
