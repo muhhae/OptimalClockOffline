@@ -1,3 +1,0 @@
-/mnt/v0/OptimalClockOffline/_build/CMakeFiles/cacheSimulator.dir
-/mnt/v0/OptimalClockOffline/_build/CMakeFiles/edit_cache.dir
-/mnt/v0/OptimalClockOffline/_build/CMakeFiles/rebuild_cache.dir
