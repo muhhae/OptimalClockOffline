@@ -59,7 +59,7 @@ c.Test()\" > $out_dir/$model[$size,ignore_obj_size].desc" >> ~/task
 done
 size="All"
 datasets=""
-F="$(/usr/bin/find "$datasets_dir" -maxdepth 1 -name "*.csv" | grep -v ",size].csv$")"
+F="$(/usr/bin/find "$datasets_dir" -maxdepth 1 -name "*.csv" | grep -v "size].csv$")"
 while IF= read -r l; do
     datasets+="'$l',"
 done <<< "$F"
