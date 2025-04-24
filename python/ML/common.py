@@ -1,13 +1,23 @@
 from skl2onnx import to_onnx
+from skl2onnx.common.data_types import (
+    FloatTensorType,
+    Int64TensorType,
+    StringTensorType,
+    BoolTensorType,
+)
 import joblib
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
 from sklearn.model_selection import train_test_split
+from typing import List, Tuple, Union
 
 import var
 import logistic_regression as lr
+
+DataType = Union[FloatTensorType, Int64TensorType, StringTensorType, BoolTensorType]
 
 
 def DescribeData():
@@ -81,14 +91,17 @@ def SaveModel(path: str = "model.pkl"):
     joblib.dump(var.model, path)
 
 
-def ExportONNX(path: str = "model.onxx"):
+def ExportONNX(
+    path: str = "model.onxx",
+):
     if var.model is None:
         raise Exception("Model has not been set up, exec SetupModel and Train")
-    onx = to_onnx(var.model, var.X_train[:1])
+    if var.dummy_input is None:
+        raise Exception("Provice var.dummy_input or SetupData()")
+    onx = to_onnx(var.model, var.dummy_input)
     file = open(path, "wb")
     file.write(onx.SerializeToString())
     file.close()
-    print(f"Model exported to {path} with var {var.X_train[:1]}")
 
 
 def Test():
