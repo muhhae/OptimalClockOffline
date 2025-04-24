@@ -18,6 +18,7 @@ if [[ -z $out_dir ]]; then
   model="logistic_regression"
 fi
 model="~/OptimalClockOffline/python/ML/v4/model/$model"
+echo Model: $model
 
 rm ~/task
 
@@ -40,23 +41,23 @@ while IFS= read -r link; do
         else
             echo "Skipping processing: (corresponding result exists and not empty: $log_file)"
         fi
-        log_file="$out_dir/log/${basename}[${cache_size},ignore_obj_size,logistic_regression_All].csv"
-        if ! [ -s $log_file ]; then
-            echo "shell:1:$min_dram:2:~/OptimalClockOffline/build/cacheSimulator $file -o $out_dir -r $cache_size -i 1 --ignore-obj-size -d ignore_obj_size,logistic_regression_All -a ML -m $model[All,ignore_obj_size].onnx" >> ~/task
-        else
-            echo "Skipping processing: (corresponding result exists and not empty: $log_file)"
-        fi
+        # log_file="$out_dir/log/${basename}[${cache_size},ignore_obj_size,logistic_regression_All].csv"
+        # if ! [ -s $log_file ]; then
+        #     echo "shell:1:$min_dram:2:~/OptimalClockOffline/build/cacheSimulator $file -o $out_dir -r $cache_size -i 1 --ignore-obj-size -d ignore_obj_size,logistic_regression_All -a ML -m $model[All,ignore_obj_size].onnx" >> ~/task
+        # else
+        #     echo "Skipping processing: (corresponding result exists and not empty: $log_file)"
+        # fi
         log_file="$out_dir/log/${basename}[${cache_size},logistic_regression_$cache_size].csv"
         if ! [ -s $log_file ]; then
             echo "shell:1:$min_dram:2:~/OptimalClockOffline/build/cacheSimulator $file -o $out_dir -r $cache_size -i 1 -d logistic_regression_$cache_size -a ML -m $model[$cache_size].onnx" >> ~/task
         else
             echo "Skipping processing: (corresponding result exists and not empty: $log_file)"
         fi
-        log_file="$out_dir/log/${basename}[${cache_size},logistic_regression_All].csv"
-        if ! [ -s $log_file ]; then
-            echo "shell:1:$min_dram:2:~/OptimalClockOffline/build/cacheSimulator $file -o $out_dir -r $cache_size -i 1 -d logistic_regression_All -a ML -m $model[All].onnx" >> ~/task
-        else
-            echo "Skipping processing: (corresponding result exists and not empty: $log_file)"
-        fi
+        # log_file="$out_dir/log/${basename}[${cache_size},logistic_regression_All].csv"
+        # if ! [ -s $log_file ]; then
+        #     echo "shell:1:$min_dram:2:~/OptimalClockOffline/build/cacheSimulator $file -o $out_dir -r $cache_size -i 1 -d logistic_regression_All -a ML -m $model[All].onnx" >> ~/task
+        # else
+        #     echo "Skipping processing: (corresponding result exists and not empty: $log_file)"
+        # fi
     done
 done < "$traces_txt"

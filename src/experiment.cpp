@@ -134,18 +134,18 @@ void Simulate(cache_t *cache, const std::filesystem::path trace_path,
     ((mlclock::MLClockParam *)custom_params)->LoadModel(o.ml_model);
   }
 
-  printf("\n\
-============\n\
----start!---\n\
-trace_path: %s\n\
-cache_size: %lld\n\
-ignore_obj_size: %d\n\
-iteration: %ld\n\
-log: %s\n\
-============\n",
-         reader->trace_path,
-         reader->ignore_obj_size ? cache->cache_size : cache->cache_size / MiB,
-         reader->ignore_obj_size, o.max_iteration, log_path.c_str());
+  //   printf("\n\
+// ============\n\
+// ---start!---\n\
+// trace_path: %s\n\
+// cache_size: %lld\n\
+// ignore_obj_size: %d\n\
+// iteration: %ld\n\
+// log: %s\n\
+// ============\n",
+  //          reader->trace_path,
+  //          reader->ignore_obj_size ? cache->cache_size : cache->cache_size /
+  //          MiB, reader->ignore_obj_size, o.max_iteration, log_path.c_str());
   for (size_t i = 0; i < o.max_iteration; ++i) {
     auto tmp = clone_cache(cache);
     auto tmp_custom_params =
@@ -218,27 +218,26 @@ log: %s\n\
   for (const auto &e : custom_params->objs_metadata) {
     sum += e.second.wasted_promotions.size();
   }
-  printf("\n\
-============\n\
--COMPLETED!-\n\
-trace_path: %s\n\
-cache_size: %lld\n\
-ignore_obj_size: %d\n\
-miss_ratio: %f\n\
-n_req: %ld\n\
-first_promoted: %ld\n\
-last_promoted: %ld\n\
-iteration: %ld\n\
-promotions_reduced: %ld\n\
-log: %s\n\
-============\n",
-         reader->trace_path,
-         reader->ignore_obj_size ? cache->cache_size : cache->cache_size / MiB,
-         reader->ignore_obj_size,
-         1 - (double)custom_params->n_hit / custom_params->n_req,
-         custom_params->n_req, first_promoted, custom_params->n_promoted,
-         o.max_iteration, first_promoted - custom_params->n_promoted,
-         log_path.c_str());
+  //   printf("\n\
+// ============\n\
+// -COMPLETED!-\n\
+// trace_path: %s\n\
+// cache_size: %lld\n\
+// ignore_obj_size: %d\n\
+// miss_ratio: %f\n\
+// n_req: %ld\n\
+// first_promoted: %ld\n\
+// last_promoted: %ld\n\
+// iteration: %ld\n\
+// promotions_reduced: %ld\n\
+// log: %s\n\
+// ============\n",
+  //          reader->trace_path,
+  //          reader->ignore_obj_size ? cache->cache_size : cache->cache_size /
+  //          MiB, reader->ignore_obj_size, 1 - (double)custom_params->n_hit /
+  //          custom_params->n_req, custom_params->n_req, first_promoted,
+  //          custom_params->n_promoted, o.max_iteration, first_promoted -
+  //          custom_params->n_promoted, log_path.c_str());
 
   custom_params->objs_metadata.clear();
   free_request(req);

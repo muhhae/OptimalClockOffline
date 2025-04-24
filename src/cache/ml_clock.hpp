@@ -54,6 +54,7 @@ public:
                      &input_tensor, 1, output_names.data(), 1);
 
     int64_t *output_data = output_tensors[0].GetTensorMutableData<int64_t>();
+    std::cout << "Output: " << output_data[0] << std::endl;
     return output_data[0];
   }
 
