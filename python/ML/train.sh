@@ -34,12 +34,12 @@ for size in ${relative_size[@]}; do
     # ram_usage=$((ram_usage+4))
     ram_usage=32
     # echo "Ram Usage: $ram_usage"
-    echo "shell:1:$ram_usage:2:cd ~/OptimalClockOffline/python/ML && python -c \"import common as c;c.AddDatasets($datasets);c.SetupData();c.lr.SetupModel(1000);c.lr.Train();c.SaveModel('$out_dir/logistic_regression[$size,ignore_obj_size].pkl');c.ExportONNX('$out_dir/logistic_regression[$size,ignore_obj_size].onnx')c.PlotSave('$out_dir/logistic_regression[$size,ignore_obj_size].png');c.Test()\" > $out_dir/logistic_regression[$size,ignore_obj_size].desc" >> ~/task
+    echo "shell:1:$ram_usage:2:cd ~/OptimalClockOffline/python/ML && python -c \"import common as c;c.AddDatasets($datasets);c.SetupData();c.lr.SetupModel(1000);c.lr.Train();c.SaveModel('$out_dir/logistic_regression[$size,ignore_obj_size].pkl');c.ExportONNX('$out_dir/logistic_regression[$size,ignore_obj_size].onnx');c.PlotSave('$out_dir/logistic_regression[$size,ignore_obj_size].png');c.Test()\" > $out_dir/logistic_regression[$size,ignore_obj_size].desc" >> ~/task
 done
 size="All"
 datasets=""
 for file in $(find "$datasets_dir" -maxdepth 1 -name "*.csv" | grep -v ",ignore_obj_size\].csv$"); do
-    datasets+="\"$file\","
+    datasets+="'$file',"
 done
 datasets=${datasets%?}
 # ram_usage=$(python -c "import common;common.AddDatasets($datasets);import var;print(int(var.df.memory_usage(deep=True).sum()/1024**3))")
@@ -57,4 +57,4 @@ datasets=${datasets%?}
 # ram_usage=$((ram_usage+4))
 ram_usage=100
 # echo "Ram Usage: $ram_usage"
-echo "shell:1:$ram_usage:2:cd ~/OptimalClockOffline/python/ML && python -c \"import common as c;c.AddDatasets($datasets);c.SetupData();c.lr.SetupModel(1000);c.lr.Train();c.SaveModel('$out_dir/logistic_regression[$size,ignore_obj_size].pkl');c.ExportONNX('$out_dir/logistic_regression[$size,ignore_obj_size].onnx')c.PlotSave('$out_dir/logistic_regression[$size,ignore_obj_size].png');c.Test()\" > $out_dir/logistic_regression[$size,ignore_obj_size].desc" >> ~/task
+echo "shell:1:$ram_usage:2:cd ~/OptimalClockOffline/python/ML && python -c \"import common as c;c.AddDatasets($datasets);c.SetupData();c.lr.SetupModel(1000);c.lr.Train();c.SaveModel('$out_dir/logistic_regression[$size,ignore_obj_size].pkl');c.ExportONNX('$out_dir/logistic_regression[$size,ignore_obj_size].onnx');c.PlotSave('$out_dir/logistic_regression[$size,ignore_obj_size].png');c.Test()\" > $out_dir/logistic_regression[$size,ignore_obj_size].desc" >> ~/task
