@@ -14,7 +14,7 @@ if [[ -z $out_dir ]]; then
 fi
 
 model="$3"
-if [[ -z $out_dir ]]; then
+if [[ -z $model ]]; then
   model="logistic_regression"
 fi
 model="~/OptimalClockOffline/python/ML/v4/model/$model"
