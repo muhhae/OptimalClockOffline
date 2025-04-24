@@ -38,8 +38,8 @@ for size in ${relative_size[@]}; do
 done
 size="All"
 datasets=""
-for file in $(find "$datasets_dir" -maxdepth 1 -name "*.csv" | grep -v ',ignore_obj_size\].csv$'); do
-    datasets+="'$file',"
+for file in $(find "$datasets_dir" -maxdepth 1 -name "*.csv" | grep -v ",ignore_obj_size\].csv$"); do
+    datasets+="\"$file\","
 done
 datasets=${datasets%?}
 # ram_usage=$(python -c "import common;common.AddDatasets($datasets);import var;print(int(var.df.memory_usage(deep=True).sum()/1024**3))")
