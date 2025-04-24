@@ -36,11 +36,12 @@ int main(int argc, char **argv) {
       "Additional description for experiment, would shows on filename");
   app.add_option("trace_paths", o.trace_paths, "Can be more than one")
       ->required();
-  app.add_option("-a,--algo", o.algorithm, "available [default, my, test]")
+  app.add_option("-a,--algo", o.algorithm, "available [default, ML, my, base]")
       ->default_val("default");
+  app.add_option("-m,--model", o.ml_model,
+                 "ML model to use, required when algo = ML");
 
   CLI11_PARSE(app, argc, argv);
-  std::cout << "Algo " << o.algorithm << "\n";
   RunExperiment(o);
   return 0;
 }

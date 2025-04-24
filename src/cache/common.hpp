@@ -1,17 +1,12 @@
 #pragma once
 
-#include <cstdint>
 #include <fstream>
-#include <libCacheSim/cache.h>
-#include <libCacheSim/cacheObj.h>
 #include <libCacheSim/evictionAlgo.h>
 #include <libCacheSim/request.h>
 #include <unordered_map>
 #include <unordered_set>
 
-namespace cclock {
-void clear_cache(cache_t *c);
-
+namespace common {
 struct req_metadata {
   req_metadata() = default;
   void Track(const request_t *req) {
@@ -61,9 +56,4 @@ public:
 
   bool generate_datasets;
 };
-
-cache_t *CustomClockInit(const common_cache_params_t ccache_params,
-                         const char *cache_specific_params);
-cache_t *TestClockInit(const common_cache_params_t ccache_params,
-                       const char *cache_specific_params);
-} // namespace cclock
+} // namespace common

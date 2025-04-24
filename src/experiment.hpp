@@ -4,13 +4,8 @@
 #include <libCacheSim/reader.h>
 
 #include <filesystem>
+#include <string>
 #include <vector>
-
-void Simulate(cache_t *cache, const std::filesystem::path trace_path,
-              const std::filesystem::path log_dir,
-              const std::filesystem::path datasets_dir,
-              const bool ignore_obj_size, const std::string output_suffix,
-              const uint64_t max_iteration, bool generate_datasets);
 
 struct options {
   std::string algorithm;
@@ -25,6 +20,9 @@ struct options {
   uint64_t max_iteration;
   std::filesystem::path output_directory;
   std::string desc;
+  std::string ml_model;
 };
 
+void Simulate(cache_t *cache, const std::filesystem::path trace_path,
+              const options o, const std::string desc);
 void RunExperiment(const options &o);

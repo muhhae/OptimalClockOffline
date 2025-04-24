@@ -3,6 +3,7 @@
 #include <cmath>
 #include <cstdint>
 #include <cstdio>
+#include <ctime>
 #include <libCacheSim/cache.h>
 #include <libCacheSim/evictionAlgo.h>
 
@@ -13,12 +14,7 @@ void MyClockEvict(cache_t *cache, const request_t *req) {
 
   cache_obj_t *obj_to_evict = params->q_tail;
   while (obj_to_evict->clock.freq >= 1) {
-    auto &data = custom_params->objs_metadata[obj_to_evict->obj_id];
-    uint64_t second_to_last_promotion = data.last_promotion;
-    data.last_promotion = data.access_counter;
-    uint64_t gap_between_last_promotion =
-        data.last_promotion - second_to_last_promotion;
-    if (gap_between_last_promotion != 0 && gap_between_last_promotion < 4) {
+    if (obj_to_evict->clock.freq < 4) {
       break;
     }
     obj_to_evict->clock.freq -= 1;

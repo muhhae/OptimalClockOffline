@@ -1,7 +1,7 @@
-#include "custom_clock.hpp"
+#include "offline_clock.hpp"
+#include "common.hpp"
 
 #include <cmath>
-#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <fstream>
@@ -16,10 +16,10 @@ void out_dataset(std::ofstream &output, T first, Args... rest) {
   }
 }
 
-static void CustomClockEvict(cache_t *cache, const request_t *req) {
+static void OfflineClockEvict(cache_t *cache, const request_t *req) {
   Clock_params_t *params = (Clock_params_t *)cache->eviction_params;
-  cclock::Custom_clock_params *custom_params =
-      (cclock::Custom_clock_params *)cache->eviction_params;
+  common::Custom_clock_params *custom_params =
+      (common::Custom_clock_params *)cache->eviction_params;
 
   cache_obj_t *obj_to_evict = params->q_tail;
   while (obj_to_evict->clock.freq >= 1) {
@@ -55,30 +55,15 @@ static void CustomClockEvict(cache_t *cache, const request_t *req) {
   cache_evict_base(cache, obj_to_evict, true);
 }
 
-cache_t *cclock::CustomClockInit(const common_cache_params_t ccache_params,
-                                 const char *cache_specific_params) {
+cache_t *cclock::OfflineClockInit(const common_cache_params_t ccache_params,
+                                  const char *cache_specific_params) {
   auto custom_clock = Clock_init(ccache_params, cache_specific_params);
 
-  custom_clock->cache_init = CustomClockInit;
-  custom_clock->evict = CustomClockEvict;
-  // custom_clock->insert = CustomClockInsert;
+  custom_clock->cache_init = OfflineClockInit;
+  custom_clock->evict = OfflineClockEvict;
 
-  Custom_clock_params *params =
-      new Custom_clock_params(*(Clock_params_t *)custom_clock->eviction_params);
-  free(custom_clock->eviction_params);
-
-  custom_clock->eviction_params = params;
-  return custom_clock;
-}
-
-cache_t *cclock::TestClockInit(const common_cache_params_t ccache_params,
-                               const char *cache_specific_params) {
-  auto custom_clock = Clock_init(ccache_params, cache_specific_params);
-
-  custom_clock->cache_init = TestClockInit;
-
-  Custom_clock_params *params =
-      new Custom_clock_params(*(Clock_params_t *)custom_clock->eviction_params);
+  common::Custom_clock_params *params = new common::Custom_clock_params(
+      *(Clock_params_t *)custom_clock->eviction_params);
   free(custom_clock->eviction_params);
 
   custom_clock->eviction_params = params;

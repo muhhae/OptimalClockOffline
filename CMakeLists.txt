@@ -30,7 +30,9 @@ endif()
 add_executable(cacheSimulator
   src/main.cpp
   src/experiment.cpp
-  src/cache/custom_clock.cpp
+  src/cache/offline_clock.cpp
+  src/cache/base.cpp
+  src/cache/ml_clock.cpp
   src/cache/my_clock.cpp
 )
 target_include_directories(cacheSimulator PRIVATE src)
