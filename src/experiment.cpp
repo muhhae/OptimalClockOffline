@@ -7,6 +7,7 @@
 #include "lib/cache_size.h"
 
 #include <algorithm>
+#include <cstddef>
 #include <cstdint>
 #include <cstdio>
 #include <fstream>
@@ -59,6 +60,8 @@ void RunExperiment(const options &o) {
     close_reader(reader);
     int64_t wss = o.ignore_obj_size ? wss_obj : wss_byte;
 
+    const char *cache_specific_params = NULL;
+
     std::cout << csv_header;
     for (const auto &fcs : o.fixed_cache_sizes) {
       std::string desc = "[" + std::to_string(fcs) +
@@ -66,7 +69,8 @@ void RunExperiment(const options &o) {
                          (o.desc != "" ? "," : "") + o.desc + "]";
       tasks.emplace_back(std::async(
           std::launch::async, Simulate,
-          CacheInit({.cache_size = o.ignore_obj_size ? fcs : fcs * MiB}, NULL),
+          CacheInit({.cache_size = o.ignore_obj_size ? fcs : fcs * MiB},
+                    cache_specific_params),
           p, o, desc));
     }
     for (const auto &rcs : o.relative_cache_sizes) {
@@ -78,7 +82,8 @@ void RunExperiment(const options &o) {
       std::string desc = "[" + s + (o.desc != "" ? "," : "") + o.desc + "]";
       tasks.emplace_back(std::async(
           std::launch::async, Simulate,
-          CacheInit({.cache_size = uint64_t(wss * rcs)}, NULL), p, o, desc));
+          CacheInit({.cache_size = uint64_t(wss * rcs)}, cache_specific_params),
+          p, o, desc));
     }
   }
 
@@ -144,6 +149,9 @@ log: %s\n\
         (common::Custom_clock_params *)tmp->eviction_params;
     std::swap(tmp_custom_params->objs_metadata, custom_params->objs_metadata);
     std::swap(tmp_custom_params->datasets, custom_params->datasets);
+    std::swap(tmp_custom_params->n_hit, custom_params->n_hit);
+    std::swap(tmp_custom_params->n_req, custom_params->n_req);
+    std::swap(tmp_custom_params->n_promoted, custom_params->n_promoted);
 
     tmp_custom_params->n_hit = 0;
     tmp_custom_params->n_req = 0;

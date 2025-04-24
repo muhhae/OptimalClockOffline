@@ -13,8 +13,7 @@ void MLClockEvict(cache_t *cache, const request_t *req) {
 
   cache_obj_t *obj_to_evict = params->q_tail;
   while (obj_to_evict->clock.freq >= 1) {
-    auto &data = custom_params->objs_metadata[obj_to_evict->obj_id];
-    data.last_promotion = data.access_counter;
+    common::EvictionTracking(obj_to_evict, custom_params);
     obj_to_evict->clock.freq -= 1;
     params->n_obj_rewritten += 1;
     params->n_byte_rewritten += obj_to_evict->obj_size;

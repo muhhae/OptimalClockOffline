@@ -1,6 +1,7 @@
 #pragma once
 
 #include <fstream>
+#include <libCacheSim/cacheObj.h>
 #include <libCacheSim/evictionAlgo.h>
 #include <libCacheSim/request.h>
 #include <unordered_map>
@@ -18,8 +19,10 @@ struct req_metadata {
     create_rtime = req->create_rtime;
     first_seen = req->first_seen_in_window;
     compulsory_miss = req->compulsory_miss;
+    access_freq++;
   }
 
+  int64_t access_freq = 0;
   int64_t clock_time_between = 0;
   int64_t clock_time = 0;
   int64_t last_access_vtime = 0;
@@ -56,4 +59,10 @@ public:
 
   bool generate_datasets;
 };
+
+static void EvictionTracking(const cache_obj_t *obj,
+                             Custom_clock_params *custom_params) {
+  auto &data = custom_params->objs_metadata[obj->obj_id];
+  data.current_req_metadata.access_freq = 0;
+}
 } // namespace common

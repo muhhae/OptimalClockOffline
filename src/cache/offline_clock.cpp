@@ -28,17 +28,18 @@ static void OfflineClockEvict(cache_t *cache, const request_t *req) {
     bool wasted = data.wasted_promotions.find(data.last_promotion) !=
                   data.wasted_promotions.end();
     if (custom_params->generate_datasets) {
-      out_dataset(custom_params->datasets,
-                  data.current_req_metadata.last_access_rtime,
-                  data.current_req_metadata.last_access_vtime,
-                  data.current_req_metadata.create_rtime,
-                  data.current_req_metadata.clock_time,
-                  data.current_req_metadata.clock_time_between,
-                  data.current_req_metadata.compulsory_miss,
-                  data.current_req_metadata.first_seen, cache->cache_size,
-                  data.current_req_metadata.obj_size, obj_to_evict->clock.freq,
-                  data.access_counter, wasted);
+      out_dataset(
+          custom_params->datasets, data.current_req_metadata.last_access_rtime,
+          data.current_req_metadata.last_access_vtime,
+          data.current_req_metadata.create_rtime,
+          data.current_req_metadata.clock_time,
+          data.current_req_metadata.clock_time_between,
+          data.current_req_metadata.compulsory_miss,
+          data.current_req_metadata.first_seen, cache->cache_size,
+          data.current_req_metadata.obj_size,
+          data.current_req_metadata.access_freq, data.access_counter, wasted);
     }
+    common::EvictionTracking(obj_to_evict, custom_params);
     if (wasted) {
       break;
     }
