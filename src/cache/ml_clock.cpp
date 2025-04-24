@@ -22,8 +22,8 @@ void MLClockEvict(cache_t *cache, const request_t *req) {
     int64_t lifetime_freq = data.access_counter;
     int64_t clock_freq = data.current_req_metadata.access_freq;
     bool wasted = custom_params->PromotionIsWasted(
-        {clock_time, clock_time_between, cache_size, obj_size, lifetime_freq,
-         clock_freq},
+        {clock_time, clock_time_between, cache_size, obj_size, clock_freq,
+         lifetime_freq},
         {1, 6});
 
     common::EvictionTracking(obj_to_evict, custom_params);
