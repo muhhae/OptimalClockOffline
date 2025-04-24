@@ -100,7 +100,7 @@ def ExportONNX(
         onx = to_onnx(var.model, var.dummy_input)
     else:
         initial_type = [(name, Int64TensorType([None, 1])) for name in var.df.columns]
-        onx = to_onnx(var.model, initial_type=initial_type)
+        onx = to_onnx(var.model, initial_types=initial_type)
     file = open(path, "wb")
     file.write(onx.SerializeToString())
     file.close()
