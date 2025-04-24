@@ -2,6 +2,7 @@
 #include "common.hpp"
 
 #include <cmath>
+#include <cstdint>
 #include <cstdio>
 #include <libCacheSim/cache.h>
 #include <libCacheSim/evictionAlgo.h>
@@ -14,18 +15,15 @@ void MLClockEvict(cache_t *cache, const request_t *req) {
   cache_obj_t *obj_to_evict = params->q_tail;
   while (obj_to_evict->clock.freq >= 1) {
     auto data = custom_params->objs_metadata[obj_to_evict->obj_id];
-    auto prev_promotion = data.last_promotion;
-    auto prev_promotion_is_waste =
-        data.wasted_promotions.find(prev_promotion) !=
-        data.wasted_promotions.end();
-    auto last_promotion = data.access_counter;
-    auto clock_time = data.current_req_metadata.clock_time;
-    auto clock_time_between = data.current_req_metadata.clock_time_between;
-    auto obj_size = obj_to_evict->obj_size;
+    int64_t clock_time = data.current_req_metadata.clock_time;
+    int64_t clock_time_between = data.current_req_metadata.clock_time_between;
+    int64_t cache_size = cache->cache_size;
+    int64_t obj_size = obj_to_evict->obj_size;
+    int64_t lifetime_freq = data.access_counter;
+    int64_t clock_freq = data.current_req_metadata.access_freq;
     bool wasted = custom_params->PromotionIsWasted(
-        {(int64_t)prev_promotion, (int64_t)prev_promotion_is_waste,
-         (int64_t)last_promotion, clock_time, clock_time_between,
-         (int64_t)obj_size},
+        {clock_time, clock_time_between, cache_size, obj_size, lifetime_freq,
+         clock_freq},
         {1, 6});
 
     common::EvictionTracking(obj_to_evict, custom_params);
