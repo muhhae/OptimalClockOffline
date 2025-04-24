@@ -44,7 +44,7 @@ done
 datasets=${datasets%?}
 # ram_usage=$(python -c "import common;common.AddDatasets($datasets);import var;print(int(var.df.memory_usage(deep=True).sum()/1024**3))")
 # ram_usage=$((ram_usage+4))
-ram_usage=160
+ram_usage=100
 # echo "Ram Usage: $ram_usage"
 echo "shell:1:$ram_usage:2:cd ~/OptimalClockOffline/python/ML && python -c \"import common as c;c.AddDatasets($datasets);c.SetupData();c.lr.SetupModel(1000);c.lr.Train();c.SaveModel('$out_dir/logistic_regression[$size].pkl');c.ExportONNX('$out_dir/logistic_regression[$size].onnx');c.PlotSave('$out_dir/logistic_regression[$size].png');c.Test()\" > $out_dir/logistic_regression[$size].desc" >> ~/task
 
@@ -55,6 +55,6 @@ done
 datasets=${datasets%?}
 # ram_usage=$(python -c "import common;common.AddDatasets($datasets);import var;print(int(var.df.memory_usage(deep=True).sum()/1024**3))")
 # ram_usage=$((ram_usage+4))
-ram_usage=160
+ram_usage=100
 # echo "Ram Usage: $ram_usage"
 echo "shell:1:$ram_usage:2:cd ~/OptimalClockOffline/python/ML && python -c \"import common as c;c.AddDatasets($datasets);c.SetupData();c.lr.SetupModel(1000);c.lr.Train();c.SaveModel('$out_dir/logistic_regression[$size,ignore_obj_size].pkl');c.ExportONNX('$out_dir/logistic_regression[$size,ignore_obj_size].onnx')c.PlotSave('$out_dir/logistic_regression[$size,ignore_obj_size].png');c.Test()\" > $out_dir/logistic_regression[$size,ignore_obj_size].desc" >> ~/task
