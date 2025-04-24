@@ -76,7 +76,7 @@ def SetupData():
     var.X_train, var.X_test, var.y_train, var.y_test = train_test_split(
         X, y, test_size=0.2, random_state=9, stratify=y
     )
-    var.dummy_input = var.X_train[:1]
+    var.dummy_input = var.X_train[:1].astype(np.int64)
 
 
 def LoadModel(path: str = "model.pkl"):
