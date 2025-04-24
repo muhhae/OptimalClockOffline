@@ -94,9 +94,7 @@ def ExportONNX(
 ):
     if var.model is None:
         raise Exception("Model has not been set up, exec SetupModel and Train")
-    onx = None
-    if var.dummy_input is None:
-        raise Exception("Provide var.dummy_input or SetupData()")
+    var.dummy_input = np.array([[0, 0, 3, 1538323447, 61, 1]], dtype=np.int64)
     onx = to_onnx(var.model, var.dummy_input)
     file = open(path, "wb")
     file.write(onx.SerializeToString())
