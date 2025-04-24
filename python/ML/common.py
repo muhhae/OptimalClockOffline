@@ -1,9 +1,6 @@
 from skl2onnx import to_onnx
 from skl2onnx.common.data_types import (
-    FloatTensorType,
     Int64TensorType,
-    StringTensorType,
-    BoolTensorType,
 )
 import joblib
 import pandas as pd
@@ -17,7 +14,7 @@ from typing import List, Tuple, Union
 import var
 import logistic_regression as lr
 
-DataType = Union[FloatTensorType, Int64TensorType, StringTensorType, BoolTensorType]
+DataType = Union[Int64TensorType]
 
 
 def DescribeData():
