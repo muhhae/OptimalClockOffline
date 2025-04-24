@@ -21,7 +21,7 @@ for size in ${relative_size[@]}; do
     # ram_usage=$((ram_usage+4))
     ram_usage=32
     # echo "Ram Usage: $ram_usage"
-    echo "shell:1:$ram_usage:2:cd ~/OptimalClockOffline/python/ML &&\
+    echo "shell:1:$ram_usage:20:cd ~/OptimalClockOffline/python/ML &&\
 python -c \"import common as c;\
 import $model as m;\
 c.AddDatasets($datasets);\
@@ -45,7 +45,7 @@ c.Test()\" > $out_dir/$model[$size].desc" >> ~/task
     # ram_usage=$((ram_usage+4))
     ram_usage=32
     # echo "Ram Usage: $ram_usage"
-    echo "shell:1:$ram_usage:2:cd ~/OptimalClockOffline/python/ML &&\
+    echo "shell:1:$ram_usage:20:cd ~/OptimalClockOffline/python/ML &&\
 python -c \"import common as c;\
 import $model as m;\
 c.AddDatasets($datasets);\
@@ -68,7 +68,7 @@ datasets=${datasets%?}
 # ram_usage=$((ram_usage+4))
 ram_usage=100
 # echo "Ram Usage: $ram_usage"
-echo "shell:1:$ram_usage:2:cd ~/OptimalClockOffline/python/ML &&\
+echo "shell:1:$ram_usage:20:cd ~/OptimalClockOffline/python/ML &&\
 python -c \"import common as c;\
 import $model as m;\
 c.AddDatasets($datasets);\
@@ -89,7 +89,7 @@ datasets=${datasets%?}
 # ram_usage=$((ram_usage+4))
 ram_usage=100
 # echo "Ram Usage: $ram_usage"
-echo "shell:1:$ram_usage:2:cd ~/OptimalClockOffline/python/ML &&\
+echo "shell:1:$ram_usage:20:cd ~/OptimalClockOffline/python/ML &&\
 python -c \"import common as c;\
 import $model as m;\
 c.AddDatasets($datasets);\
