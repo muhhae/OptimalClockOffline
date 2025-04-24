@@ -79,6 +79,7 @@ def SetupData():
     var.X_train, var.X_test, var.y_train, var.y_test = train_test_split(
         X, y, test_size=0.2, random_state=9, stratify=y
     )
+    var.dummy_input = var.X_train[:1]
 
 
 def LoadModel(path: str = "model.pkl"):
@@ -97,7 +98,7 @@ def ExportONNX(
     if var.model is None:
         raise Exception("Model has not been set up, exec SetupModel and Train")
     if var.dummy_input is None:
-        raise Exception("Provice var.dummy_input or SetupData()")
+        raise Exception("Provide var.dummy_input or SetupData()")
     onx = to_onnx(var.model, var.dummy_input)
     file = open(path, "wb")
     file.write(onx.SerializeToString())
