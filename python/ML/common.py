@@ -93,10 +93,10 @@ def ExportONNX(
 ):
     if var.model is None:
         raise Exception("Model has not been set up, exec SetupModel and Train")
-    if var.dummy_input is None:
-        raise Exception("Provide var.dummy_input or SetupData()")
     onx = None
     if var.df is None:
+        if var.dummy_input is None:
+            raise Exception("Provide var.dummy_input or SetupData()")
         onx = to_onnx(var.model, var.dummy_input)
     else:
         initial_type = [(name, Int64TensorType([None, 1])) for name in var.df.columns]
