@@ -3,13 +3,13 @@ from sklearn.ensemble import RandomForestClassifier
 import var
 
 
-def SetupModel(max_iter: int = 100):
+def SetupModel(max_depth: int = 20, n_estimators: int = 100, parallelism: int = 4):
     if var.df is None:
         raise Exception("Datasets has not been set up")
     var.model = RandomForestClassifier(
-        n_jobs=-1,
-        n_estimators=100,
-        max_depth=None,
+        n_jobs=parallelism,
+        n_estimators=n_estimators,
+        max_depth=max_depth,
         max_features="sqrt",
         bootstrap=True,
         random_state=9,
