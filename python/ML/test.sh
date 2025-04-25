@@ -35,29 +35,29 @@ while IFS= read -r link; do
     min_dram=$(( gb+1 ))
 
     for cache_size in "${relative_cache_sizes[@]}"; do
-        log_file="$out_dir/log/${basename}[${cache_size},ignore_obj_size,logistic_regression_$cache_size].csv"
+        log_file="$out_dir/log/${basename}[${cache_size},ignore_obj_size,${model}_${cache_size}].csv"
         if ! [ -s $log_file ]; then
             echo "shell:1:$min_dram:2:~/OptimalClockOffline/build/cacheSimulator $file -o $out_dir -r $cache_size -i 1 --ignore-obj-size -d ignore_obj_size,logistic_regression_$cache_size -a ML -m $model[$cache_size,ignore_obj_size].onnx" >> ~/task
         else
             echo "Skipping processing: (corresponding result exists and not empty: $log_file)"
         fi
-        # log_file="$out_dir/log/${basename}[${cache_size},ignore_obj_size,logistic_regression_All].csv"
-        # if ! [ -s $log_file ]; then
-        #     echo "shell:1:$min_dram:2:~/OptimalClockOffline/build/cacheSimulator $file -o $out_dir -r $cache_size -i 1 --ignore-obj-size -d ignore_obj_size,logistic_regression_All -a ML -m $model[All,ignore_obj_size].onnx" >> ~/task
-        # else
-        #     echo "Skipping processing: (corresponding result exists and not empty: $log_file)"
-        # fi
-        log_file="$out_dir/log/${basename}[${cache_size},logistic_regression_$cache_size].csv"
+        log_file="$out_dir/log/${basename}[${cache_size},ignore_obj_size,${model}_All].csv"
+        if ! [ -s $log_file ]; then
+            echo "shell:1:$min_dram:2:~/OptimalClockOffline/build/cacheSimulator $file -o $out_dir -r $cache_size -i 1 --ignore-obj-size -d ignore_obj_size,logistic_regression_All -a ML -m $model[All,ignore_obj_size].onnx" >> ~/task
+        else
+            echo "Skipping processing: (corresponding result exists and not empty: $log_file)"
+        fi
+        log_file="$out_dir/log/${basename}[${cache_size},${model}_${cache_size}'].csv"
         if ! [ -s $log_file ]; then
             echo "shell:1:$min_dram:2:~/OptimalClockOffline/build/cacheSimulator $file -o $out_dir -r $cache_size -i 1 -d logistic_regression_$cache_size -a ML -m $model[$cache_size].onnx" >> ~/task
         else
             echo "Skipping processing: (corresponding result exists and not empty: $log_file)"
         fi
-        # log_file="$out_dir/log/${basename}[${cache_size},logistic_regression_All].csv"
-        # if ! [ -s $log_file ]; then
-        #     echo "shell:1:$min_dram:2:~/OptimalClockOffline/build/cacheSimulator $file -o $out_dir -r $cache_size -i 1 -d logistic_regression_All -a ML -m $model[All].onnx" >> ~/task
-        # else
-        #     echo "Skipping processing: (corresponding result exists and not empty: $log_file)"
-        # fi
+        log_file="$out_dir/log/${basename}[${cache_size},${model}_All].csv"
+        if ! [ -s $log_file ]; then
+            echo "shell:1:$min_dram:2:~/OptimalClockOffline/build/cacheSimulator $file -o $out_dir -r $cache_size -i 1 -d logistic_regression_All -a ML -m $model[All].onnx" >> ~/task
+        else
+            echo "Skipping processing: (corresponding result exists and not empty: $log_file)"
+        fi
     done
 done < "$traces_txt"
