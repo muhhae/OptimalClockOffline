@@ -4,11 +4,11 @@ model=$3
 task_out=$4
 
 if [[ -z $task_out ]]; then
-    task_out="~/test-$model.taskfile"
+    task_out="~/train-$model.taskfile"
 fi
 
 if [ -z "$datasets_dir" ] || [ -z "$out_dir" ] || [ -z "$model" ]; then
-    echo "Usage: bash dist.sh [datasets_dir] [out_dir] [model] [task_out]"
+    echo "Usage: bash train.sh [datasets_dir] [out_dir] [model] [task_out]"
     exit 1
 fi
 
