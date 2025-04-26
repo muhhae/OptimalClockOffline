@@ -24,10 +24,12 @@ train() {
     ram_usage=128
     datasets=""
     for desc in $descs; do
+      echo "desc: $desc"
       for file in $datasets_dir/*\["$desc"\].csv; do
           datasets+="'$file',"
       done
     done
+    echo "datasets: $datasets"
     if [ -z "$datasets" ]; then
         return
     fi
@@ -39,10 +41,10 @@ c.AddDatasets($datasets);\
 c.SetupData();\
 m.SetupModel();\
 m.Train();\
-c.SaveModel('$out_dir/$model[$desc].pkl');\
-c.ExportONNX('$out_dir/$model[$desc].onnx');\
-c.PlotSave('$out_dir/$model[$desc].png');\
-c.Test()\" > $out_dir/$model[$desc].desc" >> $task_out
+c.SaveModel('$out_dir/$model[$model_desc].pkl');\
+c.ExportONNX('$out_dir/$model[$model_desc].onnx');\
+c.PlotSave('$out_dir/$model[$model_desc].png');\
+c.Test()\" > $out_dir/$model[$model_desc].desc" >> $task_out
 }
 
 relative_size=(0.001 0.01 0.1 0.2 0.4)
@@ -50,14 +52,14 @@ for size in ${relative_size[@]}; do
     train "$size"
     train "$size,ignore_obj_size"
 done
-train "\"${relative_size[@]}\"" "All"
+train "${relative_size[*]}" "All"
 
 descs=""
 for s in ${relative_size[@]}; do
-  descs+="$s,ignore_obj_size"
+  descs+="$s,ignore_obj_size "
 done
-train "\"$descs\"" "All,ignore_obj_size"
+train "$descs" "All,ignore_obj_size"
 
 echo "Task Generated: $task_out"
 echo "Example: $(tail -n 1 $task_out)"
-echo "Example: $(head -n 1 $task_out)"
+echo "Example: $(head -n 2 $task_out)"
