@@ -39,3 +39,5 @@ python/.venv
 .nvim
 result/datasets
 python/ML/__pycache__
+datasets
+python/__pycache__
