@@ -4,7 +4,7 @@ model=$3
 task_out=$4
 
 if [[ -z $task_out ]]; then
-    task_out="~/train-$model.taskfile"
+    task_out="$HOME/train-$model.taskfile"
 fi
 
 if [ -z "$datasets_dir" ] || [ -z "$out_dir" ] || [ -z "$model" ]; then
@@ -26,7 +26,7 @@ train() {
         continue
     fi
     datasets=${datasets%?}
-    echo "shell:1:$ram_usage:20:cd ~/OptimalClockOffline/python/ML && \
+    echo "shell:1:$ram_usage:20:cd $HOME/OptimalClockOffline/python/ML && \
 python -c \"import common as c;\
 import $model as m;\
 c.AddDatasets($datasets);\
