@@ -23,7 +23,7 @@ train() {
         datasets+="'$file',"
     done
     if [ -z "$datasets" ]; then
-        continue
+        return
     fi
     datasets=${datasets%?}
     echo "shell:1:$ram_usage:20:cd $HOME/OptimalClockOffline/python/ML && \
@@ -46,3 +46,6 @@ for size in ${relative_size[@]}; do
 done
 train "All"
 train "All,ignore_obj_size"
+
+echo "Task Generated: $task_out"
+echo "Example: $(tail -n 1 $task_out)"
