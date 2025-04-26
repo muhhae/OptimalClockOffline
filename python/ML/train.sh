@@ -16,11 +16,17 @@ shopt -s nullglob
 echo "" > $task_out
 
 train() {
-    desc="$1"
+    descs="$1"
+    model_desc="$2"
+    if [ -z "$model_desc" ]; then
+      model_desc=$descs
+    fi
     ram_usage=128
     datasets=""
-    for file in $datasets_dir/*\["$desc"\].csv; do
-        datasets+="'$file',"
+    for desc in $descs; do
+      for file in $datasets_dir/*\["$desc"\].csv; do
+          datasets+="'$file',"
+      done
     done
     if [ -z "$datasets" ]; then
         return
@@ -44,8 +50,14 @@ for size in ${relative_size[@]}; do
     train "$size"
     train "$size,ignore_obj_size"
 done
-train "All"
-train "All,ignore_obj_size"
+train "\"${relative_size[@]}\"" "All"
+
+descs=""
+for s in ${relative_size[@]}; do
+  descs+="$s,ignore_obj_size"
+done
+train "\"$descs\"" "All,ignore_obj_size"
 
 echo "Task Generated: $task_out"
 echo "Example: $(tail -n 1 $task_out)"
+echo "Example: $(head -n 1 $task_out)"
