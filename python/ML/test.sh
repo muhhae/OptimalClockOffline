@@ -46,8 +46,7 @@ case "$value" in
         ;;
 esac
 
-model="$HOME/OptimalClockOffline/python/ML/v4/model/$model"
-echo Model: $model
+model_dir="$HOME/OptimalClockOffline/python/ML/v4/model/$model"
 
 echo "" > $task_out
 
@@ -66,39 +65,39 @@ while IFS= read -r link; do
 
     for cache_size in "${relative_cache_sizes[@]}"; do
         log_file="$out_dir/log/${basename}[${cache_size},ignore_obj_size,ML,model=${model}_${cache_size}].csv"
-        if [ -e "$model[$cache_size,ignore_obj_size].onnx" ]; then
+        if [ -e "$model_dir[$cache_size,ignore_obj_size].onnx" ]; then
           if ! [ -s $log_file ]; then
-              echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file $features -o $out_dir -r $cache_size -i 1 --ignore-obj-size -d ignore_obj_size,ML,model=${model}_$cache_size -a ML -m $model[$cache_size,ignore_obj_size].onnx" >> $task_out
+              echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file $features -o $out_dir -r $cache_size -i 1 --ignore-obj-size -d ignore_obj_size,ML,model=${model}_$cache_size -a ML -m $model_dir[$cache_size,ignore_obj_size].onnx" >> $task_out
           else
               echo "Skipping processing: (corresponding result exists and not empty: $log_file)"
           fi
         else
             echo "Skipping processing: (model doesn't exists: $model[$cache_size,ignore_obj_size])"
         fi
-        if [ -e "$model[All,ignore_obj_size].onnx" ]; then
+        if [ -e "$model_dir[All,ignore_obj_size].onnx" ]; then
           log_file="$out_dir/log/${basename}[${cache_size},ignore_obj_size,ML,model=${model}_All].csv"
           if ! [ -s $log_file ]; then
-              echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file $features -o $out_dir -r $cache_size -i 1 --ignore-obj-size -d ignore_obj_size,ML,model=${model}_All -a ML -m $model[All,ignore_obj_size].onnx" >> $task_out
+              echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file $features -o $out_dir -r $cache_size -i 1 --ignore-obj-size -d ignore_obj_size,ML,model=${model}_All -a ML -m $model_dir[All,ignore_obj_size].onnx" >> $task_out
           else
               echo "Skipping processing: (corresponding result exists and not empty: $log_file)"
           fi
         else
             echo "Skipping processing: (model doesn't exists: $model[All,ignore_obj_size])"
         fi
-        if [ -e "$model[$cache_size].onnx" ]; then
+        if [ -e "$model_dir[$cache_size].onnx" ]; then
           log_file="$out_dir/log/${basename}[${cache_size},ML,model=${model}_${cache_size}'].csv"
           if ! [ -s $log_file ]; then
-              echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file $features -o $out_dir -r $cache_size -i 1 -d ML,model=${model}_$cache_size -a ML -m $model[$cache_size].onnx" >> $task_out
+              echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file $features -o $out_dir -r $cache_size -i 1 -d ML,model=${model}_$cache_size -a ML -m $model_dir[$cache_size].onnx" >> $task_out
           else
               echo "Skipping processing: (corresponding result exists and not empty: $log_file)"
           fi
         else
             echo "Skipping processing: (model doesn't exists: $model[$cache_size])"
         fi
-        if [ -e "$model[All].onnx" ]; then
+        if [ -e "$model_dir[All].onnx" ]; then
           log_file="$out_dir/log/${basename}[${cache_size},ML,model=${model}_All].csv"
           if ! [ -s $log_file ]; then
-              echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file $features -o $out_dir -r $cache_size -i 1 -d ML,model=${model}_All -a ML -m $model[All].onnx" >> $task_out
+              echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file $features -o $out_dir -r $cache_size -i 1 -d ML,model=${model}_All -a ML -m $model_dir[All].onnx" >> $task_out
           else
               echo "Skipping processing: (corresponding result exists and not empty: $log_file)"
           fi
