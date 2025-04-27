@@ -44,7 +44,8 @@ m.Train();\
 m.SaveModel('$out_dir/$model[$model_desc].pkl');\
 m.ExportONNX('$out_dir/$model[$model_desc].onnx');\
 m.PlotSave('$out_dir/$model[$model_desc].png');\
-m.Test()\" > $out_dir/$model[$model_desc].desc" >> $task_out
+m.DescribeData();\
+m.Test()\" > $out_dir/$model[$model_desc].md" >> $task_out
 }
 
 relative_size=(0.001 0.01 0.1 0.2 0.4)
