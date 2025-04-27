@@ -11,6 +11,7 @@ import seaborn as sns
 from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
 from sklearn.model_selection import train_test_split
 from typing import Union
+import onxx_runtime
 
 import var
 
@@ -89,6 +90,10 @@ def Train():
     var.model.fit(var.X_train, var.y_train)
 
 
+def LoadONXXModel(path: str):
+    var.model = onxx_runtime.SklearnONNXPredictor(path)
+
+
 def LoadModel(path: str = "model.pkl"):
     var.model = joblib.load(path)
 
@@ -122,6 +127,7 @@ def Test():
         raise Exception("Model has not been set up, exec SetupModel and Train")
     print("#### Model")
     predictions = var.model.predict(var.X_test)
+    print(predictions)
     print("Classification Report:")
     print(classification_report(var.y_test, predictions))
     print("Accuracy:", accuracy_score(var.y_test, predictions))
