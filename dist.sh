@@ -1,10 +1,16 @@
 relative_cache_sizes=(0.001 0.01 0.1 0.2 0.4)
 max_iteration=20
+basedir="/mnt/v0"
 
 traces_txt="$1"
 if [[ -z $traces_txt ]]; then
-  echo "[arg] traces_txt required"
+  echo "[arg1] traces_txt required"
   exit 1
+fi
+
+out_dir="$2"
+if [[ -z $out_dir ]]; then
+  out_dir="./result"
 fi
 
 rm ~/task
@@ -14,8 +20,7 @@ while IFS= read -r link; do
         continue
     fi
     filename=$(basename $link)
-    file="/mnt/gv0/traces/$filename"
-
+    file="$basedir/traces/$filename"
     basename="${filename%%.oracleGeneral*}"
     size=$(stat --format="%s" "$file")
 
@@ -23,35 +28,17 @@ while IFS= read -r link; do
     min_dram=$(( gb+1 ))
 
     for cache_size in "${relative_cache_sizes[@]}"; do
-        log_file="/mnt/gv0/OptimalClockOffline/result/log/${basename}[${cache_size},ignore_obj_size].csv"
-        if ! [ -s $log_file ]; then
-            echo "shell:1:$min_dram:2:~/OptimalClockOffline/build/cacheSimulator $file -o /mnt/gv0/OptimalClockOffline/result -r $cache_size -i $max_iteration --ignore-obj-size -d ignore_obj_size" >> ~/task
+        datasets="$out_dir/datasets/${basename}[${cache_size},ignore_obj_size,TEST].csv"
+        if ! [ -s $datasets ]; then
+            echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file -o $out_dir -r $cache_size -i $max_iteration --ignore-obj-size -d ignore_obj_size,TEST" >> ~/task
         else
-            echo "Skipping processing: $filename $cache_size (corresponding result exists and not empty: $log_file)"
+            echo "Skipping processing: $filename $cache_size (corresponding result exists and not empty: $datasets)"
         fi
-    done
-    for cache_size in "${relative_cache_sizes[@]}"; do
-        log_file="/mnt/gv0/OptimalClockOffline/result/log/${basename}[${cache_size}].csv"
-        if ! [ -s $log_file ]; then
-            echo "shell:1:$min_dram:2:~/OptimalClockOffline/build/cacheSimulator $file -o /mnt/gv0/OptimalClockOffline/result -r $cache_size -i $max_iteration" >> ~/task
+        datasets="$out_dir/datasets/${basename}[${cache_size},TEST].csv"
+        if ! [ -s $datasets ]; then
+            echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file -o $out_dir -r $cache_size -i $max_iteration -d TEST" >> ~/task
         else
-            echo "Skipping processing: $filename $cache_size (corresponding result exists and not empty: $log_file)"
-        fi
-    done
-    for cache_size in "${relative_cache_sizes[@]}"; do
-        log_file="/mnt/gv0/OptimalClockOffline/result/log/${basename}[${cache_size},ignore_obj_size,my_algo].csv"
-        if ! [ -s $log_file ]; then
-            echo "shell:1:$min_dram:2:~/OptimalClockOffline/build/cacheSimulator $file -o /mnt/gv0/OptimalClockOffline/result -r $cache_size -i 1 --ignore-obj-size -d ignore_obj_size,my_algo -a my" >> ~/task
-        else
-            echo "Skipping processing: $filename $cache_size (corresponding result exists and not empty: $log_file)"
-        fi
-    done
-    for cache_size in "${relative_cache_sizes[@]}"; do
-        log_file="/mnt/gv0/OptimalClockOffline/result/log/${basename}[${cache_size},my_algo].csv"
-        if ! [ -s $log_file ]; then
-            echo "shell:1:$min_dram:2:~/OptimalClockOffline/build/cacheSimulator $file -o /mnt/gv0/OptimalClockOffline/result -r $cache_size -i 1 -d my_algo -a my" >> ~/task
-        else
-            echo "Skipping processing: $filename $cache_size (corresponding result exists and not empty: $log_file)"
+            echo "Skipping processing: $filename $cache_size (corresponding result exists and not empty: $datasets)"
         fi
     done
 done < "$traces_txt"
