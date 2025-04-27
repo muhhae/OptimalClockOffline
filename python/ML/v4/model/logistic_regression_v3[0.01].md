@@ -76,6 +76,7 @@ max          1.016680e+05  7.299890e+05  ...       6.361000e+03          1.0
 
 [8 rows x 5 columns]
 #### Model
+[1 1 1 ... 1 1 1]
 Classification Report:
               precision    recall  f1-score   support
 
