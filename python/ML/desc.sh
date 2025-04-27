@@ -29,7 +29,6 @@ train() {
           datasets+="'$file',"
       done
     done
-    echo "datasets: $datasets"
     if [ -z "$datasets" ]; then
         return
     fi

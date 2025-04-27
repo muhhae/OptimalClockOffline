@@ -1,6 +1,0 @@
-clock_time            231487
-clock_time_between      2433
-cache_size                 1
-obj_size                 139
-clock_freq              2527
-lifetime_freq          50000
