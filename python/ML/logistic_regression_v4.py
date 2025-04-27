@@ -29,6 +29,7 @@ Test = c.Test
 AddDatasets = c.AddDatasets
 DescribeData = c.DescribeData
 ExportONNX = c.ExportONNX
+LoadONNX = c.LoadONNX
 SaveModel = c.SaveModel
 LoadModel = c.LoadModel
 PlotSave = c.PlotSave
