@@ -13,17 +13,17 @@ if [[ -z $out_dir ]]; then
   out_dir="$basedir/OptimalClockOffline/result"
 fi
 
+task_out="$4"
+if [[ -z $task_out ]]; then
+    task_out="~/test-$model.taskfile"
+fi
+
 model="$3"
 if [[ -z $model ]]; then
   model="logistic_regression"
 fi
 model="~/OptimalClockOffline/python/ML/v4/model/$model"
 echo Model: $model
-
-task_out="$4"
-if [[ -z $task_out ]]; then
-    task_out="~/test-$model.taskfile"
-fi
 
 echo "" > $task_out
 
