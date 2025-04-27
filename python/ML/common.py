@@ -90,7 +90,7 @@ def Train():
     var.model.fit(var.X_train, var.y_train)
 
 
-def LoadONXXModel(path: str):
+def LoadONXX(path: str):
     var.model = onxx_runtime.SklearnONNXPredictor(path)
 
 
