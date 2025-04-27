@@ -11,7 +11,7 @@ import seaborn as sns
 from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
 from sklearn.model_selection import train_test_split
 from typing import Union
-import onxx_runtime
+import onnx_runtime
 
 import var
 
@@ -90,8 +90,8 @@ def Train():
     var.model.fit(var.X_train, var.y_train)
 
 
-def LoadONXX(path: str):
-    var.model = onxx_runtime.SklearnONNXPredictor(path)
+def LoadONNX(path: str):
+    var.model = onnx_runtime.SklearnONNXPredictor(path)
 
 
 def LoadModel(path: str = "model.pkl"):
