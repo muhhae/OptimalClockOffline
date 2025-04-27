@@ -3,7 +3,7 @@
 🧾 Basic Info:
 ------------------------------------------------------------
 <class 'pandas.core.frame.DataFrame'>
-Index: 197020424 entries, 87104649 to 64871190
+Index: 186053350 entries, 4154098 to 53189435
 Data columns (total 5 columns):
  #   Column              Dtype
 ---  ------              -----
@@ -13,7 +13,7 @@ Data columns (total 5 columns):
  3   obj_size_relative   int64
  4   wasted              int64
 dtypes: int64(5)
-memory usage: 8.8 GB
+memory usage: 8.3 GB
 ==> model/logistic_regression_v4[0.001,ignore_obj_size].md <==
               precision    recall  f1-score   support
 

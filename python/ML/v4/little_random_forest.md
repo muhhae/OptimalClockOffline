@@ -3,7 +3,7 @@
 🧾 Basic Info:
 ------------------------------------------------------------
 <class 'pandas.core.frame.DataFrame'>
-Index: 197020424 entries, 87104649 to 64871190
+Index: 186053350 entries, 4154098 to 53189435
 Data columns (total 7 columns):
  #   Column              Dtype
 ---  ------              -----
