@@ -39,7 +39,7 @@ case "$model" in
         features="-F clock_time_between clock_freq lifetime_freq obj_size_relative"
         ;;
     "logistic_regression_v4")
-        features="-F clock_time clock_time_between cache_size obj_size clock_freq lifetime_freq"
+        features="-F clock_time_between clock_freq lifetime_freq obj_size_relative"
         ;;
     *)
         echo "Unknown model using default features"
