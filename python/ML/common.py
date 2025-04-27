@@ -9,10 +9,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
 from sklearn.model_selection import train_test_split
-from typing import List, Tuple, Union
+from typing import Union
 
 import var
-import logistic_regression as lr
 
 DataType = Union[Int64TensorType]
 
