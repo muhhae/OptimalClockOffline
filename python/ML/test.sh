@@ -25,7 +25,7 @@ if [[ -z $task_out ]]; then
 fi
 
 features=""
-case "$value" in
+case "$model" in
     "little_random_forest")
         features="-F clock_time clock_time_between cache_size obj_size clock_freq lifetime_freq"
         ;;
