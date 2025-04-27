@@ -1,0 +1,2 @@
+trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted
+"wiki_2019t.oracleGeneral.zst",0,40945,0.268368,207646002,1083502
