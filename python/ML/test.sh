@@ -48,6 +48,8 @@ while IFS= read -r link; do
           else
               echo "Skipping processing: (corresponding result exists and not empty: $log_file)"
           fi
+        else
+            echo "Skipping processing: (model doesn't exists: $model[$cache_size,ignore_obj_size])"
         fi
         if [ -e "$model[All,ignore_obj_size]" ]; then
           log_file="$out_dir/log/${basename}[${cache_size},ignore_obj_size,ML,model=${model}_All].csv"
@@ -56,6 +58,8 @@ while IFS= read -r link; do
           else
               echo "Skipping processing: (corresponding result exists and not empty: $log_file)"
           fi
+        else
+            echo "Skipping processing: (model doesn't exists: $model[All,ignore_obj_size])"
         fi
         if [ -e "$model[$cache_size]" ]; then
           log_file="$out_dir/log/${basename}[${cache_size},ML,model=${model}_${cache_size}'].csv"
@@ -64,6 +68,8 @@ while IFS= read -r link; do
           else
               echo "Skipping processing: (corresponding result exists and not empty: $log_file)"
           fi
+        else
+            echo "Skipping processing: (model doesn't exists: $model[$cache_size])"
         fi
         if [ -e "$model[All]" ]; then
           log_file="$out_dir/log/${basename}[${cache_size},ML,model=${model}_All].csv"
@@ -72,8 +78,10 @@ while IFS= read -r link; do
           else
               echo "Skipping processing: (corresponding result exists and not empty: $log_file)"
           fi
+        else
+            echo "Skipping processing: (model doesn't exists: $model[All])"
         fi
     done
 done < "$traces_txt"
 echo "Task Generated: $task_out"
-echo "Example: $(tail -n 1 $task_out)"
+echo "Example: $(tail -n 4 $task_out)"
