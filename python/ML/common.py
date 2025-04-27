@@ -1,4 +1,5 @@
 from skl2onnx import to_onnx
+from pathlib import Path
 from skl2onnx.common.data_types import (
     Int64TensorType,
 )
@@ -17,33 +18,35 @@ DataType = Union[Int64TensorType]
 
 
 def DescribeData():
-    if var.df is None:
-        raise Exception("Datasets has not been loaded, exec AddDatasets")
+    if var.X_train is None or var.y_train is None:
+        raise Exception("Datasets has not been setup, exec SetupData")
+    print("#### Datasets")
     print("\n🧾 Basic Info:")
 
+    data = pd.concat([var.X_train, var.y_train], axis=1)
     print("-" * 60)
-    print(var.df.info())
+    print(data.info())
 
     print("\n📊 Summary Statistics (Numerical Columns):")
     print("-" * 60)
-    print(var.df.describe(include=[float, int]))
+    print(data.describe(include=[float, int]))
 
     print("\n📌 Missing Values:")
     print("-" * 60)
-    print(var.df.isnull().sum())
+    print(data.isnull().sum())
 
     print("\n🆔 Unique Values per Column:")
     print("-" * 60)
-    print(var.df.nunique())
+    print(data.nunique())
 
-    if "wasted" in var.df.columns:
+    if "wasted" in data.columns:
         print("\n🚫 Subset: wasted == 0")
         print("-" * 60)
-        print(var.df[var.df["wasted"] == 0].describe(include=[float, int]))
+        print(data[data["wasted"] == 0].describe(include=[float, int]))
 
         print("\n✅ Subset: wasted == 1")
         print("-" * 60)
-        print(var.df[var.df["wasted"] == 1].describe(include=[float, int]))
+        print(data[data["wasted"] == 1].describe(include=[float, int]))
     else:
         print("\n⚠️ Column 'wasted' not found in CSV.")
 
@@ -76,11 +79,10 @@ def SetupData():
     var.X_train, var.X_test, var.y_train, var.y_test = train_test_split(
         X, y, test_size=0.2, random_state=9, stratify=y
     )
-    var.dummy_input = var.X_train[:1].astype(np.int64)
 
 
 def Train():
-    if var.df is None:
+    if var.X_train is None:
         raise Exception("Datasets has not been set up")
     if var.model is None:
         raise Exception("Model has not been set up")
@@ -98,15 +100,19 @@ def SaveModel(path: str = "model.pkl"):
 
 
 def ExportONNX(
-    path: str = "model.onxx",
+    path: str = "model.onnx",
 ):
     if var.model is None:
         raise Exception("Model has not been set up, exec SetupModel and Train")
-    var.dummy_input = np.array([[0, 0, 3, 1538323447, 61, 1]], dtype=np.int64)
-    onx = to_onnx(var.model, var.dummy_input)
+    if var.X_train is None:
+        raise Exception("Datasets has not been set up")
+    onx = to_onnx(var.model, var.X_train.iloc[0].to_numpy().reshape(1, -1))
     file = open(path, "wb")
     file.write(onx.SerializeToString())
     file.close()
+    var.X_train.columns.to_frame().to_csv(
+        Path(path).with_suffix("input"), index=False, header=False
+    )
 
 
 def Test():
@@ -114,6 +120,7 @@ def Test():
         raise Exception("Datasets has not been set up, exec SetupData")
     if var.model is None:
         raise Exception("Model has not been set up, exec SetupModel and Train")
+    print("#### Model")
     predictions = var.model.predict(var.X_test)
     print("Classification Report:")
     print(classification_report(var.y_test, predictions))
