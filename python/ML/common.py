@@ -110,8 +110,8 @@ def ExportONNX(
     file = open(path, "wb")
     file.write(onx.SerializeToString())
     file.close()
-    var.X_train.columns.to_frame().to_csv(
-        Path(path).with_suffix("input"), index=False, header=False
+    var.X_train.columns.to_frame().T.to_csv(
+        Path(path).with_suffix(".input"), index=False, header=False
     )
 
 
