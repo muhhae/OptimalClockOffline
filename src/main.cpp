@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <string>
+#include <vector>
 
 #include "experiment.hpp"
 #include "lib/CLI11.hpp"
@@ -40,6 +41,12 @@ int main(int argc, char **argv) {
       ->default_val("default");
   app.add_option("-m,--model", o.ml_model,
                  "ML model to use, required when algo = ML");
+  app.add_option("-F, --features", o.features_name,
+                 "Features to use for Model Inference (The Sequence should "
+                 "exactly the same as model input or data it trained with)")
+      ->default_val(std::vector<std::string>{"clock_time_between", "clock_freq",
+                                             "lifetime_freq",
+                                             "obj_size_relative"});
 
   CLI11_PARSE(app, argc, argv);
   RunExperiment(o);

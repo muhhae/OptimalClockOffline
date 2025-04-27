@@ -132,6 +132,7 @@ void Simulate(cache_t *cache, const std::filesystem::path trace_path,
          "wasted\n";
   if (o.algorithm == "ML") {
     ((mlclock::MLClockParam *)custom_params)->LoadModel(o.ml_model);
+    ((mlclock::MLClockParam *)custom_params)->features_name = o.features_name;
   }
 
   //   printf("\n\
@@ -146,6 +147,9 @@ void Simulate(cache_t *cache, const std::filesystem::path trace_path,
   //          reader->trace_path,
   //          reader->ignore_obj_size ? cache->cache_size : cache->cache_size /
   //          MiB, reader->ignore_obj_size, o.max_iteration, log_path.c_str());
+  bool first = true;
+  int64_t first_clock = 0;
+
   for (size_t i = 0; i < o.max_iteration; ++i) {
     auto tmp = clone_cache(cache);
     auto tmp_custom_params =
@@ -161,6 +165,7 @@ void Simulate(cache_t *cache, const std::filesystem::path trace_path,
       std::swap(tmp_ml_param->session, ml_param->session);
       std::swap(tmp_ml_param->session_options, ml_param->session_options);
       std::swap(tmp_ml_param->env, ml_param->env);
+      std::swap(tmp_ml_param->features_name, ml_param->features_name);
     }
     tmp_custom_params->n_hit = 0;
     tmp_custom_params->n_req = 0;
@@ -169,9 +174,15 @@ void Simulate(cache_t *cache, const std::filesystem::path trace_path,
       tmp_custom_params->generate_datasets = o.generate_datasets;
     }
     while (read_one_req(reader, req) == 0) {
+      if (first) {
+        first = false;
+        first_clock = req->clock_time;
+      }
       auto &data = tmp_custom_params->objs_metadata[req->obj_id];
       data.access_counter += 1;
       data.current_req_metadata.Track(req);
+      data.current_req_metadata.time_since = req->clock_time - first_clock;
+
       if (tmp->get(tmp, req)) {
         tmp_custom_params->n_hit++;
       }
@@ -207,6 +218,7 @@ void Simulate(cache_t *cache, const std::filesystem::path trace_path,
       std::swap(tmp_ml_param->session, ml_param->session);
       std::swap(tmp_ml_param->session_options, ml_param->session_options);
       std::swap(tmp_ml_param->env, ml_param->env);
+      std::swap(tmp_ml_param->features_name, ml_param->features_name);
     }
     tmp->cache_free(tmp);
   }

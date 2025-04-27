@@ -6,14 +6,13 @@
 #include <cstdint>
 #include <cstdlib>
 #include <filesystem>
-#include <iostream>
-#include <iterator>
 #include <libCacheSim/cache.h>
 #include <libCacheSim/evictionAlgo.h>
 #include <onnxruntime/onnxruntime_c_api.h>
 #include <onnxruntime/onnxruntime_cxx_api.h>
 #include <optional>
 #include <stdexcept>
+#include <string>
 #include <vector>
 
 namespace mlclock {
@@ -62,6 +61,7 @@ public:
   }
 
 public:
+  std::vector<std::string> features_name;
   std::optional<Ort::Session> session;
   Ort::Env env;
   Ort::SessionOptions session_options;

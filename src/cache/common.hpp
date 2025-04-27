@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>
 #include <fstream>
 #include <libCacheSim/cacheObj.h>
 #include <libCacheSim/evictionAlgo.h>
@@ -22,6 +23,8 @@ struct req_metadata {
     access_freq++;
   }
 
+  int64_t time_since = 0;
+  int64_t obj_size_relative = 0;
   int64_t access_freq = 0;
   int64_t clock_time_between = 0;
   int64_t clock_time = 0;
