@@ -21,9 +21,9 @@ fi
 
 task_out="$4"
 if [[ -z $task_out ]]; then
-    task_out="~/test-$model.taskfile"
+    task_out="$HOME/test-$model.taskfile"
 fi
-model="~/OptimalClockOffline/python/ML/v4/model/$model"
+model="$HOME/OptimalClockOffline/python/ML/v4/model/$model"
 echo Model: $model
 
 echo "" > $task_out
