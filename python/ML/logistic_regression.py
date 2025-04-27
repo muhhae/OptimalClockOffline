@@ -1,6 +1,7 @@
 from sklearn.linear_model import LogisticRegression
 
 import var
+import common as c
 
 
 def SetupModel(max_iter: int = 100):
@@ -9,9 +10,13 @@ def SetupModel(max_iter: int = 100):
     var.model = LogisticRegression(max_iter=max_iter)
 
 
-def Train():
-    if var.df is None:
-        raise Exception("Datasets has not been set up")
-    if var.model is None:
-        raise Exception("Model has not been set up")
-    var.model.fit(var.X_train, var.y_train)
+Train = c.Train
+Test = c.Test
+AddDatasets = c.AddDatasets
+DescribeData = c.DescribeData
+ExportONNX = c.ExportONNX
+SaveModel = c.SaveModel
+LoadModel = c.LoadModel
+PlotSave = c.PlotSave
+PlotShow = c.PlotShow
+SetupData = c.SetupData

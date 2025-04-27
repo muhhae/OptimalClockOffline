@@ -35,16 +35,16 @@ train() {
     fi
     datasets=${datasets%?}
     echo "shell:1:$ram_usage:20:cd $HOME/OptimalClockOffline/python/ML && \
-python -c \"import common as c;\
+python -c \"\
 import $model as m;\
-c.AddDatasets($datasets);\
-c.SetupData();\
+m.AddDatasets($datasets);\
+m.SetupData();\
 m.SetupModel();\
 m.Train();\
-c.SaveModel('$out_dir/$model[$model_desc].pkl');\
-c.ExportONNX('$out_dir/$model[$model_desc].onnx');\
-c.PlotSave('$out_dir/$model[$model_desc].png');\
-c.Test()\" > $out_dir/$model[$model_desc].desc" >> $task_out
+m.SaveModel('$out_dir/$model[$model_desc].pkl');\
+m.ExportONNX('$out_dir/$model[$model_desc].onnx');\
+m.PlotSave('$out_dir/$model[$model_desc].png');\
+m.Test()\" > $out_dir/$model[$model_desc].desc" >> $task_out
 }
 
 relative_size=(0.001 0.01 0.1 0.2 0.4)

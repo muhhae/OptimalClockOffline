@@ -50,17 +50,18 @@ def DescribeData():
 
 
 def AddDatasets(*paths: str):
-    new_df = pd.concat([pd.read_csv(p) for p in paths], ignore_index=True)
-    new_df.columns = new_df.columns.str.strip()
-    new_df = new_df.drop(
-        [
-            "last_access_rtime",
-            "last_access_vtime",
-            "create_rtime",
-            "compulsory_miss",
-            "first_seen",
-        ],
-        axis=1,
+    cols = [
+        "clock_time",
+        "clock_time_between",
+        "cache_size",
+        "obj_size",
+        "clock_freq",
+        "lifetime_freq",
+        "wasted",
+    ]
+    new_df = pd.concat(
+        [pd.read_csv(p, skipinitialspace=True, usecols=cols) for p in paths],
+        ignore_index=True,
     )
     if var.df is None:
         var.df = new_df
@@ -77,6 +78,14 @@ def SetupData():
         X, y, test_size=0.2, random_state=9, stratify=y
     )
     var.dummy_input = var.X_train[:1].astype(np.int64)
+
+
+def Train():
+    if var.df is None:
+        raise Exception("Datasets has not been set up")
+    if var.model is None:
+        raise Exception("Model has not been set up")
+    var.model.fit(var.X_train, var.y_train)
 
 
 def LoadModel(path: str = "model.pkl"):
