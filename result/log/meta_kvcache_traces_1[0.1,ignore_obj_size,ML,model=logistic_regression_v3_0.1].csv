@@ -1,0 +1,2 @@
+trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted
+"meta_kvcache_traces_1.oracleGeneral.bin.zst",1,1711209,0.0892596,335173084,2125656

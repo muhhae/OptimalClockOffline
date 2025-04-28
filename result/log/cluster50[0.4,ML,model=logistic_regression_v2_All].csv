@@ -1,0 +1,2 @@
+trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted
+"cluster50.oracleGeneral.zst",0,16535,0.0851692,139655585,9552245
