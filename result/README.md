@@ -1,4 +1,4 @@
-# RESULT AGAINST TEST DATA
+# RESULT AGAINST TRAIN DATA
 # [Test Data](./result/TEST.md)
 # [Box Plot](./overall/README.md)
 # [Box Plot (obj_size_ignored)](./overall/README_obj_size_ignored.md)
