@@ -130,6 +130,8 @@ async def MLPlot(files):
     for file in files:
         if Path(file).stat().st_size == 0:
             continue
+        if file.find("_v4") == -1 and file.find("forest") == -1:
+            continue
         df = pd.read_csv(file)
         if df.empty:
             continue
@@ -158,7 +160,7 @@ async def IndividualPlot(file: str):
     prefix, desc = extract_desc(file)
     size = float(desc[0])
 
-    if len(desc) > (2 + desc.count("ignore_obj_size")):
+    if len(desc) > (2 + desc.count("ignore_obj_size") + desc.count("TEST")):
         return
 
     miss_ratio = [d.miss_ratio for d in logs]
@@ -232,21 +234,29 @@ async def IndividualPlot(file: str):
     ax2.tick_params(axis="y", labelcolor="red")
     ax2.yaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
 
+    colors = ["#6A5ACD", "#D2691E", "#228B22"]
     if (prefix, size, desc.count("ignore_obj_size")) in ml_algo:
         current_ml = ml_algo[prefix, size, desc.count("ignore_obj_size")]
+        current_ml = dict(sorted(current_ml.items()))
+        counter = 0
         for k in current_ml:
             y1 = current_ml[k].n_promoted
             y2 = current_ml[k].miss_ratio
             axs[0].axhline(
                 y=y1,
-                linestyle="-.",
+                linestyle="-",
                 label=f"{k} Promotion",
+                color=colors[counter],
+                linewidth=3,
             )
             ax2.axhline(
                 y=y2,
-                linestyle=":",
+                linestyle="--",
                 label=f"{k} Miss Ratio",
+                color=colors[counter],
+                linewidth=3,
             )
+            counter += 1
 
             ymin, ymax = axs[0].get_ylim()
             axs[0].set_ylim(min(ymin, y1), max(ymax, y1))
@@ -256,12 +266,20 @@ async def IndividualPlot(file: str):
 
     lines1, labels1 = axs[0].get_legend_handles_labels()
     lines2, labels2 = ax2.get_legend_handles_labels()
+    lines = []
+    labels = []
+    for i, j, k, x in zip(lines1, lines2, labels1, labels2):
+        lines.append(i)
+        lines.append(j)
+        labels.append(k)
+        labels.append(x)
+
     axs[0].legend(
-        lines1 + lines2,
-        labels1 + labels2,
-        loc="best",
-        framealpha=1,
-        shadow=True,
+        lines,
+        labels,
+        loc="upper center",
+        bbox_to_anchor=(0.5, -0.1),
+        ncol=3,
     )
 
     plt.title(Path(file).stem)
@@ -283,6 +301,8 @@ async def IndividualPlot(file: str):
 
     if (prefix, size, desc.count("ignore_obj_size")) in ml_algo:
         current_ml = ml_algo[prefix, size, desc.count("ignore_obj_size")]
+        current_ml = dict(sorted(current_ml.items()))
+        counter = 0
         for k in current_ml:
             y1 = n_promotion[0] - current_ml[k].n_promoted
             y2 = miss_ratio[0] - current_ml[k].miss_ratio
@@ -290,12 +310,17 @@ async def IndividualPlot(file: str):
                 y=y1,
                 linestyle="-.",
                 label=f"{k} Promotion",
+                color=colors[counter],
+                linewidth=3,
             )
             ax3.axhline(
                 y=y2,
                 linestyle=":",
                 label=f"{k} Miss Ratio",
+                color=colors[counter],
+                linewidth=3,
             )
+            counter += 1
 
             ymin, ymax = axs[1].get_ylim()
             axs[1].set_ylim(min(ymin, y1), max(ymax, y1))
@@ -304,13 +329,6 @@ async def IndividualPlot(file: str):
 
     lines1, labels1 = axs[1].get_legend_handles_labels()
     lines2, labels2 = ax3.get_legend_handles_labels()
-    axs[1].legend(
-        lines1 + lines2,
-        labels1 + labels2,
-        loc="best",
-        framealpha=1,
-        shadow=True,
-    )
 
     plt.title("Relative")
 
