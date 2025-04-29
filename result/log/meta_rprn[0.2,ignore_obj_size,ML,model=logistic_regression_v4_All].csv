@@ -1,0 +1,2 @@
+trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted
+"meta_rprn.oracleGeneral.zst",1,5806056,0.397468,88470732,5450948
