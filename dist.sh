@@ -29,16 +29,8 @@ while IFS= read -r link; do
 
     for cache_size in "${relative_cache_sizes[@]}"; do
         datasets="$out_dir/datasets/${basename}[${cache_size},ignore_obj_size,TEST].csv"
-        if ! [ -s $datasets ]; then
             echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file -o $out_dir -r $cache_size -i $max_iteration --ignore-obj-size -d ignore_obj_size,TEST" >> ~/task
-        else
-            echo "Skipping processing: $filename $cache_size (corresponding result exists and not empty: $datasets)"
-        fi
         datasets="$out_dir/datasets/${basename}[${cache_size},TEST].csv"
-        if ! [ -s $datasets ]; then
             echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file -o $out_dir -r $cache_size -i $max_iteration -d TEST" >> ~/task
-        else
-            echo "Skipping processing: $filename $cache_size (corresponding result exists and not empty: $datasets)"
-        fi
     done
 done < "$traces_txt"
