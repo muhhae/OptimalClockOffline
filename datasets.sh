@@ -28,17 +28,7 @@ while IFS= read -r link; do
     min_dram=$(( gb+1 ))
 
     for cache_size in "${relative_cache_sizes[@]}"; do
-        datasets="$out_dir/datasets/${basename}[${cache_size},ignore_obj_size].csv"
-        if ! [ -s $datasets ]; then
-            echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file -o $out_dir -r $cache_size -i $max_iteration --generate-datasets --ignore-obj-size -d ignore_obj_size && python ~/OptimalClockOffline/python/describe_csv.py $datasets > $datasets.desc" >> ~/task
-        else
-            echo "Skipping processing: $filename $cache_size (corresponding result exists and not empty: $datasets)"
-        fi
-        datasets="$out_dir/datasets/${basename}[${cache_size}].csv"
-        if ! [ -s $datasets ]; then
-            echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file -o $out_dir -r $cache_size -i $max_iteration --generate-datasets && python ~/OptimalClockOffline/python/describe_csv.py $datasets > $datasets.desc" >> ~/task
-        else
-            echo "Skipping processing: $filename $cache_size (corresponding result exists and not empty: $datasets)"
-        fi
+        echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file -o $out_dir -r $cache_size -i $max_iteration --generate-datasets --ignore-obj-size -d ignore_obj_size && python ~/OptimalClockOffline/python/describe_csv.py $datasets > $datasets.desc" >> ~/task
+        echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file -o $out_dir -r $cache_size -i $max_iteration --generate-datasets && python ~/OptimalClockOffline/python/describe_csv.py $datasets > $datasets.desc" >> ~/task
     done
 done < "$traces_txt"
