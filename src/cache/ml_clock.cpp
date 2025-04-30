@@ -1,13 +1,15 @@
 #include "ml_clock.hpp"
-#include "common.hpp"
+
+#include <libCacheSim/cache.h>
+#include <libCacheSim/evictionAlgo.h>
 
 #include <cmath>
 #include <cstdint>
 #include <cstdio>
 #include <iostream>
-#include <libCacheSim/cache.h>
-#include <libCacheSim/evictionAlgo.h>
 #include <vector>
+
+#include "common.hpp"
 
 void MLClockEvict(cache_t *cache, const request_t *req) {
   Clock_params_t *params = (Clock_params_t *)cache->eviction_params;

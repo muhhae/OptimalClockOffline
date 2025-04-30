@@ -1,12 +1,14 @@
 #include "offline_clock.hpp"
-#include "common.hpp"
+
+#include <libCacheSim/cache.h>
+#include <libCacheSim/evictionAlgo.h>
 
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
 #include <fstream>
-#include <libCacheSim/cache.h>
-#include <libCacheSim/evictionAlgo.h>
+
+#include "common.hpp"
 
 template <typename T, typename... Args>
 void out_dataset(std::ofstream &output, T first, Args... rest) {

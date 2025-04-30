@@ -1,7 +1,8 @@
 #include "base.hpp"
-#include "common.hpp"
 
 #include <libCacheSim/cache.h>
+
+#include "common.hpp"
 
 static void BaseClockEvict(cache_t *cache, const request_t *req) {
   Clock_params_t *params = (Clock_params_t *)cache->eviction_params;

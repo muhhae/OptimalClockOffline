@@ -1,10 +1,11 @@
 #pragma once
 
-#include <cstdint>
-#include <fstream>
 #include <libCacheSim/cacheObj.h>
 #include <libCacheSim/evictionAlgo.h>
 #include <libCacheSim/request.h>
+
+#include <cstdint>
+#include <fstream>
 #include <unordered_map>
 #include <unordered_set>
 
@@ -46,13 +47,13 @@ struct obj_metadata {
 };
 
 class Custom_clock_params : public Clock_params_t {
-public:
+ public:
   Custom_clock_params() = default;
   Custom_clock_params(const Clock_params_t &base) {
     *(Clock_params_t *)this = base;
   }
 
-public:
+ public:
   std::ofstream datasets;
   std::unordered_map<obj_id_t, obj_metadata> objs_metadata;
 
@@ -68,4 +69,4 @@ static void EvictionTracking(const cache_obj_t *obj,
   auto &data = custom_params->objs_metadata[obj->obj_id];
   data.current_req_metadata.access_freq = 0;
 }
-} // namespace common
+}  // namespace common

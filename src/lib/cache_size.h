@@ -1,10 +1,11 @@
 #pragma once
 
+#include <libCacheSim/const.h>
+#include <libCacheSim/reader.h>
+
 #include <cstdint>
 #include <cstdlib>
 #include <cstring>
-#include <libCacheSim/const.h>
-#include <libCacheSim/reader.h>
 
 static void cal_working_set_size(reader_t *reader, int64_t *wss_obj,
                                  int64_t *wss_byte) {
@@ -48,9 +49,10 @@ static void cal_working_set_size(reader_t *reader, int64_t *wss_obj,
   *wss_byte *= scaling_factor;
 
   if (scaling_factor > 1) {
-    INFO("estimated working set size (%.2f sample ratio): %lld object %lld "
-         "byte\n",
-         1.0 / scaling_factor, (long long)*wss_obj, (long long)*wss_byte);
+    INFO(
+        "estimated working set size (%.2f sample ratio): %lld object %lld "
+        "byte\n",
+        1.0 / scaling_factor, (long long)*wss_obj, (long long)*wss_byte);
   } else {
     INFO("working set size: %lld object %lld byte\n", (long long)*wss_obj,
          (long long)*wss_byte);

@@ -1,25 +1,27 @@
 #pragma once
 
-#include "cache/common.hpp"
+#include <libCacheSim/cache.h>
+#include <libCacheSim/evictionAlgo.h>
+#include <onnxruntime/onnxruntime_c_api.h>
+#include <onnxruntime/onnxruntime_cxx_api.h>
+
 #include <array>
 #include <cmath>
 #include <cstdint>
 #include <cstdlib>
 #include <filesystem>
-#include <libCacheSim/cache.h>
-#include <libCacheSim/evictionAlgo.h>
-#include <onnxruntime/onnxruntime_c_api.h>
-#include <onnxruntime/onnxruntime_cxx_api.h>
 #include <optional>
 #include <stdexcept>
 #include <string>
 #include <vector>
 
+#include "cache/common.hpp"
+
 namespace mlclock {
 cache_t *MLClockInit(const common_cache_params_t ccache_params,
                      const char *cache_specific_params);
 class MLClockParam : public common::Custom_clock_params {
-public:
+ public:
   MLClockParam() : env(ORT_LOGGING_LEVEL_WARNING, "ml_clock") {
     session_options.SetIntraOpNumThreads(8);
   }
@@ -60,10 +62,10 @@ public:
     return output_data[0];
   }
 
-public:
+ public:
   std::vector<std::string> features_name;
   std::optional<Ort::Session> session;
   Ort::Env env;
   Ort::SessionOptions session_options;
 };
-} // namespace mlclock
+}  // namespace mlclock

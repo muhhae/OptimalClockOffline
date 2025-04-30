@@ -1,8 +1,9 @@
 #include "my_clock.hpp"
-#include "common.hpp"
 
 #include <libCacheSim/cache.h>
 #include <libCacheSim/cacheObj.h>
+
+#include "common.hpp"
 
 static void MyClockEvict(cache_t *cache, const request_t *req) {
   Clock_params_t *params = (Clock_params_t *)cache->eviction_params;

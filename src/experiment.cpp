@@ -1,10 +1,6 @@
 #include "experiment.hpp"
-#include "cache/base.hpp"
-#include "cache/common.hpp"
-#include "cache/ml_clock.hpp"
-#include "cache/my_clock.hpp"
-#include "cache/offline_clock.hpp"
-#include "lib/cache_size.h"
+
+#include <libCacheSim/cache.h>
 
 #include <algorithm>
 #include <cstddef>
@@ -14,9 +10,15 @@
 #include <functional>
 #include <future>
 #include <iostream>
-#include <libCacheSim/cache.h>
 #include <stdexcept>
 #include <string>
+
+#include "cache/base.hpp"
+#include "cache/common.hpp"
+#include "cache/ml_clock.hpp"
+#include "cache/my_clock.hpp"
+#include "cache/offline_clock.hpp"
+#include "lib/cache_size.h"
 
 const std::string csv_header =
     "trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted\n";
@@ -76,8 +78,7 @@ void RunExperiment(const options &o) {
     for (const auto &rcs : o.relative_cache_sizes) {
       std::string s = std::to_string(rcs);
       s = s.substr(0, s.find_last_not_of('0') + 1);
-      if (s.back() == '.')
-        s.pop_back();
+      if (s.back() == '.') s.pop_back();
 
       std::string desc = "[" + s + (o.desc != "" ? "," : "") + o.desc + "]";
       tasks.emplace_back(std::async(
@@ -94,7 +95,6 @@ void RunExperiment(const options &o) {
 
 void Simulate(cache_t *cache, const std::filesystem::path trace_path,
               const options o, const std::string desc) {
-
   reader_init_param_t param = default_reader_init_params();
   param.ignore_obj_size = o.ignore_obj_size;
 
@@ -200,8 +200,7 @@ void Simulate(cache_t *cache, const std::filesystem::path trace_path,
     csv_file << s.str();
 
     reset_reader(reader);
-    if (i == 0)
-      first_promoted = tmp_custom_params->n_promoted;
+    if (i == 0) first_promoted = tmp_custom_params->n_promoted;
     for (auto &e : tmp_custom_params->objs_metadata) {
       e.second.access_counter = 0;
       e.second.last_promotion = 0;

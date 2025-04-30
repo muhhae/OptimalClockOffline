@@ -1,4 +1,3 @@
-#include <iostream>
 #include <libCacheSim.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -7,6 +6,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <iostream>
 #include <string>
 #include <vector>
 
