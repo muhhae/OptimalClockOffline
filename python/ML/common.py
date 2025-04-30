@@ -28,10 +28,6 @@ def DescribeData():
     print("-" * 60)
     print(data.info())
 
-    print("\n📊 Summary Statistics (Numerical Columns):")
-    print("-" * 60)
-    print(data.describe(include=[float, int]))
-
     print("\n📌 Missing Values:")
     print("-" * 60)
     print(data.isnull().sum())
@@ -40,14 +36,31 @@ def DescribeData():
     print("-" * 60)
     print(data.nunique())
 
-    if "wasted" in data.columns:
-        print("\n🚫 Subset: wasted == 0")
-        print("-" * 60)
-        print(data[data["wasted"] == 0].describe(include=[float, int]))
+    print("\n📊 Column-wise Summary Statistics:")
+    print("-" * 60)
+    for col in data.columns:
+        print(f"\n🔹 Column: {col}")
+        print("-" * 40)
+        print(f"Type: {data[col].dtype}")
+        print(f"Missing: {data[col].isnull().sum()}")
+        print(f"Unique: {data[col].nunique()}")
+        if pd.api.types.is_numeric_dtype(data[col]):
+            print(data[col].describe())
+        else:
+            print(data[col].value_counts().head(10))  # show top 10 values
 
-        print("\n✅ Subset: wasted == 1")
-        print("-" * 60)
-        print(data[data["wasted"] == 1].describe(include=[float, int]))
+    if "wasted" in data.columns:
+        for val in [0, 1]:
+            subset = data[data["wasted"] == val]
+            print(f"\n{'✅' if val == 1 else '🚫'} Subset: wasted == {val}")
+            print("-" * 60)
+            for col in subset.columns:
+                print(f"\n🔹 Column: {col}")
+                print("-" * 40)
+                if pd.api.types.is_numeric_dtype(subset[col]):
+                    print(subset[col].describe())
+                else:
+                    print(subset[col].value_counts().head(10))
     else:
         print("\n⚠️ Column 'wasted' not found in CSV.")
 

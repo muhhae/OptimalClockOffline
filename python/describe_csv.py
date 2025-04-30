@@ -1,5 +1,6 @@
 import pandas as pd
 import sys
+import math
 
 
 def describe_csv(file_path):
@@ -10,10 +11,6 @@ def describe_csv(file_path):
     print("-" * 60)
     print(df.info())
 
-    print("\n📊 Summary Statistics (Numerical Columns):")
-    print("-" * 60)
-    print(df.describe(include=[float, int]))
-
     print("\n📌 Missing Values:")
     print("-" * 60)
     print(df.isnull().sum())
@@ -22,14 +19,31 @@ def describe_csv(file_path):
     print("-" * 60)
     print(df.nunique())
 
-    if "wasted" in df.columns:
-        print("\n🚫 Subset: wasted == 0")
-        print("-" * 60)
-        print(df[df["wasted"] == 0].describe(include=[float, int]))
+    print("\n📊 Column-wise Summary Statistics:")
+    print("-" * 60)
+    for col in df.columns:
+        print(f"\n🔹 Column: {col}")
+        print("-" * 40)
+        print(f"Type: {df[col].dtype}")
+        print(f"Missing: {df[col].isnull().sum()}")
+        print(f"Unique: {df[col].nunique()}")
+        if pd.api.types.is_numeric_dtype(df[col]):
+            print(df[col].describe())
+        else:
+            print(df[col].value_counts().head(10))  # show top 10 values
 
-        print("\n✅ Subset: wasted == 1")
-        print("-" * 60)
-        print(df[df["wasted"] == 1].describe(include=[float, int]))
+    if "wasted" in df.columns:
+        for val in [0, 1]:
+            subset = df[df["wasted"] == val]
+            print(f"\n{'✅' if val == 1 else '🚫'} Subset: wasted == {val}")
+            print("-" * 60)
+            for col in subset.columns:
+                print(f"\n🔹 Column: {col}")
+                print("-" * 40)
+                if pd.api.types.is_numeric_dtype(subset[col]):
+                    print(subset[col].describe())
+                else:
+                    print(subset[col].value_counts().head(10))
     else:
         print("\n⚠️ Column 'wasted' not found in CSV.")
 

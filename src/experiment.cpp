@@ -114,15 +114,16 @@ void Simulate(cache_t* cache, const std::filesystem::path trace_path, const opti
 
 	if (o.generate_datasets) {
 		custom_params->datasets = std::ofstream(dataset_path);
-		custom_params->datasets
-			<< "last_access_rtime,"
-			   "last_access_vtime,create_rtime,clock_time,clock_time_normalized,"
-			   "clock_time_between,clock_"
-			   "time_between_normalized"
-			   "compulsory_miss,"
-			   "first_seen,cache_size,obj_size,clock_freq,"
-			   "clock_freq_normalized,lifetime_freq,lifetime_freq_normalized,"
-			   "wasted\n";
+		// out_dataset(custom_params->datasets, clock_time, clock_time_normalized,
+		// clock_time_between, 			clock_time_between_normalized, cache_size, obj_size,
+		// clock_freq, 			clock_freq_normalized, lifetime_freq, lifetime_freq_normalized,
+		// wasted);
+
+		custom_params->datasets << "clock_time,clock_time_normalized,"
+								   "clock_time_between,clock_time_between_normalized,"
+								   "cache_size,obj_size,clock_freq,clock_freq_normalized,"
+								   "lifetime_freq,lifetime_freq_normalized,"
+								   "wasted\n";
 	}
 	if (o.algorithm == "ML") {
 		((mlclock::MLClockParam*)custom_params)->LoadModel(o.ml_model);
@@ -160,17 +161,27 @@ void Simulate(cache_t* cache, const std::filesystem::path trace_path, const opti
 				first_clock = req->clock_time;
 			}
 			auto& data = tmp_custom_params->objs_metadata[req->obj_id];
-			data.access_counter += 1;
-			if (data.access_counter > custom_params->max_lifetime_freq)
-				custom_params->max_lifetime_freq = data.access_counter;
+
+			data.lifetime_freq += 1;
+			if (data.lifetime_freq > tmp_custom_params->max_lifetime_freq) {
+				tmp_custom_params->max_lifetime_freq = data.lifetime_freq;
+			}
+
 			data.current_req_metadata.Track(req);
+			if (data.current_req_metadata.clock_freq > tmp_custom_params->max_clock_freq) {
+				tmp_custom_params->max_clock_freq = data.current_req_metadata.clock_freq;
+			}
+
 			if (data.current_req_metadata.clock_time_between >
-				custom_params->max_clock_time_between)
-				custom_params->max_clock_time_between =
+				tmp_custom_params->max_clock_time_between) {
+				tmp_custom_params->max_clock_time_between =
 					data.current_req_metadata.clock_time_between;
+			}
+
 			data.current_req_metadata.time_since = req->clock_time - first_clock;
-			if (data.current_req_metadata.time_since > custom_params->max_clock_time)
-				custom_params->max_clock_time = data.current_req_metadata.time_since;
+			if (data.current_req_metadata.time_since > tmp_custom_params->max_clock_time) {
+				tmp_custom_params->max_clock_time = data.current_req_metadata.time_since;
+			}
 
 			if (tmp->get(tmp, req)) {
 				tmp_custom_params->n_hit++;
@@ -189,7 +200,7 @@ void Simulate(cache_t* cache, const std::filesystem::path trace_path, const opti
 		reset_reader(reader);
 		if (i == 0) first_promoted = tmp_custom_params->n_promoted;
 		for (auto& e : tmp_custom_params->objs_metadata) {
-			e.second.access_counter = 0;
+			e.second.lifetime_freq = 0;
 			e.second.last_promotion = 0;
 			e.second.current_req_metadata = {};
 		}

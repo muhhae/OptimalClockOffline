@@ -24,8 +24,8 @@ void MLClockEvict(cache_t* cache, const request_t* req) {
 		features["obj_size"] = static_cast<int64_t>(obj_to_evict->obj_size);
 		features["obj_size_relative"] =
 			static_cast<int64_t>(obj_to_evict->obj_size * 1e6 / cache->cache_size);
-		features["lifetime_freq"] = static_cast<int64_t>(data.access_counter);
-		features["clock_freq"] = static_cast<int64_t>(data.current_req_metadata.access_freq);
+		features["lifetime_freq"] = static_cast<int64_t>(data.lifetime_freq);
+		features["clock_freq"] = static_cast<int64_t>(data.current_req_metadata.clock_freq);
 		std::vector<int64_t> input_features;
 		input_features.reserve(custom_params->features_name.size());
 		for (const auto& f : custom_params->features_name) {

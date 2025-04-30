@@ -20,12 +20,12 @@ struct req_metadata {
 		create_rtime = req->create_rtime;
 		first_seen = req->first_seen_in_window;
 		compulsory_miss = req->compulsory_miss;
-		access_freq++;
+		clock_freq++;
 	}
 
 	int64_t time_since = 0;
 	int64_t obj_size_relative = 0;
-	int64_t access_freq = 0;
+	int64_t clock_freq = 0;
 	int64_t clock_time_between = 0;
 	int64_t clock_time = 0;
 	int64_t last_access_vtime = 0;
@@ -39,7 +39,7 @@ struct req_metadata {
 };
 
 struct obj_metadata {
-	uint64_t access_counter = 0;
+	uint64_t lifetime_freq = 0;
 	uint64_t last_promotion = 0;
 	req_metadata current_req_metadata;
 	std::unordered_set<uint64_t> wasted_promotions;
@@ -58,16 +58,16 @@ class Custom_clock_params : public Clock_params_t {
 	uint64_t n_req;
 	uint64_t n_promoted;
 
-	uint64_t max_lifetime_freq = 0;
-	uint64_t max_clock_freq = 0;
-	uint64_t max_clock_time_between = 0;
-	uint64_t max_clock_time = 0;
+	uint64_t max_lifetime_freq = 1;
+	uint64_t max_clock_freq = 1;
+	uint64_t max_clock_time_between = 1;
+	uint64_t max_clock_time = 1;
 
 	bool generate_datasets;
 };
 
 static void EvictionTracking(const cache_obj_t* obj, Custom_clock_params* custom_params) {
 	auto& data = custom_params->objs_metadata[obj->obj_id];
-	data.current_req_metadata.access_freq = 0;
+	data.current_req_metadata.clock_freq = 0;
 }
 } // namespace common
