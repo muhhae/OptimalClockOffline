@@ -9,7 +9,7 @@ def SetupModel(max_iter: int = 1000):
     var.model = LogisticRegression(
         max_iter=max_iter, class_weight="balanced", n_jobs=-1
     )
-    var.cols = ["clock_time_between_normalized", "clock_freq_normalized"]
+    var.cols = ["clock_time_between_normalized", "clock_freq_normalized", "wasted"]
 
 
 def SetupData():
