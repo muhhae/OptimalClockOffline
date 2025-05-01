@@ -11,12 +11,12 @@ def SetupModel(max_iter: int = 1000):
     var.cols = [
         "clock_time_between_normalized",
         "clock_freq_normalized",
+        "lifetime_freq_normalized",
         "wasted",
     ]
 
 
 def SetupData():
-    var.df
     c.SetupData()
 
 

@@ -9,14 +9,19 @@ def SetupModel(max_iter: int = 1000):
         max_iter=max_iter, class_weight="balanced", n_jobs=-1
     )
     var.cols = [
-        "clock_time_between_normalized",
-        "clock_freq_normalized",
+        "clock_time_between",
+        "clock_freq",
         "wasted",
     ]
 
 
 def SetupData():
-    var.df
+    cols = [
+        "clock_time_between",
+        "clock_freq",
+    ]
+    for col in cols:
+        var.df[f"{col}_normalized"] = var.df[col] / var.df[col].max()
     c.SetupData()
 
 
