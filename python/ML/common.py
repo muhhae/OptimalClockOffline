@@ -75,6 +75,9 @@ def AddDatasets(*paths: str):
         "lifetime_freq",
         "wasted",
     ]
+    if var.cols is not None:
+        cols = var.cols
+
     new_df = pd.concat(
         [pd.read_csv(p, skipinitialspace=True, usecols=cols) for p in paths],
         ignore_index=True,

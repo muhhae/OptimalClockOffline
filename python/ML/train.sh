@@ -21,7 +21,7 @@ train() {
     if [ -z "$model_desc" ]; then
       model_desc=$descs
     fi
-    ram_usage=128
+    ram_usage=32
     datasets=""
     for desc in $descs; do
       echo "desc: $desc"
@@ -34,12 +34,12 @@ train() {
         return
     fi
     datasets=${datasets%?}
-    echo "shell:1:$ram_usage:20:cd $HOME/OptimalClockOffline/python/ML && \
+    echo "shell:1:$ram_usage:10:cd $HOME/OptimalClockOffline/python/ML && \
 python -c \"\
 import $model as m;\
+m.SetupModel();\
 m.AddDatasets($datasets);\
 m.SetupData();\
-m.SetupModel();\
 m.Train();\
 m.ExportONNX('$out_dir/$model[$model_desc].onnx');\
 m.DescribeData();\
