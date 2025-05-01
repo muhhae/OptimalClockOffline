@@ -32,7 +32,17 @@ void RunExperiment(const options& o) {
 	} else if (o.algorithm == "my") {
 		CacheInit = myclock::MyClockInit;
 	} else if (o.algorithm == "ML") {
-		CacheInit = mlclock::MLClockInit;
+		if (o.input_type == "I32") {
+			CacheInit = mlclock::MLClockInit<int32_t>;
+		} else if (o.input_type == "I64") {
+			CacheInit = mlclock::MLClockInit<int64_t>;
+		} else if (o.input_type == "F32") {
+			CacheInit = mlclock::MLClockInit<float>;
+		} else if (o.input_type == "F64") {
+			CacheInit = mlclock::MLClockInit<double>;
+		} else {
+			throw std::runtime_error("Input type is not valid");
+		}
 		if (o.ml_model == "") {
 			throw std::runtime_error("ML model need to be provided in ONNX format");
 		}

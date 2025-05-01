@@ -21,6 +21,7 @@ struct options {
 	std::filesystem::path output_directory;
 	std::string desc;
 	std::string ml_model;
+	std::string input_type;
 };
 
 void Simulate(cache_t* cache, const std::filesystem::path trace_path, const options o,

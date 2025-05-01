@@ -32,6 +32,9 @@ int main(int argc, char** argv) {
 	app.add_option("-a,--algo", o.algorithm, "available [default, ML, my, base]")
 		->default_val("default");
 	app.add_option("-m,--model", o.ml_model, "ML model to use, required when algo = ML");
+	app.add_option("-I, --input", o.input_type,
+				   "Input data type to use for Model Inference [I32, I64, F32, F64]")
+		->default_val("I64");
 	app.add_option("-F, --features", o.features_name,
 				   "Features to use for Model Inference (The Sequence should "
 				   "exactly the same as model input or data it trained with)")

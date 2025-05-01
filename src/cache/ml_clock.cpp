@@ -3,11 +3,11 @@
 #include <cmath>
 #include <cstdint>
 #include <cstdio>
-#include <iostream>
 #include <libCacheSim/cache.h>
 #include <libCacheSim/evictionAlgo.h>
 #include <vector>
 
+template <typename T>
 void MLClockEvict(cache_t* cache, const request_t* req) {
 	Clock_params_t* params = (Clock_params_t*)cache->eviction_params;
 	mlclock::MLClockParam* custom_params = (mlclock::MLClockParam*)cache->eviction_params;
@@ -15,18 +15,23 @@ void MLClockEvict(cache_t* cache, const request_t* req) {
 	cache_obj_t* obj_to_evict = params->q_tail;
 	while (obj_to_evict->clock.freq >= 1) {
 		auto data = custom_params->objs_metadata[obj_to_evict->obj_id];
-		std::unordered_map<std::string, int64_t> features;
-		features["clock_time"] = static_cast<int64_t>(data.current_req_metadata.clock_time);
-		features["time_since"] = static_cast<int64_t>(data.current_req_metadata.time_since);
-		features["clock_time_between"] =
-			static_cast<int64_t>(data.current_req_metadata.clock_time_between);
-		features["cache_size"] = static_cast<int64_t>(cache->cache_size);
-		features["obj_size"] = static_cast<int64_t>(obj_to_evict->obj_size);
-		features["obj_size_relative"] =
-			static_cast<int64_t>(obj_to_evict->obj_size * 1e6 / cache->cache_size);
-		features["lifetime_freq"] = static_cast<int64_t>(data.lifetime_freq);
-		features["clock_freq"] = static_cast<int64_t>(data.current_req_metadata.clock_freq);
-		std::vector<int64_t> input_features;
+		std::unordered_map<std::string, T> features;
+		features["clock_time"] = data.current_req_metadata.clock_time;
+		features["time_since"] = data.current_req_metadata.time_since;
+		features["clock_time_between"] = data.current_req_metadata.clock_time_between;
+		features["cache_size"] = cache->cache_size;
+		features["obj_size"] = obj_to_evict->obj_size;
+		features["obj_size_relative"] = obj_to_evict->obj_size * 1e6 / cache->cache_size;
+		features["lifetime_freq"] = data.lifetime_freq;
+		features["clock_freq"] = data.current_req_metadata.clock_freq;
+		features["clock_time_between_normalized"] =
+			data.current_req_metadata.clock_time_between / custom_params->max_clock_time_between;
+		features["clock_freq_normalized"] =
+			data.current_req_metadata.clock_freq / custom_params->max_clock_freq;
+		features["lifetime_freq_normalized"] =
+			data.lifetime_freq / custom_params->max_lifetime_freq;
+
+		std::vector<T> input_features;
 		input_features.reserve(custom_params->features_name.size());
 		for (const auto& f : custom_params->features_name) {
 			input_features.push_back(features[f]);
@@ -49,12 +54,13 @@ void MLClockEvict(cache_t* cache, const request_t* req) {
 	cache_evict_base(cache, obj_to_evict, true);
 }
 
+template <typename T>
 cache_t* mlclock::MLClockInit(const common_cache_params_t ccache_params,
 							  const char* cache_specific_params) {
 	auto cache = Clock_init(ccache_params, cache_specific_params);
 
-	cache->cache_init = MLClockInit;
-	cache->evict = MLClockEvict;
+	cache->cache_init = MLClockInit<T>;
+	cache->evict = MLClockEvict<T>;
 
 	MLClockParam* params = new MLClockParam(*(Clock_params_t*)cache->eviction_params);
 	free(cache->eviction_params);
@@ -62,3 +68,8 @@ cache_t* mlclock::MLClockInit(const common_cache_params_t ccache_params,
 	cache->eviction_params = params;
 	return cache;
 }
+
+template cache* mlclock::MLClockInit<float>(common_cache_params_t, const char*);
+template cache* mlclock::MLClockInit<double>(common_cache_params_t, const char*);
+template cache* mlclock::MLClockInit<int>(common_cache_params_t, const char*);
+template cache* mlclock::MLClockInit<long>(common_cache_params_t, const char*);
