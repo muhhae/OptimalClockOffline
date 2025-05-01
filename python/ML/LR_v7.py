@@ -20,9 +20,10 @@ def SetupData():
         "clock_time_between",
         "clock_freq",
     ]
-    for col in cols:
-        var.df[f"{col}_normalized"] = var.df[col] / var.df[col].max()
     c.SetupData()
+    for x in [var.X_train, var.X_test]:
+        for col in cols:
+            x[f"{col}_normalized"] = x[col] / x[col].max()
 
 
 Train = c.Train
