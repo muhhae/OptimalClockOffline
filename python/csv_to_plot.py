@@ -131,8 +131,13 @@ async def MLPlot(files):
     for file in files:
         if Path(file).stat().st_size == 0:
             continue
-        if file.find("_v4") == -1 and file.find("forest") == -1:
+        if (
+            file.find("_v4") == -1
+            and file.find("forest") == -1
+            and file.find("LR") == -1
+        ):
             continue
+
         df = pd.read_csv(file)
         if df.empty:
             continue
