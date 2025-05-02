@@ -229,7 +229,7 @@ async def IndividualPlot(file: str):
             n_promotion.append(current_ml[k].n_promoted)
             miss_ratio.append(current_ml[k].miss_ratio)
             k = k.replace("_", " ")
-            labels.append(f"[{k}]")
+            labels.append(f"{k}")
 
     combined = list(zip(n_promotion, miss_ratio, labels))
     combined.sort()
@@ -254,13 +254,13 @@ async def IndividualPlot(file: str):
 
     adjust_text(
         texts,
-        avoid_self=True,
-        min_arrow_len=0,
-        arrowprops=dict(arrowstyle="<->", color="red"),
-        force_text=True,
-        prevent_crossings=True,
-        force_explode=True,
-        force_static=True,
+        # avoid_self=True,
+        # min_arrow_len=0,
+        # arrowprops=dict(arrowstyle="<->", color="red"),
+        # force_text=(0.5, 0.5),
+        # prevent_crossings=True,
+        # # force_explode=True,
+        # force_static=(0.5, 0.5),
     )
 
     plt.title(Path(file).stem)

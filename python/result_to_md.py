@@ -49,13 +49,13 @@ os.makedirs(os.path.dirname("../result/TEST.md"), exist_ok=True)
 readme = open("../result/README.md", "w")
 test_readme = open("../result/TEST.md", "w")
 readme.write("""# RESULT AGAINST TRAIN DATA
-# [Test Data](./result/TEST.md)
+# [Test Data](./TEST.md)
 # [Box Plot](./overall/README.md)
 # [Box Plot (obj_size_ignored)](./overall/README_obj_size_ignored.md)
 # Line Plot
 """)
 test_readme.write("""# RESULT AGAINST TEST DATA
-# [Train Data](./result/README.md)
+# [Train Data](./README.md)
 # [Box Plot](./overall/README.md)
 # [Box Plot (obj_size_ignored)](./overall/README_obj_size_ignored.md)
 # Line Plot
