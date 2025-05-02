@@ -42,10 +42,10 @@ case "$model" in
         features="-F clock_time_between clock_freq lifetime_freq obj_size_relative"
         ;;
     "LR_v5")
-        features="-F clock_time_between_normalized clock_freq_normalized"
+        features="-I F32 -F clock_time_between_normalized clock_freq_normalized"
         ;;
     "LR_v6")
-        features="-F clock_time_between_normalized clock_freq_normalized lifetime_freq_normalized"
+        features="-I F32 -F clock_time_between_normalized clock_freq_normalized lifetime_freq_normalized"
         ;;
     "LR_v7")
         features="-F clock_time_between_normalized clock_freq_normalized lifetime_freq_normalized"
