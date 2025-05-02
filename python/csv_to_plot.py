@@ -7,6 +7,7 @@ import os
 import glob
 from pathlib import Path
 from collections import defaultdict
+from adjustText import adjust_text
 from typing import List, Dict
 from cycler import cycler
 import asyncio
@@ -211,126 +212,53 @@ async def IndividualPlot(file: str):
     overall_max_iteration[desc.count("ignore_obj_size")][size].append(max_iteration)
 
     iter = [i for i in range(1, max_iteration + 2)]
-    iter_2 = [i for i in range(2, max_iteration + 2)]
 
     n_promotion = n_promotion[: max_iteration + 1]
     miss_ratio = miss_ratio[: max_iteration + 1]
-    d_n_promotion = d_n_promotion[:max_iteration]
-    d_miss_ratio = d_miss_ratio[:max_iteration]
+    labels = [f"[Offline Clock iteration={i}]" for i in range(1, len(n_promotion) + 1)]
 
-    fig, axs = plt.subplots(2, 1, figsize=(12, 5 * 2))
-    axs[0].set_xlabel("Iteration")
-    axs[0].set_ylabel("Promotion", color="blue")
-    axs[0].plot(iter, n_promotion, marker="o", linestyle="-", color="blue")
-    axs[0].tick_params(axis="y", labelcolor="blue")
-    axs[0].yaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
-    axs[0].xaxis.set_major_locator(
-        ticker.MaxNLocator(nbins=len(n_promotion) + 1, integer=True)
-    )
-
-    ax2 = axs[0].twinx()
-    ax2.set_ylabel("Miss Ratio", color="red")
-    ax2.plot(iter, miss_ratio, marker="s", linestyle="--", color="red")
-    ax2.tick_params(axis="y", labelcolor="red")
-    ax2.yaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
-
-    colors = ["#6A5ACD", "#D2691E", "#228B22"]
     if (prefix, size, desc.count("ignore_obj_size")) in ml_algo:
         current_ml = ml_algo[prefix, size, desc.count("ignore_obj_size")]
         current_ml = dict(sorted(current_ml.items()))
-        counter = 0
         for k in current_ml:
-            y1 = current_ml[k].n_promoted
-            y2 = current_ml[k].miss_ratio
-            axs[0].axhline(
-                y=y1,
-                linestyle="-",
-                label=f"{k} Promotion",
-                color=colors[counter],
-                linewidth=3,
-            )
-            ax2.axhline(
-                y=y2,
-                linestyle="--",
-                label=f"{k} Miss Ratio",
-                color=colors[counter],
-                linewidth=3,
-            )
-            counter += 1
+            n_promotion.append(current_ml[k].n_promoted)
+            miss_ratio.append(current_ml[k].miss_ratio)
+            k = k.replace("_", " ")
+            labels.append(f"[{k}]")
 
-            ymin, ymax = axs[0].get_ylim()
-            axs[0].set_ylim(min(ymin, y1), max(ymax, y1))
+    combined = list(zip(n_promotion, miss_ratio, labels))
+    combined.sort()
 
-            ymin2, ymax2 = ax2.get_ylim()
-            ax2.set_ylim(min(ymin2, y2), max(ymax2, y2))
+    n_promotion, miss_ratio, labels = zip(*combined)
 
-    lines1, labels1 = axs[0].get_legend_handles_labels()
-    lines2, labels2 = ax2.get_legend_handles_labels()
-    lines = []
-    labels = []
-    for i, j, k, x in zip(lines1, lines2, labels1, labels2):
-        lines.append(i)
-        lines.append(j)
-        labels.append(k)
-        labels.append(x)
+    fig, axs = plt.subplots(1, 1, figsize=(12, 5 * 1))
+    axs.set_xlabel("Promotion")
+    axs.set_ylabel("Miss Ratio")
+    axs.plot(n_promotion, miss_ratio, marker="o", linestyle="-")
+    axs.tick_params(axis="y", labelcolor="blue")
+    axs.yaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
+    axs.xaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
 
-    axs[0].legend(
-        lines,
-        labels,
-        loc="upper center",
-        bbox_to_anchor=(0.5, -0.1),
-        ncol=3,
+    texts = [
+        axs.annotate(
+            labels[i],
+            xy=(n_promotion[i], miss_ratio[i]),
+        )
+        for i in range(len(labels))
+    ]
+
+    adjust_text(
+        texts,
+        avoid_self=True,
+        min_arrow_len=0,
+        arrowprops=dict(arrowstyle="<->", color="red"),
+        force_text=True,
+        prevent_crossings=True,
+        force_explode=True,
+        force_static=True,
     )
 
     plt.title(Path(file).stem)
-
-    axs[1].set_xlabel("Iteration")
-    axs[1].set_ylabel("$\\Delta$ Promotion", color="blue")
-    axs[1].plot(iter_2, d_n_promotion, marker="o", linestyle="-", color="blue")
-    axs[1].tick_params(axis="y", labelcolor="blue")
-    axs[1].yaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
-    axs[1].xaxis.set_major_locator(
-        ticker.MaxNLocator(nbins=len(d_n_promotion) + 1, integer=True)
-    )
-
-    ax3 = axs[1].twinx()
-    ax3.set_ylabel("$\\Delta$ Miss Ratio", color="red")
-    ax3.plot(iter_2, d_miss_ratio, marker="s", linestyle="--", color="red")
-    ax3.tick_params(axis="y", labelcolor="red")
-    ax3.yaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
-
-    if (prefix, size, desc.count("ignore_obj_size")) in ml_algo:
-        current_ml = ml_algo[prefix, size, desc.count("ignore_obj_size")]
-        current_ml = dict(sorted(current_ml.items()))
-        counter = 0
-        for k in current_ml:
-            y1 = n_promotion[0] - current_ml[k].n_promoted
-            y2 = miss_ratio[0] - current_ml[k].miss_ratio
-            axs[1].axhline(
-                y=y1,
-                linestyle="-.",
-                label=f"{k} Promotion",
-                color=colors[counter],
-                linewidth=3,
-            )
-            ax3.axhline(
-                y=y2,
-                linestyle=":",
-                label=f"{k} Miss Ratio",
-                color=colors[counter],
-                linewidth=3,
-            )
-            counter += 1
-
-            ymin, ymax = axs[1].get_ylim()
-            axs[1].set_ylim(min(ymin, y1), max(ymax, y1))
-            ymin2, ymax2 = ax3.get_ylim()
-            ax3.set_ylim(min(ymin2, y2), max(ymax2, y2))
-
-    lines1, labels1 = axs[1].get_legend_handles_labels()
-    lines2, labels2 = ax3.get_legend_handles_labels()
-
-    plt.title("Relative")
 
     fig.tight_layout()
 
