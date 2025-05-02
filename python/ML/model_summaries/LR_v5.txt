@@ -1,0 +1,215 @@
+==> model/LR_v5[0.001,ignore_obj_size].md <==
+              precision    recall  f1-score   support
+
+           0       0.24      0.92      0.38  11014486
+           1       0.87      0.15      0.26  38239762
+
+    accuracy                           0.32  49254248
+   macro avg       0.55      0.54      0.32  49254248
+weighted avg       0.73      0.32      0.28  49254248
+
+Accuracy: 0.32247182009559866
+Confusion Matrix:
+[[10135594   878892]
+ [32492249  5747513]]
+Confusion Matrix (%):
+[[20.57811135  1.78439837]
+ [65.96841962 11.66907066]]
+
+==> model/LR_v5[0.001].md <==
+              precision    recall  f1-score   support
+
+           0       0.20      0.92      0.34   8846591
+           1       0.90      0.16      0.27  37701355
+
+    accuracy                           0.30  46547946
+   macro avg       0.55      0.54      0.30  46547946
+weighted avg       0.77      0.30      0.28  46547946
+
+Accuracy: 0.30274790213084807
+Confusion Matrix:
+[[ 8179322   667269]
+ [31788384  5912971]]
+Confusion Matrix (%):
+[[17.57182154  1.43350901]
+ [68.29170078 12.70296868]]
+
+==> model/LR_v5[0.01,ignore_obj_size].md <==
+              precision    recall  f1-score   support
+
+           0       0.45      0.37      0.41  26581015
+           1       0.69      0.75      0.72  49160373
+
+    accuracy                           0.62  75741388
+   macro avg       0.57      0.56      0.56  75741388
+weighted avg       0.60      0.62      0.61  75741388
+
+Accuracy: 0.6176431702043802
+Confusion Matrix:
+[[ 9952697 16628318]
+ [12331919 36828454]]
+Confusion Matrix (%):
+[[13.14036785 21.95407087]
+ [16.28161211 48.62394917]]
+
+==> model/LR_v5[0.01].md <==
+              precision    recall  f1-score   support
+
+           0       0.47      0.27      0.34  32004985
+           1       0.62      0.80      0.70  48473597
+
+    accuracy                           0.59  80478582
+   macro avg       0.54      0.53      0.52  80478582
+weighted avg       0.56      0.59      0.56  80478582
+
+Accuracy: 0.5863844370418952
+Confusion Matrix:
+[[ 8644324 23360661]
+ [ 9926533 38547064]]
+Confusion Matrix (%):
+[[10.7411485  29.02717769]
+ [12.33437861 47.89729521]]
+
+==> model/LR_v5[0.1,ignore_obj_size].md <==
+              precision    recall  f1-score   support
+
+           0       0.52      0.31      0.38  25150809
+           1       0.58      0.77      0.67  31618696
+
+    accuracy                           0.57  56769505
+   macro avg       0.55      0.54      0.52  56769505
+weighted avg       0.55      0.57      0.54  56769505
+
+Accuracy: 0.5661357625013641
+Confusion Matrix:
+[[ 7684408 17466401]
+ [ 7163857 24454839]]
+Confusion Matrix (%):
+[[13.53615467 30.76722441]
+ [12.61919934 43.07742158]]
+
+==> model/LR_v5[0.1].md <==
+              precision    recall  f1-score   support
+
+           0       0.55      0.29      0.38  27438061
+           1       0.54      0.78      0.64  29133429
+
+    accuracy                           0.54  56571490
+   macro avg       0.55      0.54      0.51  56571490
+weighted avg       0.55      0.54      0.51  56571490
+
+Accuracy: 0.5429015215968326
+Confusion Matrix:
+[[ 8087625 19350436]
+ [ 6508306 22625123]]
+Confusion Matrix (%):
+[[14.29629129 34.20527902]
+ [11.50456882 39.99386087]]
+
+==> model/LR_v5[0.2,ignore_obj_size].md <==
+              precision    recall  f1-score   support
+
+           0       0.66      0.36      0.47  30282453
+           1       0.49      0.76      0.60  24560629
+
+    accuracy                           0.54  54843082
+   macro avg       0.57      0.56      0.53  54843082
+weighted avg       0.58      0.54      0.53  54843082
+
+Accuracy: 0.5431171975345952
+Confusion Matrix:
+[[11020848 19261605]
+ [ 5795256 18765373]]
+Confusion Matrix (%):
+[[20.09523827 35.12130299]
+ [10.56697725 34.21648149]]
+
+==> model/LR_v5[0.2].md <==
+              precision    recall  f1-score   support
+
+           0       0.65      0.32      0.43  26636778
+           1       0.45      0.76      0.57  19367611
+
+    accuracy                           0.51  46004389
+   macro avg       0.55      0.54      0.50  46004389
+weighted avg       0.57      0.51      0.49  46004389
+
+Accuracy: 0.5066142276120654
+Confusion Matrix:
+[[ 8513704 18123074]
+ [ 4574837 14792774]]
+Confusion Matrix (%):
+[[18.50628643 39.39422823]
+ [ 9.94434901 32.15513633]]
+
+==> model/LR_v5[0.4,ignore_obj_size].md <==
+              precision    recall  f1-score   support
+
+           0       0.71      0.36      0.48  19594184
+           1       0.43      0.77      0.55  12404906
+
+    accuracy                           0.52  31999090
+   macro avg       0.57      0.57      0.52  31999090
+weighted avg       0.60      0.52      0.51  31999090
+
+Accuracy: 0.5194167084126455
+Confusion Matrix:
+[[ 7072720 12521464]
+ [ 2856764  9548142]]
+Confusion Matrix (%):
+[[22.10287855 39.13068778]
+ [ 8.92764138 29.83879229]]
+
+==> model/LR_v5[0.4].md <==
+              precision    recall  f1-score   support
+
+           0       0.67      0.31      0.42  18127901
+           1       0.41      0.76      0.53  11383634
+
+    accuracy                           0.48  29511535
+   macro avg       0.54      0.53      0.48  29511535
+weighted avg       0.57      0.48      0.47  29511535
+
+Accuracy: 0.48298094287538756
+Confusion Matrix:
+[[ 5604120 12523781]
+ [ 2734245  8649389]]
+Confusion Matrix (%):
+[[18.9895917  42.43690137]
+ [ 9.26500434 29.30850259]]
+
+==> model/LR_v5[All,ignore_obj_size].md <==
+              precision    recall  f1-score   support
+
+           0       0.63      0.26      0.37 112622946
+           1       0.63      0.89      0.73 155984366
+
+    accuracy                           0.63 268607312
+   macro avg       0.63      0.57      0.55 268607312
+weighted avg       0.63      0.63      0.58 268607312
+
+Accuracy: 0.6251424644761718
+Confusion Matrix:
+[[ 29692761  82930185]
+ [ 17759290 138225076]]
+Confusion Matrix (%):
+[[11.05433831 30.87413533]
+ [ 6.61161823 51.45990814]]
+
+==> model/LR_v5[All].md <==
+              precision    recall  f1-score   support
+
+           0       0.62      0.27      0.37 113054316
+           1       0.61      0.87      0.72 146059625
+
+    accuracy                           0.61 259113941
+   macro avg       0.61      0.57      0.55 259113941
+weighted avg       0.61      0.61      0.57 259113941
+
+Accuracy: 0.6094397830952677
+Confusion Matrix:
+[[ 30322011  82732305]
+ [ 18467292 127592333]]
+Confusion Matrix (%):
+[[11.70219205 31.92892852]
+ [ 7.12709317 49.24178626]]

@@ -1,20 +1,4 @@
-# Datasets
-```
-🧾 Basic Info:
-------------------------------------------------------------
-<class 'pandas.core.frame.DataFrame'>
-Index: 186053350 entries, 4154098 to 53189435
-Data columns (total 5 columns):
- #   Column              Dtype
----  ------              -----
- 0   clock_time_between  int64
- 1   clock_freq          int64
- 2   lifetime_freq       int64
- 3   obj_size_relative   int64
- 4   wasted              int64
-dtypes: int64(5)
-memory usage: 8.3 GB
-==> model/logistic_regression_v4[0.001,ignore_obj_size].md <==
+==> model/logistic_regression_v4[0.001,ignore_obj_size].txt <==
               precision    recall  f1-score   support
 
            0       0.47      0.68      0.55  10011394
@@ -32,7 +16,7 @@ Confusion Matrix (%):
 [[13.83999633  6.48559955]
  [15.73449632 63.93990779]]
 
-==> model/logistic_regression_v4[0.001].md <==
+==> model/logistic_regression_v4[0.001].txt <==
               precision    recall  f1-score   support
 
            0       0.40      0.58      0.48   7980566
@@ -50,7 +34,7 @@ Confusion Matrix (%):
 [[ 9.90640147  7.2511846 ]
  [14.63206962 68.21034431]]
 
-==> model/logistic_regression_v4[0.01,ignore_obj_size].md <==
+==> model/logistic_regression_v4[0.01,ignore_obj_size].txt <==
               precision    recall  f1-score   support
 
            0       0.35      0.86      0.50  22636409
@@ -68,7 +52,7 @@ Confusion Matrix (%):
 [[25.70118193  4.33941261]
  [47.67469018 22.28471527]]
 
-==> model/logistic_regression_v4[0.01].md <==
+==> model/logistic_regression_v4[0.01].txt <==
               precision    recall  f1-score   support
 
            0       0.64      0.37      0.47  27778376
@@ -86,7 +70,7 @@ Confusion Matrix (%):
 [[12.8285686  21.61894787]
  [ 7.32284912 58.22963442]]
 
-==> model/logistic_regression_v4[0.1,ignore_obj_size].md <==
+==> model/logistic_regression_v4[0.1,ignore_obj_size].txt <==
               precision    recall  f1-score   support
 
            0       0.65      0.50      0.57  22673616
@@ -104,7 +88,7 @@ Confusion Matrix (%):
 [[20.26012882 19.92845835]
  [11.09551523 48.71589759]]
 
-==> model/logistic_regression_v4[0.1].md <==
+==> model/logistic_regression_v4[0.1].txt <==
               precision    recall  f1-score   support
 
            0       0.65      0.46      0.54  25258747
@@ -122,7 +106,7 @@ Confusion Matrix (%):
 [[20.88961503 24.23342495]
  [11.20246826 43.67449175]]
 
-==> model/logistic_regression_v4[0.2,ignore_obj_size].md <==
+==> model/logistic_regression_v4[0.2,ignore_obj_size].txt <==
               precision    recall  f1-score   support
 
            0       0.69      0.54      0.61  27849041
@@ -140,7 +124,7 @@ Confusion Matrix (%):
 [[27.96001763 23.60626445]
  [12.490465   35.94325292]]
 
-==> model/logistic_regression_v4[0.2].md <==
+==> model/logistic_regression_v4[0.2].txt <==
               precision    recall  f1-score   support
 
            0       0.72      0.63      0.67  25205693
@@ -158,9 +142,9 @@ Confusion Matrix (%):
 [[34.73092504 20.53831306]
  [13.62643416 31.10432774]]
 
-==> model/logistic_regression_v4[0.4,ignore_obj_size].md <==
+==> model/logistic_regression_v4[0.4,ignore_obj_size].txt <==
 
-==> model/logistic_regression_v4[0.4].md <==
+==> model/logistic_regression_v4[0.4].txt <==
               precision    recall  f1-score   support
 
            0       0.77      0.40      0.53  17414266
@@ -178,6 +162,38 @@ Confusion Matrix (%):
 [[23.83031946 35.67642249]
  [ 6.98837815 33.5048799 ]]
 
-==> model/logistic_regression_v4[All,ignore_obj_size].md <==
+==> model/logistic_regression_v4[All,ignore_obj_size].txt <==
+              precision    recall  f1-score   support
 
-==> model/logistic_regression_v4[All].md <==
+           0       0.60      0.50      0.54 101698151
+           1       0.72      0.79      0.75 165034887
+
+    accuracy                           0.68 266733038
+   macro avg       0.66      0.64      0.65 266733038
+weighted avg       0.67      0.68      0.67 266733038
+
+Accuracy: 0.6792533889258967
+Confusion Matrix:
+[[ 50494305  51203846]
+ [ 34349872 130685015]]
+Confusion Matrix (%):
+[[18.93065268 19.19666434]
+ [12.87799676 48.99468622]]
+
+==> model/logistic_regression_v4[All].txt <==
+              precision    recall  f1-score   support
+
+           0       0.60      0.43      0.50 103637647
+           1       0.68      0.81      0.74 154362531
+
+    accuracy                           0.66 258000178
+   macro avg       0.64      0.62      0.62 258000178
+weighted avg       0.65      0.66      0.64 258000178
+
+Accuracy: 0.6572790271485782
+Confusion Matrix:
+[[ 44174975  59462672]
+ [ 28959400 125403131]]
+Confusion Matrix (%):
+[[17.12207152 23.04753139]
+ [11.2245659  48.60583119]]
