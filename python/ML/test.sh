@@ -58,7 +58,7 @@ case "$model" in
         ;;
 esac
 
-model_dir="$HOME/OptimalClockOffline/python/ML/v4/model/$model"
+model_dir="$HOME/OptimalClockOffline/python/ML/model/$model"
 
 echo "" > $task_out
 
