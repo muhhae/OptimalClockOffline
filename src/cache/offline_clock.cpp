@@ -1,7 +1,5 @@
 #include "offline_clock.hpp"
 #include "common.hpp"
-#include <cmath>
-#include <cstdio>
 #include <cstdlib>
 #include <fstream>
 #include <libCacheSim/cache.h>
@@ -50,10 +48,11 @@ static void OfflineClockEvict(cache_t* cache, const request_t* req) {
 			float rtime_since_norm = rtime_since / custom_params->max_rtime_since;
 			float vtime_since_norm = vtime_since / custom_params->max_vtime_since;
 
-			out_dataset(custom_params->datasets, rtime_since, rtime_since_norm, vtime_since,
-						vtime_since_norm, clock_time, clock_time_normalized, clock_time_between,
-						clock_time_between_normalized, cache_size, obj_size, clock_freq,
-						clock_freq_normalized, lifetime_freq, lifetime_freq_normalized, wasted);
+			out_dataset(custom_params->datasets, obj_to_evict->obj_id, rtime_since,
+						rtime_since_norm, vtime_since, vtime_since_norm, clock_time,
+						clock_time_normalized, clock_time_between, clock_time_between_normalized,
+						cache_size, obj_size, clock_freq, clock_freq_normalized, lifetime_freq,
+						lifetime_freq_normalized, wasted);
 		}
 		common::EvictionTracking(obj_to_evict, custom_params);
 		if (wasted) {

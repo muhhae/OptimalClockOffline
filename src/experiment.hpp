@@ -7,6 +7,7 @@
 #include <vector>
 
 struct options {
+	std::string trace_type;
 	std::string algorithm;
 	std::vector<std::filesystem::path> trace_paths;
 	// std::vector<std::string> custom_suffixes;

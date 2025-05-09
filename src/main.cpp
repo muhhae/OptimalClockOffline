@@ -1,10 +1,5 @@
 #include "experiment.hpp"
 #include "lib/CLI11.hpp"
-#include <cmath>
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-#include <iostream>
 #include <libCacheSim.h>
 #include <string>
 #include <sys/types.h>
@@ -40,6 +35,8 @@ int main(int argc, char** argv) {
 				   "exactly the same as model input or data it trained with)")
 		->default_val(std::vector<std::string>{"clock_time_between", "clock_freq", "lifetime_freq",
 											   "obj_size_relative"});
+	app.add_option("-T, --trace-type", o.trace_type, "Traces Type [oracleGeneral, csv]")
+		->default_val("oracleGeneral");
 
 	CLI11_PARSE(app, argc, argv);
 	RunExperiment(o);

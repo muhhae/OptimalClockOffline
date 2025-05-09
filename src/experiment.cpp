@@ -14,6 +14,7 @@
 #include <future>
 #include <iostream>
 #include <libCacheSim/cache.h>
+#include <libCacheSim/enum.h>
 #include <stdexcept>
 #include <string>
 
@@ -56,8 +57,16 @@ void RunExperiment(const options& o) {
 	if (o.generate_datasets) std::filesystem::create_directories(o.output_directory / "datasets");
 
 	for (const auto& p : o.trace_paths) {
-		reader_init_param_t reader_init_param = {.ignore_obj_size = o.ignore_obj_size};
-		reader_t* reader = open_trace(p.c_str(), ORACLE_GENERAL_TRACE, &reader_init_param);
+		reader_init_param_t reader_init_param = {.ignore_obj_size = o.ignore_obj_size,
+												 .time_field = 1,
+												 .obj_id_field = 2,
+												 .obj_size_field = 3};
+
+		trace_type_e trace_type = ORACLE_GENERAL_TRACE;
+		if (o.trace_type == "csv") {
+			trace_type = CSV_TRACE;
+		}
+		reader_t* reader = open_trace(p.c_str(), trace_type, &reader_init_param);
 
 		int64_t wss_obj = 0;
 		int64_t wss_byte = 0;
@@ -97,10 +106,18 @@ void RunExperiment(const options& o) {
 
 void Simulate(cache_t* cache, const std::filesystem::path trace_path, const options o,
 			  const std::string desc) {
-	reader_init_param_t param = default_reader_init_params();
-	param.ignore_obj_size = o.ignore_obj_size;
+	reader_init_param_t reader_init_param = {.ignore_obj_size = o.ignore_obj_size,
+											 .time_field = 1,
+											 .obj_id_field = 2,
+											 .obj_size_field = 3,
+											 .has_header = true};
 
-	reader_t* reader = open_trace(trace_path.c_str(), ORACLE_GENERAL_TRACE, &param);
+	trace_type_e trace_type = ORACLE_GENERAL_TRACE;
+	if (o.trace_type == "csv") {
+		trace_type = CSV_TRACE;
+	}
+
+	reader_t* reader = open_trace(trace_path.c_str(), trace_type, &reader_init_param);
 
 	request_t* req = new_request();
 
@@ -129,13 +146,13 @@ void Simulate(cache_t* cache, const std::filesystem::path trace_path, const opti
 		// clock_freq, 			clock_freq_normalized, lifetime_freq, lifetime_freq_normalized,
 		// wasted);
 
-		custom_params->datasets
-			<< "rtime_since,rtime_since_normalized,vtime_since,vtime_since_normalized,clock_time,"
-			   "clock_time_normalized,"
-			   "clock_time_between,clock_time_between_normalized,"
-			   "cache_size,obj_size,clock_freq,clock_freq_normalized,"
-			   "lifetime_freq,lifetime_freq_normalized,"
-			   "wasted\n";
+		custom_params->datasets << "obj_id,rtime_since,rtime_since_normalized,vtime_since,vtime_"
+								   "since_normalized,clock_time,"
+								   "clock_time_normalized,"
+								   "clock_time_between,clock_time_between_normalized,"
+								   "cache_size,obj_size,clock_freq,clock_freq_normalized,"
+								   "lifetime_freq,lifetime_freq_normalized,"
+								   "wasted\n";
 	}
 	if (o.algorithm == "ML") {
 		((mlclock::MLClockParam*)custom_params)->LoadModel(o.ml_model);
