@@ -129,11 +129,13 @@ void Simulate(cache_t* cache, const std::filesystem::path trace_path, const opti
 		// clock_freq, 			clock_freq_normalized, lifetime_freq, lifetime_freq_normalized,
 		// wasted);
 
-		custom_params->datasets << "clock_time,clock_time_normalized,"
-								   "clock_time_between,clock_time_between_normalized,"
-								   "cache_size,obj_size,clock_freq,clock_freq_normalized,"
-								   "lifetime_freq,lifetime_freq_normalized,"
-								   "wasted\n";
+		custom_params->datasets
+			<< "rtime_since,rtime_since_normalized,vtime_since,vtime_since_normalized,clock_time,"
+			   "clock_time_normalized,"
+			   "clock_time_between,clock_time_between_normalized,"
+			   "cache_size,obj_size,clock_freq,clock_freq_normalized,"
+			   "lifetime_freq,lifetime_freq_normalized,"
+			   "wasted\n";
 	}
 	if (o.algorithm == "ML") {
 		((mlclock::MLClockParam*)custom_params)->LoadModel(o.ml_model);
@@ -176,8 +178,8 @@ void Simulate(cache_t* cache, const std::filesystem::path trace_path, const opti
 			if (data.lifetime_freq > tmp_custom_params->max_lifetime_freq) {
 				tmp_custom_params->max_lifetime_freq = data.lifetime_freq;
 			}
-
 			data.current_req_metadata.Track(req);
+			data.current_req_metadata.vtime = tmp_custom_params->vtime++;
 			if (data.current_req_metadata.clock_freq > tmp_custom_params->max_clock_freq) {
 				tmp_custom_params->max_clock_freq = data.current_req_metadata.clock_freq;
 			}

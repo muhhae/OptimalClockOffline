@@ -5,6 +5,7 @@
 #include <libCacheSim/cacheObj.h>
 #include <libCacheSim/evictionAlgo.h>
 #include <libCacheSim/request.h>
+#include <sys/types.h>
 #include <unordered_map>
 #include <unordered_set>
 
@@ -31,6 +32,7 @@ struct req_metadata {
 	int64_t last_access_vtime = 0;
 	int64_t last_access_rtime = 0;
 	int64_t obj_size = 0;
+	int64_t vtime = 0;
 
 	int32_t create_rtime = 0;
 
@@ -62,6 +64,10 @@ class Custom_clock_params : public Clock_params_t {
 	uint64_t max_clock_freq = 1;
 	uint64_t max_clock_time_between = 1;
 	uint64_t max_clock_time = 1;
+	uint64_t max_vtime_since = 1;
+	uint64_t max_rtime_since = 1;
+
+	uint64_t vtime = 0;
 
 	bool generate_datasets;
 };

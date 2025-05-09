@@ -25,11 +25,24 @@ void MLClockEvict(cache_t* cache, const request_t* req) {
 		features["lifetime_freq"] = data.lifetime_freq;
 		features["clock_freq"] = data.current_req_metadata.clock_freq;
 		features["clock_time_between_normalized"] =
-			data.current_req_metadata.clock_time_between / custom_params->max_clock_time_between;
+			(float)data.current_req_metadata.clock_time_between /
+			custom_params->max_clock_time_between;
 		features["clock_freq_normalized"] =
-			data.current_req_metadata.clock_freq / custom_params->max_clock_freq;
+			(float)data.current_req_metadata.clock_freq / custom_params->max_clock_freq;
 		features["lifetime_freq_normalized"] =
-			data.lifetime_freq / custom_params->max_lifetime_freq;
+			(float)data.lifetime_freq / custom_params->max_lifetime_freq;
+		features["rtime_since"] = req->clock_time - data.current_req_metadata.clock_time;
+		features["vtime_since"] = custom_params->vtime - data.current_req_metadata.vtime;
+
+		if (features["rtime_since"] > custom_params->max_rtime_since)
+			custom_params->max_rtime_since = features["rtime_since"];
+		if (features["vtime_since"] > custom_params->max_vtime_since)
+			custom_params->max_vtime_since = features["vtime_since"];
+
+		features["rtime_since_normalized"] =
+			features["rtime_since"] / custom_params->max_rtime_since;
+		features["vtime_since_normalized"] =
+			features["vtime_since"] / custom_params->max_vtime_since;
 
 		std::vector<T> input_features;
 		input_features.reserve(custom_params->features_name.size());
