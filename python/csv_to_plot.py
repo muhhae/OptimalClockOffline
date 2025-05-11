@@ -239,10 +239,15 @@ async def IndividualPlot(file: str):
     fig, axs = plt.subplots(1, 1, figsize=(12, 5 * 1))
     axs.set_xlabel("Promotion")
     axs.set_ylabel("Miss Ratio")
-    axs.plot(n_promotion, miss_ratio, marker="o", linestyle="-")
+    axs.scatter(n_promotion, miss_ratio, marker="o")
     axs.tick_params(axis="y", labelcolor="blue")
+
     axs.yaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
     axs.xaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
+
+    formatter = ticker.ScalarFormatter(useOffset=False, useMathText=False)
+    formatter.set_scientific(False)
+    axs.yaxis.set_major_formatter(formatter)
 
     texts = [
         axs.annotate(
@@ -254,13 +259,23 @@ async def IndividualPlot(file: str):
 
     adjust_text(
         texts,
-        # avoid_self=True,
-        # min_arrow_len=0,
-        # arrowprops=dict(arrowstyle="<->", color="red"),
-        # force_text=(0.5, 0.5),
-        # prevent_crossings=True,
-        # # force_explode=True,
-        # force_static=(0.5, 0.5),
+        avoid_self=True,
+        avoid_points=True,
+        expand_text=(5, 5),
+        expand_points=(5, 5),
+        force_text=(5.0, 5.0),
+        force_points=(5, 5),
+        iter_lim=4000,
+        # arrowprops=dict(
+        #     arrowstyle="->",
+        #     color="red",
+        #     # shrinkA=7,  # Prevents arrows from striking text
+        #     # shrinkB=5,
+        #     # connectionstyle="arc3,rad=0.15",
+        #     # alpha=0.7,
+        #     # lw=0.8,
+        # ),
+        ax=axs,
     )
 
     plt.title(Path(file).stem)
