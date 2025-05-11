@@ -25,20 +25,20 @@ static void OfflineClockEvict(cache_t* cache, const request_t* req) {
 		bool wasted =
 			data.wasted_promotions.find(data.last_promotion) != data.wasted_promotions.end();
 		if (custom_params->generate_datasets) {
-			float clock_time = data.current_req_metadata.clock_time;
-			float clock_time_normalized = clock_time / custom_params->max_clock_time;
-			float clock_time_between = data.current_req_metadata.clock_time_between;
+			float clock_time = data.rtime;
+			float clock_time_normalized = clock_time / custom_params->max_rtime;
+			float clock_time_between = data.rtime_between;
 			float clock_time_between_normalized =
-				clock_time_between / custom_params->max_clock_time_between;
+				clock_time_between / custom_params->max_rtime_between;
 			float cache_size = cache->cache_size;
 			float obj_size = req->obj_size;
-			float clock_freq = data.current_req_metadata.clock_freq;
+			float clock_freq = data.clock_freq;
 			float clock_freq_normalized = clock_freq / custom_params->max_clock_freq;
 			float lifetime_freq = data.lifetime_freq;
 			float lifetime_freq_normalized = lifetime_freq / custom_params->max_lifetime_freq;
 
-			float rtime_since = req->clock_time - data.current_req_metadata.clock_time;
-			float vtime_since = custom_params->vtime - data.current_req_metadata.vtime;
+			float rtime_since = req->clock_time - data.rtime;
+			float vtime_since = custom_params->vtime - data.vtime;
 
 			if (rtime_since > custom_params->max_rtime_since)
 				custom_params->max_rtime_since = rtime_since;

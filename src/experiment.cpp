@@ -9,6 +9,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <cstdio>
+#include <ctime>
 #include <fstream>
 #include <functional>
 #include <future>
@@ -118,11 +119,13 @@ void Simulate(cache_t* cache, const std::filesystem::path trace_path, const opti
 	}
 
 	reader_t* reader = open_trace(trace_path.c_str(), trace_type, &reader_init_param);
-
 	request_t* req = new_request();
 
 	std::string base_path = std::filesystem::path(reader->trace_path).filename();
 	size_t pos = base_path.find(".oracleGeneral");
+	if (o.trace_type == "csv") {
+		pos = base_path.find(".csv");
+	}
 	if (pos != std::string::npos) {
 		base_path = base_path.substr(0, pos);
 	}
@@ -141,17 +144,17 @@ void Simulate(cache_t* cache, const std::filesystem::path trace_path, const opti
 
 	if (o.generate_datasets) {
 		custom_params->datasets = std::ofstream(dataset_path);
-		// out_dataset(custom_params->datasets, clock_time, clock_time_normalized,
-		// clock_time_between, 			clock_time_between_normalized, cache_size, obj_size,
-		// clock_freq, 			clock_freq_normalized, lifetime_freq, lifetime_freq_normalized,
+		// out_dataset(custom_params->datasets, clock_time, clock_time_norm,
+		// clock_time_between, 			clock_time_between_norm, cache_size, obj_size,
+		// clock_freq, 			clock_freq_norm, lifetime_freq, lifetime_freq_norm,
 		// wasted);
 
-		custom_params->datasets << "obj_id,rtime_since,rtime_since_normalized,vtime_since,vtime_"
-								   "since_normalized,clock_time,"
-								   "clock_time_normalized,"
-								   "clock_time_between,clock_time_between_normalized,"
-								   "cache_size,obj_size,clock_freq,clock_freq_normalized,"
-								   "lifetime_freq,lifetime_freq_normalized,"
+		custom_params->datasets << "obj_id,rtime_since,rtime_since_norm,vtime_since,vtime_"
+								   "since_norm,clock_time,"
+								   "rtime_norm,"
+								   "rtime_between,rtime_between_norm,"
+								   "cache_size,obj_size,clock_freq,clock_freq_norm,"
+								   "lifetime_freq,lifetime_freq_norm,"
 								   "wasted\n";
 	}
 	if (o.algorithm == "ML") {
@@ -191,26 +194,10 @@ void Simulate(cache_t* cache, const std::filesystem::path trace_path, const opti
 			}
 			auto& data = tmp_custom_params->objs_metadata[req->obj_id];
 
-			data.lifetime_freq += 1;
-			if (data.lifetime_freq > tmp_custom_params->max_lifetime_freq) {
-				tmp_custom_params->max_lifetime_freq = data.lifetime_freq;
-			}
-			data.current_req_metadata.Track(req);
-			data.current_req_metadata.vtime = tmp_custom_params->vtime++;
-			if (data.current_req_metadata.clock_freq > tmp_custom_params->max_clock_freq) {
-				tmp_custom_params->max_clock_freq = data.current_req_metadata.clock_freq;
-			}
-
-			if (data.current_req_metadata.clock_time_between >
-				tmp_custom_params->max_clock_time_between) {
-				tmp_custom_params->max_clock_time_between =
-					data.current_req_metadata.clock_time_between;
-			}
-
-			data.current_req_metadata.time_since = req->clock_time - first_clock;
-			if (data.current_req_metadata.time_since > tmp_custom_params->max_clock_time) {
-				tmp_custom_params->max_clock_time = data.current_req_metadata.time_since;
-			}
+			data.Track(req);
+			data.vtime = tmp_custom_params->vtime++;
+			data.rtime_since = req->clock_time - first_clock;
+			tmp_custom_params->GlobalTrack(data);
 
 			if (tmp->get(tmp, req)) {
 				tmp_custom_params->n_hit++;
@@ -229,9 +216,7 @@ void Simulate(cache_t* cache, const std::filesystem::path trace_path, const opti
 		reset_reader(reader);
 		if (i == 0) first_promoted = tmp_custom_params->n_promoted;
 		for (auto& e : tmp_custom_params->objs_metadata) {
-			e.second.lifetime_freq = 0;
-			e.second.last_promotion = 0;
-			e.second.current_req_metadata = {};
+			e.second.Reset();
 		}
 		std::swap(tmp_custom_params->objs_metadata, custom_params->objs_metadata);
 		std::swap(tmp_custom_params->datasets, custom_params->datasets);
