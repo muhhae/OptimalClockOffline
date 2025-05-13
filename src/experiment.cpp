@@ -149,12 +149,19 @@ void Simulate(cache_t* cache, const std::filesystem::path trace_path, const opti
 		// clock_freq, 			clock_freq_norm, lifetime_freq, lifetime_freq_norm,
 		// wasted);
 
-		custom_params->datasets << "obj_id,rtime_since,rtime_since_norm,vtime_since,vtime_"
-								   "since_norm,clock_time,"
-								   "rtime_norm,"
-								   "rtime_between,rtime_between_norm,"
-								   "cache_size,obj_size,clock_freq,clock_freq_norm,"
-								   "lifetime_freq,lifetime_freq_norm,"
+		custom_params->datasets << "obj_id,"
+								   "rtime_since,"
+								   "rtime_since_log,"
+								   "vtime_since,"
+								   "vtime_since_log,"
+								   "rtime_between,"
+								   "rtime_between_log,"
+								   "clock_freq,"
+								   "clock_freq_log,"
+								   "clock_freq_norm,"
+								   "lifetime_freq,"
+								   "lifetime_freq_log,"
+								   "lifetime_freq_norm,"
 								   "wasted\n";
 	}
 	if (o.algorithm == "ML") {

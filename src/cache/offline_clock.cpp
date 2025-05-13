@@ -1,5 +1,6 @@
 #include "offline_clock.hpp"
 #include "common.hpp"
+#include <cmath>
 #include <cstdlib>
 #include <fstream>
 #include <libCacheSim/cache.h>
@@ -25,35 +26,37 @@ static void OfflineClockEvict(cache_t* cache, const request_t* req) {
 		bool wasted =
 			data.wasted_promotions.find(data.last_promotion) != data.wasted_promotions.end();
 		if (custom_params->generate_datasets) {
-			float clock_time = data.rtime;
-			float clock_time_normalized = clock_time / custom_params->max_rtime;
-			float clock_time_between = data.rtime_between;
-			float clock_time_between_normalized =
-				clock_time_between / custom_params->max_rtime_between;
-			float cache_size = cache->cache_size;
-			float obj_size = req->obj_size;
-			float clock_freq = data.clock_freq;
-			float clock_freq_normalized = clock_freq / custom_params->max_clock_freq;
-			float lifetime_freq = data.lifetime_freq;
-			float lifetime_freq_normalized = lifetime_freq / custom_params->max_lifetime_freq;
-
 			float rtime_since = req->clock_time - data.rtime;
 			float vtime_since = custom_params->vtime - data.vtime;
 
-			if (rtime_since > custom_params->max_rtime_since)
-				custom_params->max_rtime_since = rtime_since;
-			if (vtime_since > custom_params->max_vtime_since)
-				custom_params->max_vtime_since = vtime_since;
+			custom_params->datasets << obj_to_evict->obj_id << ",";
+			custom_params->datasets << rtime_since << ",";
+			custom_params->datasets << log(rtime_since + 1) << ",";
+			custom_params->datasets << vtime_since << ",";
+			custom_params->datasets << log(vtime_since + 1) << ",";
+			custom_params->datasets << data.rtime_between << ",";
+			custom_params->datasets << log(data.rtime_between + 1) << ",";
+			custom_params->datasets << data.clock_freq << ",";
+			custom_params->datasets << log(data.clock_freq + 1) << ",";
 
-			float rtime_since_norm = rtime_since / custom_params->max_rtime_since;
-			float vtime_since_norm = vtime_since / custom_params->max_vtime_since;
+			custom_params->datasets
+				<< common::RunningMeanNormalize(data.clock_freq, custom_params->mean_clock_freq,
+												custom_params->m2_clock_freq,
+												custom_params->n_clock_freq)
+				<< ",";
 
-			out_dataset(custom_params->datasets, obj_to_evict->obj_id, rtime_since,
-						rtime_since_norm, vtime_since, vtime_since_norm, clock_time,
-						clock_time_normalized, clock_time_between, clock_time_between_normalized,
-						cache_size, obj_size, clock_freq, clock_freq_normalized, lifetime_freq,
-						lifetime_freq_normalized, wasted);
+			custom_params->datasets << data.lifetime_freq << ",";
+			custom_params->datasets << log(data.lifetime_freq + 1) << ",";
+
+			custom_params->datasets
+				<< common::RunningMeanNormalize(
+					   data.lifetime_freq, custom_params->mean_lifetime_freq,
+					   custom_params->m2_lifetime_freq, custom_params->n_lifetime_freq)
+				<< ",";
+
+			custom_params->datasets << wasted << "\n";
 		}
+
 		common::EvictionTracking(obj_to_evict, custom_params);
 		if (wasted) {
 			break;

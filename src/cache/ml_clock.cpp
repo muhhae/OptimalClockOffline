@@ -1,5 +1,6 @@
 #include "ml_clock.hpp"
 #include "common.hpp"
+#include <cmath>
 #include <libCacheSim/cache.h>
 #include <libCacheSim/evictionAlgo.h>
 #include <vector>
@@ -14,30 +15,25 @@ void MLClockEvict(cache_t* cache, const request_t* req) {
 		auto data = custom_params->objs_metadata[obj_to_evict->obj_id];
 		std::unordered_map<std::string, T> features;
 
-		features["rtime"] = data.rtime;
-		features["time_since"] = data.rtime_since;
+		float rtime_since = req->clock_time - data.rtime;
+		float vtime_since = custom_params->vtime - data.vtime;
+
+		features["rtime_since"] = rtime_since;
+		features["rtime_since_log"] = log(rtime_since + 1);
+		features["vtime_since"] = vtime_since;
+		features["vtime_since_log"] = log(vtime_since + 1);
 		features["rtime_between"] = data.rtime_between;
-		features["cache_size"] = cache->cache_size;
-		features["obj_size"] = obj_to_evict->obj_size;
-		features["obj_size_relative"] = obj_to_evict->obj_size * 1e6 / cache->cache_size;
-		features["lifetime_freq"] = data.lifetime_freq;
+		features["rtime_between_log"] = log(data.rtime_between + 1);
 		features["clock_freq"] = data.clock_freq;
-		features["rtime_between_norm"] =
-			(float)data.rtime_between / custom_params->max_rtime_between;
-		features["clock_freq_norm"] = (float)data.clock_freq / custom_params->max_clock_freq;
-		features["lifetime_freq_norm"] =
-			(float)data.lifetime_freq / custom_params->max_lifetime_freq;
-		features["rtime_since"] = req->clock_time - data.rtime;
-		features["vtime_since"] = custom_params->vtime - data.vtime;
-
-		if (features["rtime_since"] > custom_params->max_rtime_since)
-			custom_params->max_rtime_since = features["rtime_since"];
-		if (features["vtime_since"] > custom_params->max_vtime_since)
-			custom_params->max_vtime_since = features["vtime_since"];
-
-		features["rtime_since_norm"] = features["rtime_since"] / custom_params->max_rtime_since;
-		features["vtime_since_norm"] = features["vtime_since"] / custom_params->max_vtime_since;
-
+		features["clock_freq_log"] = log(data.clock_freq + 1);
+		features["clock_freq_norm"] =
+			common::RunningMeanNormalize(data.clock_freq, custom_params->mean_clock_freq,
+										 custom_params->m2_clock_freq, custom_params->n_clock_freq);
+		features["lifetime_freq"] = data.lifetime_freq;
+		features["lifetime_freq_log"] = log(data.lifetime_freq + 1);
+		features["lifetime_freq_norm"] = common::RunningMeanNormalize(
+			data.lifetime_freq, custom_params->mean_lifetime_freq, custom_params->m2_lifetime_freq,
+			custom_params->n_lifetime_freq);
 		std::vector<T> input_features;
 		input_features.reserve(custom_params->features_name.size());
 		for (const auto& f : custom_params->features_name) {

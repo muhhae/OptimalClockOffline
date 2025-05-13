@@ -1,4 +1,8 @@
 #include "common.hpp"
+#include <cmath>
+#include <cstdint>
+#include <exception>
+#include <sys/types.h>
 
 void common::obj_metadata::Reset() {
 	lifetime_freq = 0;
@@ -33,12 +37,26 @@ void common::obj_metadata::Track(const request_t* req) {
 	lifetime_freq++;
 }
 
+void common::TrackRunningMean(const float X, float& mean, float& m2, uint64_t& n) {
+	n++;
+	float d1 = X - mean;
+	mean += d1 / n;
+	float d2 = X - mean;
+	m2 += d1 * d2;
+}
+
+float common::RunningMeanNormalize(const float X, const float mean, const float m2,
+								   const uint64_t n) {
+	float variance = m2 / (n - 1);
+	float std = sqrt(variance);
+	float norm = (X - mean) / std;
+	return norm;
+}
+
 void common::Custom_clock_params::GlobalTrack(const common::obj_metadata& data) {
 	if (data.lifetime_freq > max_lifetime_freq) {
 		max_lifetime_freq = data.lifetime_freq;
 	}
-	clock_freq_count++;
-	mean_clock_freq += (data.clock_freq - mean_clock_freq) / clock_freq_count;
 
 	if (data.clock_freq > max_clock_freq) {
 		max_clock_freq = data.clock_freq;
@@ -51,4 +69,7 @@ void common::Custom_clock_params::GlobalTrack(const common::obj_metadata& data) 
 	if (data.rtime_since > max_rtime) {
 		max_rtime = data.rtime_since;
 	}
+
+	TrackRunningMean(data.clock_freq, mean_clock_freq, m2_clock_freq, n_clock_freq);
+	TrackRunningMean(data.lifetime_freq, mean_lifetime_freq, m2_lifetime_freq, n_lifetime_freq);
 }

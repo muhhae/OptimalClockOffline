@@ -11,6 +11,9 @@
 
 namespace common {
 
+void TrackRunningMean(const float X, float& mean, float& m2, uint64_t& n);
+float RunningMeanNormalize(const float X, const float mean, const float m2, const uint64_t n);
+
 struct obj_metadata {
 	uint64_t lifetime_freq = 0;
 	uint64_t last_promotion = 0;
@@ -58,7 +61,11 @@ class Custom_clock_params : public Clock_params_t {
 
 	float mean_clock_freq = 0;
 	float m2_clock_freq = 0;
-	uint64_t clock_freq_count = 0;
+	uint64_t n_clock_freq = 0;
+
+	float mean_lifetime_freq = 0;
+	float m2_lifetime_freq = 0;
+	uint64_t n_lifetime_freq = 0;
 
 	uint64_t vtime = 0;
 
