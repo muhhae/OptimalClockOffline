@@ -92,6 +92,8 @@ def SetupData():
     if var.df is None:
         raise Exception("Datasets has not been loaded, exec AddDatasets")
     X = var.df.iloc[:, :-1]
+    if var.input_dtype is not None:
+        X = np.array(X, dtype=var.input_dtype)
     y = var.df.wasted
     var.X_train, var.X_test, var.y_train, var.y_test = train_test_split(
         X, y, test_size=0.2, random_state=9, stratify=y
@@ -127,13 +129,10 @@ def ExportONNX(
         raise Exception("Model has not been set up, exec SetupModel and Train")
     if var.X_train is None:
         raise Exception("Datasets has not been set up")
-    onx = to_onnx(var.model, var.X_train.iloc[0].to_numpy().reshape(1, -1))
+    onx = to_onnx(var.model, var.X_train)
     file = open(path, "wb")
     file.write(onx.SerializeToString())
     file.close()
-    var.X_train.columns.to_frame().T.to_csv(
-        Path(path).with_suffix(".input"), index=False, header=False
-    )
 
 
 def Test():

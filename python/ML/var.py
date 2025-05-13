@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from sklearn.base import BaseEstimator
 from typing import List
 
@@ -14,3 +15,4 @@ y_test: pd.DataFrame = None
 
 dummy_input = None
 cols: List[str] = None
+input_dtype: np.dtype = None
