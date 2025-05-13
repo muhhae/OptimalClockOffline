@@ -42,7 +42,6 @@ m.AddDatasets($datasets);\
 m.SetupData();\
 m.Train();\
 m.ExportONNX('$out_dir/$model[$model_desc].onnx');\
-m.DescribeData();\
 m.Test()\" > $out_dir/$model[$model_desc].md" >> $task_out
 }
 
