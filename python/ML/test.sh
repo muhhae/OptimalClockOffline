@@ -48,10 +48,19 @@ case "$model" in
         features="-I F32 -F clock_time_between_normalized clock_freq_normalized lifetime_freq_normalized"
         ;;
     "LR_v7")
-        features="-F clock_time_between_normalized clock_freq_normalized lifetime_freq_normalized"
+        features="-I F32 -F clock_time_between_normalized clock_freq_normalized lifetime_freq_normalized"
         ;;
     "LR_v8")
-        features="-F clock_time_between_normalized clock_freq_normalized"
+        features="-I F32 -F clock_time_between_normalized clock_freq_normalized"
+        ;;
+    "LR_1")
+        features="-I F32 -F rtime_since vtime_since clock_freq lifetime_freq"
+        ;;
+    "LR_1_log")
+        features="-I F32 -F rtime_since_log vtime_since_log clock_freq_log lifetime_freq_log"
+        ;;
+    "LR_1_mean")
+        features="-I F32 -F rtime_since_log vtime_since_log clock_freq_norm lifetime_freq_norm"
         ;;
     *)
         echo "Unknown model using default features"
