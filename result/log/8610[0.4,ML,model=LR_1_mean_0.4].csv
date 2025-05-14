@@ -1,0 +1,2 @@
+trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted
+"8610.oracleGeneral.zst",0,6679,0.0130284,188982398,6268837
