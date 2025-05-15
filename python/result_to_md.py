@@ -149,7 +149,7 @@ for k in better_than_base:
     v = better_than_base[k]
     p = promotion_reduced[k]
     test_readme.write(
-        f"|{k}|{v.count(True) / len(v) * 100}|{np.mean(p)}|{np.median(p)}|  \n"
+        f"|{k}|{v.count(True) / len(v) * 100}|{np.mean(p) * 100}|{np.median(p) * 100}|  \n"
     )
 
 for file in files:
