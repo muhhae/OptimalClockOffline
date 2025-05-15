@@ -77,6 +77,8 @@ base_promotion: T.Dict[tuple[str, float, bool], int] = {}
 better_than_base: T.Dict[str, T.List[bool]] = {}
 # [model] -> float
 promotion_reduced: T.Dict[str, T.List[float]] = {}
+# [model] -> float
+miss_ratio_reduced: T.Dict[str, T.List[float]] = {}
 
 for file in files:
     if Path(file).stat().st_size == 0:
@@ -122,12 +124,17 @@ for file in files:
         better_than_base[model] = []
     if model not in promotion_reduced:
         promotion_reduced[model] = []
+    if model not in miss_ratio_reduced:
+        miss_ratio_reduced[model] = []
 
     key = prefix, float(desc[0]), ignore_size
     if key not in base_result:
         continue
 
-    better_than_base[model].append(log.miss_ratio > base_result[key])
+    better_than_base[model].append(log.miss_ratio < base_result[key])
+    miss_ratio_reduced[model].append(
+        (base_result[key] - log.miss_ratio) / base_result[key]
+    )
     promotion_reduced[model].append(
         (base_promotion[key] - log.n_promoted) / base_promotion[key]
     )
@@ -142,14 +149,15 @@ for file in files:
 
 test_readme.write("# Model Summaries  \n")
 test_readme.write(
-    "|Model|Better Than Base (%)|Mean Promotion Reduced (%)|Median Promotion Reduced (%)|  \n"
+    "|Model|Better Than Base (%)|Mean Miss Ratio Reduced (%)|Median Miss Ratio Reduced (%)|Mean Promotion Reduced (%)|Median Promotion Reduced (%)|  \n"
 )
-test_readme.write("|---|---|---|---|  \n")
+test_readme.write("|---|---|---|---|---|---|  \n")
 for k in better_than_base:
     v = better_than_base[k]
     p = promotion_reduced[k]
+    m = miss_ratio_reduced[k]
     test_readme.write(
-        f"|{k}|{v.count(True) / len(v) * 100}|{np.mean(p) * 100}|{np.median(p) * 100}|  \n"
+        f"|{k}|{v.count(True) / len(v) * 100}|{np.mean(m)}|{np.median(m)}|{np.mean(p) * 100}|{np.median(p) * 100}|  \n"
     )
 
 for file in files:
