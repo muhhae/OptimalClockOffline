@@ -236,7 +236,7 @@ async def IndividualPlot(file: str):
 
     n_promotion, miss_ratio, labels = zip(*combined)
 
-    fig = plt.figure(figsize=(12, 12), layout="constrained")
+    fig = plt.figure(figsize=(12, 6), layout="constrained")
     ax = fig.add_subplot(1, 1, 1)
     ax.set_xlabel("Promotion")
     ax.set_ylabel("Miss Ratio")

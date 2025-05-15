@@ -4,24 +4,24 @@
 # [Box Plot (obj_size_ignored)](./overall/README_obj_size_ignored.md)
 # Line Plot
 # Model Summaries  
-|Model|Better Than Base (%)|  
-|---|---|  
-|LR_1_spec|53.57142857142857|  
-|LR_1_All|34.285714285714285|  
-|LR_1_log_spec|62.142857142857146|  
-|LR_1_log_All|87.85714285714286|  
-|LR_1_mean_spec|51.42857142857142|  
-|LR_1_mean_All|88.57142857142857|  
-|LR_v5_spec|78.57142857142857|  
-|LR_v5_All|94.28571428571428|  
-|LR_v6_spec|94.28571428571428|  
-|LR_v6_All|94.28571428571428|  
-|logistic_regression_v2_spec|61.66666666666667|  
-|logistic_regression_v2_All|55.00000000000001|  
-|logistic_regression_v3_spec|80.0|  
-|logistic_regression_v3_All|91.66666666666666|  
-|logistic_regression_v4_spec|81.66666666666667|  
-|logistic_regression_v4_All|86.66666666666667|  
+|Model|Better Than Base (%)|Mean Promotion Reduced (%)|Median Promotion Reduced (%)|  
+|---|---|---|---|  
+|LR_1_spec|53.57142857142857|0.31504071072404144|0.05988833172584343|  
+|LR_1_All|34.285714285714285|0.13743827857605653|0.0|  
+|LR_1_log_spec|62.142857142857146|0.30262976924909846|0.11009006376595312|  
+|LR_1_log_All|87.85714285714286|0.48255846238884204|0.529957821551605|  
+|LR_1_mean_spec|51.42857142857142|0.30283349268671406|0.02635951126915409|  
+|LR_1_mean_All|88.57142857142857|0.5876728068710144|0.7240602691144706|  
+|LR_v5_spec|78.57142857142857|0.8001424976288016|0.9999999125773157|  
+|LR_v5_All|94.28571428571428|0.9999999883069638|1.0|  
+|LR_v6_spec|94.28571428571428|0.999242944328451|0.9999985703711181|  
+|LR_v6_All|94.28571428571428|0.9992427149193281|0.9999989235333611|  
+|logistic_regression_v2_spec|60.0|0.35741199648912614|0.0630771400014299|  
+|logistic_regression_v2_All|45.714285714285715|0.32275053845041984|0.13848591581184955|  
+|logistic_regression_v3_spec|75.71428571428571|0.7301044279954334|0.8541809330039021|  
+|logistic_regression_v3_All|92.85714285714286|0.9049194602601649|0.9488229612515515|  
+|logistic_regression_v4_spec|75.71428571428571|0.6405042131003862|0.7059708418008083|  
+|logistic_regression_v4_All|84.28571428571429|0.7027056002621466|0.7697631367868147|  
 ## 10 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster10.oracleGeneral.zst
 > ![graph](./graph/10[0.001,TEST].png)  
 > **Trace Path**: 10.oracleGeneral.zst  
@@ -93,14 +93,6 @@
 > **Total Request**: 2,756,726,994  
 > **Best Model**: LR_1_log_spec => 0.034033  
 > **Better Than Base**: True  
-## 1351 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentBlock/v2/traces/1351.oracleGeneral.zst
-> ![graph](./graph/1351[0.001,ignore_obj_size].png)  
-> **Trace Path**: 1351.oracleGeneral.zst  
-> **Desc**: ['0.001', 'ignore_obj_size', {}]  
-> **Cache Size**: 1496  
-> **Total Request**: 195,824,302  
-> **Best Model**: logistic_regression_v4_spec => 0.951026  
-> **Better Than Base**: False  
 ## 2016_LUN6 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/2016_LUN6.oracleGeneral.zst
 > ![graph](./graph/2016_LUN6[0.001,TEST].png)  
 > **Trace Path**: 2016_LUN6.oracleGeneral.zst  
@@ -243,14 +235,6 @@
 > **Total Request**: 1,644,762,386  
 > **Best Model**: logistic_regression_v2_spec,logistic_regression_v2_All => 0.0351843  
 > **Better Than Base**: False  
-## 7 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster7.oracleGeneral.zst
-> ![graph](./graph/7[0.001,ignore_obj_size].png)  
-> **Trace Path**: 7.oracleGeneral.zst  
-> **Desc**: ['0.001', 'ignore_obj_size', {}]  
-> **Cache Size**: 4808  
-> **Total Request**: 265,694,431  
-> **Best Model**: logistic_regression_v4_spec => 0.357098  
-> **Better Than Base**: False  
 ## 8610 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentBlock/v2/traces/8610.oracleGeneral.zst
 > ![graph](./graph/8610[0.001,TEST].png)  
 > **Trace Path**: 8610.oracleGeneral.zst  
@@ -322,14 +306,6 @@
 > **Total Request**: 188,982,398  
 > **Best Model**: LR_1_log_spec => 0.0126434  
 > **Better Than Base**: True  
-## block_traces_5 
-> ![graph](./graph/block_traces_5[0.001,ignore_obj_size].png)  
-> **Trace Path**: block_traces_5.oracleGeneral.bin.zst  
-> **Desc**: ['0.001', 'ignore_obj_size', {}]  
-> **Cache Size**: 7110  
-> **Total Request**: 14,556,172  
-> **Best Model**: logistic_regression_v4_All => 0.545186  
-> **Better Than Base**: False  
 ## cluster53 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster53.oracleGeneral.zst
 > ![graph](./graph/cluster53[0.001,TEST].png)  
 > **Trace Path**: cluster53.oracleGeneral.zst  
@@ -401,14 +377,6 @@
 > **Total Request**: 246,508,262  
 > **Best Model**: LR_1_log_All => 0.0327878  
 > **Better Than Base**: True  
-## fiu_cheetah.cs.fiu.edu-110108-113008 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/fiu/fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst
-> ![graph](./graph/fiu_cheetah.cs.fiu.edu-110108-113008[0.001,ignore_obj_size].png)  
-> **Trace Path**: fiu_cheetah.cs.fiu.edu-110108-113008.oracleGeneral.zst  
-> **Desc**: ['0.001', 'ignore_obj_size', {}]  
-> **Cache Size**: 14909  
-> **Total Request**: 442,393,092  
-> **Best Model**: logistic_regression_v4_All => 0.937929  
-> **Better Than Base**: False  
 ## meta_rprn https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaCDN/meta_rprn.oracleGeneral.zst
 > ![graph](./graph/meta_rprn[0.001,TEST].png)  
 > **Trace Path**: meta_rprn.oracleGeneral.zst  
@@ -480,14 +448,6 @@
 > **Total Request**: 88,470,732  
 > **Best Model**: logistic_regression_v4_All => 0.355398  
 > **Better Than Base**: True  
-## msr_prxy_1 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/msr/msr_prxy_1.oracleGeneral.zst
-> ![graph](./graph/msr_prxy_1[0.001,ignore_obj_size].png)  
-> **Trace Path**: msr_prxy_1.oracleGeneral.zst  
-> **Desc**: ['0.001', 'ignore_obj_size', {}]  
-> **Cache Size**: 390  
-> **Total Request**: 168,638,964  
-> **Best Model**: logistic_regression_v4_spec => 0.707097  
-> **Better Than Base**: False  
 ## wiki_2019u https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/wiki/wiki_2019u.oracleGeneral.zst
 > ![graph](./graph/wiki_2019u[0.001,TEST].png)  
 > **Trace Path**: wiki_2019u.oracleGeneral.zst  

@@ -1,3 +1,4 @@
+import numpy as np
 import typing as T
 import glob
 import os
@@ -70,14 +71,20 @@ test_data = False
 best_ml_models: T.Dict[tuple[str, float, bool], tuple[str, float]] = {}
 # [trace, cache_size, ignore_obj_size] -> miss_ratio
 base_result: T.Dict[tuple[str, float, bool], float] = {}
+# [trace, cache_size, ignore_obj_size] -> miss_ratio
+base_promotion: T.Dict[tuple[str, float, bool], int] = {}
 # [model] -> bool
 better_than_base: T.Dict[str, T.List[bool]] = {}
+# [model] -> float
+promotion_reduced: T.Dict[str, T.List[float]] = {}
 
 for file in files:
     if Path(file).stat().st_size == 0:
         continue
     prefix, desc = extract_desc(file)
     ignore_size = desc.count("ignore_obj_size")
+    if not desc.count("TEST"):
+        continue
     if desc.count("ML"):
         continue
     df = pd.read_csv(file)
@@ -85,6 +92,7 @@ for file in files:
         continue
     logs = [OutputLog(**row) for row in df.to_dict(orient="records")]
     base_result[prefix, float(desc[0]), ignore_size] = logs[0].miss_ratio
+    base_promotion[prefix, float(desc[0]), ignore_size] = logs[0].n_promoted
 
 for file in files:
     if Path(file).stat().st_size == 0:
@@ -112,9 +120,17 @@ for file in files:
 
     if model not in better_than_base:
         better_than_base[model] = []
+    if model not in promotion_reduced:
+        promotion_reduced[model] = []
 
     key = prefix, float(desc[0]), ignore_size
+    if key not in base_result:
+        continue
+
     better_than_base[model].append(log.miss_ratio > base_result[key])
+    promotion_reduced[model].append(
+        (base_promotion[key] - log.n_promoted) / base_promotion[key]
+    )
 
     if (key) not in best_ml_models or best_ml_models[key][1] > log.miss_ratio:
         best_ml_models[key] = (model, log.miss_ratio)
@@ -125,10 +141,16 @@ for file in files:
         best_ml_models[key] = (new_model, log.miss_ratio)
 
 test_readme.write("# Model Summaries  \n")
-test_readme.write("|Model|Better Than Base (%)|  \n")
-test_readme.write("|---|---|  \n")
-for k, v in better_than_base.items():
-    test_readme.write(f"|{k}|{v.count(True) / len(v) * 100}|  \n")
+test_readme.write(
+    "|Model|Better Than Base (%)|Mean Promotion Reduced (%)|Median Promotion Reduced (%)|  \n"
+)
+test_readme.write("|---|---|---|---|  \n")
+for k in better_than_base:
+    v = better_than_base[k]
+    p = promotion_reduced[k]
+    test_readme.write(
+        f"|{k}|{v.count(True) / len(v) * 100}|{np.mean(p)}|{np.median(p)}|  \n"
+    )
 
 for file in files:
     if Path(file).stat().st_size == 0:
@@ -136,6 +158,8 @@ for file in files:
 
     prefix, desc = extract_desc(file)
     if desc.count("ML"):
+        continue
+    if not desc.count("TEST"):
         continue
 
     df = pd.read_csv(file)
