@@ -147,18 +147,31 @@ for file in files:
         new_model = prev_model + "," + model
         best_ml_models[key] = (new_model, log.miss_ratio)
 
+model_best_count = {}
+for k in best_ml_models:
+    model = best_ml_models[k][0]
+    model = model.split(",")
+    for e in model:
+        if e not in model_best_count:
+            model_best_count[e] = 0
+        model_best_count[e] += 1
+
 test_readme.write("# Model Summaries  \n")
 test_readme.write(
-    "|Model|Better Than Base (%)|Mean Miss Ratio Reduced (%)|Median Miss Ratio Reduced (%)|Mean Promotion Reduced (%)|Median Promotion Reduced (%)|  \n"
+    "|Model|Best Model|Better Than Base (%)|Mean Miss Ratio Reduced (%)|Median Miss Ratio Reduced (%)|Mean Promotion Reduced (%)|Median Promotion Reduced (%)|  \n"
 )
-test_readme.write("|---|---|---|---|---|---|  \n")
+test_readme.write("|---|---|---|---|---|---|---|  \n")
 for k in better_than_base:
     v = better_than_base[k]
     p = promotion_reduced[k]
     m = miss_ratio_reduced[k]
+    b = 0
+    if k in model_best_count:
+        b = model_best_count[k]
     test_readme.write(
-        f"|{k}|{v.count(True) / len(v) * 100}|{np.mean(m)}|{np.median(m)}|{np.mean(p) * 100}|{np.median(p) * 100}|  \n"
+        f"|{k}|{b}|{v.count(True) / len(v) * 100}|{np.mean(m)}|{np.median(m)}|{np.mean(p) * 100}|{np.median(p) * 100}|  \n"
     )
+
 
 for file in files:
     if Path(file).stat().st_size == 0:
