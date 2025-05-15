@@ -1,3 +1,3 @@
 trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted
-"202206_kv_traces_all.csv.oracleGeneral.zst",0,24221,0.0344956,1644762386,33220797
-"202206_kv_traces_all.csv.oracleGeneral.zst",0,24221,0.0340473,1644762386,19277016
+"202206_kv_traces_all.csv.oracleGeneral.zst",0,24221,0.0342974,1665685869,33457397
+"202206_kv_traces_all.csv.oracleGeneral.zst",0,24221,0.0338653,1665685869,19254254
