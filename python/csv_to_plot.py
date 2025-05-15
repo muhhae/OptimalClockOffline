@@ -236,51 +236,59 @@ async def IndividualPlot(file: str):
 
     n_promotion, miss_ratio, labels = zip(*combined)
 
-    fig, axs = plt.subplots(1, 1, figsize=(12, 5 * 1))
-    axs.set_xlabel("Promotion")
-    axs.set_ylabel("Miss Ratio")
-    axs.scatter(n_promotion, miss_ratio, marker="o")
-    axs.tick_params(axis="y", labelcolor="blue")
+    fig = plt.figure(figsize=(12, 12), layout="constrained")
+    ax = fig.add_subplot(1, 1, 1)
+    ax.set_xlabel("Promotion")
+    ax.set_ylabel("Miss Ratio")
+    ax.scatter(n_promotion, miss_ratio, marker="o")
+    ax.tick_params(axis="y", labelcolor="blue")
 
-    axs.yaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
-    axs.xaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
+    ax.yaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
+    ax.xaxis.set_major_locator(ticker.MaxNLocator(nbins=20))
 
     formatter = ticker.ScalarFormatter(useOffset=False, useMathText=False)
     formatter.set_scientific(False)
-    axs.yaxis.set_major_formatter(formatter)
+    ax.yaxis.set_major_formatter(formatter)
 
     texts = [
-        axs.annotate(
+        ax.annotate(
             labels[i],
             xy=(n_promotion[i], miss_ratio[i]),
+            ha="center",
+            va="center",
         )
         for i in range(len(labels))
     ]
 
     adjust_text(
         texts,
+        ax=ax,
         avoid_self=True,
         avoid_points=True,
-        expand_text=(5, 5),
-        expand_points=(5, 5),
-        force_text=(5.0, 5.0),
-        force_points=(5, 5),
-        iter_lim=4000,
-        # arrowprops=dict(
-        #     arrowstyle="->",
-        #     color="red",
-        #     # shrinkA=7,  # Prevents arrows from striking text
-        #     # shrinkB=5,
-        #     # connectionstyle="arc3,rad=0.15",
-        #     # alpha=0.7,
-        #     # lw=0.8,
-        # ),
-        ax=axs,
+        only_move={"points": "xy", "text": "xy"},
+        expand_text=(2.5, 2.5),
+        expand_points=(2.5, 2.5),
+        force_text=(1.5, 1.5),
+        force_points=(1.5, 1.5),
+        min_arrow_len=1,
+        lim=2000,
+        # save_steps=True,
+        # save_prefix="adjustText",
+        ensure_inside_axes=True,
+        expand_axes=True,
     )
+
+    combined = list(zip(miss_ratio, labels))
+    combined.sort()
+
+    print()
+    for mr, l in combined:
+        print(f"{l} = {mr}")
+    print()
 
     plt.title(Path(file).stem)
 
-    fig.tight_layout()
+    # fig.tight_layout()
 
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     fig.savefig(output_path)
@@ -292,6 +300,9 @@ async def ConcurrentIndividualPlot(files):
     task = [IndividualPlot(file) for file in files if Path(file).stat().st_size > 0]
     await asyncio.gather(*task)
     print("Done Plotting Individuals")
+
+
+async def ConcurrentOverallPlot():
     task = [
         max_iteration_boxplot(
             overall_max_iteration[0],
@@ -380,7 +391,6 @@ async def ConcurrentIndividualPlot(files):
         ),
     ]
     await asyncio.gather(*task)
-    print("Done Plotting Overall")
 
 
 if __name__ == "__main__":
@@ -391,4 +401,6 @@ if __name__ == "__main__":
     output_dir = "../result/graph"
 
     files = glob.glob(os.path.join(result_dir, "*.csv"))
+
     asyncio.run(ConcurrentIndividualPlot(files))
+    # asyncio.run(ConcurrentOverallPlot())
