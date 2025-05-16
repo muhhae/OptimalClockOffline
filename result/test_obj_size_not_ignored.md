@@ -80,6 +80,14 @@ $\dfrac{Base Miss Ratio - Model Miss Ratio}{Base Miss Ratio} \times 100$
 $\dfrac{Base Promotion - Model Promotion}{Base Promotion} \times 100$  
 
 ![graph](./graph/Promotion_Test_Data_Result_Obj_Size_Not_Ignored.png)  
+## True Negatives(%) 
+![graph](./graph/True_Negatives_Test_Data_Result_Obj_Size_Not_Ignored.png)  
+## True Postives(%) 
+![graph](./graph/True_Postives_Test_Data_Result_Obj_Size_Not_Ignored.png)  
+## False Negatives(%) 
+![graph](./graph/False_Negatives_Test_Data_Result_Obj_Size_Not_Ignored.png)  
+## False Postives(%) 
+![graph](./graph/False_Postives_Test_Data_Result_Obj_Size_Not_Ignored.png)  
 # Individual Workload Result  
 ## 10  
  https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster10.oracleGeneral.zst

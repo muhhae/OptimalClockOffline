@@ -2,6 +2,7 @@ import numpy as np
 import typing as T
 import glob
 import os
+import re
 from pathlib import Path
 from common import extract_desc, OutputLog
 import tabulate as tb
@@ -27,6 +28,76 @@ def sort_key(filename):
 
 
 files = sorted(glob.glob(os.path.join(result_dir, "*.csv")), key=sort_key)
+models_metrics = glob.glob("ML/model/*.md") + glob.glob("ML/model/*.txt")
+models_metrics = sorted(models_metrics, key=sort_key)
+
+TN_ps = {}
+FN_ps = {}
+TP_ps = {}
+FP_ps = {}
+
+for p in models_metrics:
+    f = open(p, "r")
+    content = f.read()
+    kw = "Confusion Matrix"
+    content = content[content.find(kw) + len(kw) :]
+    content = content[: content.find(kw)]
+    content = content.replace(":", "").strip()
+    py_v = re.sub(r"\s+", " ", content.strip())
+    py_v = re.sub(r"(?<=\d) (?=\d)", ", ", py_v)
+    py_v = re.sub(r"\] \[", "], [", py_v)
+
+    if py_v == "":
+        continue
+
+    x = eval(py_v)
+
+    TN = x[0][0]
+    FP = x[0][1]
+    FN = x[1][0]
+    TP = x[1][1]
+
+    TN_p = 0
+    TP_p = 0
+    FN_p = 0
+    FP_p = 0
+
+    if TN != 0:
+        TN_p = TN / (TN + FN) * 100
+    if TP != 0:
+        TP_p = TP / (TP + FP) * 100
+    if FN != 0:
+        FN_p = FN / (TN + FN) * 100
+    if FP != 0:
+        FP_p = FP / (TP + FP) * 100
+
+    model = p.replace(".md", "").replace(".txt", "")
+    model = Path(p).stem
+
+    model, desc = extract_desc(model)
+    print(p)
+    size = desc[0]
+    if size != "All":
+        size = "spec"
+    model += "_" + size
+    size_ignore = desc.count("ignore_obj_size")
+    print(size_ignore)
+
+    for d in [TN_ps, TP_ps, FN_ps, FP_ps]:
+        if (model, size_ignore) not in d:
+            d[model, size_ignore] = []
+
+    TN_ps[model, size_ignore].append(TN_p)
+    TP_ps[model, size_ignore].append(TP_p)
+    FN_ps[model, size_ignore].append(FN_p)
+    FP_ps[model, size_ignore].append(FP_p)
+
+# print(TN_ps.keys())
+# print(TP_ps.keys())
+# print(FN_ps.keys())
+# print(FP_ps.keys())
+# exit(0)
+
 
 base_log = [f for f in files if not f.count("ML")]
 ML_log = [f for f in files if f.count("ML")]
@@ -238,6 +309,30 @@ def ModelSummaries(
             f"$\\dfrac{{Base {title} - Model {title}}}{{Base {title}}} \\times 100$  \n\n"
         )
 
+        title += "_" + Title
+        title = title.replace(" ", "_")
+        plt.savefig(f"../result/graph/{title}.png", bbox_inches="tight")
+        md.write(f"![graph](./graph/{title}.png)  \n")
+
+    models = list(TN_ps.keys())
+    TN_ps_v = list(TN_ps.values())
+    TP_ps_v = list(TP_ps.values())
+    FN_ps_v = list(FN_ps.values())
+    FP_ps_v = list(FP_ps.values())
+
+    for x, title in zip(
+        [TN_ps_v, TP_ps_v, FN_ps_v, FP_ps_v],
+        ["True Negatives", "True Postives", "False Negatives", "False Postives"],
+    ):
+        plt.figure(figsize=(12, len(models) / 4), constrained_layout=True)
+        plt.boxplot(x, vert=False, patch_artist=True)
+        plt.title(f"{title}", fontsize=14)
+        plt.xlabel(title, fontsize=14)
+        plt.yticks(range(1, len(models) + 1), models, fontsize=14)
+        plt.xticks(range(0, 101, 10))
+        plt.xlim(0, 100)
+        plt.grid(True)
+        md.write(f"## {title}(%) \n")
         title += "_" + Title
         title = title.replace(" ", "_")
         plt.savefig(f"../result/graph/{title}.png", bbox_inches="tight")
