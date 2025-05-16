@@ -62,6 +62,24 @@ case "$model" in
     "LR_1_mean")
         features="-I F32 -F rtime_since_log vtime_since_log clock_freq_norm lifetime_freq_norm"
         ;;
+    "LR_2")
+        features="-I F32 -F vtime_since clock_freq"
+        ;;
+    "LR_2_log")
+        features="-I F32 -F vtime_since_log clock_freq_log"
+        ;;
+    "LR_2_mean")
+        features="-I F32 -F vtime_since_log clock_freq_norm"
+        ;;
+    "LR_3")
+        features="-I F32 -F rtime_since clock_freq"
+        ;;
+    "LR_3_log")
+        features="-I F32 -F rtime_since_log clock_freq_log"
+        ;;
+    "LR_3_mean")
+        features="-I F32 -F rtime_since_log clock_freq_norm"
+        ;;
     *)
         echo "Unknown model using default features"
         ;;
