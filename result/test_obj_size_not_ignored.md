@@ -23,51 +23,60 @@
 | logistic_regression_v4_spec |                     3 |                          31.4286  |
 | logistic_regression_v4_All  |                     0 |                          20       |  
 
-| Model                       |   Max Promotion Reduced |   Min Promotion Reduced |   Avg. Promotion Reduced |   Mdn. Promotion Reduced |
-|-----------------------------|-------------------------|-------------------------|--------------------------|--------------------------|
-| LR_1_spec                   |                 94.3179 |             0           |                  30.262  |                 5.40057  |
-| LR_1_All                    |                 92.4203 |            -0.0814759   |                  12.9991 |                 0        |
-| LR_1_log_spec               |                 98.9612 |             0           |                  27.6345 |                 7.47617  |
-| LR_1_log_All                |                 90.1819 |             2.57692     |                  48.1988 |                52.9958   |
-| LR_1_mean_spec              |                 95.4221 |             0           |                  23.8771 |                 0.310631 |
-| LR_1_mean_All               |                100      |             0.139368    |                  58.6845 |                71.5815   |
-| LR_v5_spec                  |                100      |             3.77238e-06 |                  80.0283 |               100        |
-| LR_v5_All                   |                100      |            99.9999      |                 100      |               100        |
-| LR_v6_spec                  |                100      |            97.5623      |                  99.9181 |                99.9998   |
-| LR_v6_All                   |                100      |            97.5623      |                  99.9181 |                99.9999   |
-| little_random_forest_spec   |                100      |             0.200996    |                  64.2481 |                69.1575   |
-| logistic_regression_spec    |                100      |             0           |                  77.8765 |               100        |
-| logistic_regression_All     |                100      |           100           |                 100      |               100        |
-| logistic_regression_v2_spec |                100      |            -0.0784616   |                  28.6944 |                 0.707168 |
-| logistic_regression_v2_All  |                 56.9735 |             0.707168    |                  18.2832 |                10.5607   |
-| logistic_regression_v3_spec |                100      |             0.314614    |                  70.0288 |                78.5025   |
-| logistic_regression_v3_All  |                 99.2122 |            50.6748      |                  90.487  |                95.0255   |
-| logistic_regression_v4_spec |                 97.4116 |            19.7775      |                  70.6744 |                74.8239   |
-| logistic_regression_v4_All  |                 96.3797 |            21.9626      |                  74.5052 |                83.1461   |  
+## Promotion Reduced (%)  
+| Model                       |      Max |           Min |      Avg |        Mdn |
+|-----------------------------|----------|---------------|----------|------------|
+| LR_1_spec                   |  94.3179 |   0           |  30.262  |   5.40057  |
+| LR_1_All                    |  92.4203 |  -0.0814759   |  12.9991 |   0        |
+| LR_1_log_spec               |  98.9612 |   0           |  27.6345 |   7.47617  |
+| LR_1_log_All                |  90.1819 |   2.57692     |  48.1988 |  52.9958   |
+| LR_1_mean_spec              |  95.4221 |   0           |  23.8771 |   0.310631 |
+| LR_1_mean_All               | 100      |   0.139368    |  58.6845 |  71.5815   |
+| LR_v5_spec                  | 100      |   3.77238e-06 |  80.0283 | 100        |
+| LR_v5_All                   | 100      |  99.9999      | 100      | 100        |
+| LR_v6_spec                  | 100      |  97.5623      |  99.9181 |  99.9998   |
+| LR_v6_All                   | 100      |  97.5623      |  99.9181 |  99.9999   |
+| little_random_forest_spec   | 100      |   0.200996    |  64.2481 |  69.1575   |
+| logistic_regression_spec    | 100      |   0           |  77.8765 | 100        |
+| logistic_regression_All     | 100      | 100           | 100      | 100        |
+| logistic_regression_v2_spec | 100      |  -0.0784616   |  28.6944 |   0.707168 |
+| logistic_regression_v2_All  |  56.9735 |   0.707168    |  18.2832 |  10.5607   |
+| logistic_regression_v3_spec | 100      |   0.314614    |  70.0288 |  78.5025   |
+| logistic_regression_v3_All  |  99.2122 |  50.6748      |  90.487  |  95.0255   |
+| logistic_regression_v4_spec |  97.4116 |  19.7775      |  70.6744 |  74.8239   |
+| logistic_regression_v4_All  |  96.3797 |  21.9626      |  74.5052 |  83.1461   |  
 
-| Model                       |   Max Miss Ratio Reduced |   Min Miss Ratio Reduced |   Avg. Miss Ratio Reduced |   Mdn. Miss Ratio Reduced |
-|-----------------------------|--------------------------|--------------------------|---------------------------|---------------------------|
-| LR_1_spec                   |                 0.963094 |                -38.2969  |                 -4.13373  |              -0.000127885 |
-| LR_1_All                    |                 0.151154 |                -46.9848  |                 -3.08542  |               0           |
-| LR_1_log_spec               |                 1.68774  |                -29.6923  |                 -2.34982  |              -0.00175551  |
-| LR_1_log_All                |                 2.30797  |                -17.2854  |                 -4.07722  |              -1.53221     |
-| LR_1_mean_spec              |                 2.49751  |                -45.0214  |                 -3.23355  |               0           |
-| LR_1_mean_All               |                 2.0323   |                -83.8301  |                -15.1569   |              -3.82646     |
-| LR_v5_spec                  |                 2.60943  |                -67.5129  |                -16.0921   |             -15.4302      |
-| LR_v5_All                   |                 2.60943  |                -67.5129  |                -16.9064   |             -15.4302      |
-| LR_v6_spec                  |                 2.60943  |                -67.5122  |                -16.903    |             -15.4302      |
-| LR_v6_All                   |                 2.60943  |                -67.5122  |                -16.9031   |             -15.4302      |
-| little_random_forest_spec   |                 3.7867   |                -16.4085  |                 -3.40806  |              -1.80289     |
-| logistic_regression_spec    |                 1.51335  |                -64.3863  |                -11.9804   |              -3.56557     |
-| logistic_regression_All     |                 2.60943  |                -67.5129  |                -16.9064   |             -15.4302      |
-| logistic_regression_v2_spec |                 0.113034 |                -10.6636  |                 -1.64422  |              -0.122698    |
-| logistic_regression_v2_All  |                 4.23077  |                 -8.84895 |                  0.603377 |               0.290047    |
-| logistic_regression_v3_spec |                23.839    |                -31.9559  |                 -3.05555  |              -1.49142     |
-| logistic_regression_v3_All  |                 2.70394  |                -50.5816  |                -12.5506   |             -11.4997      |
-| logistic_regression_v4_spec |                 9.62847  |                -25.409   |                 -4.87457  |              -2.8789      |
-| logistic_regression_v4_All  |                 2.80681  |                -29.7517  |                 -6.84265  |              -6.14585     |  
+## Miss Ratio Reduced (%)  
+| Model                       |       Max |       Min |        Avg |           Mdn |
+|-----------------------------|-----------|-----------|------------|---------------|
+| LR_1_spec                   |  0.963094 | -38.2969  |  -4.13373  |  -0.000127885 |
+| LR_1_All                    |  0.151154 | -46.9848  |  -3.08542  |   0           |
+| LR_1_log_spec               |  1.68774  | -29.6923  |  -2.34982  |  -0.00175551  |
+| LR_1_log_All                |  2.30797  | -17.2854  |  -4.07722  |  -1.53221     |
+| LR_1_mean_spec              |  2.49751  | -45.0214  |  -3.23355  |   0           |
+| LR_1_mean_All               |  2.0323   | -83.8301  | -15.1569   |  -3.82646     |
+| LR_v5_spec                  |  2.60943  | -67.5129  | -16.0921   | -15.4302      |
+| LR_v5_All                   |  2.60943  | -67.5129  | -16.9064   | -15.4302      |
+| LR_v6_spec                  |  2.60943  | -67.5122  | -16.903    | -15.4302      |
+| LR_v6_All                   |  2.60943  | -67.5122  | -16.9031   | -15.4302      |
+| little_random_forest_spec   |  3.7867   | -16.4085  |  -3.40806  |  -1.80289     |
+| logistic_regression_spec    |  1.51335  | -64.3863  | -11.9804   |  -3.56557     |
+| logistic_regression_All     |  2.60943  | -67.5129  | -16.9064   | -15.4302      |
+| logistic_regression_v2_spec |  0.113034 | -10.6636  |  -1.64422  |  -0.122698    |
+| logistic_regression_v2_All  |  4.23077  |  -8.84895 |   0.603377 |   0.290047    |
+| logistic_regression_v3_spec | 23.839    | -31.9559  |  -3.05555  |  -1.49142     |
+| logistic_regression_v3_All  |  2.70394  | -50.5816  | -12.5506   | -11.4997      |
+| logistic_regression_v4_spec |  9.62847  | -25.409   |  -4.87457  |  -2.8789      |
+| logistic_regression_v4_All  |  2.80681  | -29.7517  |  -6.84265  |  -6.14585     |  
 
-## 10 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster10.oracleGeneral.zst
+# Model Summaries Plot  
+## Miss Ratio Reduced  
+![graph](./graph/Miss_Ratio_Test_Data_Result_Obj_Size_Not_Ignored.png)  
+## Promotion Reduced  
+![graph](./graph/Promotion_Test_Data_Result_Obj_Size_Not_Ignored.png)  
+# Individual Workload Result  
+## 10  
+ https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster10.oracleGeneral.zst
 > ![graph](./graph/10[0.001,TEST].png)  
 > **Trace Path**: 10.oracleGeneral.zst  
 > **Desc**: ['0.001', 'TEST', {}]  
@@ -103,7 +112,8 @@
 > **Total Request**: 2,756,726,994  
 > **Best Model**: logistic_regression_v4_spec => 0.0336914  
 > **Better Than Base**: True  
-## 2016_LUN6 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/2016_LUN6.oracleGeneral.zst
+## 2016_LUN6  
+ https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/systor/2016_LUN6.oracleGeneral.zst
 > ![graph](./graph/2016_LUN6[0.001,TEST].png)  
 > **Trace Path**: 2016_LUN6.oracleGeneral.zst  
 > **Desc**: ['0.001', 'TEST', {}]  
@@ -139,7 +149,8 @@
 > **Total Request**: 655,119,703  
 > **Best Model**: logistic_regression_v2_spec => 0.143264  
 > **Better Than Base**: False  
-## 202206_kv_traces_all.csv https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaKV/202206_kv_traces_all.csv.oracleGeneral.zst
+## 202206_kv_traces_all.csv  
+ https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaKV/202206_kv_traces_all.csv.oracleGeneral.zst
 > ![graph](./graph/202206_kv_traces_all.csv[0.001,TEST].png)  
 > **Trace Path**: 202206_kv_traces_all.csv.oracleGeneral.zst  
 > **Desc**: ['0.001', 'TEST', {}]  
@@ -175,7 +186,8 @@
 > **Total Request**: 1,665,685,869  
 > **Best Model**: logistic_regression_v3_spec => 0.0338314  
 > **Better Than Base**: True  
-## 8610 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentBlock/v2/traces/8610.oracleGeneral.zst
+## 8610  
+ https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/tencentBlock/v2/traces/8610.oracleGeneral.zst
 > ![graph](./graph/8610[0.001,TEST].png)  
 > **Trace Path**: 8610.oracleGeneral.zst  
 > **Desc**: ['0.001', 'TEST', {}]  
@@ -211,7 +223,8 @@
 > **Total Request**: 188,982,398  
 > **Best Model**: logistic_regression_v3_spec => 0.00992362  
 > **Better Than Base**: True  
-## cluster53 https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster53.oracleGeneral.zst
+## cluster53  
+ https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/twitter/cluster53.oracleGeneral.zst
 > ![graph](./graph/cluster53[0.001,TEST].png)  
 > **Trace Path**: cluster53.oracleGeneral.zst  
 > **Desc**: ['0.001', 'TEST', {}]  
@@ -247,7 +260,8 @@
 > **Total Request**: 246,508,262  
 > **Best Model**: logistic_regression_v3_spec => 0.0537166  
 > **Better Than Base**: True  
-## meta_rprn https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaCDN/meta_rprn.oracleGeneral.zst
+## meta_rprn  
+ https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/metaCDN/meta_rprn.oracleGeneral.zst
 > ![graph](./graph/meta_rprn[0.001,TEST].png)  
 > **Trace Path**: meta_rprn.oracleGeneral.zst  
 > **Desc**: ['0.001', 'TEST', {}]  
@@ -283,7 +297,8 @@
 > **Total Request**: 88,470,732  
 > **Best Model**: logistic_regression_v3_spec => 0.346304  
 > **Better Than Base**: True  
-## wiki_2019u https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/wiki/wiki_2019u.oracleGeneral.zst
+## wiki_2019u  
+ https://ftp.pdl.cmu.edu/pub/datasets/twemcacheWorkload/cacheDatasets/wiki/wiki_2019u.oracleGeneral.zst
 > ![graph](./graph/wiki_2019u[0.001,TEST].png)  
 > **Trace Path**: wiki_2019u.oracleGeneral.zst  
 > **Desc**: ['0.001', 'TEST', {}]  
@@ -319,7 +334,8 @@
 > **Total Request**: 2,655,612,611  
 > **Best Model**: logistic_regression_v3_spec => 0.0239131  
 > **Better Than Base**: True  
-## zipf_0.3 
+## zipf_0.3  
+ 
 > ![graph](./graph/zipf_0.3[0.001,TEST].png)  
 > **Trace Path**: zipf_0.3.oracleGeneral  
 > **Desc**: ['0.001', 'TEST', {}]  
@@ -355,7 +371,8 @@
 > **Total Request**: 100,000,000  
 > **Best Model**: LR_1_mean_All => 0.552575  
 > **Better Than Base**: True  
-## zipf_0.7 
+## zipf_0.7  
+ 
 > ![graph](./graph/zipf_0.7[0.001,TEST].png)  
 > **Trace Path**: zipf_0.7.oracleGeneral  
 > **Desc**: ['0.001', 'TEST', {}]  
@@ -391,7 +408,8 @@
 > **Total Request**: 100,000,000  
 > **Best Model**: LR_1_spec,LR_1_All,LR_1_log_spec,LR_1_mean_spec => 0.321945  
 > **Better Than Base**: False  
-## zipf_0 
+## zipf_0  
+ 
 > ![graph](./graph/zipf_0[0.001,TEST].png)  
 > **Trace Path**: zipf_0.oracleGeneral  
 > **Desc**: ['0.001', 'TEST', {}]  
@@ -427,7 +445,8 @@
 > **Total Request**: 100,000,000  
 > **Best Model**: LR_1_mean_spec => 0.600966  
 > **Better Than Base**: True  
-## zipf_1.3 
+## zipf_1.3  
+ 
 > ![graph](./graph/zipf_1.3[0.001,TEST].png)  
 > **Trace Path**: zipf_1.3.oracleGeneral  
 > **Desc**: ['0.001', 'TEST', {}]  
@@ -463,7 +482,8 @@
 > **Total Request**: 100,000,000  
 > **Best Model**: LR_1_mean_spec => 0.0105821  
 > **Better Than Base**: False  
-## zipf_1.7 
+## zipf_1.7  
+ 
 > ![graph](./graph/zipf_1.7[0.001,TEST].png)  
 > **Trace Path**: zipf_1.7.oracleGeneral  
 > **Desc**: ['0.001', 'TEST', {}]  
@@ -499,7 +519,8 @@
 > **Total Request**: 100,000,000  
 > **Best Model**: LR_1_mean_spec => 0.00085977  
 > **Better Than Base**: False  
-## zipf_1 
+## zipf_1  
+ 
 > ![graph](./graph/zipf_1[0.001,TEST].png)  
 > **Trace Path**: zipf_1.oracleGeneral  
 > **Desc**: ['0.001', 'TEST', {}]  
@@ -535,7 +556,8 @@
 > **Total Request**: 100,000,000  
 > **Best Model**: LR_1_All,LR_1_log_spec,LR_1_mean_spec => 0.0897345  
 > **Better Than Base**: False  
-## zipf_2 
+## zipf_2  
+ 
 > ![graph](./graph/zipf_2[0.001,TEST].png)  
 > **Trace Path**: zipf_2.oracleGeneral  
 > **Desc**: ['0.001', 'TEST', {}]  
