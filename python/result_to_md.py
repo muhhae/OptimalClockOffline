@@ -212,8 +212,14 @@ def ModelSummaries(
 
     md.write(tb.tabulate(bt_data, headers="keys", tablefmt="github") + "  \n\n")
     md.write("## Promotion Reduced (%)  \n")
+    md.write(
+        "$\\dfrac{Base Promotion - Model Promotion}{Base Promotion} \\times 100$  \n"
+    )
     md.write(tb.tabulate(p_data, headers="keys", tablefmt="github") + "  \n\n")
     md.write("## Miss Ratio Reduced (%)  \n")
+    md.write(
+        "$\\dfrac{Base Miss Ratio - Model Miss Ratio}{Base Miss Ratio} \\times 100$  \n"
+    )
     md.write(tb.tabulate(mr_data, headers="keys", tablefmt="github") + "  \n\n")
     md.write("# Model Summaries Plot  \n")
 
@@ -227,7 +233,11 @@ def ModelSummaries(
         plt.title(f"{title} Reduced", fontsize=14)
         plt.xlabel(title, fontsize=14)
         plt.yticks(range(1, len(models) + 1), models, fontsize=14)
-        md.write(f"## {title} Reduced  \n")
+        md.write(f"## {title} Reduced (%) \n")
+        md.write(
+            f"$\\dfrac{{Base {title} - Model {title}}}{{Base {title}}} \\times 100$  \n\n"
+        )
+
         title += "_" + Title
         title = title.replace(" ", "_")
         plt.savefig(f"../result/graph/{title}.png", bbox_inches="tight")

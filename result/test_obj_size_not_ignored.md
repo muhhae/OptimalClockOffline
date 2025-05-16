@@ -24,6 +24,7 @@
 | logistic_regression_v4_All  |                     0 |                          20       |  
 
 ## Promotion Reduced (%)  
+$\dfrac{Base Promotion - Model Promotion}{Base Promotion} \times 100$  
 | Model                       |      Max |           Min |      Avg |        Mdn |
 |-----------------------------|----------|---------------|----------|------------|
 | LR_1_spec                   |  94.3179 |   0           |  30.262  |   5.40057  |
@@ -47,6 +48,7 @@
 | logistic_regression_v4_All  |  96.3797 |  21.9626      |  74.5052 |  83.1461   |  
 
 ## Miss Ratio Reduced (%)  
+$\dfrac{Base Miss Ratio - Model Miss Ratio}{Base Miss Ratio} \times 100$  
 | Model                       |       Max |       Min |        Avg |           Mdn |
 |-----------------------------|-----------|-----------|------------|---------------|
 | LR_1_spec                   |  0.963094 | -38.2969  |  -4.13373  |  -0.000127885 |
@@ -70,9 +72,13 @@
 | logistic_regression_v4_All  |  2.80681  | -29.7517  |  -6.84265  |  -6.14585     |  
 
 # Model Summaries Plot  
-## Miss Ratio Reduced  
+## Miss Ratio Reduced (%) 
+$\dfrac{Base Miss Ratio - Model Miss Ratio}{Base Miss Ratio} \times 100$  
+
 ![graph](./graph/Miss_Ratio_Test_Data_Result_Obj_Size_Not_Ignored.png)  
-## Promotion Reduced  
+## Promotion Reduced (%) 
+$\dfrac{Base Promotion - Model Promotion}{Base Promotion} \times 100$  
+
 ![graph](./graph/Promotion_Test_Data_Result_Obj_Size_Not_Ignored.png)  
 # Individual Workload Result  
 ## 10  
