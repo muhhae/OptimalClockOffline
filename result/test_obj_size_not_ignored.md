@@ -4,12 +4,18 @@
 | Model                       |   Best Models on Exp. |   Better than base % of the times |
 |-----------------------------|-----------------------|-----------------------------------|
 | LR_1_spec                   |                    15 |                          11.4286  |
-| LR_1_All                    |                    22 |                           1.42857 |
+| LR_1_All                    |                    21 |                           1.42857 |
 | LR_1_log_spec               |                     7 |                          18.5714  |
-| LR_1_log_All                |                     2 |                          11.4286  |
-| LR_1_mean_spec              |                    23 |                          20       |
+| LR_1_log_All                |                     1 |                          11.4286  |
+| LR_1_mean_spec              |                    19 |                          20       |
 | LR_1_mean_All               |                     6 |                          10       |
-| LR_v5_spec                  |                     3 |                           5.71429 |
+| LR_2_spec                   |                    19 |                          10       |
+| LR_2_All                    |                    21 |                           5.71429 |
+| LR_2_log_spec               |                    15 |                          10       |
+| LR_2_log_All                |                     2 |                           4.28571 |
+| LR_2_mean_spec              |                    24 |                          18.5714  |
+| LR_2_mean_All               |                     2 |                           5.71429 |
+| LR_v5_spec                  |                     2 |                           5.71429 |
 | LR_v5_All                   |                     1 |                           5.71429 |
 | LR_v6_spec                  |                     1 |                           5.71429 |
 | LR_v6_All                   |                     1 |                           5.71429 |
@@ -25,27 +31,33 @@
 
 ## Promotion Reduced (%)  
 $\dfrac{Base Promotion - Model Promotion}{Base Promotion} \times 100$  
-| Model                       |      Max |           Min |      Avg |        Mdn |
-|-----------------------------|----------|---------------|----------|------------|
-| LR_1_spec                   |  94.3179 |   0           |  30.262  |   5.40057  |
-| LR_1_All                    |  92.4203 |  -0.0814759   |  12.9991 |   0        |
-| LR_1_log_spec               |  98.9612 |   0           |  27.6345 |   7.47617  |
-| LR_1_log_All                |  90.1819 |   2.57692     |  48.1988 |  52.9958   |
-| LR_1_mean_spec              |  95.4221 |   0           |  23.8771 |   0.310631 |
-| LR_1_mean_All               | 100      |   0.139368    |  58.6845 |  71.5815   |
-| LR_v5_spec                  | 100      |   3.77238e-06 |  80.0283 | 100        |
-| LR_v5_All                   | 100      |  99.9999      | 100      | 100        |
-| LR_v6_spec                  | 100      |  97.5623      |  99.9181 |  99.9998   |
-| LR_v6_All                   | 100      |  97.5623      |  99.9181 |  99.9999   |
-| little_random_forest_spec   | 100      |   0.200996    |  64.2481 |  69.1575   |
-| logistic_regression_spec    | 100      |   0           |  77.8765 | 100        |
-| logistic_regression_All     | 100      | 100           | 100      | 100        |
-| logistic_regression_v2_spec | 100      |  -0.0784616   |  28.6944 |   0.707168 |
-| logistic_regression_v2_All  |  56.9735 |   0.707168    |  18.2832 |  10.5607   |
-| logistic_regression_v3_spec | 100      |   0.314614    |  70.0288 |  78.5025   |
-| logistic_regression_v3_All  |  99.2122 |  50.6748      |  90.487  |  95.0255   |
-| logistic_regression_v4_spec |  97.4116 |  19.7775      |  70.6744 |  74.8239   |
-| logistic_regression_v4_All  |  96.3797 |  21.9626      |  74.5052 |  83.1461   |  
+| Model                       |      Max |           Min |      Avg |         Mdn |
+|-----------------------------|----------|---------------|----------|-------------|
+| LR_1_spec                   |  94.3179 |   0           |  30.262  |   5.40057   |
+| LR_1_All                    |  92.4203 |  -0.0814759   |  12.9991 |   0         |
+| LR_1_log_spec               |  98.9612 |   0           |  27.6345 |   7.47617   |
+| LR_1_log_All                |  90.1819 |   2.57692     |  48.1988 |  52.9958    |
+| LR_1_mean_spec              |  95.4221 |   0           |  23.8771 |   0.310631  |
+| LR_1_mean_All               | 100      |   0.139368    |  58.6845 |  71.5815    |
+| LR_2_spec                   |  91.9293 |   0           |  25.5744 |   0         |
+| LR_2_All                    |  89.5874 |  -0.213279    |  12.8441 |   0         |
+| LR_2_log_spec               |  95.1937 |   0           |  27.6454 |   0.382983  |
+| LR_2_log_All                |  86.4176 |   5.32411     |  55.1869 |  59.7461    |
+| LR_2_mean_spec              |  97.0183 |   0           |  26.7121 |   0.0154206 |
+| LR_2_mean_All               | 100      |   0.737111    |  62.7988 |  69.2948    |
+| LR_v5_spec                  | 100      |   3.77238e-06 |  80.0283 | 100         |
+| LR_v5_All                   | 100      |  99.9999      | 100      | 100         |
+| LR_v6_spec                  | 100      |  97.5623      |  99.9181 |  99.9998    |
+| LR_v6_All                   | 100      |  97.5623      |  99.9181 |  99.9999    |
+| little_random_forest_spec   | 100      |   0.200996    |  64.2481 |  69.1575    |
+| logistic_regression_spec    | 100      |   0           |  77.8765 | 100         |
+| logistic_regression_All     | 100      | 100           | 100      | 100         |
+| logistic_regression_v2_spec | 100      |  -0.0784616   |  28.6944 |   0.707168  |
+| logistic_regression_v2_All  |  56.9735 |   0.707168    |  18.2832 |  10.5607    |
+| logistic_regression_v3_spec | 100      |   0.314614    |  70.0288 |  78.5025    |
+| logistic_regression_v3_All  |  99.2122 |  50.6748      |  90.487  |  95.0255    |
+| logistic_regression_v4_spec |  97.4116 |  19.7775      |  70.6744 |  74.8239    |
+| logistic_regression_v4_All  |  96.3797 |  21.9626      |  74.5052 |  83.1461    |  
 
 ## Miss Ratio Reduced (%)  
 $\dfrac{Base Miss Ratio - Model Miss Ratio}{Base Miss Ratio} \times 100$  
@@ -57,6 +69,12 @@ $\dfrac{Base Miss Ratio - Model Miss Ratio}{Base Miss Ratio} \times 100$
 | LR_1_log_All                |  2.30797  | -17.2854  |  -4.07722  |  -1.53221     |
 | LR_1_mean_spec              |  2.49751  | -45.0214  |  -3.23355  |   0           |
 | LR_1_mean_All               |  2.0323   | -83.8301  | -15.1569   |  -3.82646     |
+| LR_2_spec                   |  1.71643  | -38.6581  |  -3.57087  |   0           |
+| LR_2_All                    |  1.43849  | -29.5364  |  -2.15527  |   0           |
+| LR_2_log_spec               |  2.21177  | -43.0321  |  -3.7943   |   0           |
+| LR_2_log_All                |  2.20056  | -27.9052  |  -7.34634  |  -6.32235     |
+| LR_2_mean_spec              |  2.60271  | -48.4051  |  -3.95344  |   0           |
+| LR_2_mean_All               |  1.92882  | -79.7733  | -15.2699   |  -5.40369     |
 | LR_v5_spec                  |  2.60943  | -67.5129  | -16.0921   | -15.4302      |
 | LR_v5_All                   |  2.60943  | -67.5129  | -16.9064   | -15.4302      |
 | LR_v6_spec                  |  2.60943  | -67.5122  | -16.903    | -15.4302      |
@@ -96,7 +114,7 @@ $\dfrac{Base Promotion - Model Promotion}{Base Promotion} \times 100$
 > **Desc**: ['0.001', 'TEST', {}]  
 > **Cache Size**: 82  
 > **Total Request**: 2,756,726,994  
-> **Best Model**: LR_1_All,LR_v5_spec => 0.999568  
+> **Best Model**: LR_1_All,LR_2_spec,LR_2_All,LR_2_mean_spec,LR_v5_spec => 0.999568  
 > **Better Than Base**: False  
 > ![graph](./graph/10[0.01,TEST].png)  
 > **Trace Path**: 10.oracleGeneral.zst  
@@ -133,14 +151,14 @@ $\dfrac{Base Promotion - Model Promotion}{Base Promotion} \times 100$
 > **Desc**: ['0.001', 'TEST', {}]  
 > **Cache Size**: 2476  
 > **Total Request**: 655,119,703  
-> **Best Model**: LR_1_All,LR_v5_spec => 0.830016  
+> **Best Model**: LR_2_All => 0.830015  
 > **Better Than Base**: False  
 > ![graph](./graph/2016_LUN6[0.01,TEST].png)  
 > **Trace Path**: 2016_LUN6.oracleGeneral.zst  
 > **Desc**: ['0.01', 'TEST', {}]  
 > **Cache Size**: 24761  
 > **Total Request**: 655,119,703  
-> **Best Model**: LR_1_All => 0.699474  
+> **Best Model**: LR_1_All,LR_2_All => 0.699474  
 > **Better Than Base**: False  
 > ![graph](./graph/2016_LUN6[0.1,TEST].png)  
 > **Trace Path**: 2016_LUN6.oracleGeneral.zst  
@@ -392,35 +410,35 @@ $\dfrac{Base Promotion - Model Promotion}{Base Promotion} \times 100$
 > **Desc**: ['0.001', 'TEST', {}]  
 > **Cache Size**: 3  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_spec,LR_1_mean_spec => 0.961411  
+> **Best Model**: LR_1_spec,LR_1_mean_spec,LR_2_spec,LR_2_All,LR_2_log_spec => 0.961411  
 > **Better Than Base**: False  
 > ![graph](./graph/zipf_0.7[0.01,TEST].png)  
 > **Trace Path**: zipf_0.7.oracleGeneral  
 > **Desc**: ['0.01', 'TEST', {}]  
 > **Cache Size**: 38  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_spec,LR_1_All,LR_1_mean_spec => 0.872851  
+> **Best Model**: LR_1_spec,LR_1_All,LR_1_mean_spec,LR_2_spec,LR_2_All,LR_2_log_spec,LR_2_mean_spec => 0.872851  
 > **Better Than Base**: False  
 > ![graph](./graph/zipf_0.7[0.1,TEST].png)  
 > **Trace Path**: zipf_0.7.oracleGeneral  
 > **Desc**: ['0.1', 'TEST', {}]  
 > **Cache Size**: 381  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_spec,LR_1_All,LR_1_log_spec,LR_1_mean_spec => 0.632252  
+> **Best Model**: LR_1_spec,LR_1_All,LR_1_log_spec,LR_1_mean_spec,LR_2_spec,LR_2_All,LR_2_log_spec,LR_2_mean_spec => 0.632252  
 > **Better Than Base**: False  
 > ![graph](./graph/zipf_0.7[0.2,TEST].png)  
 > **Trace Path**: zipf_0.7.oracleGeneral  
 > **Desc**: ['0.2', 'TEST', {}]  
 > **Cache Size**: 762  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_spec,LR_1_All,LR_1_log_spec,LR_1_mean_spec => 0.499366  
+> **Best Model**: LR_1_spec,LR_1_All,LR_1_log_spec,LR_1_mean_spec,LR_2_spec,LR_2_All,LR_2_log_spec,LR_2_mean_spec => 0.499366  
 > **Better Than Base**: False  
 > ![graph](./graph/zipf_0.7[0.4,TEST].png)  
 > **Trace Path**: zipf_0.7.oracleGeneral  
 > **Desc**: ['0.4', 'TEST', {}]  
 > **Cache Size**: 1525  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_spec,LR_1_All,LR_1_log_spec,LR_1_mean_spec => 0.321945  
+> **Best Model**: LR_1_spec,LR_1_All,LR_1_log_spec,LR_1_mean_spec,LR_2_spec,LR_2_All,LR_2_log_spec,LR_2_mean_spec => 0.321945  
 > **Better Than Base**: False  
 ## zipf_0  
  
@@ -429,28 +447,28 @@ $\dfrac{Base Promotion - Model Promotion}{Base Promotion} \times 100$
 > **Desc**: ['0.001', 'TEST', {}]  
 > **Cache Size**: 3  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_spec,LR_1_All,LR_1_log_spec,LR_1_log_All,LR_1_mean_spec,LR_1_mean_All => 0.998997  
+> **Best Model**: LR_1_spec,LR_1_All,LR_1_log_spec,LR_1_log_All,LR_1_mean_spec,LR_1_mean_All,LR_2_spec,LR_2_All,LR_2_log_spec,LR_2_log_All,LR_2_mean_spec,LR_2_mean_All => 0.998997  
 > **Better Than Base**: False  
 > ![graph](./graph/zipf_0[0.01,TEST].png)  
 > **Trace Path**: zipf_0.oracleGeneral  
 > **Desc**: ['0.01', 'TEST', {}]  
 > **Cache Size**: 38  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_spec,LR_1_All,LR_1_log_spec,LR_1_mean_spec => 0.990002  
+> **Best Model**: LR_1_spec,LR_1_All,LR_1_log_spec,LR_1_mean_spec,LR_2_spec,LR_2_All,LR_2_log_spec,LR_2_mean_spec => 0.990002  
 > **Better Than Base**: False  
 > ![graph](./graph/zipf_0[0.1,TEST].png)  
 > **Trace Path**: zipf_0.oracleGeneral  
 > **Desc**: ['0.1', 'TEST', {}]  
 > **Cache Size**: 381  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_log_All => 0.900073  
+> **Best Model**: LR_2_mean_All => 0.900068  
 > **Better Than Base**: True  
 > ![graph](./graph/zipf_0[0.2,TEST].png)  
 > **Trace Path**: zipf_0.oracleGeneral  
 > **Desc**: ['0.2', 'TEST', {}]  
 > **Cache Size**: 762  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_mean_spec => 0.800232  
+> **Best Model**: LR_2_log_All => 0.800221  
 > **Better Than Base**: True  
 > ![graph](./graph/zipf_0[0.4,TEST].png)  
 > **Trace Path**: zipf_0.oracleGeneral  
@@ -466,35 +484,35 @@ $\dfrac{Base Promotion - Model Promotion}{Base Promotion} \times 100$
 > **Desc**: ['0.001', 'TEST', {}]  
 > **Cache Size**: 2  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_spec,LR_1_mean_spec => 0.145437  
+> **Best Model**: LR_1_spec,LR_1_mean_spec,LR_2_spec,LR_2_All,LR_2_log_spec,LR_2_mean_spec => 0.145437  
 > **Better Than Base**: False  
 > ![graph](./graph/zipf_1.3[0.01,TEST].png)  
 > **Trace Path**: zipf_1.3.oracleGeneral  
 > **Desc**: ['0.01', 'TEST', {}]  
 > **Cache Size**: 25  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_spec,LR_1_All => 0.0645036  
+> **Best Model**: LR_1_spec,LR_1_All,LR_2_spec,LR_2_All => 0.0645036  
 > **Better Than Base**: False  
 > ![graph](./graph/zipf_1.3[0.1,TEST].png)  
 > **Trace Path**: zipf_1.3.oracleGeneral  
 > **Desc**: ['0.1', 'TEST', {}]  
 > **Cache Size**: 255  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_All => 0.0239022  
+> **Best Model**: LR_1_All,LR_2_All,LR_2_mean_spec => 0.0239022  
 > **Better Than Base**: False  
 > ![graph](./graph/zipf_1.3[0.2,TEST].png)  
 > **Trace Path**: zipf_1.3.oracleGeneral  
 > **Desc**: ['0.2', 'TEST', {}]  
 > **Cache Size**: 510  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_All => 0.0163646  
+> **Best Model**: LR_1_All,LR_2_spec,LR_2_mean_spec => 0.0163646  
 > **Better Than Base**: False  
 > ![graph](./graph/zipf_1.3[0.4,TEST].png)  
 > **Trace Path**: zipf_1.3.oracleGeneral  
 > **Desc**: ['0.4', 'TEST', {}]  
 > **Cache Size**: 1021  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_mean_spec => 0.0105821  
+> **Best Model**: LR_1_mean_spec,LR_2_mean_spec => 0.0105821  
 > **Better Than Base**: False  
 ## zipf_1.7  
  
@@ -503,35 +521,35 @@ $\dfrac{Base Promotion - Model Promotion}{Base Promotion} \times 100$
 > **Desc**: ['0.001', 'TEST', {}]  
 > **Cache Size**: 0  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_mean_spec => 0.0520027  
+> **Best Model**: LR_1_mean_spec,LR_2_mean_spec => 0.0520027  
 > **Better Than Base**: True  
 > ![graph](./graph/zipf_1.7[0.01,TEST].png)  
 > **Trace Path**: zipf_1.7.oracleGeneral  
 > **Desc**: ['0.01', 'TEST', {}]  
 > **Cache Size**: 2  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_spec,LR_1_All,LR_1_mean_spec => 0.0103631  
+> **Best Model**: LR_1_spec,LR_1_All,LR_1_mean_spec,LR_2_spec,LR_2_All,LR_2_log_spec,LR_2_mean_spec => 0.0103631  
 > **Better Than Base**: False  
 > ![graph](./graph/zipf_1.7[0.1,TEST].png)  
 > **Trace Path**: zipf_1.7.oracleGeneral  
 > **Desc**: ['0.1', 'TEST', {}]  
 > **Cache Size**: 25  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_All => 0.00205443  
+> **Best Model**: LR_1_All,LR_2_All => 0.00205443  
 > **Better Than Base**: False  
 > ![graph](./graph/zipf_1.7[0.2,TEST].png)  
 > **Trace Path**: zipf_1.7.oracleGeneral  
 > **Desc**: ['0.2', 'TEST', {}]  
 > **Cache Size**: 51  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_All => 0.00128691  
+> **Best Model**: LR_1_All,LR_2_spec => 0.00128691  
 > **Better Than Base**: False  
 > ![graph](./graph/zipf_1.7[0.4,TEST].png)  
 > **Trace Path**: zipf_1.7.oracleGeneral  
 > **Desc**: ['0.4', 'TEST', {}]  
 > **Cache Size**: 103  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_mean_spec => 0.00085977  
+> **Best Model**: LR_2_mean_spec => 0.00085926  
 > **Better Than Base**: False  
 ## zipf_1  
  
@@ -540,35 +558,35 @@ $\dfrac{Base Promotion - Model Promotion}{Base Promotion} \times 100$
 > **Desc**: ['0.001', 'TEST', {}]  
 > **Cache Size**: 3  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_mean_spec => 0.586261  
+> **Best Model**: LR_2_mean_spec => 0.586253  
 > **Better Than Base**: True  
 > ![graph](./graph/zipf_1[0.01,TEST].png)  
 > **Trace Path**: zipf_1.oracleGeneral  
 > **Desc**: ['0.01', 'TEST', {}]  
 > **Cache Size**: 38  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_spec,LR_1_All,LR_1_mean_spec => 0.405233  
+> **Best Model**: LR_1_spec,LR_1_All,LR_1_mean_spec,LR_2_spec,LR_2_All,LR_2_log_spec,LR_2_mean_spec => 0.405233  
 > **Better Than Base**: False  
 > ![graph](./graph/zipf_1[0.1,TEST].png)  
 > **Trace Path**: zipf_1.oracleGeneral  
 > **Desc**: ['0.1', 'TEST', {}]  
 > **Cache Size**: 381  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_spec,LR_1_All,LR_1_mean_spec => 0.213886  
+> **Best Model**: LR_1_spec,LR_1_All,LR_1_mean_spec,LR_2_spec,LR_2_All,LR_2_log_spec,LR_2_mean_spec => 0.213886  
 > **Better Than Base**: False  
 > ![graph](./graph/zipf_1[0.2,TEST].png)  
 > **Trace Path**: zipf_1.oracleGeneral  
 > **Desc**: ['0.2', 'TEST', {}]  
 > **Cache Size**: 762  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_spec,LR_1_All,LR_1_log_spec,LR_1_mean_spec => 0.152787  
+> **Best Model**: LR_1_spec,LR_1_All,LR_1_log_spec,LR_1_mean_spec,LR_2_spec,LR_2_All,LR_2_log_spec,LR_2_mean_spec => 0.152787  
 > **Better Than Base**: False  
 > ![graph](./graph/zipf_1[0.4,TEST].png)  
 > **Trace Path**: zipf_1.oracleGeneral  
 > **Desc**: ['0.4', 'TEST', {}]  
 > **Cache Size**: 1525  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_All,LR_1_log_spec,LR_1_mean_spec => 0.0897345  
+> **Best Model**: LR_1_All,LR_1_log_spec,LR_1_mean_spec,LR_2_spec,LR_2_All,LR_2_log_spec,LR_2_mean_spec => 0.0897345  
 > **Better Than Base**: False  
 ## zipf_2  
  
@@ -577,33 +595,33 @@ $\dfrac{Base Promotion - Model Promotion}{Base Promotion} \times 100$
 > **Desc**: ['0.001', 'TEST', {}]  
 > **Cache Size**: 0  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_mean_spec => 0.0677591  
+> **Best Model**: LR_2_mean_spec => 0.0677587  
 > **Better Than Base**: True  
 > ![graph](./graph/zipf_2[0.01,TEST].png)  
 > **Trace Path**: zipf_2.oracleGeneral  
 > **Desc**: ['0.01', 'TEST', {}]  
 > **Cache Size**: 0  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_spec,LR_1_All,LR_1_mean_spec => 0.00656036  
+> **Best Model**: LR_1_spec,LR_1_All,LR_1_mean_spec,LR_2_spec,LR_2_All,LR_2_log_spec,LR_2_mean_spec => 0.00656036  
 > **Better Than Base**: False  
 > ![graph](./graph/zipf_2[0.1,TEST].png)  
 > **Trace Path**: zipf_2.oracleGeneral  
 > **Desc**: ['0.1', 'TEST', {}]  
 > **Cache Size**: 5  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_All,LR_1_mean_spec => 0.00065771  
+> **Best Model**: LR_1_All,LR_1_mean_spec,LR_2_All,LR_2_mean_spec => 0.00065771  
 > **Better Than Base**: False  
 > ![graph](./graph/zipf_2[0.2,TEST].png)  
 > **Trace Path**: zipf_2.oracleGeneral  
 > **Desc**: ['0.2', 'TEST', {}]  
 > **Cache Size**: 10  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_All => 0.00034185  
+> **Best Model**: LR_1_All,LR_2_spec,LR_2_log_spec,LR_2_mean_spec => 0.00034185  
 > **Better Than Base**: False  
 > ![graph](./graph/zipf_2[0.4,TEST].png)  
 > **Trace Path**: zipf_2.oracleGeneral  
 > **Desc**: ['0.4', 'TEST', {}]  
 > **Cache Size**: 21  
 > **Total Request**: 100,000,000  
-> **Best Model**: LR_1_mean_spec => 0.00019375  
+> **Best Model**: LR_1_mean_spec,LR_2_mean_spec => 0.00019375  
 > **Better Than Base**: False  
