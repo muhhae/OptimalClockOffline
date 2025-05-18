@@ -4,6 +4,7 @@ from sklearn.base import BaseEstimator
 from typing import List
 
 df: pd.DataFrame = None
+datasets: List[str] = []
 
 model: BaseEstimator = None
 

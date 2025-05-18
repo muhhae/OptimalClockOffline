@@ -1,5 +1,4 @@
 from skl2onnx import to_onnx
-from pathlib import Path
 from skl2onnx.common.data_types import (
     Int64TensorType,
 )
@@ -66,43 +65,30 @@ def DescribeData():
 
 
 def AddDatasets(*paths: str):
-    cols = [
-        "clock_time",
-        "clock_time_between",
-        "cache_size",
-        "obj_size",
-        "clock_freq",
-        "lifetime_freq",
-        "wasted",
-    ]
-    if var.cols is not None:
-        cols = var.cols
+    var.datasets += paths
 
-    new_df = pd.concat(
-        [pd.read_csv(p, skipinitialspace=True, usecols=cols) for p in paths],
+
+def LoadDatasets(*paths: str):
+    var.df = pd.concat(
+        [pd.read_csv(p, skipinitialspace=True, usecols=var.cols) for p in paths],
         ignore_index=True,
     )
-    if var.df is None:
-        var.df = new_df
-    else:
-        var.df = pd.concat([var.df, new_df], ignore_index=True)
 
 
-def SetupData():
-    if var.df is None:
-        raise Exception("Datasets has not been loaded, exec AddDatasets")
-    X = var.df.iloc[:, :-1]
+def SplitData():
+    df = var.df
+    X = None
     if var.input_dtype is not None:
-        X = np.array(X, dtype=var.input_dtype)
-    y = var.df.wasted
+        X = np.array(df.drop("wasted", axis=1, errors="ignore"), dtype=var.input_dtype)
+    else:
+        X = np.array(df.drop("wasted", axis=1, errors="ignore"))
+    y = np.array(df.wasted, dtype=np.int64)
     var.X_train, var.X_test, var.y_train, var.y_test = train_test_split(
         X, y, test_size=0.2, random_state=9, stratify=y
     )
 
 
 def Train():
-    if var.X_train is None:
-        raise Exception("Datasets has not been set up")
     if var.model is None:
         raise Exception("Model has not been set up")
     var.model.fit(var.X_train, var.y_train)

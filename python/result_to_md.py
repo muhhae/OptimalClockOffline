@@ -1,15 +1,30 @@
+import plotly.express as px
+import plotly.io as pio
 import numpy as np
 import typing as T
 import glob
 import os
 import re
 from pathlib import Path
-from common import extract_desc, OutputLog
+from common import extract_desc, OutputLog, ordinal
 import tabulate as tb
-import matplotlib.pyplot as plt
 
 
 import pandas as pd
+
+# Available templates:
+# ggplot2
+# seaborn
+# simple_white
+# plotly
+# plotly_white
+# plotly_dark
+# presentation
+# xgridoff
+# ygridoff
+# gridon
+# none
+pio.templates.default = "plotly_dark"
 
 
 result_dir = "../result/log"
@@ -26,100 +41,6 @@ def sort_key(filename):
         return (filename, desc[0], desc[-1]["model"])
     return (filename, desc[0])
 
-
-files = sorted(glob.glob(os.path.join(result_dir, "*.csv")), key=sort_key)
-models_metrics = glob.glob("ML/model/*.md") + glob.glob("ML/model/*.txt")
-models_metrics = sorted(models_metrics, key=sort_key)
-
-TN_ps = {}
-FN_ps = {}
-TP_ps = {}
-FP_ps = {}
-
-for p in models_metrics:
-    f = open(p, "r")
-    content = f.read()
-    kw = "Confusion Matrix"
-    content = content[content.find(kw) + len(kw) :]
-    content = content[: content.find(kw)]
-    content = content.replace(":", "").strip()
-    py_v = re.sub(r"\s+", " ", content.strip())
-    py_v = re.sub(r"(?<=\d) (?=\d)", ", ", py_v)
-    py_v = re.sub(r"\] \[", "], [", py_v)
-
-    if py_v == "":
-        continue
-
-    x = eval(py_v)
-
-    TN = x[0][0]
-    FP = x[0][1]
-    FN = x[1][0]
-    TP = x[1][1]
-
-    TN_p = 0
-    TP_p = 0
-    FN_p = 0
-    FP_p = 0
-
-    if TN != 0:
-        TN_p = TN / (TN + FN) * 100
-    if TP != 0:
-        TP_p = TP / (TP + FP) * 100
-    if FN != 0:
-        FN_p = FN / (TN + FN) * 100
-    if FP != 0:
-        FP_p = FP / (TP + FP) * 100
-
-    model = p.replace(".md", "").replace(".txt", "")
-    model = Path(p).stem
-
-    model, desc = extract_desc(model)
-    print(p)
-    size = desc[0]
-    if size != "All":
-        size = "spec"
-    model += "_" + size
-    size_ignore = desc.count("ignore_obj_size")
-    print(size_ignore)
-
-    for d in [TN_ps, TP_ps, FN_ps, FP_ps]:
-        if (model, size_ignore) not in d:
-            d[model, size_ignore] = []
-
-    TN_ps[model, size_ignore].append(TN_p)
-    TP_ps[model, size_ignore].append(TP_p)
-    FN_ps[model, size_ignore].append(FN_p)
-    FP_ps[model, size_ignore].append(FP_p)
-
-# print(TN_ps.keys())
-# print(TP_ps.keys())
-# print(FN_ps.keys())
-# print(FP_ps.keys())
-# exit(0)
-
-
-base_log = [f for f in files if not f.count("ML")]
-ML_log = [f for f in files if f.count("ML")]
-
-test_log = [f for f in base_log if f.count("TEST")]
-test_prefix = [extract_desc(e)[0] for e in test_log]
-ML_test_log = [f for f in ML_log if extract_desc(f)[0] in test_prefix]
-
-# [IgnoreObjSize] -> path
-base: T.Dict[bool, T.List[str]] = {}
-base[True] = [f for f in base_log if f.count("ignore_obj_size")]
-base[False] = [f for f in base_log if not f.count("ignore_obj_size")]
-
-# [IgnoreObjSize] -> path
-base_test: T.Dict[bool, T.List[str]] = {}
-base_test[True] = [f for f in test_log if f.count("ignore_obj_size")]
-base_test[False] = [f for f in test_log if not f.count("ignore_obj_size")]
-
-# [IgnoreObjSize] -> path
-ML_test: T.Dict[bool, T.List[str]] = {}
-ML_test[True] = [f for f in ML_test_log if f.count("ignore_obj_size")]
-ML_test[False] = [f for f in ML_test_log if not f.count("ignore_obj_size")]
 
 included_models = [
     "little_random_forest",
@@ -149,21 +70,84 @@ def ModelSummaries(
     ml: T.List[str],
     output_path: str,
     Title: str,
+    models_metrics: T.List[str],
 ):
+    TN_ps = {}
+    FN_ps = {}
+    TP_ps = {}
+    FP_ps = {}
+
+    for p in models_metrics:
+        f = open(p, "r")
+        content = f.read()
+        kw = "Confusion Matrix"
+        content = content[content.find(kw) + len(kw) :]
+        content = content[: content.find(kw)]
+        content = content.replace(":", "").strip()
+        py_v = re.sub(r"\s+", " ", content.strip())
+        py_v = re.sub(r"(?<=\d) (?=\d)", ", ", py_v)
+        py_v = re.sub(r"\] \[", "], [", py_v)
+
+        if py_v == "":
+            continue
+
+        x = eval(py_v)
+
+        TN = x[0][0]
+        FP = x[0][1]
+        FN = x[1][0]
+        TP = x[1][1]
+
+        TN_p = 0
+        TP_p = 0
+        FN_p = 0
+        FP_p = 0
+
+        if TN != 0:
+            TN_p = TN / (TN + FN) * 100
+        if TP != 0:
+            TP_p = TP / (TP + FP) * 100
+        if FN != 0:
+            FN_p = FN / (TN + FN) * 100
+        if FP != 0:
+            FP_p = FP / (TP + FP) * 100
+
+        model = p.replace(".md", "").replace(".txt", "")
+        model = Path(p).stem
+
+        model, desc = extract_desc(model)
+        size = desc[0]
+        if size != "All":
+            size = "spec"
+        model += "_" + size
+        for d in [TN_ps, TP_ps, FN_ps, FP_ps]:
+            if model not in d:
+                d[model] = []
+
+        TN_ps[model].append(TN_p)
+        TP_ps[model].append(TP_p)
+        FN_ps[model].append(FN_p)
+        FP_ps[model].append(FP_p)
+
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     md = open(output_path, "w")
     md.write(f"# {Title}  \n# Result  \n")
 
     # [trace, cache_size, ignore_obj_size] -> model, miss_ratio
     best_ml_models: T.Dict[tuple[str, float, bool], tuple[str, float]] = {}
+
     # [trace, cache_size, ignore_obj_size] -> miss_ratio
     base_result: T.Dict[tuple[str, float, bool], float] = {}
+
     # [trace, cache_size, ignore_obj_size] -> miss_ratio
     base_promotion: T.Dict[tuple[str, float, bool], int] = {}
+
     # [model] -> bool
     better_than_base: T.Dict[str, T.List[bool]] = {}
+
     # [model] -> float
     promotion_reduced: T.Dict[str, T.List[float]] = {}
+
     # [model] -> float
     miss_ratio_reduced: T.Dict[str, T.List[float]] = {}
 
@@ -190,7 +174,6 @@ def ModelSummaries(
         size_pos = model.rfind("_")
         model = model[:size_pos]
         if model not in included_models:
-            print(model)
             continue
 
         if size != "All":
@@ -296,23 +279,43 @@ def ModelSummaries(
 
     models = list(better_than_base.keys())
     mr = list(miss_ratio_reduced.values())
+    mr = [[x * 100 for x in l] for l in mr]
     pr = list(promotion_reduced.values())
+    pr = [[x * 100 for x in l] for l in pr]
 
     for x, title in zip([mr, pr], ["Miss Ratio", "Promotion"]):
-        plt.figure(figsize=(12, len(models) / 2), constrained_layout=True)
-        plt.boxplot(x, vert=False, patch_artist=True)
-        plt.title(f"{title} Reduced", fontsize=14)
-        plt.xlabel(title, fontsize=14)
-        plt.yticks(range(1, len(models) + 1), models, fontsize=14)
+        data = []
+        for model_name, values in zip(models, x):
+            for val in values:
+                data.append({"Model": model_name, f"{title} Reduced (%)": val})
+
+        df = pd.DataFrame(data)
+
+        fig = px.box(
+            df,
+            x=f"{title} Reduced (%)",
+            y="Model",
+            title=f"{title} Reduced (%)",
+            color="Model",
+        )
+        fig.update_xaxes(dtick=10)
+        fig.update_layout(
+            xaxis_title=title,
+            yaxis_title=None,
+            font=dict(size=14),
+            height=30 * len(models),
+            width=800,
+            showlegend=False,
+        )
+        fig.update_xaxes(showgrid=True)
+        fig.update_yaxes(showgrid=True)
+
         md.write(f"## {title} Reduced (%) \n")
         md.write(
             f"$\\dfrac{{Base {title} - Model {title}}}{{Base {title}}} \\times 100$  \n\n"
         )
-
-        title += "_" + Title
-        title = title.replace(" ", "_")
-        plt.savefig(f"../result/graph/{title}.png", bbox_inches="tight")
-        md.write(f"![graph](./graph/{title}.png)  \n")
+        svg = fig.to_image(format="svg").decode("utf-8")
+        md.write(f"{svg}  \n")
 
     models = list(TN_ps.keys())
     TN_ps_v = list(TN_ps.values())
@@ -322,96 +325,209 @@ def ModelSummaries(
 
     for x, title in zip(
         [TN_ps_v, TP_ps_v, FN_ps_v, FP_ps_v],
-        ["True Negatives", "True Postives", "False Negatives", "False Postives"],
+        [
+            "True Negatives (%)",
+            "True Positives (%)",
+            "False Negatives (%)",
+            "False Positives (%)",
+        ],
     ):
-        plt.figure(figsize=(12, len(models) / 4), constrained_layout=True)
-        plt.boxplot(x, vert=False, patch_artist=True)
-        plt.title(f"{title}", fontsize=14)
-        plt.xlabel(title, fontsize=14)
-        plt.yticks(range(1, len(models) + 1), models, fontsize=14)
-        plt.xticks(range(0, 101, 10))
-        plt.xlim(0, 100)
-        plt.grid(True)
-        md.write(f"## {title}(%) \n")
-        title += "_" + Title
-        title = title.replace(" ", "_")
-        plt.savefig(f"../result/graph/{title}.png", bbox_inches="tight")
-        md.write(f"![graph](./graph/{title}.png)  \n")
+        data = []
+        for model_name, values in zip(models, x):
+            for val in values:
+                data.append({"Model": model_name, title: val})
+
+        df = pd.DataFrame(data)
+
+        fig = px.box(
+            df,
+            x=title,
+            y="Model",
+            title=title,
+            color="Model",
+        )
+        fig.update_xaxes(dtick=10)
+        fig.update_layout(
+            xaxis_title=title,
+            yaxis_title=None,
+            font=dict(size=14),
+            height=30 * len(models),  # similar to figsize in matplotlib
+            width=800,
+            showlegend=False,
+        )
+        fig.update_xaxes(showgrid=True)
+        fig.update_yaxes(showgrid=True)
+
+        md.write(f"## {title} \n")
+        svg = fig.to_image(format="svg").decode("utf-8")
+        md.write(f"{svg}  \n")
 
     md.write("# Individual Workload Result  \n")
 
-    current_prefix = ""
-    current_base_file = ""
-
-    for file in base:
-        if Path(file).stat().st_size == 0:
+    models_result = []
+    for f in ml:
+        if Path(f).stat().st_size == 0:
             continue
-
-        prefix, desc = extract_desc(file)
-        if desc.count("ML"):
-            continue
-        if not desc.count("TEST"):
-            continue
-
-        df = pd.read_csv(file)
-        if df.empty:
-            continue
-
-        logs = [OutputLog(**row) for row in df.to_dict(orient="records")]
-        trace_path = logs[0].trace_path
-        cache_size = logs[0].cache_size
-        promotion_reduced = logs[0].n_promoted - logs[-1].n_promoted
-        n_req = logs[0].n_req
-
-        current_base_file = file[file.rfind("/") + 1 :]
-        current_base_file = Path(current_base_file).with_suffix(".png")
-
-        key = prefix, float(desc[0]), logs[0].ignore_obj_size
-        best_model = best_ml_models[key]
-        better_than_base = best_model[1] < logs[0].miss_ratio
-
-        if current_prefix != prefix:
-            md.write(f"## {prefix[prefix.rfind('/') + 1 :]}  \n")
-            url = ""
-            for u in urls:
-                if u.find(prefix[prefix.rfind("/") + 1 :] + ".oracleGeneral") != -1:
-                    url = u
-                    break
-            md.write(f" {url}\n")
-        md.write(f"> ![graph](./graph/{current_base_file})  \n")
-        md.write(f"> **Trace Path**: {trace_path}  \n")
-        # md.write(f"> **Log Path**: [{file}]({file})  \n")
-        md.write(f"> **Desc**: {desc}  \n")
-        md.write(f"> **Cache Size**: {cache_size}  \n")
-        # md.write(f"> **Ignore Obj Size**: {logs[0].ignore_obj_size}  \n")
-        md.write(f"> **Total Request**: {n_req:,}  \n")
-        md.write(f"> **Best Model**: {best_model[0]} => {best_model[1]}  \n")
-        md.write(
-            f"> **Better Than Base**: {'True' if better_than_base else 'False'}  \n"
+        prefix, desc = extract_desc(f)
+        model = desc[-1]["model"]
+        size = model.split("_")[-1]
+        size = "spec" if size != "All" else size
+        model = model[: model.rfind("_") + 1] + size
+        df = pd.read_csv(f)
+        log = [OutputLog(**row) for row in df.to_dict(orient="records")][0]
+        models_result.append(
+            {
+                "model": model,
+                "trace": log.trace_path[: log.trace_path.rfind(".oracleGeneral")],
+                "promotion": log.n_promoted,
+                "miss_ratio": log.miss_ratio,
+                "cache_size": desc[0],
+                "ignore_obj_size": desc.count("ignore_obj_size"),
+            }
         )
-        # md.write(f"> **First Promotion**: {logs[0].n_promoted:,}  \n")
-        # md.write(f"> **Last Promotion**: {logs[-1].n_promoted:,}  \n")
-        # md.write(f"> **Promotion Reduced**: {promotion_reduced:,}  \n\n")
+    models_result = pd.DataFrame(models_result)
+    traces = models_result["trace"].unique()
+    cache_sizes = models_result["cache_size"].unique()
+    for trace in traces:
+        md.write(f"## {trace}  \n")
+        for ignore_obj_size in range(2):
+            if ignore_obj_size:
+                md.write("## Object Size Ignored  \n")
+            for cache_size in cache_sizes:
+                base_result = next(
+                    (
+                        x
+                        for x in base
+                        if Path(extract_desc(x)[0]).name == trace
+                        and extract_desc(x)[1].count("ignore_obj_size")
+                        == ignore_obj_size
+                        and extract_desc(x)[1][0] == cache_size
+                    ),
+                    None,
+                )
+                if base_result is None:
+                    continue
+                trace_model_result = models_result.query(
+                    "trace == @trace and ignore_obj_size == @ignore_obj_size and cache_size == @cache_size"
+                )
+                if Path(base_result).stat().st_size == 0:
+                    continue
+                prefix, desc = extract_desc(base_result)
+                df = pd.read_csv(base_result)
+                if df.empty:
+                    continue
+                logs = [OutputLog(**row) for row in df.to_dict(orient="records")]
+                base_result = pd.DataFrame(
+                    [
+                        {
+                            "model": f"Offline Clock {ordinal(i + 1)} iteration",
+                            "promotion": v.n_promoted,
+                            "miss_ratio": v.miss_ratio,
+                        }
+                        for i, v in enumerate(logs)
+                    ]
+                )
+                trace_result = pd.concat(
+                    [
+                        base_result,
+                        trace_model_result[["model", "promotion", "miss_ratio"]],
+                    ],
+                    ignore_index=True,
+                )
+                fig = px.scatter(
+                    trace_result,
+                    x="promotion",
+                    y="miss_ratio",
+                    color="model",
+                    title=f"trace {trace} with relative cache size={cache_size}",
+                )
+                fig.update_layout(
+                    xaxis_title="Promotion",
+                    yaxis_title="Miss Ratio",
+                    font=dict(size=14),
+                    width=800,
+                    showlegend=True,
+                )
+                fig.update_xaxes(showgrid=True)
+                fig.update_yaxes(showgrid=True)
+                svg = fig.to_image(format="svg").decode("utf-8")
+                md.write(f"### {cache_size}  \n")
+                md.write(svg + "  \n")
 
-        if current_prefix != prefix:
-            current_prefix = prefix
 
+# Files Variables
+
+files = sorted(glob.glob(os.path.join(result_dir, "*.csv")), key=sort_key)
+models_metric_files = glob.glob("ML/model/*.md") + glob.glob("ML/model/*.txt")
+models_metric_files = sorted(models_metric_files, key=sort_key)
+
+model_metrics: T.Dict[bool, T.List[str]] = {}
+model_metrics[True] = [f for f in models_metric_files if f.count("ignore_obj_size")]
+model_metrics[False] = [
+    f for f in models_metric_files if not f.count("ignore_obj_size")
+]
+
+base_log = [f for f in files if not f.count("ML")]
+ML_log = [f for f in files if f.count("ML")]
+
+test_log = [f for f in base_log if f.count("TEST")]
+test_prefix = [extract_desc(e)[0] for e in test_log]
+ML_test_log = [f for f in ML_log if extract_desc(f)[0] in test_prefix]
+
+# [IgnoreObjSize] -> path
+base: T.Dict[bool, T.List[str]] = {}
+base[True] = [f for f in base_log if f.count("ignore_obj_size")]
+base[False] = [f for f in base_log if not f.count("ignore_obj_size")]
+
+# [IgnoreObjSize] -> path
+base_test: T.Dict[bool, T.List[str]] = {}
+base_test[True] = [f for f in test_log if f.count("ignore_obj_size")]
+base_test[False] = [f for f in test_log if not f.count("ignore_obj_size")]
+
+# [IgnoreObjSize] -> path
+ML_test: T.Dict[bool, T.List[str]] = {}
+ML_test[True] = [f for f in ML_test_log if f.count("ignore_obj_size")]
+ML_test[False] = [f for f in ML_test_log if not f.count("ignore_obj_size")]
 
 ModelSummaries(
     base_test[0],
     ML_test[0],
     "../result/test_obj_size_not_ignored.md",
     "Test Data Result Obj Size Not Ignored",
+    model_metrics[0],
 )
 ModelSummaries(
     base_test[1],
     ML_test[1],
     "../result/test_obj_size_ignored.md",
     "Test Data Result Obj Size Ignored",
+    model_metrics[1],
 )
 ModelSummaries(
     base_test[0] + base_test[1],
     ML_test[0] + ML_test[1],
     "../result/test.md",
     "Test Data Result Combined",
+    model_metrics[0] + model_metrics[1],
+)
+ModelSummaries(
+    base_test[0],
+    ML_test[0],
+    "../result/test_obj_size_not_ignored.html",
+    "Test Data Result Obj Size Not Ignored",
+    model_metrics[0],
+)
+ModelSummaries(
+    base_test[1],
+    ML_test[1],
+    "../result/test_obj_size_ignored.html",
+    "Test Data Result Obj Size Ignored",
+    model_metrics[1],
+)
+ModelSummaries(
+    base_test[0] + base_test[1],
+    ML_test[0] + ML_test[1],
+    "../result/test.html",
+    "Test Data Result Combined",
+    model_metrics[0] + model_metrics[1],
 )
