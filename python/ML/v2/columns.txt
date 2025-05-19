@@ -1,5 +1,0 @@
-INPUT
-prev_promotion, prev_is_wasted, last_promotion, clock_time, clock_time_between, obj_size
-
-OUTPUT
-wasted
