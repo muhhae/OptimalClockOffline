@@ -8,6 +8,7 @@ import re
 from pathlib import Path
 from common import extract_desc, OutputLog, ordinal
 import tabulate as tb
+import markdown as MD
 
 
 import pandas as pd
@@ -63,6 +64,171 @@ included_models = [
     "LR_v7",
     "LR_v8",
 ]
+
+g_html_content = ""
+
+
+def Write(md: T.TextIO, html: T.TextIO, content: str):
+    global g_html_content
+    md.write(content)
+    g_html_content += content
+
+
+def WriteFig(md: T.TextIO, html: T.TextIO, fig):
+    global g_html_content
+    md.write(fig.to_image(format="svg").decode("utf-8") + "  \n")
+    g_html_content += fig.to_html(full_html=False, include_plotlyjs=False) + "  \n"
+
+
+def WriteHTML(html: T.TextIO):
+    md = MD.Markdown(
+        extensions=["extra", "toc", "pymdownx.arithmatex"],
+        extension_configs={"pymdownx.arithmatex": {"generic": True}},
+    )
+    html_body = md.convert(g_html_content)
+    toc = md.toc
+    html.write(f"""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src='https://cdn.plot.ly/plotly-3.0.1.min.js' charset='utf-8'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/core.min.js" integrity="sha512-Vj8DsxZwse5LgmhPlIXhSr/+mwl8OajbZVCr4mX/TcDjwU1ijG6A15cnyRXqZd2mUOQqRk4YbQdc7XhvedWqMg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.8.1/github-markdown.min.css" integrity="sha512-BrOPA520KmDMqieeM7XFe6a3u3Sb3F1JBaQnrIAmWg3EYrciJ+Qqe6ZcKCdfPv26rGcgTrJnZ/IdQEct8h3Zhw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+    :root {{
+        /* Light mode defaults */
+        --bg-color: #fff;
+        --sidebar-bg: #f6f8fa;
+        --text-color: #222;
+        --sidebar-link: #444;
+        --sidebar-link-hover: #111;
+        --sidebar-heading: #333;
+        --sidebar-marker: #444;
+    }}
+    @media (prefers-color-scheme: dark) {{
+        :root {{
+            --bg-color: #111;
+            --sidebar-bg: #111;
+            --text-color: #eee;
+            --sidebar-link: #818181;
+            --sidebar-link-hover: #f1f1f1;
+            --sidebar-heading: #818181;
+            --sidebar-marker: #818181;
+        }}
+    }}
+    body {{
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        display: flex;
+        margin: 0;
+    }}
+    .sidenav {{
+        height: 100%;
+        width: 280px;
+        min-width: 200px;
+        max-width: 300px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: var(--sidebar-bg);
+        overflow-x: hidden;
+        padding: 2em 1em 2em 2em;
+    }}
+    .sidenav.closed {{
+        transform: translateX(-100%);
+    }}
+    .sidenav a {{
+        padding: 1px 1px 1px 1px;
+        font-size: 16px;
+        color: var(--sidebar-link);
+        display: block;
+        text-decoration: none;
+        transition: color 0.2s;
+    }}
+    .sidenav h2 {{
+        padding: 1px 1px 1px 1px;
+        font-size: 20px;
+        color: var(--sidebar-heading);
+        display: block;
+    }}
+    .sidenav li::marker {{
+        color: var(--sidebar-marker);
+        display: block;
+    }}
+    .sidenav a:hover {{
+        color: var(--sidebar-link-hover);
+    }}
+    .sidebar-toggle-btn {{
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 1002;
+      background: var(--sidebar-bg);
+      color: var(--sidebar-link);
+      border: 1px solid var(--sidebar-link);
+      border-radius: 4px;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background 0.2s, color 0.2s;
+    }}
+    .sidebar-toggle-btn:hover {{
+      background: var(--sidebar-link-hover);
+      color: var(--bg-color);
+    }}
+    .sidenav.closed ~ .content {{
+      margin-left: 0;
+    }}
+    .content {{
+        margin-left: 300px;
+        padding: 2em;
+        width: 100%;
+    }}
+    .markdown-body {{box - sizing: border-box;
+        min-width: 200px;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 45px;
+    }}
+    @media (max-width: 767px) {{
+        .markdown-body {{
+            padding: 15px;
+        }}
+    }}
+</style>
+</head>
+<body>
+<button class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Toggle sidebar">&#9776;</button>
+<nav class="sidenav" id="sidebar">
+    <h2>Table of Contents</h2>
+    {toc}
+</nav>
+<main class="content">
+<article class="markdown-body">
+    {html_body}
+</article>
+</main>
+<script>
+    const sidebar = document.getElementById('sidebar');
+    const btn = document.getElementById('sidebarToggleBtn');
+    btn.addEventListener('click', function(){{
+      sidebar.classList.toggle('closed');
+      if (sidebar.classList.contains('closed')) {{
+        btn.setAttribute('aria-label', 'Open sidebar');
+      }} else {{
+        btn.setAttribute('aria-label', 'Close sidebar');
+      }}
+    }});
+    if(window.innerWidth <= 700){{
+      sidebar.classList.add('closed');
+    }}
+</script>
+</body>
+</html>
+""")
 
 
 def ModelSummaries(
@@ -131,7 +297,8 @@ def ModelSummaries(
 
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     md = open(output_path, "w")
-    md.write(f"# {Title}  \n# Result  \n")
+    html = open(Path(output_path).with_suffix(".html"), "w")
+    Write(md, html, f"# {Title}  \n# Result  \n")
 
     # [trace, cache_size, ignore_obj_size] -> model, miss_ratio
     best_ml_models: T.Dict[tuple[str, float, bool], tuple[str, float]] = {}
@@ -221,7 +388,7 @@ def ModelSummaries(
                 model_best_count[e] = 0
             model_best_count[e] += 1
 
-    md.write("# Model Summaries  \n")
+    Write(md, html, "# Model Summaries  \n")
     bt_data = {
         "Model": [],
         "Best Models on Exp.": [],
@@ -264,18 +431,22 @@ def ModelSummaries(
         p_data["Avg"].append(np.mean(p) * 100)
         p_data["Mdn"].append(np.median(p) * 100)
 
-    md.write(tb.tabulate(bt_data, headers="keys", tablefmt="github") + "  \n\n")
-    md.write("## Promotion Reduced (%)  \n")
-    md.write(
-        "$\\dfrac{Base Promotion - Model Promotion}{Base Promotion} \\times 100$  \n"
+    Write(md, html, tb.tabulate(bt_data, headers="keys", tablefmt="github") + "  \n\n")
+    Write(md, html, "## Promotion Reduced (%)  \n")
+    Write(
+        md,
+        html,
+        "$\\dfrac{Base Promotion - Model Promotion}{Base Promotion} \\times 100$  \n\n",
     )
-    md.write(tb.tabulate(p_data, headers="keys", tablefmt="github") + "  \n\n")
-    md.write("## Miss Ratio Reduced (%)  \n")
-    md.write(
-        "$\\dfrac{Base Miss Ratio - Model Miss Ratio}{Base Miss Ratio} \\times 100$  \n"
+    Write(md, html, tb.tabulate(p_data, headers="keys", tablefmt="github") + "  \n\n")
+    Write(md, html, "## Miss Ratio Reduced (%)  \n")
+    Write(
+        md,
+        html,
+        "$\\dfrac{Base Miss Ratio - Model Miss Ratio}{Base Miss Ratio} \\times 100$  \n\n",
     )
-    md.write(tb.tabulate(mr_data, headers="keys", tablefmt="github") + "  \n\n")
-    md.write("# Model Summaries Plot  \n")
+    Write(md, html, tb.tabulate(mr_data, headers="keys", tablefmt="github") + "  \n\n")
+    Write(md, html, "# Model Summaries Plot  \n")
 
     models = list(better_than_base.keys())
     mr = list(miss_ratio_reduced.values())
@@ -310,12 +481,13 @@ def ModelSummaries(
         fig.update_xaxes(showgrid=True)
         fig.update_yaxes(showgrid=True)
 
-        md.write(f"## {title} Reduced (%) \n")
-        md.write(
-            f"$\\dfrac{{Base {title} - Model {title}}}{{Base {title}}} \\times 100$  \n\n"
+        Write(md, html, f"## {title} Reduced (%) \n")
+        Write(
+            md,
+            html,
+            f"$\\dfrac{{Base {title} - Model {title}}}{{Base {title}}} \\times 100$  \n\n",
         )
-        svg = fig.to_image(format="svg").decode("utf-8")
-        md.write(f"{svg}  \n")
+        WriteFig(md, html, fig)
 
     models = list(TN_ps.keys())
     TN_ps_v = list(TN_ps.values())
@@ -358,11 +530,10 @@ def ModelSummaries(
         fig.update_xaxes(showgrid=True)
         fig.update_yaxes(showgrid=True)
 
-        md.write(f"## {title} \n")
-        svg = fig.to_image(format="svg").decode("utf-8")
-        md.write(f"{svg}  \n")
+        Write(md, html, f"## {title} \n")
+        WriteFig(md, html, fig)
 
-    md.write("# Individual Workload Result  \n")
+    Write(md, html, "# Individual Workload Result  \n")
 
     models_result = []
     for f in ml:
@@ -389,12 +560,17 @@ def ModelSummaries(
     traces = models_result["trace"].unique()
     cache_sizes = models_result["cache_size"].unique()
     for trace in traces:
-        md.write(f"## {trace}  \n")
+        Write(md, html, f"## {trace}  \n")
+        Write(
+            md,
+            html,
+            f"{next((x for x in urls if x[x.rfind('/') + 1 : x.rfind('.oracleGeneral')] == trace), '')}  \n",
+        )
         for ignore_obj_size in range(2):
             if ignore_obj_size:
-                md.write("## Object Size Ignored  \n")
+                Write(md, html, "## Object Size Ignored  \n")
             for cache_size in cache_sizes:
-                base_result = next(
+                base_path = next(
                     (
                         x
                         for x in base
@@ -405,15 +581,15 @@ def ModelSummaries(
                     ),
                     None,
                 )
-                if base_result is None:
+                if base_path is None:
                     continue
                 trace_model_result = models_result.query(
                     "trace == @trace and ignore_obj_size == @ignore_obj_size and cache_size == @cache_size"
                 )
-                if Path(base_result).stat().st_size == 0:
+                if Path(base_path).stat().st_size == 0:
                     continue
-                prefix, desc = extract_desc(base_result)
-                df = pd.read_csv(base_result)
+                prefix, desc = extract_desc(base_path)
+                df = pd.read_csv(base_path)
                 if df.empty:
                     continue
                 logs = [OutputLog(**row) for row in df.to_dict(orient="records")]
@@ -450,9 +626,18 @@ def ModelSummaries(
                 )
                 fig.update_xaxes(showgrid=True)
                 fig.update_yaxes(showgrid=True)
-                svg = fig.to_image(format="svg").decode("utf-8")
-                md.write(f"### {cache_size}  \n")
-                md.write(svg + "  \n")
+                Write(md, html, f"### {cache_size}  \n")
+                WriteFig(md, html, fig)
+                best = best_ml_models[prefix, float(cache_size), ignore_obj_size]
+                best_model = best[0]
+                best_mr = best[1]
+                Write(
+                    md,
+                    html,
+                    f"**Best Models**: {best_model}  \n**Miss Ratio**: {best_mr}  \n",
+                )
+
+    WriteHTML(html)
 
 
 # Files Variables
@@ -507,27 +692,6 @@ ModelSummaries(
     base_test[0] + base_test[1],
     ML_test[0] + ML_test[1],
     "../result/test.md",
-    "Test Data Result Combined",
-    model_metrics[0] + model_metrics[1],
-)
-ModelSummaries(
-    base_test[0],
-    ML_test[0],
-    "../result/test_obj_size_not_ignored.html",
-    "Test Data Result Obj Size Not Ignored",
-    model_metrics[0],
-)
-ModelSummaries(
-    base_test[1],
-    ML_test[1],
-    "../result/test_obj_size_ignored.html",
-    "Test Data Result Obj Size Ignored",
-    model_metrics[1],
-)
-ModelSummaries(
-    base_test[0] + base_test[1],
-    ML_test[0] + ML_test[1],
-    "../result/test.html",
     "Test Data Result Combined",
     model_metrics[0] + model_metrics[1],
 )
