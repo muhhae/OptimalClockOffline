@@ -17,53 +17,6 @@ import var
 DataType = Union[Int64TensorType]
 
 
-def DescribeData():
-    if var.X_train is None or var.y_train is None:
-        raise Exception("Datasets has not been setup, exec SetupData")
-    print("#### Datasets")
-    print("\n🧾 Basic Info:")
-
-    data = pd.concat([var.X_train, var.y_train], axis=1)
-    print("-" * 60)
-    print(data.info())
-
-    print("\n📌 Missing Values:")
-    print("-" * 60)
-    print(data.isnull().sum())
-
-    print("\n🆔 Unique Values per Column:")
-    print("-" * 60)
-    print(data.nunique())
-
-    print("\n📊 Column-wise Summary Statistics:")
-    print("-" * 60)
-    for col in data.columns:
-        print(f"\n🔹 Column: {col}")
-        print("-" * 40)
-        print(f"Type: {data[col].dtype}")
-        print(f"Missing: {data[col].isnull().sum()}")
-        print(f"Unique: {data[col].nunique()}")
-        if pd.api.types.is_numeric_dtype(data[col]):
-            print(data[col].describe())
-        else:
-            print(data[col].value_counts().head(10))  # show top 10 values
-
-    if "wasted" in data.columns:
-        for val in [0, 1]:
-            subset = data[data["wasted"] == val]
-            print(f"\n{'✅' if val == 1 else '🚫'} Subset: wasted == {val}")
-            print("-" * 60)
-            for col in subset.columns:
-                print(f"\n🔹 Column: {col}")
-                print("-" * 40)
-                if pd.api.types.is_numeric_dtype(subset[col]):
-                    print(subset[col].describe())
-                else:
-                    print(subset[col].value_counts().head(10))
-    else:
-        print("\n⚠️ Column 'wasted' not found in CSV.")
-
-
 def AddDatasets(*paths: str):
     var.datasets += paths
 
@@ -92,6 +45,12 @@ def Train():
     if var.model is None:
         raise Exception("Model has not been set up")
     var.model.fit(var.X_train, var.y_train)
+
+
+def TrainPartial():
+    if var.model is None:
+        raise Exception("Model has not been set up")
+    var.model.partial_fit(var.X_train, var.y_train, classes=np.array([0, 1]))
 
 
 def LoadONNX(path: str):
@@ -173,3 +132,50 @@ def PlotShow():
     plt.xlabel("Predicted")
     plt.ylabel("True")
     plt.show()
+
+
+def DescribeData():
+    if var.X_train is None or var.y_train is None:
+        raise Exception("Datasets has not been setup, exec SetupData")
+    print("#### Datasets")
+    print("\n🧾 Basic Info:")
+
+    data = pd.concat([var.X_train, var.y_train], axis=1)
+    print("-" * 60)
+    print(data.info())
+
+    print("\n📌 Missing Values:")
+    print("-" * 60)
+    print(data.isnull().sum())
+
+    print("\n🆔 Unique Values per Column:")
+    print("-" * 60)
+    print(data.nunique())
+
+    print("\n📊 Column-wise Summary Statistics:")
+    print("-" * 60)
+    for col in data.columns:
+        print(f"\n🔹 Column: {col}")
+        print("-" * 40)
+        print(f"Type: {data[col].dtype}")
+        print(f"Missing: {data[col].isnull().sum()}")
+        print(f"Unique: {data[col].nunique()}")
+        if pd.api.types.is_numeric_dtype(data[col]):
+            print(data[col].describe())
+        else:
+            print(data[col].value_counts().head(10))  # show top 10 values
+
+    if "wasted" in data.columns:
+        for val in [0, 1]:
+            subset = data[data["wasted"] == val]
+            print(f"\n{'✅' if val == 1 else '🚫'} Subset: wasted == {val}")
+            print("-" * 60)
+            for col in subset.columns:
+                print(f"\n🔹 Column: {col}")
+                print("-" * 40)
+                if pd.api.types.is_numeric_dtype(subset[col]):
+                    print(subset[col].describe())
+                else:
+                    print(subset[col].value_counts().head(10))
+    else:
+        print("\n⚠️ Column 'wasted' not found in CSV.")
