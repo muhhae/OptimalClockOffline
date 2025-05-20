@@ -22,12 +22,15 @@ def AddDatasets(*paths: str):
 
 
 def ResetDatasets():
-    var.datasets = ""
+    var.datasets = []
 
 
-def LoadDatasets(*paths: str):
+def LoadDatasets():
     var.df = pd.concat(
-        [pd.read_csv(p, skipinitialspace=True, usecols=var.inputs) for p in paths],
+        [
+            pd.read_csv(p, skipinitialspace=True, usecols=var.inputs)
+            for p in var.datasets
+        ],
         ignore_index=True,
     )
 
