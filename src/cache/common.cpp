@@ -106,6 +106,9 @@ void common::TrackRunningMean(const float X, RunningMeanData& d) {
 float common::RunningMeanNormalize(const float X, RunningMeanData& d) {
 	float variance = d.m2 / (d.n - 1);
 	float std = sqrt(variance);
+	if (std == 0 || std::isnan(std)) {
+		return 0;
+	}
 	float norm = (X - d.mean) / std;
 	return norm;
 }
