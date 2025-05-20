@@ -15,5 +15,5 @@ X_test: pd.DataFrame = None
 y_test: pd.DataFrame = None
 
 dummy_input = None
-cols: List[str] = None
+inputs: List[str] = None
 input_dtype: np.dtype = None

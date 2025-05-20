@@ -9,21 +9,22 @@ def SetupModel(max_iter: int = 1000):
     var.model = LogisticRegression(
         max_iter=max_iter, class_weight="balanced", n_jobs=-1
     )
-    var.cols = [
+    var.inputs = [
         "rtime_since",
         "clock_freq",
-        "wasted",
     ]
     var.input_dtype = np.float32
-
-
-def SetupData():
-    c.SetupData()
 
 
 Train = c.Train
 
 # Hardly Need Modification
+AddDatasets = c.AddDatasets
+ResetDatasets = c.ResetDatasets
+LoadDatasets = c.LoadDatasets
+SetTestData = c.SetTestData
+SetTrainData = c.SetTrainData
+SplitData = c.SplitData
 Test = c.Test
 AddDatasets = c.AddDatasets
 DescribeData = c.DescribeData

@@ -21,11 +21,35 @@ def AddDatasets(*paths: str):
     var.datasets += paths
 
 
+def ResetDatasets():
+    var.datasets = ""
+
+
 def LoadDatasets(*paths: str):
     var.df = pd.concat(
-        [pd.read_csv(p, skipinitialspace=True, usecols=var.cols) for p in paths],
+        [pd.read_csv(p, skipinitialspace=True, usecols=var.inputs) for p in paths],
         ignore_index=True,
     )
+
+
+def SetTestData():
+    if var.input_dtype is not None:
+        var.X_test = np.array(
+            var.df.drop("wasted", axis=1, errors="ignore"), dtype=var.input_dtype
+        )
+    else:
+        var.X_test = np.array(var.df.drop("wasted", axis=1, errors="ignore"))
+    var.y_test = np.array(var.df.wasted, dtype=np.int64)
+
+
+def SetTrainData():
+    if var.input_dtype is not None:
+        var.X_train = np.array(
+            var.df.drop("wasted", axis=1, errors="ignore"), dtype=var.input_dtype
+        )
+    else:
+        var.X_train = np.array(var.df.drop("wasted", axis=1, errors="ignore"))
+    var.y_train = np.array(var.df.wasted, dtype=np.int64)
 
 
 def SplitData():
@@ -44,12 +68,18 @@ def SplitData():
 def Train():
     if var.model is None:
         raise Exception("Model has not been set up")
+    if var.model.fit is None:
+        raise Exception("Model doesn't have fit method, need custom fit")
     var.model.fit(var.X_train, var.y_train)
 
 
 def TrainPartial():
     if var.model is None:
         raise Exception("Model has not been set up")
+    if var.model.partial_fit is None:
+        raise Exception(
+            "Model doesn't have partial_fit method, need custom partial_fit"
+        )
     var.model.partial_fit(var.X_train, var.y_train, classes=np.array([0, 1]))
 
 
@@ -73,7 +103,7 @@ def ExportONNX(
     if var.model is None:
         raise Exception("Model has not been set up, exec SetupModel and Train")
     if var.X_train is None:
-        raise Exception("Datasets has not been set up")
+        raise Exception("X_train has not been set up")
     onx = to_onnx(var.model, var.X_train)
     file = open(path, "wb")
     file.write(onx.SerializeToString())
@@ -82,9 +112,11 @@ def ExportONNX(
 
 def Test():
     if var.X_test is None:
-        raise Exception("Datasets has not been set up, exec SetupData")
+        raise Exception("X_test has not been set up")
+    if var.y_test is None:
+        raise Exception("y_test has not been set up")
     if var.model is None:
-        raise Exception("Model has not been set up, exec SetupModel and Train")
+        raise Exception("Model has not been set up")
     print("#### Model")
     predictions = var.model.predict(var.X_test)
     print(predictions)
