@@ -52,7 +52,7 @@ def SetTrainData():
         )
     else:
         var.X_train = np.array(var.df.drop("wasted", axis=1, errors="ignore"))
-    var.y_train = np.array(var.df.wasted, dtype=np.int64)
+    var.y_train = np.array(var.df["wasted"], dtype=np.int64)
 
 
 def SplitData():
@@ -62,7 +62,7 @@ def SplitData():
         X = np.array(df.drop("wasted", axis=1, errors="ignore"), dtype=var.input_dtype)
     else:
         X = np.array(df.drop("wasted", axis=1, errors="ignore"))
-    y = np.array(df.wasted, dtype=np.int64)
+    y = np.array(var.df["wasted"], dtype=np.int64)
     var.X_train, var.X_test, var.y_train, var.y_test = train_test_split(
         X, y, test_size=0.2, random_state=9, stratify=y
     )
