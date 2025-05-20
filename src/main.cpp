@@ -29,7 +29,9 @@ int main(int argc, char** argv) {
 	app.add_option("-i,--max-iteration", o.max_iteration, "Offline clock max iteration")
 		->default_val(10);
 	app.add_option(
-		"-d,--description", o.desc, "Additional description for experiment, would shows on filename"
+		"-d,--descriptions",
+		o.descs,
+		"Additional description for experiment, would shows on filename, can be more than one"
 	);
 	app.add_option("trace_paths", o.trace_paths, "Can be more than one")->required();
 	app.add_option("-a,--algo", o.algorithm, "available [default, ML, my, base]")
@@ -47,13 +49,24 @@ int main(int argc, char** argv) {
 		   "Features to use for Model Inference (The Sequence should "
 		   "exactly the same as model input or data it trained with)"
 	)
-		->default_val(std::vector<std::string>{
-			"clock_time_between", "clock_freq", "lifetime_freq", "obj_size_relative"
-		});
+		->default_val(
+			std::vector<std::string>{
+				"rtime_between", "clock_freq", "lifetime_freq", "obj_size_relative"
+			}
+		);
 	app.add_option("-T, --trace-type", o.trace_type, "Traces Type [oracleGeneral, csv]")
 		->default_val("oracleGeneral");
 
 	CLI11_PARSE(app, argc, argv);
+
+	bool first = true;
+	for (size_t i = 0; i < o.descs.size(); i++) {
+		if (o.descs[i] == "")
+			continue;
+		o.desc += (first ? "" : ",") + o.descs[i];
+		first = false;
+	}
+
 	RunExperiment(o);
 	return 0;
 }

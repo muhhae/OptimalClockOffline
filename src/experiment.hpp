@@ -15,14 +15,15 @@ struct options {
 	std::vector<std::string> features_name;
 	std::vector<uint64_t> fixed_cache_sizes;
 	std::vector<float> relative_cache_sizes;
+	std::vector<std::string> descs;
 
 	bool ignore_obj_size = false;
 	bool generate_datasets = false;
 	uint64_t max_iteration;
 	std::filesystem::path output_directory;
-	std::string desc;
 	std::string ml_model;
 	std::string input_type;
+	std::string desc;
 };
 
 void Simulate(
