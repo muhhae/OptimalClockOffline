@@ -29,10 +29,9 @@ pio.templates.default = "plotly_dark"
 
 
 result_dir = "../result/log"
-output_dir = "../result/graph"
 
 urls = []
-with open("../reasonable_traces.txt") as f:
+with open("../trace/reasonable_traces.txt") as f:
     urls = [line.strip() for line in f if line.strip()]
 
 
@@ -206,11 +205,6 @@ def WriteHTML(html: T.TextIO):
     <h2>Table of Contents</h2>
     {toc}
 </nav>
-<main class="content">
-<article class="markdown-body">
-    {html_body}
-</article>
-</main>
 <script>
     const sidebar = document.getElementById('sidebar');
     const btn = document.getElementById('sidebarToggleBtn');
@@ -226,6 +220,11 @@ def WriteHTML(html: T.TextIO):
       sidebar.classList.add('closed');
     }}
 </script>
+<main class="content">
+<article class="markdown-body">
+    {html_body}
+</article>
+</main>
 </body>
 </html>
 """)
@@ -235,6 +234,7 @@ def ModelSummaries(
     base: T.List[str],
     ml: T.List[str],
     output_path: str,
+    html_path: str,
     Title: str,
     models_metrics: T.List[str],
 ):
@@ -297,7 +297,7 @@ def ModelSummaries(
 
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     md = open(output_path, "w")
-    html = open(Path(output_path).with_suffix(".html"), "w")
+    html = open(Path(html_path), "w")
     Write(md, html, f"# {Title}  \n# Result  \n")
 
     # [trace, cache_size, ignore_obj_size] -> model, miss_ratio
@@ -678,6 +678,7 @@ ModelSummaries(
     base_test[0],
     ML_test[0],
     "../result/test_obj_size_not_ignored.md",
+    "../docs/test_obj_size_not_ignored.html",
     "Test Data Result Obj Size Not Ignored",
     model_metrics[0],
 )
@@ -685,6 +686,7 @@ ModelSummaries(
     base_test[1],
     ML_test[1],
     "../result/test_obj_size_ignored.md",
+    "../docs/test_obj_size_ignored.html",
     "Test Data Result Obj Size Ignored",
     model_metrics[1],
 )
@@ -692,6 +694,7 @@ ModelSummaries(
     base_test[0] + base_test[1],
     ML_test[0] + ML_test[1],
     "../result/test.md",
+    "../docs/test.html",
     "Test Data Result Combined",
     model_metrics[0] + model_metrics[1],
 )
