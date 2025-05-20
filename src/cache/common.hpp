@@ -62,6 +62,12 @@ struct obj_metadata {
 	bool compulsory_miss = 0;
 };
 
+struct RunningMeanData {
+	float mean = 0;
+	float m2 = 0;
+	uint64_t n = 0;
+};
+
 class Custom_clock_params : public Clock_params_t {
    public:
 	Custom_clock_params() = default;
@@ -85,13 +91,17 @@ class Custom_clock_params : public Clock_params_t {
 	uint64_t max_vtime_since = 1;
 	uint64_t max_rtime_since = 1;
 
-	float mean_clock_freq = 0;
-	float m2_clock_freq = 0;
-	uint64_t n_clock_freq = 0;
+	RunningMeanData rm_clock_freq;
+	RunningMeanData rm_lifetime_freq;
+	RunningMeanData rm_vtime_since;
+	RunningMeanData rm_rtime_since;
+	RunningMeanData rm_rtime_between;
 
-	float mean_lifetime_freq = 0;
-	float m2_lifetime_freq = 0;
-	uint64_t n_lifetime_freq = 0;
+	RunningMeanData rm_clock_freq_log;
+	RunningMeanData rm_lifetime_freq_log;
+	RunningMeanData rm_vtime_since_log;
+	RunningMeanData rm_rtime_since_log;
+	RunningMeanData rm_rtime_between_log;
 
 	uint64_t vtime = 0;
 
@@ -104,11 +114,10 @@ static void EvictionTracking(const cache_obj_t* obj, Custom_clock_params* custom
 }
 
 std::unordered_map<std::string, float> CandidateMetadata(
-	const common::obj_metadata& data,
-	common::Custom_clock_params* params,
+	const common::obj_metadata& data, common::Custom_clock_params* params,
 	const request_t* current_req
 );
 
-void TrackRunningMean(const float X, float& mean, float& m2, uint64_t& n);
-float RunningMeanNormalize(const float X, const float mean, const float m2, const uint64_t n);
+void TrackRunningMean(const float X, RunningMeanData& d);
+float RunningMeanNormalize(const float X, RunningMeanData& d);
 }  // namespace common

@@ -33,8 +33,9 @@ cache_t* myclock::MyClockInit(
 	cache->cache_init = MyClockInit;
 	cache->evict = MyClockEvict;
 
-	common::Custom_clock_params* params =
-		new common::Custom_clock_params(*(Clock_params_t*)cache->eviction_params);
+	common::Custom_clock_params* params = new common::Custom_clock_params(
+		*(Clock_params_t*)cache->eviction_params
+	);
 	free(cache->eviction_params);
 	cache->eviction_params = params;
 	return cache;

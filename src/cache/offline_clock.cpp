@@ -6,15 +6,15 @@
 
 static void OfflineClockEvict(cache_t* cache, const request_t* req) {
 	Clock_params_t* params = (Clock_params_t*)cache->eviction_params;
-	common::Custom_clock_params* custom_params =
-		(common::Custom_clock_params*)cache->eviction_params;
+	common::Custom_clock_params* custom_params = (common::Custom_clock_params*)
+													 cache->eviction_params;
 
 	cache_obj_t* obj_to_evict = params->q_tail;
 	while (obj_to_evict->clock.freq >= 1) {
 		auto& data = custom_params->objs_metadata[obj_to_evict->obj_id];
 		data.last_promotion = data.lifetime_freq;
-		bool wasted =
-			data.wasted_promotions.find(data.last_promotion) != data.wasted_promotions.end();
+		bool wasted = data.wasted_promotions.find(data.last_promotion) !=
+					  data.wasted_promotions.end();
 		if (custom_params->generate_datasets) {
 			auto features = common::CandidateMetadata(data, custom_params, req);
 			for (size_t i = 0; i < common::datasets_columns.size(); i++) {
@@ -47,8 +47,9 @@ cache_t* cclock::OfflineClockInit(
 	custom_clock->cache_init = OfflineClockInit;
 	custom_clock->evict = OfflineClockEvict;
 
-	common::Custom_clock_params* params =
-		new common::Custom_clock_params(*(Clock_params_t*)custom_clock->eviction_params);
+	common::Custom_clock_params* params = new common::Custom_clock_params(
+		*(Clock_params_t*)custom_clock->eviction_params
+	);
 	free(custom_clock->eviction_params);
 
 	custom_clock->eviction_params = params;

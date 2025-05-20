@@ -2,12 +2,10 @@
 #include <libCacheSim/reader.h>
 #include <sys/types.h>
 #include <cmath>
-#include <cstdint>
 #include <unordered_map>
 
 std::unordered_map<std::string, float> common::CandidateMetadata(
-	const common::obj_metadata& data,
-	common::Custom_clock_params* params,
+	const common::obj_metadata& data, common::Custom_clock_params* params,
 	const request_t* current_req
 ) {
 	float rtime_since = current_req->clock_time - data.rtime;
@@ -15,24 +13,46 @@ std::unordered_map<std::string, float> common::CandidateMetadata(
 
 	std::unordered_map<std::string, float> features;
 	features["rtime_since"] = rtime_since;
+	features["rtime_since_std"] = common::RunningMeanNormalize(rtime_since, params->rm_rtime_since);
 	features["rtime_since_log"] = log(rtime_since + 1);
+	features["rtime_since_log_std"] = common::RunningMeanNormalize(
+		log(rtime_since + 1), params->rm_rtime_since_log
+	);
+
 	features["vtime_since"] = vtime_since;
+	features["vtime_since_std"] = common::RunningMeanNormalize(vtime_since, params->rm_vtime_since);
 	features["vtime_since_log"] = log(vtime_since + 1);
+	features["vtime_since_log_std"] = common::RunningMeanNormalize(
+		log(vtime_since + 1), params->rm_vtime_since_log
+	);
+
 	features["rtime_between"] = data.rtime_between;
+	features["rtime_between_std"] = common::RunningMeanNormalize(
+		data.rtime_between, params->rm_rtime_between
+	);
 	features["rtime_between_log"] = log(data.rtime_between + 1);
+	features["rtime_between_log_std"] = common::RunningMeanNormalize(
+		log(data.rtime_between + 1), params->rm_rtime_between_log
+	);
+
 	features["clock_freq"] = data.clock_freq;
-	features["clock_freq_log"] = log(data.clock_freq + 1);
 	features["clock_freq_std"] = common::RunningMeanNormalize(
-		data.clock_freq, params->mean_clock_freq, params->m2_clock_freq, params->n_clock_freq
+		data.clock_freq, params->rm_clock_freq
 	);
+	features["clock_freq_log"] = log(data.clock_freq + 1);
+	features["clock_freq_log_std"] = common::RunningMeanNormalize(
+		log(data.clock_freq + 1), params->rm_clock_freq_log
+	);
+
 	features["lifetime_freq"] = data.lifetime_freq;
-	features["lifetime_freq_log"] = log(data.lifetime_freq + 1);
 	features["lifetime_freq_std"] = common::RunningMeanNormalize(
-		data.lifetime_freq,
-		params->mean_lifetime_freq,
-		params->m2_lifetime_freq,
-		params->n_lifetime_freq
+		data.lifetime_freq, params->rm_lifetime_freq
 	);
+	features["lifetime_freq_log"] = log(data.lifetime_freq + 1);
+	features["lifetime_freq_log_std"] = common::RunningMeanNormalize(
+		log(data.lifetime_freq + 1), params->rm_lifetime_freq_log
+	);
+
 	return features;
 }
 
@@ -69,20 +89,18 @@ void common::obj_metadata::Track(const request_t* req) {
 	lifetime_freq++;
 }
 
-void common::TrackRunningMean(const float X, float& mean, float& m2, uint64_t& n) {
-	n++;
-	float d1 = X - mean;
-	mean += d1 / n;
-	float d2 = X - mean;
-	m2 += d1 * d2;
+void common::TrackRunningMean(const float X, RunningMeanData& d) {
+	d.n++;
+	float d1 = X - d.mean;
+	d.mean += d1 / d.n;
+	float d2 = X - d.mean;
+	d.m2 += d1 * d2;
 }
 
-float common::RunningMeanNormalize(
-	const float X, const float mean, const float m2, const uint64_t n
-) {
-	float variance = m2 / (n - 1);
+float common::RunningMeanNormalize(const float X, RunningMeanData& d) {
+	float variance = d.m2 / (d.n - 1);
 	float std = sqrt(variance);
-	float norm = (X - mean) / std;
+	float norm = (X - d.mean) / std;
 	return norm;
 }
 
@@ -103,6 +121,11 @@ void common::Custom_clock_params::GlobalTrack(const common::obj_metadata& data) 
 		max_rtime = data.rtime_since;
 	}
 
-	TrackRunningMean(data.clock_freq, mean_clock_freq, m2_clock_freq, n_clock_freq);
-	TrackRunningMean(data.lifetime_freq, mean_lifetime_freq, m2_lifetime_freq, n_lifetime_freq);
+	TrackRunningMean(data.clock_freq, rm_clock_freq);
+	TrackRunningMean(data.lifetime_freq, rm_lifetime_freq);
+	TrackRunningMean(data.rtime_between, rm_rtime_between);
+
+	TrackRunningMean(log(data.clock_freq + 1), rm_clock_freq_log);
+	TrackRunningMean(log(data.lifetime_freq + 1), rm_lifetime_freq_log);
+	TrackRunningMean(log(data.rtime_between + 1), rm_rtime_between_log);
 }

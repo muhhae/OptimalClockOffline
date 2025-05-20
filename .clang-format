@@ -16,8 +16,6 @@ AlwaysBreakBeforeMultilineStrings: true
 AlignAfterOpenBracket: BlockIndent
 BreakStringLiterals: false
 BinPackArguments: false
-BinPackParameters: OnePerLine
-
 
 DerivePointerAlignment: false
 PointerAlignment: Left
@@ -29,3 +27,7 @@ SpaceBeforeParens: ControlStatements
 
 AlwaysBreakTemplateDeclarations: Yes
 SpacesInAngles: false
+
+PenaltyBreakAssignment: 100
+PenaltyBreakBeforeFirstCallParameter: 0
+AlignOperands: Align

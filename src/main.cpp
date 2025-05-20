@@ -47,11 +47,9 @@ int main(int argc, char** argv) {
 		   "Features to use for Model Inference (The Sequence should "
 		   "exactly the same as model input or data it trained with)"
 	)
-		->default_val(
-			std::vector<std::string>{
-				"clock_time_between", "clock_freq", "lifetime_freq", "obj_size_relative"
-			}
-		);
+		->default_val(std::vector<std::string>{
+			"clock_time_between", "clock_freq", "lifetime_freq", "obj_size_relative"
+		});
 	app.add_option("-T, --trace-type", o.trace_type, "Traces Type [oracleGeneral, csv]")
 		->default_val("oracleGeneral");
 
