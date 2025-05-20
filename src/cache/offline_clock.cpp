@@ -17,6 +17,7 @@ static void OfflineClockEvict(cache_t* cache, const request_t* req) {
 					  data.wasted_promotions.end();
 		if (custom_params->generate_datasets) {
 			auto features = common::CandidateMetadata(data, custom_params, req);
+			features["wastes"] = wasted;
 			for (size_t i = 0; i < common::datasets_columns.size(); i++) {
 				custom_params->datasets << features[common::datasets_columns[i]]
 										<< (i == common::datasets_columns.size() - 1 ? '\n' : ',');

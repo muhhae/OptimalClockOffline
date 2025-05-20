@@ -29,5 +29,5 @@ AlwaysBreakTemplateDeclarations: Yes
 SpacesInAngles: false
 
 PenaltyBreakAssignment: 100
-PenaltyBreakBeforeFirstCallParameter: 0
-AlignOperands: Align
+# PenaltyBreakBeforeFirstCallParameter: 0
+# AlignOperands: Align
