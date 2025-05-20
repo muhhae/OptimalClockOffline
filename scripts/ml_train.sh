@@ -7,7 +7,7 @@ task_out=""
 add_desc=""
 
 usage() {
-    echo "Usage: bash $0 -d datasets_dir -o out_dir -m model -a add_trace [-t task_out]"
+    echo "Usage: bash $0 -d datasets_dir -o out_dir -m model -a add_desc [-t task_out]"
     exit 1
 }
 
@@ -18,7 +18,7 @@ while getopts "d:o:m:t:" opt; do
         o) out_dir="$OPTARG" ;;
         m) model="$OPTARG" ;;
         t) task_out="$OPTARG" ;;
-        i) add_desc="$OPTARG" ;;
+        a) add_desc="$OPTARG" ;;
         *) usage ;;
     esac
 done
