@@ -1,8 +1,40 @@
 #include "common.hpp"
+#include <libCacheSim/reader.h>
+#include <sys/types.h>
 #include <cmath>
 #include <cstdint>
-#include <exception>
-#include <sys/types.h>
+#include <unordered_map>
+
+std::unordered_map<std::string, float> common::CandidateMetadata(
+	const common::obj_metadata& data,
+	common::Custom_clock_params* params,
+	const request_t* current_req
+) {
+	float rtime_since = current_req->clock_time - data.rtime;
+	float vtime_since = params->vtime - data.vtime;
+
+	std::unordered_map<std::string, float> features;
+	features["rtime_since"] = rtime_since;
+	features["rtime_since_log"] = log(rtime_since + 1);
+	features["vtime_since"] = vtime_since;
+	features["vtime_since_log"] = log(vtime_since + 1);
+	features["rtime_between"] = data.rtime_between;
+	features["rtime_between_log"] = log(data.rtime_between + 1);
+	features["clock_freq"] = data.clock_freq;
+	features["clock_freq_log"] = log(data.clock_freq + 1);
+	features["clock_freq_std"] = common::RunningMeanNormalize(
+		data.clock_freq, params->mean_clock_freq, params->m2_clock_freq, params->n_clock_freq
+	);
+	features["lifetime_freq"] = data.lifetime_freq;
+	features["lifetime_freq_log"] = log(data.lifetime_freq + 1);
+	features["lifetime_freq_std"] = common::RunningMeanNormalize(
+		data.lifetime_freq,
+		params->mean_lifetime_freq,
+		params->m2_lifetime_freq,
+		params->n_lifetime_freq
+	);
+	return features;
+}
 
 void common::obj_metadata::Reset() {
 	lifetime_freq = 0;
@@ -45,8 +77,9 @@ void common::TrackRunningMean(const float X, float& mean, float& m2, uint64_t& n
 	m2 += d1 * d2;
 }
 
-float common::RunningMeanNormalize(const float X, const float mean, const float m2,
-								   const uint64_t n) {
+float common::RunningMeanNormalize(
+	const float X, const float mean, const float m2, const uint64_t n
+) {
 	float variance = m2 / (n - 1);
 	float std = sqrt(variance);
 	float norm = (X - mean) / std;

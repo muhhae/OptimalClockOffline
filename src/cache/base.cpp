@@ -1,6 +1,6 @@
 #include "base.hpp"
-#include "common.hpp"
 #include <libCacheSim/cache.h>
+#include "common.hpp"
 
 static void BaseClockEvict(cache_t* cache, const request_t* req) {
 	Clock_params_t* params = (Clock_params_t*)cache->eviction_params;
@@ -21,8 +21,9 @@ static void BaseClockEvict(cache_t* cache, const request_t* req) {
 	cache_evict_base(cache, obj_to_evict, true);
 }
 
-cache_t* base::BaseClockInit(const common_cache_params_t ccache_params,
-							 const char* cache_specific_params) {
+cache_t* base::BaseClockInit(
+	const common_cache_params_t ccache_params, const char* cache_specific_params
+) {
 	auto cache = Clock_init(ccache_params, cache_specific_params);
 
 	cache->cache_init = BaseClockInit;

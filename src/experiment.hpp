@@ -1,8 +1,8 @@
 #pragma once
 
-#include <filesystem>
 #include <libCacheSim/cache.h>
 #include <libCacheSim/reader.h>
+#include <filesystem>
 #include <string>
 #include <vector>
 
@@ -25,6 +25,7 @@ struct options {
 	std::string input_type;
 };
 
-void Simulate(cache_t* cache, const std::filesystem::path trace_path, const options o,
-			  const std::string desc);
+void Simulate(
+	cache_t* cache, const std::filesystem::path trace_path, const options o, const std::string desc
+);
 void RunExperiment(const options& o);

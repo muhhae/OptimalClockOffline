@@ -1,10 +1,6 @@
 #include "experiment.hpp"
-#include "cache/base.hpp"
-#include "cache/common.hpp"
-#include "cache/ml_clock.hpp"
-#include "cache/my_clock.hpp"
-#include "cache/offline_clock.hpp"
-#include "lib/cache_size.h"
+#include <libCacheSim/cache.h>
+#include <libCacheSim/enum.h>
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
@@ -14,18 +10,22 @@
 #include <functional>
 #include <future>
 #include <iostream>
-#include <libCacheSim/cache.h>
-#include <libCacheSim/enum.h>
 #include <stdexcept>
 #include <string>
+#include "cache/base.hpp"
+#include "cache/common.hpp"
+#include "cache/ml_clock.hpp"
+#include "cache/my_clock.hpp"
+#include "cache/offline_clock.hpp"
+#include "lib/cache_size.h"
 
 const std::string csv_header =
 	"trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted\n";
 
 void RunExperiment(const options& o) {
 	std::vector<std::future<void>> tasks;
-	std::function<cache_t*(const common_cache_params_t ccache_params,
-						   const char* cache_specific_params)>
+	std::function<
+		cache_t*(const common_cache_params_t ccache_params, const char* cache_specific_params)>
 		CacheInit;
 	if (o.algorithm == "default") {
 		CacheInit = cclock::OfflineClockInit;
@@ -55,13 +55,16 @@ void RunExperiment(const options& o) {
 	}
 
 	std::filesystem::create_directories(o.output_directory / "log");
-	if (o.generate_datasets) std::filesystem::create_directories(o.output_directory / "datasets");
+	if (o.generate_datasets)
+		std::filesystem::create_directories(o.output_directory / "datasets");
 
 	for (const auto& p : o.trace_paths) {
-		reader_init_param_t reader_init_param = {.ignore_obj_size = o.ignore_obj_size,
-												 .time_field = 1,
-												 .obj_id_field = 2,
-												 .obj_size_field = 3};
+		reader_init_param_t reader_init_param = {
+			.ignore_obj_size = o.ignore_obj_size,
+			.time_field = 1,
+			.obj_id_field = 2,
+			.obj_size_field = 3
+		};
 
 		trace_type_e trace_type = ORACLE_GENERAL_TRACE;
 		if (o.trace_type == "csv") {
@@ -71,7 +74,8 @@ void RunExperiment(const options& o) {
 
 		int64_t wss_obj = 0;
 		int64_t wss_byte = 0;
-		if (!o.relative_cache_sizes.empty()) cal_working_set_size(reader, &wss_obj, &wss_byte);
+		if (!o.relative_cache_sizes.empty())
+			cal_working_set_size(reader, &wss_obj, &wss_byte);
 
 		close_reader(reader);
 		int64_t wss = o.ignore_obj_size ? wss_obj : wss_byte;
@@ -83,20 +87,35 @@ void RunExperiment(const options& o) {
 			std::string desc = "[" + std::to_string(fcs) + (o.ignore_obj_size ? "" : "MiB") +
 							   (o.desc != "" ? "," : "") + o.desc + "]";
 			tasks.emplace_back(
-				std::async(std::launch::async, Simulate,
-						   CacheInit({.cache_size = o.ignore_obj_size ? fcs : fcs * MiB},
-									 cache_specific_params),
-						   p, o, desc));
+				std::async(
+					std::launch::async,
+					Simulate,
+					CacheInit(
+						{.cache_size = o.ignore_obj_size ? fcs : fcs * MiB}, cache_specific_params
+					),
+					p,
+					o,
+					desc
+				)
+			);
 		}
 		for (const auto& rcs : o.relative_cache_sizes) {
 			std::string s = std::to_string(rcs);
 			s = s.substr(0, s.find_last_not_of('0') + 1);
-			if (s.back() == '.') s.pop_back();
+			if (s.back() == '.')
+				s.pop_back();
 
 			std::string desc = "[" + s + (o.desc != "" ? "," : "") + o.desc + "]";
-			tasks.emplace_back(std::async(
-				std::launch::async, Simulate,
-				CacheInit({.cache_size = uint64_t(wss * rcs)}, cache_specific_params), p, o, desc));
+			tasks.emplace_back(
+				std::async(
+					std::launch::async,
+					Simulate,
+					CacheInit({.cache_size = uint64_t(wss * rcs)}, cache_specific_params),
+					p,
+					o,
+					desc
+				)
+			);
 		}
 	}
 
@@ -105,13 +124,16 @@ void RunExperiment(const options& o) {
 	}
 }
 
-void Simulate(cache_t* cache, const std::filesystem::path trace_path, const options o,
-			  const std::string desc) {
-	reader_init_param_t reader_init_param = {.ignore_obj_size = o.ignore_obj_size,
-											 .time_field = 1,
-											 .obj_id_field = 2,
-											 .obj_size_field = 3,
-											 .has_header = true};
+void Simulate(
+	cache_t* cache, const std::filesystem::path trace_path, const options o, const std::string desc
+) {
+	reader_init_param_t reader_init_param = {
+		.ignore_obj_size = o.ignore_obj_size,
+		.time_field = 1,
+		.obj_id_field = 2,
+		.obj_size_field = 3,
+		.has_header = true
+	};
 
 	trace_type_e trace_type = ORACLE_GENERAL_TRACE;
 	if (o.trace_type == "csv") {
@@ -144,25 +166,10 @@ void Simulate(cache_t* cache, const std::filesystem::path trace_path, const opti
 
 	if (o.generate_datasets) {
 		custom_params->datasets = std::ofstream(dataset_path);
-		// out_dataset(custom_params->datasets, clock_time, clock_time_norm,
-		// clock_time_between, 			clock_time_between_norm, cache_size, obj_size,
-		// clock_freq, 			clock_freq_norm, lifetime_freq, lifetime_freq_norm,
-		// wasted);
-
-		custom_params->datasets << "obj_id,"
-								   "rtime_since,"
-								   "rtime_since_log,"
-								   "vtime_since,"
-								   "vtime_since_log,"
-								   "rtime_between,"
-								   "rtime_between_log,"
-								   "clock_freq,"
-								   "clock_freq_log,"
-								   "clock_freq_norm,"
-								   "lifetime_freq,"
-								   "lifetime_freq_log,"
-								   "lifetime_freq_norm,"
-								   "wasted\n";
+		for (size_t i = 0; i < common::datasets_columns.size(); i++) {
+			custom_params->datasets << common::datasets_columns[i]
+									<< (i == common::datasets_columns.size() - 1 ? '\n' : ',');
+		}
 	}
 	if (o.algorithm == "ML") {
 		((mlclock::MLClockParam*)custom_params)->LoadModel(o.ml_model);
@@ -221,7 +228,8 @@ void Simulate(cache_t* cache, const std::filesystem::path trace_path, const opti
 		csv_file << s.str();
 
 		reset_reader(reader);
-		if (i == 0) first_promoted = tmp_custom_params->n_promoted;
+		if (i == 0)
+			first_promoted = tmp_custom_params->n_promoted;
 		for (auto& e : tmp_custom_params->objs_metadata) {
 			e.second.Reset();
 		}
@@ -241,7 +249,8 @@ void Simulate(cache_t* cache, const std::filesystem::path trace_path, const opti
 		tmp->cache_free(tmp);
 	}
 	csv_file.close();
-	if (o.generate_datasets) custom_params->datasets.close();
+	if (o.generate_datasets)
+		custom_params->datasets.close();
 
 	uint64_t sum = 0;
 	for (const auto& e : custom_params->objs_metadata) {
