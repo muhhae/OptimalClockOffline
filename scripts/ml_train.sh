@@ -92,7 +92,12 @@ for size in ${relative_size[@]}; do
     train "$size$add_desc"
     train "$size,ignore_obj_size$add_desc"
 done
-train "${relative_size[*]}" "All$add_desc"
+
+descs=""
+for s in ${relative_size[@]}; do
+  descs+="$s$add_desc "
+done
+train "$descs" "All$add_desc"
 
 descs=""
 for s in ${relative_size[@]}; do
