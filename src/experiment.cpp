@@ -228,6 +228,8 @@ void Simulate(
 			first_promoted = tmp_custom_params->n_promoted;
 		for (auto& e : tmp_custom_params->objs_metadata) {
 			e.second.Reset();
+			e.second.lifetime_freq = 0;
+			e.second.last_promotion = 0;
 		}
 		std::swap(tmp_custom_params->objs_metadata, custom_params->objs_metadata);
 		std::swap(tmp_custom_params->datasets, custom_params->datasets);

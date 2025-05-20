@@ -108,9 +108,14 @@ class Custom_clock_params : public Clock_params_t {
 	bool generate_datasets;
 };
 
-static void EvictionTracking(const cache_obj_t* obj, Custom_clock_params* custom_params) {
+static void BeforeEvictionTracking(const cache_obj_t* obj, Custom_clock_params* custom_params) {
 	auto& data = custom_params->objs_metadata[obj->obj_id];
 	data.clock_freq = 0;
+}
+
+static void PromotionTracking(const cache_obj_t* obj, Custom_clock_params* custom_params) {
+	auto& data = custom_params->objs_metadata[obj->obj_id];
+	// data.Reset();
 }
 
 std::unordered_map<std::string, float> CandidateMetadata(

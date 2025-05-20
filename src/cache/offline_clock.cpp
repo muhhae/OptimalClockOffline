@@ -23,10 +23,11 @@ static void OfflineClockEvict(cache_t* cache, const request_t* req) {
 										<< (i == common::datasets_columns.size() - 1 ? '\n' : ',');
 			}
 		}
-		common::EvictionTracking(obj_to_evict, custom_params);
+		common::BeforeEvictionTracking(obj_to_evict, custom_params);
 		if (wasted) {
 			break;
 		}
+		common::PromotionTracking(obj_to_evict, custom_params);
 		obj_to_evict->clock.freq -= 1;
 		params->n_obj_rewritten += 1;
 		params->n_byte_rewritten += obj_to_evict->obj_size;

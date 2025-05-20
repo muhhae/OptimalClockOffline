@@ -63,9 +63,6 @@ std::unordered_map<std::string, float> common::CandidateMetadata(
 }
 
 void common::obj_metadata::Reset() {
-	lifetime_freq = 0;
-	last_promotion = 0;
-
 	rtime_since = 0;
 	obj_size_relative = 0;
 	clock_freq = 0;
