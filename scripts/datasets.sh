@@ -45,4 +45,4 @@ while IFS= read -r link; do
         echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file -o $out_dir -r $cache_size -i $max_iteration --generate-datasets --ignore-obj-size -d ignore_obj_size $add_desc" >> $task_out
         echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file -o $out_dir -r $cache_size -i $max_iteration --generate-datasets -d $add_desc" >> $task_out
     done
-done < "$traces_txt"
+done < "$traces_in"
