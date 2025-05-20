@@ -12,7 +12,7 @@ usage() {
 }
 
 # Parse options
-while getopts "d:o:m:t:" opt; do
+while getopts "d:o:m:a:" opt; do
     case $opt in
         d) datasets_dir="$OPTARG" ;;
         o) out_dir="$OPTARG" ;;
