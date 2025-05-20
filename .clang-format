@@ -28,6 +28,6 @@ SpaceBeforeParens: ControlStatements
 AlwaysBreakTemplateDeclarations: Yes
 SpacesInAngles: false
 
-PenaltyBreakAssignment: 100
+PenaltyBreakAssignment: 80
 # PenaltyBreakBeforeFirstCallParameter: 0
 # AlignOperands: Align

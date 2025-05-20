@@ -157,8 +157,8 @@ void Simulate(
 	uint64_t first_promoted = 0;
 	common_cache_params_t* params = (common_cache_params_t*)cache->eviction_params;
 
-	common::Custom_clock_params* custom_params = (common::Custom_clock_params*)
-													 cache->eviction_params;
+	common::Custom_clock_params* custom_params =
+		(common::Custom_clock_params*)cache->eviction_params;
 
 	if (o.generate_datasets) {
 		custom_params->datasets = std::ofstream(dataset_path);
