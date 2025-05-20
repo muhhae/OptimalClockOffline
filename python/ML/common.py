@@ -28,7 +28,7 @@ def ResetDatasets():
 def LoadDatasets():
     var.df = pd.concat(
         [
-            pd.read_csv(p, skipinitialspace=True, usecols=var.inputs)
+            pd.read_csv(p, skipinitialspace=True, usecols=var.inputs + ["wasted"])
             for p in var.datasets
         ],
         ignore_index=True,
