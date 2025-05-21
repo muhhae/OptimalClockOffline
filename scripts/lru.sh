@@ -21,7 +21,7 @@ done
 if [ -n "$add_desc" ]; then
     add_desc=",$add_desc"
 fi
-if [ -z "$traces_dir" ] || [ -z "$out_dir" ] || [ -z "$model" ] || [ -z "$traces_txt" ]; then
+if [ -z "$traces_dir" ] || [ -z "$out_dir" ] || [ -z "$traces_txt" ]; then
     usage
 fi
 
