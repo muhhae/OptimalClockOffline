@@ -21,6 +21,12 @@ while getopts "d:o:m:a:t:r:" opt; do
         *) usage ;;
     esac
 done
+if [ -n "$add_desc" ]; then
+    add_desc=",$add_desc"
+fi
+if [ -z "$traces_dir" ] || [ -z "$out_dir" ] || [ -z "$model" ] || [ -z "$traces_txt" ]; then
+    usage
+fi
 
 
 features=""
