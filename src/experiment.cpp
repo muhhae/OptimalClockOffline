@@ -29,6 +29,8 @@ void RunExperiment(const options& o) {
 		CacheInit;
 	if (o.algorithm == "default") {
 		CacheInit = cclock::OfflineClockInit;
+	} else if (o.algorithm == "lru") {
+		CacheInit = base::LRUInit;
 	} else if (o.algorithm == "base") {
 		CacheInit = base::BaseClockInit;
 	} else if (o.algorithm == "my") {
@@ -86,16 +88,18 @@ void RunExperiment(const options& o) {
 		for (const auto& fcs : o.fixed_cache_sizes) {
 			std::string desc = "[" + std::to_string(fcs) + (o.ignore_obj_size ? "" : "MiB") +
 							   (o.desc != "" ? "," : "") + o.desc + "]";
-			tasks.emplace_back(std::async(
-				std::launch::async,
-				Simulate,
-				CacheInit(
-					{.cache_size = o.ignore_obj_size ? fcs : fcs * MiB}, cache_specific_params
-				),
-				p,
-				o,
-				desc
-			));
+			tasks.emplace_back(
+				std::async(
+					std::launch::async,
+					Simulate,
+					CacheInit(
+						{.cache_size = o.ignore_obj_size ? fcs : fcs * MiB}, cache_specific_params
+					),
+					p,
+					o,
+					desc
+				)
+			);
 		}
 		for (const auto& rcs : o.relative_cache_sizes) {
 			std::string s = std::to_string(rcs);
@@ -104,14 +108,16 @@ void RunExperiment(const options& o) {
 				s.pop_back();
 
 			std::string desc = "[" + s + (o.desc != "" ? "," : "") + o.desc + "]";
-			tasks.emplace_back(std::async(
-				std::launch::async,
-				Simulate,
-				CacheInit({.cache_size = uint64_t(wss * rcs)}, cache_specific_params),
-				p,
-				o,
-				desc
-			));
+			tasks.emplace_back(
+				std::async(
+					std::launch::async,
+					Simulate,
+					CacheInit({.cache_size = uint64_t(wss * rcs)}, cache_specific_params),
+					p,
+					o,
+					desc
+				)
+			);
 		}
 	}
 
@@ -157,8 +163,8 @@ void Simulate(
 	uint64_t first_promoted = 0;
 	common_cache_params_t* params = (common_cache_params_t*)cache->eviction_params;
 
-	common::Custom_clock_params* custom_params =
-		(common::Custom_clock_params*)cache->eviction_params;
+	common::Custom_clock_params* custom_params = (common::Custom_clock_params*
+	)cache->eviction_params;
 
 	if (o.generate_datasets) {
 		custom_params->datasets = std::ofstream(dataset_path);
