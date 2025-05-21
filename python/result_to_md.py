@@ -642,59 +642,68 @@ def ModelSummaries(
 
 # Files Variables
 
-files = sorted(glob.glob(os.path.join(result_dir, "*.csv")), key=sort_key)
-models_metric_files = glob.glob("ML/model/*.md") + glob.glob("ML/model/*.txt")
-models_metric_files = sorted(models_metric_files, key=sort_key)
 
-model_metrics: T.Dict[bool, T.List[str]] = {}
-model_metrics[True] = [f for f in models_metric_files if f.count("ignore_obj_size")]
-model_metrics[False] = [
-    f for f in models_metric_files if not f.count("ignore_obj_size")
-]
+def Summarize(additional_desc: str, title: str):
+    files = sorted(glob.glob(os.path.join(result_dir, "*.csv")), key=sort_key)
+    files = [f for f in files if f.count(additional_desc)]
 
-base_log = [f for f in files if not f.count("ML")]
-ML_log = [f for f in files if f.count("ML")]
+    models_metric_files = glob.glob("ML/model/*.md") + glob.glob("ML/model/*.txt")
+    models_metric_files = [m for m in models_metric_files if m.count(additional_desc)]
+    models_metric_files = sorted(models_metric_files, key=sort_key)
 
-test_log = [f for f in base_log if f.count("TEST")]
-test_prefix = [extract_desc(e)[0] for e in test_log]
-ML_test_log = [f for f in ML_log if extract_desc(f)[0] in test_prefix]
+    model_metrics: T.Dict[bool, T.List[str]] = {}
+    model_metrics[True] = [f for f in models_metric_files if f.count("ignore_obj_size")]
+    model_metrics[False] = [
+        f for f in models_metric_files if not f.count("ignore_obj_size")
+    ]
 
-# [IgnoreObjSize] -> path
-base: T.Dict[bool, T.List[str]] = {}
-base[True] = [f for f in base_log if f.count("ignore_obj_size")]
-base[False] = [f for f in base_log if not f.count("ignore_obj_size")]
+    base_log = [f for f in files if not f.count("ML")]
+    ML_log = [f for f in files if f.count("ML")]
 
-# [IgnoreObjSize] -> path
-base_test: T.Dict[bool, T.List[str]] = {}
-base_test[True] = [f for f in test_log if f.count("ignore_obj_size")]
-base_test[False] = [f for f in test_log if not f.count("ignore_obj_size")]
+    test_log = [f for f in base_log if f.count("test") or f.count("TEST")]
+    test_prefix = [extract_desc(e)[0] for e in test_log]
+    ML_test_log = [f for f in ML_log if extract_desc(f)[0] in test_prefix]
 
-# [IgnoreObjSize] -> path
-ML_test: T.Dict[bool, T.List[str]] = {}
-ML_test[True] = [f for f in ML_test_log if f.count("ignore_obj_size")]
-ML_test[False] = [f for f in ML_test_log if not f.count("ignore_obj_size")]
+    # [IgnoreObjSize] -> path
+    base: T.Dict[bool, T.List[str]] = {}
+    base[True] = [f for f in base_log if f.count("ignore_obj_size")]
+    base[False] = [f for f in base_log if not f.count("ignore_obj_size")]
 
-ModelSummaries(
-    base_test[0],
-    ML_test[0],
-    "../result/test_obj_size_not_ignored.md",
-    "../docs/test_obj_size_not_ignored.html",
-    "Test Data Result Obj Size Not Ignored",
-    model_metrics[0],
-)
-ModelSummaries(
-    base_test[1],
-    ML_test[1],
-    "../result/test_obj_size_ignored.md",
-    "../docs/test_obj_size_ignored.html",
-    "Test Data Result Obj Size Ignored",
-    model_metrics[1],
-)
-ModelSummaries(
-    base_test[0] + base_test[1],
-    ML_test[0] + ML_test[1],
-    "../result/test.md",
-    "../docs/test.html",
-    "Test Data Result Combined",
-    model_metrics[0] + model_metrics[1],
-)
+    # [IgnoreObjSize] -> path
+    base_test: T.Dict[bool, T.List[str]] = {}
+    base_test[True] = [f for f in test_log if f.count("ignore_obj_size")]
+    base_test[False] = [f for f in test_log if not f.count("ignore_obj_size")]
+
+    # [IgnoreObjSize] -> path
+    ML_test: T.Dict[bool, T.List[str]] = {}
+    ML_test[True] = [f for f in ML_test_log if f.count("ignore_obj_size")]
+    ML_test[False] = [f for f in ML_test_log if not f.count("ignore_obj_size")]
+
+    ModelSummaries(
+        base_test[0],
+        ML_test[0],
+        f"../result/{title}_obj_size_not_ignored.md",
+        f"../docs/{title}_obj_size_not_ignored.html",
+        f"{title} Test Data Result Obj Size Not Ignored",
+        model_metrics[0],
+    )
+    ModelSummaries(
+        base_test[1],
+        ML_test[1],
+        f"../result/{title}_obj_size_ignored.md",
+        f"../docs/{title}_obj_size_ignored.html",
+        f"{title} Test Data Result Obj Size Ignored",
+        model_metrics[1],
+    )
+    ModelSummaries(
+        base_test[0] + base_test[1],
+        ML_test[0] + ML_test[1],
+        f"../result/{title}.md",
+        f"../docs/{title}.html",
+        f"{title} Test Data Result Combined",
+        model_metrics[0] + model_metrics[1],
+    )
+
+
+Summarize("zipf1", "Zipf1")
+Summarize("zipf0", "Zipf0")
