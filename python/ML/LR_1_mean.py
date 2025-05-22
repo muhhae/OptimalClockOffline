@@ -28,7 +28,6 @@ SetTestData = c.SetTestData
 SetTrainData = c.SetTrainData
 SplitData = c.SplitData
 Test = c.Test
-AddDatasets = c.AddDatasets
 DescribeData = c.DescribeData
 ExportONNX = c.ExportONNX
 LoadONNX = c.LoadONNX
