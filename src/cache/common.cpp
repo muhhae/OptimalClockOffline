@@ -21,43 +21,35 @@ std::unordered_map<std::string, float> common::CandidateMetadata(
 	features["rtime_since"] = rtime_since;
 	features["rtime_since_std"] = common::RunningMeanNormalize(rtime_since, params->rm_rtime_since);
 	features["rtime_since_log"] = log(rtime_since + 1);
-	features["rtime_since_log_std"] = common::RunningMeanNormalize(
-		log(rtime_since + 1), params->rm_rtime_since_log
-	);
+	features["rtime_since_log_std"] =
+		common::RunningMeanNormalize(log(rtime_since + 1), params->rm_rtime_since_log);
 
 	features["vtime_since"] = vtime_since;
 	features["vtime_since_std"] = common::RunningMeanNormalize(vtime_since, params->rm_vtime_since);
 	features["vtime_since_log"] = log(vtime_since + 1);
-	features["vtime_since_log_std"] = common::RunningMeanNormalize(
-		log(vtime_since + 1), params->rm_vtime_since_log
-	);
+	features["vtime_since_log_std"] =
+		common::RunningMeanNormalize(log(vtime_since + 1), params->rm_vtime_since_log);
 
 	features["rtime_between"] = data.rtime_between;
-	features["rtime_between_std"] = common::RunningMeanNormalize(
-		data.rtime_between, params->rm_rtime_between
-	);
+	features["rtime_between_std"] =
+		common::RunningMeanNormalize(data.rtime_between, params->rm_rtime_between);
 	features["rtime_between_log"] = log(data.rtime_between + 1);
-	features["rtime_between_log_std"] = common::RunningMeanNormalize(
-		log(data.rtime_between + 1), params->rm_rtime_between_log
-	);
+	features["rtime_between_log_std"] =
+		common::RunningMeanNormalize(log(data.rtime_between + 1), params->rm_rtime_between_log);
 
 	features["clock_freq"] = data.clock_freq;
-	features["clock_freq_std"] = common::RunningMeanNormalize(
-		data.clock_freq, params->rm_clock_freq
-	);
+	features["clock_freq_std"] =
+		common::RunningMeanNormalize(data.clock_freq, params->rm_clock_freq);
 	features["clock_freq_log"] = log(data.clock_freq + 1);
-	features["clock_freq_log_std"] = common::RunningMeanNormalize(
-		log(data.clock_freq + 1), params->rm_clock_freq_log
-	);
+	features["clock_freq_log_std"] =
+		common::RunningMeanNormalize(log(data.clock_freq + 1), params->rm_clock_freq_log);
 
 	features["lifetime_freq"] = data.lifetime_freq;
-	features["lifetime_freq_std"] = common::RunningMeanNormalize(
-		data.lifetime_freq, params->rm_lifetime_freq
-	);
+	features["lifetime_freq_std"] =
+		common::RunningMeanNormalize(data.lifetime_freq, params->rm_lifetime_freq);
 	features["lifetime_freq_log"] = log(data.lifetime_freq + 1);
-	features["lifetime_freq_log_std"] = common::RunningMeanNormalize(
-		log(data.lifetime_freq + 1), params->rm_lifetime_freq_log
-	);
+	features["lifetime_freq_log_std"] =
+		common::RunningMeanNormalize(log(data.lifetime_freq + 1), params->rm_lifetime_freq_log);
 
 	return features;
 }

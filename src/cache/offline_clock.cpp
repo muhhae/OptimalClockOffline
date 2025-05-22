@@ -2,6 +2,7 @@
 #include <libCacheSim/cache.h>
 #include <libCacheSim/evictionAlgo.h>
 #include <cstdlib>
+#include <iostream>
 #include "common.hpp"
 
 static void OfflineClockEvict(cache_t* cache, const request_t* req) {
@@ -13,8 +14,8 @@ static void OfflineClockEvict(cache_t* cache, const request_t* req) {
 	while (obj_to_evict->clock.freq >= 1) {
 		auto& data = custom_params->objs_metadata[obj_to_evict->obj_id];
 		data.last_promotion = data.lifetime_freq;
-		bool wasted = data.wasted_promotions.find(data.last_promotion) !=
-					  data.wasted_promotions.end();
+		bool wasted =
+			data.wasted_promotions.find(data.last_promotion) != data.wasted_promotions.end();
 		if (custom_params->generate_datasets) {
 			auto features = common::CandidateMetadata(data, custom_params, req);
 			features["wasted"] = wasted;

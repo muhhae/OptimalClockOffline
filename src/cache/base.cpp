@@ -29,8 +29,8 @@ cache_t* base::BaseClockInit(
 	cache->cache_init = BaseClockInit;
 	cache->evict = BaseClockEvict;
 
-	common::Custom_clock_params* params = new common::Custom_clock_params(*(Clock_params_t*
-	)cache->eviction_params);
+	common::Custom_clock_params* params =
+		new common::Custom_clock_params(*(Clock_params_t*)cache->eviction_params);
 	free(cache->eviction_params);
 
 	cache->eviction_params = params;
@@ -55,8 +55,8 @@ cache_t* base::LRUInit(
 	cache->cache_init = LRUInit;
 	cache->find = LRUFind;
 
-	common::Custom_clock_params* params = new common::Custom_clock_params(*(Clock_params_t*
-	)cache->eviction_params);
+	common::Custom_clock_params* params =
+		new common::Custom_clock_params(*(Clock_params_t*)cache->eviction_params);
 	free(cache->eviction_params);
 
 	cache->eviction_params = params;
