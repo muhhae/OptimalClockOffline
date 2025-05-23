@@ -13,6 +13,8 @@ import markdown as MD
 
 import pandas as pd
 
+pd.set_option("display.max_rows", None)
+
 # Available templates:
 # ggplot2
 # seaborn
@@ -42,6 +44,11 @@ def sort_key(filename):
     return (filename, desc[0])
 
 
+def printls(ls: T.List):
+    for x in ls:
+        print(x)
+
+
 included_models = [
     "little_random_forest",
     "logistic_regression",
@@ -57,6 +64,9 @@ included_models = [
     "LR_3",
     "LR_3_log",
     "LR_3_mean",
+    "LR_4",
+    "LR_4_log",
+    "LR_4_mean",
     "LR_v5",
     "LR_v5_norm",
     "LR_v6",
@@ -80,6 +90,7 @@ def WriteFig(md: T.TextIO, html: T.TextIO, fig):
 
 
 def WriteHTML(html: T.TextIO):
+    global g_html_content
     md = MD.Markdown(
         extensions=["extra", "toc", "pymdownx.arithmatex"],
         extension_configs={"pymdownx.arithmatex": {"generic": True}},
@@ -228,28 +239,20 @@ def WriteHTML(html: T.TextIO):
 </body>
 </html>
 """)
+    g_html_content = ""
 
 
-def ModelSummaries(
-    base: T.List[str],
-    ml: T.List[str],
-    output_path: str,
-    html_path: str,
-    Title: str,
-    models_metrics: T.List[str],
-):
-    TN_ps = {}
-    FN_ps = {}
-    TP_ps = {}
-    FP_ps = {}
-
-    for p in models_metrics:
+def GetModelMetrics(paths: T.List[str]):
+    tmp = []
+    for p in paths:
         f = open(p, "r")
         content = f.read()
         kw = "Confusion Matrix"
+
         content = content[content.find(kw) + len(kw) :]
         content = content[: content.find(kw)]
         content = content.replace(":", "").strip()
+
         py_v = re.sub(r"\s+", " ", content.strip())
         py_v = re.sub(r"(?<=\d) (?=\d)", ", ", py_v)
         py_v = re.sub(r"\] \[", "], [", py_v)
@@ -257,138 +260,105 @@ def ModelSummaries(
         if py_v == "":
             continue
 
-        x = eval(py_v)
-
-        TN = x[0][0]
-        FP = x[0][1]
-        FN = x[1][0]
-        TP = x[1][1]
-
-        TN_p = 0
-        TP_p = 0
-        FN_p = 0
-        FP_p = 0
-
-        if TN != 0:
-            TN_p = TN / (TN + FN) * 100
-        if TP != 0:
-            TP_p = TP / (TP + FP) * 100
-        if FN != 0:
-            FN_p = FN / (TN + FN) * 100
-        if FP != 0:
-            FP_p = FP / (TP + FP) * 100
-
         model = p.replace(".md", "").replace(".txt", "")
         model = Path(p).stem
-
         model, desc = extract_desc(model)
         size = desc[0]
-        if size != "All":
-            size = "spec"
-        model += "_" + size
-        for d in [TN_ps, TP_ps, FN_ps, FP_ps]:
-            if model not in d:
-                d[model] = []
+        model = f"{model}_{'spec' if size != 'All' else size}"
 
-        TN_ps[model].append(TN_p)
-        TP_ps[model].append(TP_p)
-        FN_ps[model].append(FN_p)
-        FP_ps[model].append(FP_p)
+        (TN, FP), (FN, TP) = eval(py_v)
 
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
-    md = open(output_path, "w")
-    html = open(Path(html_path), "w")
-    Write(md, html, f"# {Title}  \n# Result  \n")
+        tmp.append(
+            {
+                "Model": model,
+                "Cache Size": size,
+                "True Negatives": TN / (TN + FN) * 100 if TN != 0 else 0,
+                "True Positives": TP / (TP + FP) * 100 if TP != 0 else 0,
+                "False Negatives": FN / (TN + FN) * 100 if FN != 0 else 0,
+                "False Positives": FP / (TP + FP) * 100 if FP != 0 else 0,
+            }
+        )
+    return pd.DataFrame(tmp)
 
-    # [trace, cache_size, ignore_obj_size] -> model, miss_ratio
-    best_ml_models: T.Dict[tuple[str, float, bool], tuple[str, float]] = {}
 
-    # [trace, cache_size, ignore_obj_size] -> miss_ratio
-    base_result: T.Dict[tuple[str, float, bool], float] = {}
-
-    # [trace, cache_size, ignore_obj_size] -> miss_ratio
-    base_promotion: T.Dict[tuple[str, float, bool], int] = {}
-
-    # [model] -> bool
-    better_than_base: T.Dict[str, T.List[bool]] = {}
-
-    # [model] -> float
-    promotion_reduced: T.Dict[str, T.List[float]] = {}
-
-    # [model] -> float
-    miss_ratio_reduced: T.Dict[str, T.List[float]] = {}
-
-    for file in base:
+def GetBaseResult(paths: T.List[str]):
+    tmp = []
+    for file in paths:
         if Path(file).stat().st_size == 0:
             continue
         prefix, desc = extract_desc(file)
-        ignore_size = desc.count("ignore_obj_size")
         df = pd.read_csv(file)
         if df.empty:
             continue
         logs = [OutputLog(**row) for row in df.to_dict(orient="records")]
-        base_result[prefix, float(desc[0]), ignore_size] = logs[0].miss_ratio
-        base_promotion[prefix, float(desc[0]), ignore_size] = logs[0].n_promoted
+        for i, log in enumerate(logs):
+            tmp.append(
+                {
+                    "Model": f"Offline Clock {ordinal(i + 1)} iteration",
+                    "Promotion": log.n_promoted,
+                    "Miss Ratio": log.miss_ratio,
+                    "Trace": prefix,
+                    "Cache Size": float(desc[0]),
+                    "Ignore Obj Size": desc.count("ignore_obj_size"),
+                }
+            )
+    return pd.DataFrame(tmp)
 
-    for file in ml:
+
+def GetLRUResult(paths: T.List[str]):
+    tmp = []
+    for file in paths:
         if Path(file).stat().st_size == 0:
             continue
-
         prefix, desc = extract_desc(file)
-        ignore_size = desc.count("ignore_obj_size")
+        df = pd.read_csv(file)
+        if df.empty:
+            continue
+        logs = [OutputLog(**row) for row in df.to_dict(orient="records")]
+        tmp.append(
+            {
+                "Model": "LRU",
+                "Promotion": logs[0].n_promoted,
+                "Miss Ratio": logs[0].miss_ratio,
+                "Trace": prefix,
+                "Cache Size": float(desc[0]),
+                "Ignore Obj Size": desc.count("ignore_obj_size"),
+            }
+        )
+    return pd.DataFrame(tmp)
+
+
+def GetModelResult(paths: T.List[str]):
+    tmp = []
+    for file in paths:
+        if Path(file).stat().st_size == 0:
+            continue
+        prefix, desc = extract_desc(file)
         model = desc[-1]["model"]
         size = model.split("_")[-1]
         size_pos = model.rfind("_")
         model = model[:size_pos]
         if model not in included_models:
             continue
-
-        if size != "All":
-            size = "spec"
-        model = model + "_" + size
+        model = f"{model}_{'spec' if size != 'All' else size}"
         df = pd.read_csv(file)
         if df.empty:
             continue
         logs = [OutputLog(**row) for row in df.to_dict(orient="records")]
-        log = logs[0]
-
-        if model not in better_than_base:
-            better_than_base[model] = []
-        if model not in promotion_reduced:
-            promotion_reduced[model] = []
-        if model not in miss_ratio_reduced:
-            miss_ratio_reduced[model] = []
-
-        key = prefix, float(desc[0]), ignore_size
-        if key not in base_result:
-            continue
-
-        better_than_base[model].append(log.miss_ratio < base_result[key])
-        miss_ratio_reduced[model].append(
-            (base_result[key] - log.miss_ratio) / base_result[key]
+        tmp.append(
+            {
+                "Model": f"{model}",
+                "Promotion": logs[0].n_promoted,
+                "Miss Ratio": logs[0].miss_ratio,
+                "Trace": prefix,
+                "Cache Size": float(desc[0]),
+                "Ignore Obj Size": desc.count("ignore_obj_size"),
+            }
         )
-        promotion_reduced[model].append(
-            (base_promotion[key] - log.n_promoted) / base_promotion[key]
-        )
+    return pd.DataFrame(tmp)
 
-        if (key) not in best_ml_models or best_ml_models[key][1] > log.miss_ratio:
-            best_ml_models[key] = (model, log.miss_ratio)
-            continue
-        if best_ml_models[key][1] == log.miss_ratio:
-            prev_model = best_ml_models[key][0]
-            new_model = prev_model + "," + model
-            best_ml_models[key] = (new_model, log.miss_ratio)
 
-    model_best_count = {}
-    for k in best_ml_models:
-        model = best_ml_models[k][0]
-        model = model.split(",")
-        for e in model:
-            if e not in model_best_count:
-                model_best_count[e] = 0
-            model_best_count[e] += 1
-
-    Write(md, html, "# Model Summaries  \n")
+def WriteModelSummaries(md, html, base_result, lru_result, models_result):
     bt_data = {
         "Model": [],
         "Best Models on Exp.": [],
@@ -408,111 +378,62 @@ def ModelSummaries(
         "Avg": [],
         "Mdn": [],
     }
-    for k in better_than_base:
-        v = better_than_base[k]
-        p = promotion_reduced[k]
-        m = miss_ratio_reduced[k]
-        b = 0
-        if k in model_best_count:
-            b = model_best_count[k]
-        bt_data["Model"].append(k)
-        bt_data["Best Models on Exp."].append(b)
-        bt_data["Better than base % of the times"].append(v.count(True) / len(v) * 100)
+    tmp = []
+    for model in models_result["Model"].unique():
+        current = models_result.query("Model == @model")
+        for i, x in current.iterrows():
+            base_log = base_result.query(
+                "Trace == @x['Trace'] and `Cache Size` == @x['Cache Size'] and Model == 'Offline Clock 1st iteration' and `Ignore Obj Size` == @x['Ignore Obj Size']"
+            )
+            tmp.append(
+                {
+                    "Model": model,
+                    "Trace": x["Trace"],
+                    "Cache Size": x["Cache Size"],
+                    "Miss Ratio Reduced (%)": (
+                        base_log["Miss Ratio"].item() - x["Miss Ratio"]
+                    )
+                    / base_log["Miss Ratio"].item()
+                    * 100,
+                    "Promotion Reduced (%)": (
+                        base_log["Promotion"].item() - x["Promotion"]
+                    )
+                    / base_log["Promotion"].item()
+                    * 100,
+                    "Better Than Base": x["Miss Ratio"] < base_log["Miss Ratio"].item(),
+                }
+            )
+    data = pd.DataFrame(tmp)
+    for model in data["Model"].unique():
+        current = data.query("Model == @model")
+        bt_data["Model"].append(model)
+        bt_data["Better than base % of the times"].append(
+            current["Better Than Base"].value_counts(normalize=True).get(True, 0) * 100
+        )
 
-        mr_data["Model"].append(k)
-        mr_data["Max"].append(np.max(m) * 100)
-        mr_data["Min"].append(np.min(m) * 100)
-        mr_data["Avg"].append(np.mean(m) * 100)
-        mr_data["Mdn"].append(np.median(m) * 100)
+        mr_data["Model"].append(model)
+        mr_data["Max"].append(current["Miss Ratio Reduced (%)"].max())
+        mr_data["Min"].append(current["Miss Ratio Reduced (%)"].min())
+        mr_data["Avg"].append(current["Miss Ratio Reduced (%)"].mean())
+        mr_data["Mdn"].append(current["Miss Ratio Reduced (%)"].median())
 
-        p_data["Model"].append(k)
-        p_data["Max"].append(np.max(p) * 100)
-        p_data["Min"].append(np.min(p) * 100)
-        p_data["Avg"].append(np.mean(p) * 100)
-        p_data["Mdn"].append(np.median(p) * 100)
+        p_data["Model"].append(model)
+        p_data["Max"].append(current["Promotion Reduced (%)"].max())
+        p_data["Min"].append(current["Promotion Reduced (%)"].min())
+        p_data["Avg"].append(current["Promotion Reduced (%)"].mean())
+        p_data["Mdn"].append(current["Promotion Reduced (%)"].median())
 
+    Write(md, html, "# Model Summaries  \n")
     Write(md, html, tb.tabulate(bt_data, headers="keys", tablefmt="github") + "  \n\n")
     Write(md, html, "## Promotion Reduced (%)  \n")
-    Write(
-        md,
-        html,
-        "$\\dfrac{Base Promotion - Model Promotion}{Base Promotion} \\times 100$  \n\n",
-    )
     Write(md, html, tb.tabulate(p_data, headers="keys", tablefmt="github") + "  \n\n")
     Write(md, html, "## Miss Ratio Reduced (%)  \n")
-    Write(
-        md,
-        html,
-        "$\\dfrac{Base Miss Ratio - Model Miss Ratio}{Base Miss Ratio} \\times 100$  \n\n",
-    )
     Write(md, html, tb.tabulate(mr_data, headers="keys", tablefmt="github") + "  \n\n")
     Write(md, html, "# Model Summaries Plot  \n")
 
-    models = list(better_than_base.keys())
-    mr = list(miss_ratio_reduced.values())
-    mr = [[x * 100 for x in l] for l in mr]
-    pr = list(promotion_reduced.values())
-    pr = [[x * 100 for x in l] for l in pr]
-
-    for x, title in zip([mr, pr], ["Miss Ratio", "Promotion"]):
-        data = []
-        for model_name, values in zip(models, x):
-            for val in values:
-                data.append({"Model": model_name, f"{title} Reduced (%)": val})
-
-        df = pd.DataFrame(data)
-
+    for title in ["Miss Ratio Reduced (%)", "Promotion Reduced (%)"]:
         fig = px.box(
-            df,
-            x=f"{title} Reduced (%)",
-            y="Model",
-            title=f"{title} Reduced (%)",
-            color="Model",
-        )
-        fig.update_xaxes(dtick=10)
-        fig.update_layout(
-            xaxis_title=title,
-            yaxis_title=None,
-            font=dict(size=14),
-            height=30 * len(models),
-            width=800,
-            showlegend=False,
-        )
-        fig.update_xaxes(showgrid=True)
-        fig.update_yaxes(showgrid=True)
-
-        Write(md, html, f"## {title} Reduced (%) \n")
-        Write(
-            md,
-            html,
-            f"$\\dfrac{{Base {title} - Model {title}}}{{Base {title}}} \\times 100$  \n\n",
-        )
-        WriteFig(md, html, fig)
-
-    models = list(TN_ps.keys())
-    TN_ps_v = list(TN_ps.values())
-    TP_ps_v = list(TP_ps.values())
-    FN_ps_v = list(FN_ps.values())
-    FP_ps_v = list(FP_ps.values())
-
-    for x, title in zip(
-        [TN_ps_v, TP_ps_v, FN_ps_v, FP_ps_v],
-        [
-            "True Negatives (%)",
-            "True Positives (%)",
-            "False Negatives (%)",
-            "False Positives (%)",
-        ],
-    ):
-        data = []
-        for model_name, values in zip(models, x):
-            for val in values:
-                data.append({"Model": model_name, title: val})
-
-        df = pd.DataFrame(data)
-
-        fig = px.box(
-            df,
+            data,
             x=title,
             y="Model",
             title=title,
@@ -523,7 +444,59 @@ def ModelSummaries(
             xaxis_title=title,
             yaxis_title=None,
             font=dict(size=14),
-            height=30 * len(models),  # similar to figsize in matplotlib
+            height=30 * len(data["Model"].unique()),
+            width=800,
+            showlegend=False,
+        )
+        fig.update_xaxes(showgrid=True)
+        fig.update_yaxes(showgrid=True)
+
+        Write(md, html, f"## {title}\n")
+        WriteFig(md, html, fig)
+
+    fig = px.scatter(
+        data.groupby("Model")[["Promotion Reduced (%)", "Miss Ratio Reduced (%)"]]
+        .mean()
+        .reset_index(),
+        x="Promotion Reduced (%)",
+        y="Miss Ratio Reduced (%)",
+        color="Model",
+    )
+    fig.update_xaxes(dtick=10)
+    fig.update_layout(
+        xaxis_title="Promotion Reduced (%)",
+        yaxis_title="Miss Ratio Reduced (%)",
+        font=dict(size=14),
+        height=800,
+        width=800,
+        yaxis_tickformat=".6f",
+    )
+    fig.update_xaxes(showgrid=True)
+    fig.update_yaxes(showgrid=True)
+    WriteFig(md, html, fig)
+
+
+def WriteModelMetrics(md, html, model_metrics: pd.DataFrame):
+    Write(md, html, "# Model Metrics  \n")
+    for title in [
+        "True Positives",
+        "True Negatives",
+        "False Positives",
+        "False Negatives",
+    ]:
+        fig = px.box(
+            model_metrics,
+            x=title,
+            y="Model",
+            title=title,
+            color="Model",
+        )
+        fig.update_xaxes(dtick=10)
+        fig.update_layout(
+            xaxis_title=title,
+            yaxis_title=None,
+            font=dict(size=14),
+            height=30 * len(model_metrics["Model"].unique()),
             width=800,
             showlegend=False,
         )
@@ -533,114 +506,68 @@ def ModelSummaries(
         Write(md, html, f"## {title} \n")
         WriteFig(md, html, fig)
 
-    Write(md, html, "# Individual Workload Result  \n")
 
-    models_result = []
-    for f in ml:
-        if Path(f).stat().st_size == 0:
-            continue
-        prefix, desc = extract_desc(f)
-        model = desc[-1]["model"]
-        size = model.split("_")[-1]
-        size = "spec" if size != "All" else size
-        model = model[: model.rfind("_") + 1] + size
-        df = pd.read_csv(f)
-        log = [OutputLog(**row) for row in df.to_dict(orient="records")][0]
-        models_result.append(
-            {
-                "model": model,
-                "trace": log.trace_path[: log.trace_path.rfind(".oracleGeneral")],
-                "promotion": log.n_promoted,
-                "miss_ratio": log.miss_ratio,
-                "cache_size": desc[0],
-                "ignore_obj_size": desc.count("ignore_obj_size"),
-            }
-        )
-    models_result = pd.DataFrame(models_result)
-    traces = models_result["trace"].unique()
-    cache_sizes = models_result["cache_size"].unique()
+def WriteIndividualResult(md, html, base_result, lru_result, model_result):
+    Write(md, html, "# Individual Workload Result  \n")
+    df = pd.concat([base_result, lru_result, model_result], ignore_index=True)
+
+    ignores = df["Ignore Obj Size"].unique()
+    traces = df["Trace"].unique()
+    sizes = df["Cache Size"].unique()
+
     for trace in traces:
-        Write(md, html, f"## {trace}  \n")
-        Write(
-            md,
-            html,
-            f"{next((x for x in urls if x[x.rfind('/') + 1 : x.rfind('.oracleGeneral')] == trace), '')}  \n",
-        )
-        for ignore_obj_size in range(2):
-            if ignore_obj_size:
-                Write(md, html, "## Object Size Ignored  \n")
-            for cache_size in cache_sizes:
-                base_path = next(
-                    (
-                        x
-                        for x in base
-                        if Path(extract_desc(x)[0]).name == trace
-                        and extract_desc(x)[1].count("ignore_obj_size")
-                        == ignore_obj_size
-                        and extract_desc(x)[1][0] == cache_size
-                    ),
-                    None,
-                )
-                if base_path is None:
-                    continue
-                trace_model_result = models_result.query(
-                    "trace == @trace and ignore_obj_size == @ignore_obj_size and cache_size == @cache_size"
-                )
-                if Path(base_path).stat().st_size == 0:
-                    continue
-                prefix, desc = extract_desc(base_path)
-                df = pd.read_csv(base_path)
-                if df.empty:
-                    continue
-                logs = [OutputLog(**row) for row in df.to_dict(orient="records")]
-                base_result = pd.DataFrame(
-                    [
-                        {
-                            "model": f"Offline Clock {ordinal(i + 1)} iteration",
-                            "promotion": v.n_promoted,
-                            "miss_ratio": v.miss_ratio,
-                        }
-                        for i, v in enumerate(logs)
-                    ]
-                )
-                trace_result = pd.concat(
-                    [
-                        base_result,
-                        trace_model_result[["model", "promotion", "miss_ratio"]],
-                    ],
-                    ignore_index=True,
-                )
+        df_trace = df[df["Trace"] == trace]
+        Write(md, html, f"## {Path(trace).stem}  \n")
+        for ignore in ignores:
+            df_ignore = df_trace[df_trace["Ignore Obj Size"] == ignore]
+            if ignore:
+                Write(md, html, "## Ignore Obj Size  \n")
+            for size in sizes:
+                df_size = df_ignore[df_ignore["Cache Size"] == size]
+                Write(md, html, f"### {size}  \n")
                 fig = px.scatter(
-                    trace_result,
-                    x="promotion",
-                    y="miss_ratio",
-                    color="model",
-                    title=f"trace {trace} with relative cache size={cache_size}",
+                    df_size,
+                    x="Promotion",
+                    y="Miss Ratio",
+                    color="Model",
                 )
                 fig.update_layout(
                     xaxis_title="Promotion",
                     yaxis_title="Miss Ratio",
                     font=dict(size=14),
+                    height=800,
                     width=800,
-                    showlegend=True,
                 )
                 fig.update_xaxes(showgrid=True)
                 fig.update_yaxes(showgrid=True)
-                Write(md, html, f"### {cache_size}  \n")
                 WriteFig(md, html, fig)
-                best = best_ml_models[prefix, float(cache_size), ignore_obj_size]
-                best_model = best[0]
-                best_mr = best[1]
-                Write(
-                    md,
-                    html,
-                    f"**Best Models**: {best_model}  \n**Miss Ratio**: {best_mr}  \n",
-                )
 
+
+def Analyze(
+    base_paths: T.List[str],
+    ml_paths: T.List[str],
+    lru_paths: T.List[str],
+    output_path: str,
+    html_path: str,
+    Title: str,
+    models_metrics_paths: T.List[str],
+):
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    os.makedirs(os.path.dirname(html_path), exist_ok=True)
+
+    md = open(output_path, "w")
+    html = open(Path(html_path), "w")
+    Write(md, html, f"# {Title}  \n# Result  \n")
+
+    model_metrics = GetModelMetrics(models_metrics_paths)
+    base_result = GetBaseResult(base_paths)
+    model_result = GetModelResult(ml_paths)
+    lru_result = GetLRUResult(lru_paths)
+
+    WriteModelSummaries(md, html, base_result, lru_result, model_result)
+    WriteModelMetrics(md, html, model_metrics)
+    WriteIndividualResult(md, html, base_result, lru_result, model_result)
     WriteHTML(html)
-
-
-# Files Variables
 
 
 def Summarize(additional_desc: str, title: str):
@@ -659,15 +586,13 @@ def Summarize(additional_desc: str, title: str):
 
     base_log = [f for f in files if not f.count("ML")]
     ML_log = [f for f in files if f.count("ML")]
+    LRU_log = [f for f in files if f.count("lru")]
 
     test_log = [f for f in base_log if f.count("test") or f.count("TEST")]
     test_prefix = [extract_desc(e)[0] for e in test_log]
-    ML_test_log = [f for f in ML_log if extract_desc(f)[0] in test_prefix]
 
-    # [IgnoreObjSize] -> path
-    base: T.Dict[bool, T.List[str]] = {}
-    base[True] = [f for f in base_log if f.count("ignore_obj_size")]
-    base[False] = [f for f in base_log if not f.count("ignore_obj_size")]
+    ML_test_log = [f for f in ML_log if extract_desc(f)[0] in test_prefix]
+    LRU_test_log = [f for f in LRU_log if extract_desc(f)[0] in test_prefix]
 
     # [IgnoreObjSize] -> path
     base_test: T.Dict[bool, T.List[str]] = {}
@@ -679,25 +604,33 @@ def Summarize(additional_desc: str, title: str):
     ML_test[True] = [f for f in ML_test_log if f.count("ignore_obj_size")]
     ML_test[False] = [f for f in ML_test_log if not f.count("ignore_obj_size")]
 
-    ModelSummaries(
+    # [IgnoreObjSize] -> path
+    LRU_test: T.Dict[bool, T.List[str]] = {}
+    LRU_test[True] = [f for f in LRU_test_log if f.count("ignore_obj_size")]
+    LRU_test[False] = [f for f in LRU_test_log if not f.count("ignore_obj_size")]
+
+    Analyze(
         base_test[0],
         ML_test[0],
+        LRU_test[0],
         f"../result/{title}_obj_size_not_ignored.md",
         f"../docs/{title}_obj_size_not_ignored.html",
         f"{title} Test Data Result Obj Size Not Ignored",
         model_metrics[0],
     )
-    ModelSummaries(
+    Analyze(
         base_test[1],
         ML_test[1],
+        LRU_test[1],
         f"../result/{title}_obj_size_ignored.md",
         f"../docs/{title}_obj_size_ignored.html",
         f"{title} Test Data Result Obj Size Ignored",
         model_metrics[1],
     )
-    ModelSummaries(
+    Analyze(
         base_test[0] + base_test[1],
         ML_test[0] + ML_test[1],
+        LRU_test[0] + LRU_test[1],
         f"../result/{title}.md",
         f"../docs/{title}.html",
         f"{title} Test Data Result Combined",
