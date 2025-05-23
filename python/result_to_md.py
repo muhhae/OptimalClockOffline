@@ -361,7 +361,6 @@ def GetModelResult(paths: T.List[str]):
 def WriteModelSummaries(md, html, base_result, lru_result, models_result):
     bt_data = {
         "Model": [],
-        "Best Models on Exp.": [],
         "Better than base % of the times": [],
     }
     mr_data = {
