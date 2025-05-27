@@ -41,7 +41,7 @@ add_executable(cacheSimulator
   src/cache/ml_clock.cpp
   src/cache/my_clock.cpp
 )
-target_include_directories(cacheSimulator PRIVATE src)
+target_include_directories(cacheSimulator PRIVATE src .)
 
 target_link_libraries(
   cacheSimulator PUBLIC libCacheSim onnxruntime m ${GLib_LIBRARY} ${ZSTD_LIBRARIES}
