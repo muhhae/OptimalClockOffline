@@ -13,4 +13,3 @@ zipf_0_11.oracleGeneral
 zipf_0_12.oracleGeneral
 zipf_0_13.oracleGeneral
 zipf_0_14.oracleGeneral
-zipf_0_15.oracleGeneral
