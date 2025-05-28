@@ -14,6 +14,7 @@
 #include <string>
 #include "cache/base.hpp"
 #include "cache/common.hpp"
+#include "cache/dist_clock.hpp"
 #include "cache/ml_clock.hpp"
 #include "cache/my_clock.hpp"
 #include "cache/offline_clock.hpp"
@@ -22,13 +23,15 @@
 const std::string csv_header =
 	"trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted\n";
 
-void RunExperiment(const options& o) {
+void RunExperiment(options o) {
 	std::vector<std::future<void>> tasks;
 	std::function<
 		cache_t*(const common_cache_params_t ccache_params, const char* cache_specific_params)>
 		CacheInit;
 	if (o.algorithm == "default") {
 		CacheInit = cclock::OfflineClockInit;
+	} else if (o.algorithm == "dist-optimal") {
+		CacheInit = distclock::DistClockInit;
 	} else if (o.algorithm == "lru") {
 		CacheInit = base::LRUInit;
 	} else if (o.algorithm == "base") {
@@ -63,9 +66,12 @@ void RunExperiment(const options& o) {
 	for (const auto& p : o.trace_paths) {
 		reader_init_param_t reader_init_param = {
 			.ignore_obj_size = o.ignore_obj_size,
+			.obj_id_is_num = o.id_num,
+			.obj_id_is_num_set = o.id_num,
 			.time_field = 1,
 			.obj_id_field = 2,
-			.obj_size_field = 3
+			.obj_size_field = 3,
+			.has_header = true
 		};
 
 		trace_type_e trace_type = ORACLE_GENERAL_TRACE;
@@ -73,19 +79,16 @@ void RunExperiment(const options& o) {
 			trace_type = CSV_TRACE;
 		}
 		reader_t* reader = open_trace(p.c_str(), trace_type, &reader_init_param);
-
 		int64_t wss_obj = 0;
 		int64_t wss_byte = 0;
-		if (!o.relative_cache_sizes.empty())
-			cal_working_set_size(reader, &wss_obj, &wss_byte);
-
+		cal_working_set_size(reader, &wss_obj, &wss_byte);
 		close_reader(reader);
 		int64_t wss = o.ignore_obj_size ? wss_obj : wss_byte;
-
 		const char* cache_specific_params = NULL;
 
 		std::cout << csv_header;
 		for (const auto& fcs : o.fixed_cache_sizes) {
+			o.dist_optimal_treshold = o.ignore_obj_size ? fcs : fcs / wss_byte * wss_obj;
 			std::string desc = "[" + std::to_string(fcs) + (o.ignore_obj_size ? "" : "MiB") +
 							   (o.desc != "" ? "," : "") + o.desc + "]";
 			tasks.emplace_back(std::async(
@@ -100,6 +103,7 @@ void RunExperiment(const options& o) {
 			));
 		}
 		for (const auto& rcs : o.relative_cache_sizes) {
+			o.dist_optimal_treshold = rcs * wss_obj;
 			std::string s = std::to_string(rcs);
 			s = s.substr(0, s.find_last_not_of('0') + 1);
 			if (s.back() == '.')
@@ -127,6 +131,8 @@ void Simulate(
 ) {
 	reader_init_param_t reader_init_param = {
 		.ignore_obj_size = o.ignore_obj_size,
+		.obj_id_is_num = o.id_num,
+		.obj_id_is_num_set = o.id_num,
 		.time_field = 1,
 		.obj_id_field = 2,
 		.obj_size_field = 3,
@@ -196,6 +202,7 @@ void Simulate(
 		tmp_custom_params->n_hit = 0;
 		tmp_custom_params->n_req = 0;
 		tmp_custom_params->n_promoted = 0;
+		tmp_custom_params->dist_optimal_treshold = o.dist_optimal_treshold;
 		if (i == o.max_iteration - 1) {
 			tmp_custom_params->generate_datasets = o.generate_datasets;
 		}

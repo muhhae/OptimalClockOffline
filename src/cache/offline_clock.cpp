@@ -18,6 +18,7 @@ static void OfflineClockEvict(cache_t* cache, const request_t* req) {
 			data.wasted_promotions.find(data.last_promotion) != data.wasted_promotions.end();
 		if (custom_params->generate_datasets) {
 			auto features = common::CandidateMetadata(data, custom_params, req);
+			features["obj_id"] = obj_to_evict->obj_id;
 			features["wasted"] = wasted;
 			for (size_t i = 0; i < common::datasets_columns.size(); i++) {
 				custom_params->datasets << features[common::datasets_columns[i]]

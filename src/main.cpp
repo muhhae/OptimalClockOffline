@@ -54,6 +54,7 @@ int main(int argc, char** argv) {
 		});
 	app.add_option("-T, --trace-type", o.trace_type, "Traces Type [oracleGeneral, csv]")
 		->default_val("oracleGeneral");
+	app.add_flag("--id-num", o.id_num, "Id is already numeric so we can skip the hashing process");
 
 	CLI11_PARSE(app, argc, argv);
 

@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <cstdint>
 #include <fstream>
+#include <limits>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
@@ -105,6 +106,7 @@ class Custom_clock_params : public Clock_params_t {
 
 	uint64_t vtime = 0;
 
+	uint64_t dist_optimal_treshold = std::numeric_limits<uint64_t>::max();
 	bool generate_datasets;
 };
 

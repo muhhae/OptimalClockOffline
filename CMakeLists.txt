@@ -40,6 +40,7 @@ add_executable(cacheSimulator
   src/cache/base.cpp
   src/cache/ml_clock.cpp
   src/cache/my_clock.cpp
+  src/cache/dist_clock.cpp
 )
 target_include_directories(cacheSimulator PRIVATE src .)
 

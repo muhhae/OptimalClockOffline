@@ -18,6 +18,7 @@ std::unordered_map<std::string, float> common::CandidateMetadata(
 	TrackRunningMean(log(vtime_since + 1), params->rm_vtime_since_log);
 
 	std::unordered_map<std::string, float> features;
+
 	features["rtime_since"] = rtime_since;
 	features["rtime_since_std"] = common::RunningMeanNormalize(rtime_since, params->rm_rtime_since);
 	features["rtime_since_log"] = log(rtime_since + 1);

@@ -2,7 +2,9 @@
 
 #include <libCacheSim/cache.h>
 #include <libCacheSim/reader.h>
+#include <sys/types.h>
 #include <filesystem>
+#include <limits>
 #include <string>
 #include <vector>
 
@@ -17,6 +19,8 @@ struct options {
 	std::vector<float> relative_cache_sizes;
 	std::vector<std::string> descs;
 
+	uint64_t dist_optimal_treshold = std::numeric_limits<uint64_t>::max();
+	bool id_num = false;
 	bool ignore_obj_size = false;
 	bool generate_datasets = false;
 	uint64_t max_iteration;
@@ -29,4 +33,4 @@ struct options {
 void Simulate(
 	cache_t* cache, const std::filesystem::path trace_path, const options o, const std::string desc
 );
-void RunExperiment(const options& o);
+void RunExperiment(options o);
