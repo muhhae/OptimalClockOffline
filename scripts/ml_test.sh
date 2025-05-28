@@ -67,6 +67,9 @@ case "$model" in
     "LR_4_mean")
         features="-I F32 -F rtime_since_log vtime_since_log rtime_between_log clock_freq_std lifetime_freq_std"
         ;;
+    "LR_5")
+        features="-I F32 -F rtime_since rtime_between clock_freq lifetime_freq"
+        ;;
     *)
         echo "Unknown model using default features"
         ;;
