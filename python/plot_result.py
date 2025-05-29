@@ -66,11 +66,7 @@ included_models = [
     "LR_4",
     "LR_4_log",
     "LR_4_mean",
-    "LR_v5",
-    "LR_v5_norm",
-    "LR_v6",
-    "LR_v7",
-    "LR_v8",
+    "LR_5",
 ]
 
 g_html_content = ""
@@ -304,7 +300,7 @@ def GetBaseResult(paths: T.List[str]):
     return pd.DataFrame(tmp)
 
 
-def GetLRUResult(paths: T.List[str]):
+def GetOtherResult(paths: T.List[str], name: str):
     tmp = []
     for file in paths:
         if Path(file).stat().st_size == 0:
@@ -316,7 +312,7 @@ def GetLRUResult(paths: T.List[str]):
         logs = [OutputLog(**row) for row in df.to_dict(orient="records")]
         tmp.append(
             {
-                "Model": "LRU",
+                "Model": name,
                 "Promotion": logs[0].n_promoted,
                 "Miss Ratio": logs[0].miss_ratio,
                 "Trace": prefix,
@@ -357,7 +353,7 @@ def GetModelResult(paths: T.List[str]):
     return pd.DataFrame(tmp)
 
 
-def WriteModelSummaries(md, html, base_result, lru_result, models_result):
+def WriteModelSummaries(md, html, base_result, models_result):
     bt_data = {
         "Model": [],
         "Better than base % of the times": [],
@@ -505,9 +501,9 @@ def WriteModelMetrics(md, html, model_metrics: pd.DataFrame):
         WriteFig(md, html, fig)
 
 
-def WriteIndividualResult(md, html, base_result, lru_result, model_result):
+def WriteIndividualResult(md, html, results):
     Write(md, html, "# Individual Workload Result  \n")
-    df = pd.concat([base_result, lru_result, model_result], ignore_index=True)
+    df = pd.concat(results, ignore_index=True)
 
     ignores = df["Ignore Obj Size"].unique()
     traces = df["Trace"].unique()
@@ -542,9 +538,7 @@ def WriteIndividualResult(md, html, base_result, lru_result, model_result):
 
 
 def Analyze(
-    base_paths: T.List[str],
-    ml_paths: T.List[str],
-    lru_paths: T.List[str],
+    paths: T.List[str],
     output_path: str,
     html_path: str,
     Title: str,
@@ -557,14 +551,28 @@ def Analyze(
     html = open(Path(html_path), "w")
     Write(md, html, f"# {Title}  \n# Result  \n")
 
+    model_paths = [f for f in paths if "ML" in f]
+    lru_paths = [f for f in paths if "lru" in f]
+    dist_optimal_paths = [f for f in paths if "dist_optimal" in f]
+    base_paths = [
+        f
+        for f in paths
+        if f not in set(model_paths) | set(lru_paths) | set(dist_optimal_paths)
+    ]
+
     model_metrics = GetModelMetrics(models_metrics_paths)
     base_result = GetBaseResult(base_paths)
-    model_result = GetModelResult(ml_paths)
-    lru_result = GetLRUResult(lru_paths)
+    model_result = GetModelResult(model_paths)
+    lru_result = GetOtherResult(lru_paths, "LRU")
+    dist_optimal_result = GetOtherResult(
+        dist_optimal_paths, "Zipf Optimal Distribution"
+    )
 
-    WriteModelSummaries(md, html, base_result, lru_result, model_result)
+    WriteModelSummaries(md, html, base_result, model_result)
     WriteModelMetrics(md, html, model_metrics)
-    WriteIndividualResult(md, html, base_result, lru_result, model_result)
+    WriteIndividualResult(
+        md, html, [base_result, lru_result, model_result, dist_optimal_result]
+    )
     WriteHTML(html)
 
 
@@ -582,53 +590,31 @@ def Summarize(additional_desc: str, title: str):
         f for f in models_metric_files if not f.count("ignore_obj_size")
     ]
 
-    base_log = [f for f in files if not f.count("ML")]
-    ML_log = [f for f in files if f.count("ML")]
-    LRU_log = [f for f in files if f.count("lru")]
+    test_prefix = [extract_desc(f)[0] for f in files if "test" in f]
+    files = [f for f in files if extract_desc(f)[0] in test_prefix]
 
-    test_log = [f for f in base_log if f.count("test") or f.count("TEST")]
-    test_prefix = [extract_desc(e)[0] for e in test_log]
-
-    ML_test_log = [f for f in ML_log if extract_desc(f)[0] in test_prefix]
-    LRU_test_log = [f for f in LRU_log if extract_desc(f)[0] in test_prefix]
-
-    # [IgnoreObjSize] -> path
-    base_test: T.Dict[bool, T.List[str]] = {}
-    base_test[True] = [f for f in test_log if f.count("ignore_obj_size")]
-    base_test[False] = [f for f in test_log if not f.count("ignore_obj_size")]
-
-    # [IgnoreObjSize] -> path
-    ML_test: T.Dict[bool, T.List[str]] = {}
-    ML_test[True] = [f for f in ML_test_log if f.count("ignore_obj_size")]
-    ML_test[False] = [f for f in ML_test_log if not f.count("ignore_obj_size")]
-
-    # [IgnoreObjSize] -> path
-    LRU_test: T.Dict[bool, T.List[str]] = {}
-    LRU_test[True] = [f for f in LRU_test_log if f.count("ignore_obj_size")]
-    LRU_test[False] = [f for f in LRU_test_log if not f.count("ignore_obj_size")]
+    # [ignore_obj_size] -> paths
+    paths: T.Dict[bool, T.List[str]] = {
+        False: [f for f in files if "ignore_obj_size" not in f],
+        True: [f for f in files if "ignore_obj_size" in f],
+    }
 
     Analyze(
-        base_test[0],
-        ML_test[0],
-        LRU_test[0],
+        paths[0],
         f"../result/{title}_obj_size_not_ignored.md",
         f"../docs/{title}_obj_size_not_ignored.html",
         f"{title} Test Data Result Obj Size Not Ignored",
         model_metrics[0],
     )
     Analyze(
-        base_test[1],
-        ML_test[1],
-        LRU_test[1],
+        paths[1],
         f"../result/{title}_obj_size_ignored.md",
         f"../docs/{title}_obj_size_ignored.html",
         f"{title} Test Data Result Obj Size Ignored",
         model_metrics[1],
     )
     Analyze(
-        base_test[0] + base_test[1],
-        ML_test[0] + ML_test[1],
-        LRU_test[0] + LRU_test[1],
+        files,
         f"../result/{title}.md",
         f"../docs/{title}.html",
         f"{title} Test Data Result Combined",
