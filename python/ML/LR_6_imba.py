@@ -15,7 +15,6 @@ def SetupModel(max_iter: int = 1000):
             "model",
             LogisticRegression(
                 max_iter=max_iter,
-                class_weight="balanced",
             ),
         ),
     ]
