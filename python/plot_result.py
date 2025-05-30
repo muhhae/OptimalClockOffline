@@ -59,7 +59,7 @@ included_models = [
     # "LR_1_std_scaler",
     # "LR_1_robust_scaler",
     # "LR_1_log",
-    "LR_1_mean",
+    # "LR_1_mean",
     # "LR_2",
     # "LR_2_log",
     # "LR_2_mean",
