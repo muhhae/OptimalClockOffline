@@ -8,6 +8,7 @@ from pathlib import Path
 from common import extract_desc, OutputLog, ordinal
 import tabulate as tb
 import markdown as MD
+from collections import defaultdict
 
 
 import pandas as pd
@@ -55,9 +56,9 @@ included_models = [
     # "logistic_regression_v3",
     # "logistic_regression_v4",
     "LR_1",
-    "LR_1_std_scaler",
-    "LR_1_robust_scaler",
-    "LR_1_log",
+    # "LR_1_std_scaler",
+    # "LR_1_robust_scaler",
+    # "LR_1_log",
     "LR_1_mean",
     # "LR_2",
     # "LR_2_log",
@@ -65,15 +66,15 @@ included_models = [
     # "LR_3",
     # "LR_3_log",
     # "LR_3_mean",
-    "LR_4",
-    "LR_4_std_scaler",
-    "LR_4_robust_scaler",
-    "LR_4_log",
-    "LR_4_mean",
-    "LR_5",
+    # "LR_4",
+    # "LR_4_std_scaler",
+    # "LR_4_robust_scaler",
+    # "LR_4_log",
+    # "LR_4_mean",
+    # "LR_5",
     "LR_5_imba",
-    "LR_6",
-    "LR_6_imba",
+    # "LR_6",
+    # "LR_6_imba",
 ]
 
 g_html_content = ""
@@ -244,11 +245,83 @@ def WriteHTML(html: T.TextIO):
     g_html_content = ""
 
 
+def ParseClassificationReport(report_string):
+    overall = {}
+    avg_specific = []
+    class_specific = []
+    report_start_index = report_string.find("Classification Report:")
+    report_text = report_string[report_start_index:]
+    lines = report_text.strip().split("\n")
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+        match_overall_accuracy = re.match(r"^Accuracy:\s*([\d.]+)$", line)
+        if match_overall_accuracy:
+            overall["overall_accuracy"] = float(match_overall_accuracy.group(1))
+            continue
+
+        match_class = re.match(
+            r"^(?P<label>(?!\baccuracy\b|\bmacro\b|\bweighted\b)\S+)\s+(?P<precision>[\d.]+)\s+(?P<recall>[\d.]+)\s+(?P<f1_score>[\d.]+)\s+(?P<support>[\d]+)$",
+            line,
+        )
+        if match_class:
+            data = match_class.groupdict()
+            label = data["label"]
+            class_specific.append(
+                {
+                    "class": label,
+                    "precision": float(data["precision"]),
+                    "recall": float(data["recall"]),
+                    "f1-score": float(data["f1_score"]),
+                    "support": int(data["support"]),
+                }
+            )
+            continue
+
+        match_table_accuracy = re.match(
+            r"^accuracy\s+(?P<score>[\d.]+)\s+(?P<support>[\d]+)$", line
+        )
+        if match_table_accuracy:
+            data = match_table_accuracy.groupdict()
+            overall["accuracy_score"] = float(data["score"])
+            overall["accuracy_support"] = int(data["support"])
+            continue
+
+        match_avg = re.match(
+            r"^(?P<avg_type>macro avg|weighted avg)\s+(?P<precision>[\d.]+)\s+(?P<recall>[\d.]+)\s+(?P<f1_score>[\d.]+)\s+(?P<support>[\d]+)$",
+            line,
+        )
+        if match_avg:
+            data = match_avg.groupdict()
+            avg_type_key = data["avg_type"].replace("avg", "").strip()
+            avg_specific.append(
+                {
+                    "type": avg_type_key,
+                    "precision": float(data["precision"]),
+                    "recall": float(data["recall"]),
+                    "f1-score": float(data["f1_score"]),
+                    "support": int(data["support"]),
+                }
+            )
+            continue
+    return (
+        pd.DataFrame([overall]),
+        pd.DataFrame(avg_specific),
+        pd.DataFrame(class_specific),
+    )
+
+
 def GetModelMetrics(paths: T.List[str]):
     tmp = []
     for p in paths:
         f = open(p, "r")
         content = f.read()
+        report = content[
+            content.find("Classification Report")
+            + len("Classification Report:\n") : content.find("Confusion Matrix") - 1
+        ]
+        overall, avg, class_specific = ParseClassificationReport(content)
         kw = "Confusion Matrix"
 
         content = content[content.find(kw) + len(kw) :]
@@ -281,6 +354,7 @@ def GetModelMetrics(paths: T.List[str]):
                 "True Positives": TP / (TP + FP) * 100 if TP != 0 else 0,
                 "False Negatives": FN / (TN + FN) * 100 if FN != 0 else 0,
                 "False Positives": FP / (TP + FP) * 100 if FP != 0 else 0,
+                "Report": report,
             }
         )
     return pd.DataFrame(tmp)
@@ -365,24 +439,6 @@ def GetModelResult(paths: T.List[str]):
 
 
 def WriteModelSummaries(md, html, base_result, models_result):
-    bt_data = {
-        "Model": [],
-        "Better than base % of the times": [],
-    }
-    mr_data = {
-        "Model": [],
-        "Max": [],
-        "Min": [],
-        "Avg": [],
-        "Mdn": [],
-    }
-    p_data = {
-        "Model": [],
-        "Max": [],
-        "Min": [],
-        "Avg": [],
-        "Mdn": [],
-    }
     tmp = []
     for model in models_result["Model"].unique():
         current = models_result.query("Model == @model")
@@ -408,6 +464,9 @@ def WriteModelSummaries(md, html, base_result, models_result):
                     "Better Than Base": x["Miss Ratio"] < base_log["Miss Ratio"].item(),
                 }
             )
+    bt_data = defaultdict(list)
+    mr_data = defaultdict(list)
+    p_data = defaultdict(list)
     data = pd.DataFrame(tmp)
     for model in data["Model"].unique():
         current = data.query("Model == @model")
@@ -483,6 +542,12 @@ def WriteModelSummaries(md, html, base_result, models_result):
 
 
 def WriteModelMetrics(md, html, model_metrics: pd.DataFrame):
+    Write(md, html, "# Model Classification Report  \n")
+    for m in model_metrics["Model"].unique():
+        Write(md, html, f"## {m}  \n")
+        report = model_metrics.query("Model == @m")["Report"].tolist()
+        for r in report:
+            Write(md, html, f"```\n{r}\n```  \n")
     Write(md, html, "# Model Metrics  \n")
     for title in [
         "True Positives",
@@ -517,7 +582,7 @@ def WriteIndividualResult(md, html, results):
     Write(md, html, "# Individual Workload Result  \n")
     df = pd.concat(results, ignore_index=True)
 
-    ignores = [0, 1]
+    ignores = sorted(df["Ignore Obj Size"].unique())
     traces = df["Trace"].unique()
     sizes = df["Cache Size"].unique()
 
