@@ -34,6 +34,12 @@ case "$model" in
     "LR_1")
         features="-I F32 -F rtime_since vtime_since clock_freq lifetime_freq"
         ;;
+    "LR_1_robust_scaler")
+        features="-I F32 -F rtime_since vtime_since clock_freq lifetime_freq"
+        ;;
+    "LR_1_std_scaler")
+        features="-I F32 -F rtime_since vtime_since clock_freq lifetime_freq"
+        ;;
     "LR_1_log")
         features="-I F32 -F rtime_since_log vtime_since_log clock_freq_log lifetime_freq_log"
         ;;
@@ -61,6 +67,12 @@ case "$model" in
     "LR_4")
         features="-I F32 -F rtime_since vtime_since rtime_between clock_freq lifetime_freq"
         ;;
+    "LR_4_std_scaler")
+        features="-I F32 -F rtime_since vtime_since rtime_between clock_freq lifetime_freq"
+        ;;
+    "LR_4_robust_scaler")
+        features="-I F32 -F rtime_since vtime_since rtime_between clock_freq lifetime_freq"
+        ;;
     "LR_4_log")
         features="-I F32 -F rtime_since_log vtime_since_log rtime_between_log clock_freq_log lifetime_freq_log"
         ;;
@@ -68,6 +80,15 @@ case "$model" in
         features="-I F32 -F rtime_since_log vtime_since_log rtime_between_log clock_freq_std lifetime_freq_std"
         ;;
     "LR_5")
+        features="-I F32 -F rtime_since rtime_between clock_freq lifetime_freq"
+        ;;
+    "LR_5_imba")
+        features="-I F32 -F rtime_since rtime_between clock_freq lifetime_freq"
+        ;;
+    "LR_6")
+        features="-I F32 -F rtime_since rtime_between clock_freq lifetime_freq"
+        ;;
+    "LR_6_imba")
         features="-I F32 -F rtime_since rtime_between clock_freq lifetime_freq"
         ;;
     *)
