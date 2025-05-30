@@ -49,24 +49,31 @@ def printls(ls: T.List):
 
 
 included_models = [
-    "little_random_forest",
-    "logistic_regression",
-    "logistic_regression_v2",
-    "logistic_regression_v3",
-    "logistic_regression_v4",
+    # "little_random_forest",
+    # "logistic_regression",
+    # "logistic_regression_v2",
+    # "logistic_regression_v3",
+    # "logistic_regression_v4",
     "LR_1",
+    "LR_1_std_scaler",
+    "LR_1_robust_scaler",
     "LR_1_log",
     "LR_1_mean",
-    "LR_2",
-    "LR_2_log",
-    "LR_2_mean",
-    "LR_3",
-    "LR_3_log",
-    "LR_3_mean",
+    # "LR_2",
+    # "LR_2_log",
+    # "LR_2_mean",
+    # "LR_3",
+    # "LR_3_log",
+    # "LR_3_mean",
     "LR_4",
+    "LR_4_std_scaler",
+    "LR_4_robust_scaler",
     "LR_4_log",
     "LR_4_mean",
     "LR_5",
+    "LR_5_imba",
+    "LR_6",
+    "LR_6_imba",
 ]
 
 g_html_content = ""
@@ -258,8 +265,11 @@ def GetModelMetrics(paths: T.List[str]):
         model = p.replace(".md", "").replace(".txt", "")
         model = Path(p).stem
         model, desc = extract_desc(model)
+        if model not in included_models:
+            continue
         size = desc[0]
-        model = f"{model}_{'spec' if size != 'All' else size}"
+        # model = f"{model}_{'spec' if size != 'All' else size}"
+        model = f"{model}_{size}"
 
         (TN, FP), (FN, TP) = eval(py_v)
 
@@ -335,7 +345,8 @@ def GetModelResult(paths: T.List[str]):
         model = model[:size_pos]
         if model not in included_models:
             continue
-        model = f"{model}_{'spec' if size != 'All' else size}"
+        # model = f"{model}_{'spec' if size != 'All' else size}"
+        model = f"{model}_{size}"
         df = pd.read_csv(file)
         if df.empty:
             continue
@@ -448,6 +459,7 @@ def WriteModelSummaries(md, html, base_result, models_result):
         Write(md, html, f"## {title}\n")
         WriteFig(md, html, fig)
 
+    Write(md, html, "# Promotion vs Miss Ratio  \n")
     fig = px.scatter(
         data.groupby("Model")[["Promotion Reduced (%)", "Miss Ratio Reduced (%)"]]
         .mean()
@@ -505,7 +517,7 @@ def WriteIndividualResult(md, html, results):
     Write(md, html, "# Individual Workload Result  \n")
     df = pd.concat(results, ignore_index=True)
 
-    ignores = df["Ignore Obj Size"].unique()
+    ignores = [0, 1]
     traces = df["Trace"].unique()
     sizes = df["Cache Size"].unique()
 
@@ -568,7 +580,14 @@ def Analyze(
         dist_optimal_paths, "Zipf Optimal Distribution"
     )
 
-    WriteModelSummaries(md, html, base_result, model_result)
+    WriteModelSummaries(
+        md,
+        html,
+        base_result,
+        pd.concat(
+            [model_result, base_result, dist_optimal_result],
+        ),
+    )
     WriteModelMetrics(md, html, model_metrics)
     WriteIndividualResult(
         md, html, [base_result, lru_result, model_result, dist_optimal_result]
