@@ -49,34 +49,6 @@ def printls(ls: T.List):
         print(x)
 
 
-included_models = [
-    # "little_random_forest",
-    # "logistic_regression",
-    # "logistic_regression_v2",
-    # "logistic_regression_v3",
-    # "logistic_regression_v4",
-    "LR_1",
-    # "LR_1_std_scaler",
-    # "LR_1_robust_scaler",
-    # "LR_1_log",
-    # "LR_1_mean",
-    # "LR_2",
-    # "LR_2_log",
-    # "LR_2_mean",
-    # "LR_3",
-    # "LR_3_log",
-    # "LR_3_mean",
-    # "LR_4",
-    # "LR_4_std_scaler",
-    # "LR_4_robust_scaler",
-    # "LR_4_log",
-    # "LR_4_mean",
-    # "LR_5",
-    "LR_5_imba",
-    # "LR_6",
-    # "LR_6_imba",
-]
-
 g_html_content = ""
 
 
@@ -338,8 +310,6 @@ def GetModelMetrics(paths: T.List[str]):
         model = p.replace(".md", "").replace(".txt", "")
         model = Path(p).stem
         model, desc = extract_desc(model)
-        if model not in included_models:
-            continue
         size = desc[0]
         # model = f"{model}_{'spec' if size != 'All' else size}"
         model = f"{model}_{size}"
@@ -417,8 +387,6 @@ def GetModelResult(paths: T.List[str]):
         size = model.split("_")[-1]
         size_pos = model.rfind("_")
         model = model[:size_pos]
-        if model not in included_models:
-            continue
         # model = f"{model}_{'spec' if size != 'All' else size}"
         model = f"{model}_{size}"
         df = pd.read_csv(file)
@@ -620,7 +588,9 @@ def Analyze(
     html_path: str,
     Title: str,
     models_metrics_paths: T.List[str],
+    included_models: T.List[str],
 ):
+    print(f"Analyzing for {Title}")
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     os.makedirs(os.path.dirname(html_path), exist_ok=True)
 
@@ -635,6 +605,20 @@ def Analyze(
         f
         for f in paths
         if f not in set(model_paths) | set(lru_paths) | set(dist_optimal_paths)
+    ]
+
+    model_paths = [
+        f
+        for f in model_paths
+        if (
+            (model := extract_desc(f)[1][-1]["model"])[: model.rfind("_")]
+            in included_models
+        )
+    ]
+    models_metrics_paths = [
+        f
+        for f in models_metrics_paths
+        if (p := Path(f).stem)[: p.rfind("[")] in included_models
     ]
 
     model_metrics = GetModelMetrics(models_metrics_paths)
@@ -660,7 +644,7 @@ def Analyze(
     WriteHTML(html)
 
 
-def Summarize(additional_desc: str, title: str):
+def Summarize(additional_desc: str, title: str, included_models: T.List[str]):
     files = sorted(glob.glob(os.path.join(result_dir, "*.csv")), key=sort_key)
     files = [f for f in files if f.count(additional_desc)]
 
@@ -689,6 +673,7 @@ def Summarize(additional_desc: str, title: str):
         f"../docs/{title}_obj_size_not_ignored.html",
         f"{title} Test Data Result Obj Size Not Ignored",
         model_metrics[0],
+        included_models,
     )
     Analyze(
         paths[1],
@@ -696,6 +681,7 @@ def Summarize(additional_desc: str, title: str):
         f"../docs/{title}_obj_size_ignored.html",
         f"{title} Test Data Result Obj Size Ignored",
         model_metrics[1],
+        included_models,
     )
     Analyze(
         files,
@@ -703,8 +689,40 @@ def Summarize(additional_desc: str, title: str):
         f"../docs/{title}.html",
         f"{title} Test Data Result Combined",
         model_metrics[0] + model_metrics[1],
+        included_models,
     )
 
 
-Summarize("zipf1", "Zipf1")
-Summarize("zipf0", "Zipf0")
+ALL_MODELS = [
+    "little_random_forest",
+    "logistic_regression",
+    "logistic_regression_v2",
+    "logistic_regression_v3",
+    "logistic_regression_v4",
+    "LR_1",
+    "LR_1_std_scaler",
+    "LR_1_robust_scaler",
+    "LR_1_log",
+    "LR_1_mean",
+    "LR_2",
+    "LR_2_log",
+    "LR_2_mean",
+    "LR_3",
+    "LR_3_log",
+    "LR_3_mean",
+    "LR_4",
+    "LR_4_std_scaler",
+    "LR_4_robust_scaler",
+    "LR_4_log",
+    "LR_4_mean",
+    "LR_5",
+    "LR_5_imba",
+    "LR_6",
+    "LR_6_imba",
+]
+
+Summarize("zipf1", "Zipf1", ["LR_1", "LR_5_imba"])
+Summarize("zipf0", "Zipf0", ["LR_1", "LR_5_imba"])
+
+Summarize("zipf1", "Zipf1 All Model", ALL_MODELS)
+Summarize("zipf0", "Zipf0 All Model", ALL_MODELS)
