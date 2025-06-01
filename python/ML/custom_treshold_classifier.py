@@ -1,6 +1,7 @@
 from sklearn.linear_model import LogisticRegression
 from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
+import numpy as np
 
 
 class CustomThresholdClassifier(BaseEstimator, ClassifierMixin):
