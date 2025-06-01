@@ -42,4 +42,5 @@ class CustomThresholdClassifier(BaseEstimator, ClassifierMixin):
         X = check_array(X)
         probabilities = self.base_model_.predict_proba(X)
         prob_positive_class = probabilities[:, 1]
-        return (prob_positive_class >= self.custom_threshold).astype(int)
+        labels = (prob_positive_class >= self.custom_threshold).astype(np.int64)
+        return labels.reshape(-1, 1)
