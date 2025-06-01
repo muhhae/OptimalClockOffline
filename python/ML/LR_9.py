@@ -13,7 +13,7 @@ def SetupModel(max_iter: int = 1000):
         (
             "model",
             CustomThresholdClassifier(
-                custom_threshold=0.3,
+                custom_threshold=0.7,
                 max_iter=max_iter,
                 class_weight="balanced",
                 solver="liblinear",
