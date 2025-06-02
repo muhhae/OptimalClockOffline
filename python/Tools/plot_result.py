@@ -1,5 +1,7 @@
+import multiprocessing
 import plotly.express as px
 import plotly.io as pio
+import plotly.graph_objs as go
 import typing as T
 import glob
 import os
@@ -67,8 +69,7 @@ def WriteFig(md: T.TextIO, html: T.TextIO, fig):
 def WriteHTML(html: T.TextIO):
     global g_html_content
     md = MD.Markdown(
-        extensions=["extra", "toc", "pymdownx.arithmatex"],
-        extension_configs={"pymdownx.arithmatex": {"generic": True}},
+        extensions=["extra", "toc"],
     )
     html_body = md.convert(g_html_content)
     toc = md.toc
@@ -489,11 +490,23 @@ def WriteModelSummaries(md, html, base_result, models_result):
         Write(md, html, f"## {title}\n")
         WriteFig(md, html, fig)
 
+    symbol_map = {
+        "Offline Clock 1st iteration": "square-dot",
+        "Offline Clock 2nd iteration": "diamond-dot",
+        "Zipf Optimal Distribution": "x-dot",
+    }
+    for model in data["Model"].unique():
+        if model not in symbol_map:
+            symbol_map[model] = "circle"
+
     Write(md, html, "# Promotion vs Miss Ratio  \n")
+    Write(md, html, "## Cache Size All  \n")
     fig = px.scatter(
         data.groupby("Model")[["Promotion Reduced (%)", "Miss Ratio Reduced (%)"]]
         .mean()
         .reset_index(),
+        symbol="Model",
+        symbol_map=symbol_map,
         x="Promotion Reduced (%)",
         y="Miss Ratio Reduced (%)",
         color="Model",
@@ -510,6 +523,31 @@ def WriteModelSummaries(md, html, base_result, models_result):
     fig.update_xaxes(showgrid=True)
     fig.update_yaxes(showgrid=True)
     WriteFig(md, html, fig)
+    for size in data["Cache Size"].unique():
+        tmp = data[data["Cache Size"] == size]
+        Write(md, html, f"## Cache Size {size}  \n")
+        fig = px.scatter(
+            tmp.groupby("Model")[["Promotion Reduced (%)", "Miss Ratio Reduced (%)"]]
+            .mean()
+            .reset_index(),
+            symbol="Model",
+            symbol_map=symbol_map,
+            x="Promotion Reduced (%)",
+            y="Miss Ratio Reduced (%)",
+            color="Model",
+        )
+        fig.update_xaxes(dtick=10)
+        fig.update_layout(
+            xaxis_title="Promotion Reduced (%)",
+            yaxis_title="Miss Ratio Reduced (%)",
+            font=dict(size=14),
+            height=800,
+            width=800,
+            yaxis_tickformat=".6f",
+        )
+        fig.update_xaxes(showgrid=True)
+        fig.update_yaxes(showgrid=True)
+        WriteFig(md, html, fig)
 
 
 def WriteModelMetrics(md, html, model_metrics: pd.DataFrame):
@@ -592,6 +630,7 @@ def Analyze(
     Title: str,
     models_metrics_paths: T.List[str],
     included_models: T.List[str],
+    included_treshold: T.List[float],
 ):
     print(f"Analyzing for {Title}")
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
@@ -616,6 +655,10 @@ def Analyze(
         if (
             (model := extract_desc(f)[1][-1]["model"])[: model.rfind("_")]
             in included_models
+            and (
+                "treshold" not in extract_desc(f)[1][-1]
+                or float(extract_desc(f)[1][-1]["treshold"]) in included_treshold
+            )
         )
     ]
     models_metrics_paths = [
@@ -645,9 +688,15 @@ def Analyze(
         md, html, [base_result, lru_result, model_result, dist_optimal_result]
     )
     WriteHTML(html)
+    print(f"Finished analyzing for {Title}")
 
 
-def Summarize(additional_desc: str, title: str, included_models: T.List[str]):
+def Summarize(
+    additional_desc: str,
+    title: str,
+    included_models: T.List[str],
+    included_treshold: T.List[float],
+):
     files = sorted(glob.glob(os.path.join(result_dir, "*.csv")), key=sort_key)
     files = [f for f in files if f.count(additional_desc)]
 
@@ -677,6 +726,7 @@ def Summarize(additional_desc: str, title: str, included_models: T.List[str]):
         f"{title} Test Data Result Obj Size Not Ignored",
         model_metrics[0],
         included_models,
+        included_treshold,
     )
     Analyze(
         paths[1],
@@ -685,6 +735,7 @@ def Summarize(additional_desc: str, title: str, included_models: T.List[str]):
         f"{title} Test Data Result Obj Size Ignored",
         model_metrics[1],
         included_models,
+        included_treshold,
     )
     Analyze(
         files,
@@ -693,6 +744,7 @@ def Summarize(additional_desc: str, title: str, included_models: T.List[str]):
         f"{title} Test Data Result Combined",
         model_metrics[0] + model_metrics[1],
         included_models,
+        included_treshold,
     )
 
 
@@ -726,15 +778,53 @@ ALL_MODELS = [
     "LR_8",
     "LR_9",
 ]
+BASE_MODELS = [
+    "LR_1",
+    "LR_2",
+    "LR_3",
+    "LR_4",
+    "LR_5",
+    "LR_6",
+    "LR_7",
+    "LR_8",
+    "LR_9",
+]
+ALL_TRESHOLD = [
+    0.3,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9,
+]
 
-Summarize("zipf1", "Zipf1", ["LR_1", "LR_5_imba"])
-Summarize("zipf0", "Zipf0", ["LR_1", "LR_5_imba"])
 
-Summarize("zipf1", "Zipf1 All Model", ALL_MODELS)
-Summarize("zipf0", "Zipf0 All Model", ALL_MODELS)
+def main():
+    summarize_calls_args = [
+        ("zipf1", "Zipf1", ["LR_1", "LR_5_imba"], ALL_TRESHOLD),
+        ("zipf0", "Zipf0", ["LR_1", "LR_5_imba"], ALL_TRESHOLD),
+        ("zipf1", "Zipf1 All Model", ALL_MODELS, ALL_TRESHOLD),
+        ("zipf0", "Zipf0 All Model", ALL_MODELS, ALL_TRESHOLD),
+        ("zipf1", "Zipf1 New Model", ["LR_7", "LR_8", "LR_9"], ALL_TRESHOLD),
+        ("zipf0", "Zipf0 New Model", ["LR_7", "LR_8", "LR_9"], ALL_TRESHOLD),
+        (
+            "zipf1",
+            "Zipf1 New Model With Selected Treshold",
+            ["LR_7", "LR_8", "LR_9"],
+            [0.8, 0.9],
+        ),
+        (
+            "zipf0",
+            "Zipf0 New Model With Selected Treshold",
+            ["LR_7", "LR_8", "LR_9"],
+            [0.8, 0.9],
+        ),
+        ("zipf1", "Zipf1 Base Model", BASE_MODELS, [0.5]),
+        ("zipf0", "Zipf0 Base Model", BASE_MODELS, [0.5]),
+    ]
+    with multiprocessing.Pool() as pool:
+        pool.starmap(Summarize, summarize_calls_args)
 
-Summarize("zipf1", "Zipf1", ["LR_1", "LR_5_imba"])
-Summarize("zipf0", "Zipf0", ["LR_1", "LR_5_imba"])
 
-Summarize("zipf1", "Zipf1 New Model", ["LR_7", "LR_8", "LR_9"])
-Summarize("zipf0", "Zipf0 New Model", ["LR_7", "LR_8", "LR_9"])
+if __name__ == "__main__":
+    main()
