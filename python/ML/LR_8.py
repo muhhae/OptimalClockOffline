@@ -1,4 +1,4 @@
-from custom_treshold_classifier import CustomThresholdClassifier
+from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import RobustScaler
 from sklearn.pipeline import Pipeline
 import numpy as np
@@ -12,11 +12,9 @@ def SetupModel(max_iter: int = 1000):
         ("scaler", RobustScaler()),
         (
             "model",
-            CustomThresholdClassifier(
-                custom_threshold=0.7,
+            LogisticRegression(
                 max_iter=max_iter,
                 class_weight="balanced",
-                solver="liblinear",
                 random_state=42,
             ),
         ),
