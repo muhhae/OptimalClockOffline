@@ -732,3 +732,9 @@ Summarize("zipf0", "Zipf0", ["LR_1", "LR_5_imba"])
 
 Summarize("zipf1", "Zipf1 All Model", ALL_MODELS)
 Summarize("zipf0", "Zipf0 All Model", ALL_MODELS)
+
+Summarize("zipf1", "Zipf1", ["LR_1", "LR_5_imba"])
+Summarize("zipf0", "Zipf0", ["LR_1", "LR_5_imba"])
+
+Summarize("zipf1", "Zipf1 New Model", ["LR_7", "LR_8", "LR_9"])
+Summarize("zipf0", "Zipf0 New Model", ["LR_7", "LR_8", "LR_9"])
