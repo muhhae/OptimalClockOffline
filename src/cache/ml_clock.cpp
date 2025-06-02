@@ -1,8 +1,39 @@
 #include "ml_clock.hpp"
 #include <libCacheSim/cache.h>
 #include <libCacheSim/evictionAlgo.h>
+#include <onnxruntime/onnxruntime_c_api.h>
+#include <onnxruntime/onnxruntime_cxx_api.h>
+#include <algorithm>
 #include <vector>
 #include "common.hpp"
+
+template <typename T>
+bool mlclock::MLClockParam::PromotionIsWasted(
+	std::vector<T> input, std::array<int64_t, 2> shape, float treshold
+) {
+	Ort::AllocatorWithDefaultOptions allocator;
+	auto input_name = session->GetInputNameAllocated(0, allocator);
+	auto output_label = session->GetOutputNameAllocated(0, allocator);
+	auto output_proba = session->GetOutputNameAllocated(1, allocator);
+	Ort::MemoryInfo memory_info = Ort::MemoryInfo::CreateCpu(OrtDeviceAllocator, OrtMemTypeCPU);
+	Ort::Value input_tensor = Ort::Value::CreateTensor<T>(
+		memory_info, input.data(), input.size(), shape.data(), shape.size()
+	);
+	std::array<const char*, 1> input_names = {input_name.get()};
+	std::array<const char*, 2> output_names = {output_label.get(), output_proba.get()};
+	std::vector<Ort::Value> output_tensors = session->Run(
+		Ort::RunOptions{nullptr},
+		input_names.data(),
+		&input_tensor,
+		input_names.size(),
+		output_names.data(),
+		output_names.size()
+	);
+	Ort::Value& prob_seq = output_tensors[1];
+	float prob =
+		prob_seq.GetValue(0, allocator).GetValue(1, allocator).GetTensorMutableData<float>()[1];
+	return prob >= treshold;
+}
 
 template <typename T>
 void MLClockEvict(cache_t* cache, const request_t* req) {
@@ -19,7 +50,7 @@ void MLClockEvict(cache_t* cache, const request_t* req) {
 			input_features.push_back(features[f]);
 		}
 		bool wasted = custom_params->PromotionIsWasted(
-			input_features, {1, static_cast<long>(input_features.size())}
+			input_features, {1, static_cast<long>(input_features.size())}, custom_params->treshold
 		);
 
 		common::BeforeEvictionTracking(obj_to_evict, custom_params);

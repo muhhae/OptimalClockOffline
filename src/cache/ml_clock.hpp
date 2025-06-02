@@ -6,7 +6,9 @@
 #include <onnxruntime/onnxruntime_cxx_api.h>
 #include <array>
 #include <cstdint>
+#include <cstdlib>
 #include <filesystem>
+#include <iostream>
 #include <optional>
 #include <stdexcept>
 #include <string>
@@ -31,33 +33,14 @@ class MLClockParam : public common::Custom_clock_params {
 			throw std::runtime_error(std::string("Failed to load model: ") + e.what());
 		}
 	}
+
 	template <typename T>
-	bool PromotionIsWasted(std::vector<T> input, std::array<int64_t, 2> shape) {
-		Ort::AllocatorWithDefaultOptions allocator;
-		auto input_name = session->GetInputNameAllocated(0, allocator);
-		auto output_name = session->GetOutputNameAllocated(0, allocator);
-
-		Ort::MemoryInfo memory_info = Ort::MemoryInfo::CreateCpu(OrtDeviceAllocator, OrtMemTypeCPU);
-
-		Ort::Value input_tensor = Ort::Value::CreateTensor<T>(
-			memory_info, input.data(), input.size(), shape.data(), shape.size()
-		);
-
-		std::array<const char*, 1> input_names = {input_name.get()};
-		std::array<const char*, 1> output_names = {output_name.get()};
-		auto output_tensors = session->Run(
-			Ort::RunOptions{nullptr}, input_names.data(), &input_tensor, 1, output_names.data(), 1
-		);
-
-		int64_t* output_data = output_tensors[0].GetTensorMutableData<int64_t>();
-		// std::cout << "Input: ";
-		// for (const auto &e : input)
-		//   std::cout << e << " ";
-		// std::cout << "\nOutput: " << output_data[0] << std::endl;
-		return output_data[0];
-	}
+	bool PromotionIsWasted(
+		std::vector<T> input, std::array<int64_t, 2> shape, float treshold = 0.5
+	);
 
    public:
+	float treshold = 0.5;
 	std::vector<std::string> features_name;
 	std::optional<Ort::Session> session;
 	Ort::Env env;

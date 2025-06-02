@@ -18,6 +18,7 @@ struct options {
 	std::vector<uint64_t> fixed_cache_sizes;
 	std::vector<float> relative_cache_sizes;
 	std::vector<std::string> descs;
+	float treshold;
 
 	uint64_t dist_optimal_treshold = std::numeric_limits<uint64_t>::max();
 	bool id_num = false;

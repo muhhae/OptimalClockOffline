@@ -198,6 +198,7 @@ void Simulate(
 			std::swap(tmp_ml_param->session_options, ml_param->session_options);
 			std::swap(tmp_ml_param->env, ml_param->env);
 			std::swap(tmp_ml_param->features_name, ml_param->features_name);
+			tmp_ml_param->treshold = o.treshold;
 		}
 		tmp_custom_params->n_hit = 0;
 		tmp_custom_params->n_req = 0;
