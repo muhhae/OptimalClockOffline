@@ -30,10 +30,10 @@ pd.set_option("display.max_rows", None)
 pio.templates.default = "plotly_dark"
 
 
-result_dir = "../result/log"
+result_dir = "../../result/log"
 
 urls = []
-with open("../trace/reasonable_traces.txt") as f:
+with open("../../trace/reasonable_traces.txt") as f:
     urls = [line.strip() for line in f if line.strip()]
 
 
@@ -384,11 +384,14 @@ def GetModelResult(paths: T.List[str]):
             continue
         prefix, desc = extract_desc(file)
         model = desc[-1]["model"]
+        treshold = 0.5
+        if "treshold" in desc[-1]:
+            treshold = desc["treshold"]
         size = model.split("_")[-1]
         size_pos = model.rfind("_")
         model = model[:size_pos]
         # model = f"{model}_{'spec' if size != 'All' else size}"
-        model = f"{model}_{size}"
+        model = f"{model}[cache_size={size},treshold={treshold}]"
         df = pd.read_csv(file)
         if df.empty:
             continue
@@ -648,7 +651,7 @@ def Summarize(additional_desc: str, title: str, included_models: T.List[str]):
     files = sorted(glob.glob(os.path.join(result_dir, "*.csv")), key=sort_key)
     files = [f for f in files if f.count(additional_desc)]
 
-    models_metric_files = glob.glob("ML/model/*.md") + glob.glob("ML/model/*.txt")
+    models_metric_files = glob.glob("../ML/model/*.md") + glob.glob("../ML/model/*.txt")
     models_metric_files = [m for m in models_metric_files if m.count(additional_desc)]
     models_metric_files = sorted(models_metric_files, key=sort_key)
 
@@ -669,24 +672,24 @@ def Summarize(additional_desc: str, title: str, included_models: T.List[str]):
 
     Analyze(
         paths[0],
-        f"../result/{title}_obj_size_not_ignored.md",
-        f"../docs/{title}_obj_size_not_ignored.html",
+        f"../../result/{title}_obj_size_not_ignored.md",
+        f"../../docs/{title}_obj_size_not_ignored.html",
         f"{title} Test Data Result Obj Size Not Ignored",
         model_metrics[0],
         included_models,
     )
     Analyze(
         paths[1],
-        f"../result/{title}_obj_size_ignored.md",
-        f"../docs/{title}_obj_size_ignored.html",
+        f"../../result/{title}_obj_size_ignored.md",
+        f"../../docs/{title}_obj_size_ignored.html",
         f"{title} Test Data Result Obj Size Ignored",
         model_metrics[1],
         included_models,
     )
     Analyze(
         files,
-        f"../result/{title}.md",
-        f"../docs/{title}.html",
+        f"../../result/{title}.md",
+        f"../../docs/{title}.html",
         f"{title} Test Data Result Combined",
         model_metrics[0] + model_metrics[1],
         included_models,
