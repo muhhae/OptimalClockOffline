@@ -165,8 +165,7 @@ void Simulate(
 	uint64_t first_promoted = 0;
 	common_cache_params_t* params = (common_cache_params_t*)cache->eviction_params;
 
-	common::Custom_clock_params* custom_params =
-		(common::Custom_clock_params*)cache->eviction_params;
+	common::CustomClockParams* custom_params = (common::CustomClockParams*)cache->eviction_params;
 
 	if (o.generate_datasets) {
 		custom_params->datasets = std::ofstream(dataset_path);
@@ -185,7 +184,7 @@ void Simulate(
 
 	for (size_t i = 0; i < o.max_iteration; ++i) {
 		auto tmp = clone_cache(cache);
-		auto tmp_custom_params = (common::Custom_clock_params*)tmp->eviction_params;
+		auto tmp_custom_params = (common::CustomClockParams*)tmp->eviction_params;
 		std::swap(tmp_custom_params->objs_metadata, custom_params->objs_metadata);
 		std::swap(tmp_custom_params->datasets, custom_params->datasets);
 		std::swap(tmp_custom_params->n_hit, custom_params->n_hit);
@@ -204,6 +203,7 @@ void Simulate(
 		tmp_custom_params->n_req = 0;
 		tmp_custom_params->n_promoted = 0;
 		tmp_custom_params->dist_optimal_treshold = o.dist_optimal_treshold;
+		tmp_custom_params->decay_interval = o.decay_interval;
 		if (i == o.max_iteration - 1) {
 			tmp_custom_params->generate_datasets = o.generate_datasets;
 		}

@@ -3,6 +3,7 @@
 #include <libCacheSim/cache.h>
 #include <libCacheSim/reader.h>
 #include <sys/types.h>
+#include <cstdint>
 #include <filesystem>
 #include <limits>
 #include <string>
@@ -21,6 +22,8 @@ struct options {
 	float treshold;
 
 	uint64_t dist_optimal_treshold = std::numeric_limits<uint64_t>::max();
+	uint64_t decay_interval = 1000;
+
 	bool id_num = false;
 	bool ignore_obj_size = false;
 	bool generate_datasets = false;

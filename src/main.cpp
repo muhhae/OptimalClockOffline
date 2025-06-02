@@ -22,10 +22,6 @@ int main(int argc, char** argv) {
 	);
 	app.add_option("-o,--output-directory", o.output_directory, "Output directory")
 		->default_val("./result");
-	app.add_flag("--ignore-obj-size", o.ignore_obj_size, "Would ignore object sizes from trace");
-	app.add_flag(
-		"--generate-datasets", o.generate_datasets, "Would generate datasets from simulation"
-	);
 	app.add_option("-i,--max-iteration", o.max_iteration, "Offline clock max iteration")
 		->default_val(10);
 	app.add_option(
@@ -54,7 +50,13 @@ int main(int argc, char** argv) {
 		});
 	app.add_option("-T, --trace-type", o.trace_type, "Traces Type [oracleGeneral, csv]")
 		->default_val("oracleGeneral");
+	app.add_option("-c, --decay-interval", o.decay_interval, "Freq decay interval")
+		->default_val(1000);
 	app.add_option("-H, --treshold", o.treshold, "Decision treshold")->default_val(0.5);
+	app.add_flag("--ignore-obj-size", o.ignore_obj_size, "Would ignore object sizes from trace");
+	app.add_flag(
+		"--generate-datasets", o.generate_datasets, "Would generate datasets from simulation"
+	);
 	app.add_flag("--id-num", o.id_num, "Id is already numeric so we can skip the hashing process");
 
 	CLI11_PARSE(app, argc, argv);

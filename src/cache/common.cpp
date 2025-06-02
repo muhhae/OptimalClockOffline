@@ -5,7 +5,7 @@
 #include <unordered_map>
 
 std::unordered_map<std::string, float> common::CandidateMetadata(
-	const common::obj_metadata& data, common::Custom_clock_params* params, const cache_t* cache,
+	const common::ObjMetadata& data, common::CustomClockParams* params, const cache_t* cache,
 	const request_t* current_req, const cache_obj_t* obj_to_evict
 ) {
 	float rtime_since = current_req->clock_time - data.rtime;
@@ -42,6 +42,8 @@ std::unordered_map<std::string, float> common::CandidateMetadata(
 		common::RunningMeanNormalize(log(data.rtime_between + 1), params->rm_rtime_between_log);
 
 	features["clock_freq"] = data.clock_freq;
+	features["clock_freq_decayed_0_4"] = data.clock_freq_decayed_0_4;
+	features["clock_freq_decayed_0_8"] = data.clock_freq_decayed_0_8;
 	features["clock_freq_std"] =
 		common::RunningMeanNormalize(data.clock_freq, params->rm_clock_freq);
 	features["clock_freq_log"] = log(data.clock_freq + 1);
@@ -49,6 +51,8 @@ std::unordered_map<std::string, float> common::CandidateMetadata(
 		common::RunningMeanNormalize(log(data.clock_freq + 1), params->rm_clock_freq_log);
 
 	features["lifetime_freq"] = data.lifetime_freq;
+	features["lifetime_freq_decayed_0_4"] = data.lifetime_freq_decayed_0_4;
+	features["lifetime_freq_decayed_0_8"] = data.lifetime_freq_decayed_0_8;
 	features["lifetime_freq_std"] =
 		common::RunningMeanNormalize(data.lifetime_freq, params->rm_lifetime_freq);
 	features["lifetime_freq_log"] = log(data.lifetime_freq + 1);
@@ -58,7 +62,7 @@ std::unordered_map<std::string, float> common::CandidateMetadata(
 	return features;
 }
 
-void common::obj_metadata::Reset() {
+void common::ObjMetadata::Reset() {
 	rtime_since = 0;
 	obj_size_relative = 0;
 	clock_freq = 0;
@@ -69,13 +73,18 @@ void common::obj_metadata::Reset() {
 	obj_size = 0;
 	vtime = 0;
 
+	lifetime_freq_decayed_0_4 = 0;
+	lifetime_freq_decayed_0_8 = 0;
+	clock_freq_decayed_0_4 = 0;
+	clock_freq_decayed_0_8 = 0;
+
 	create_rtime = 0;
 
 	first_seen = 0;
 	compulsory_miss = 0;
 }
 
-void common::obj_metadata::Track(const request_t* req) {
+void common::ObjMetadata::Track(const request_t* req) {
 	rtime_between = req->clock_time - rtime;
 	rtime = req->clock_time;
 	last_access_vtime = req->vtime_since_last_access;
@@ -86,6 +95,10 @@ void common::obj_metadata::Track(const request_t* req) {
 	compulsory_miss = req->compulsory_miss;
 	clock_freq++;
 	lifetime_freq++;
+	clock_freq_decayed_0_4++;
+	clock_freq_decayed_0_8++;
+	lifetime_freq_decayed_0_4++;
+	lifetime_freq_decayed_0_8++;
 }
 
 void common::TrackRunningMean(const float X, RunningMeanData& d) {
@@ -106,7 +119,7 @@ float common::RunningMeanNormalize(const float X, RunningMeanData& d) {
 	return norm;
 }
 
-void common::Custom_clock_params::GlobalTrack(const common::obj_metadata& data) {
+void common::CustomClockParams::GlobalTrack(const common::ObjMetadata& data) {
 	if (data.lifetime_freq > max_lifetime_freq) {
 		max_lifetime_freq = data.lifetime_freq;
 	}
@@ -130,4 +143,18 @@ void common::Custom_clock_params::GlobalTrack(const common::obj_metadata& data) 
 	TrackRunningMean(log(data.clock_freq + 1), rm_clock_freq_log);
 	TrackRunningMean(log(data.lifetime_freq + 1), rm_lifetime_freq_log);
 	TrackRunningMean(log(data.rtime_between + 1), rm_rtime_between_log);
+
+	static uint64_t current_req = 0;
+	if (current_req < decay_interval) {
+		current_req++;
+		return;
+	}
+
+	current_req = 0;
+	for (auto& x : objs_metadata) {
+		x.second.clock_freq_decayed_0_4 *= 0.4;
+		x.second.clock_freq_decayed_0_8 *= 0.8;
+		x.second.lifetime_freq_decayed_0_4 *= 0.4;
+		x.second.lifetime_freq_decayed_0_8 *= 0.8;
+	}
 }

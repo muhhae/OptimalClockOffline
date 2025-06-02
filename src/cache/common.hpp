@@ -29,10 +29,14 @@ const static std::vector<std::string> datasets_columns = {
 	"rtime_between_std",
 	"rtime_between_log_std",
 	"clock_freq",
+	"clock_freq_decayed_0_4",
+	"clock_freq_decayed_0_8",
 	"clock_freq_log",
 	"clock_freq_std",
 	"clock_freq_log_std",
 	"lifetime_freq",
+	"lifetime_freq_decayed_0_4",
+	"lifetime_freq_decayed_0_8",
 	"lifetime_freq_log",
 	"lifetime_freq_std",
 	"lifetime_freq_log_std",
@@ -40,7 +44,7 @@ const static std::vector<std::string> datasets_columns = {
 	"wasted"
 };
 
-struct obj_metadata {
+struct ObjMetadata {
 	uint64_t lifetime_freq = 0;
 	uint64_t last_promotion = 0;
 	std::unordered_set<uint64_t> wasted_promotions;
@@ -58,6 +62,11 @@ struct obj_metadata {
 	int64_t obj_size = 0;
 	int64_t vtime = 0;
 
+	float lifetime_freq_decayed_0_4 = 0;
+	float lifetime_freq_decayed_0_8 = 0;
+	float clock_freq_decayed_0_4 = 0;
+	float clock_freq_decayed_0_8 = 0;
+
 	int32_t create_rtime = 0;
 
 	bool first_seen = 0;
@@ -70,17 +79,17 @@ struct RunningMeanData {
 	uint64_t n = 0;
 };
 
-class Custom_clock_params : public Clock_params_t {
+class CustomClockParams : public Clock_params_t {
    public:
-	Custom_clock_params() = default;
-	Custom_clock_params(const Clock_params_t& base) {
+	CustomClockParams() = default;
+	CustomClockParams(const Clock_params_t& base) {
 		*(Clock_params_t*)this = base;
 	}
-	void GlobalTrack(const obj_metadata& data);
+	void GlobalTrack(const ObjMetadata& data);
 
    public:
 	std::ofstream datasets;
-	std::unordered_map<obj_id_t, obj_metadata> objs_metadata;
+	std::unordered_map<obj_id_t, ObjMetadata> objs_metadata;
 
 	uint64_t n_hit;
 	uint64_t n_req;
@@ -106,23 +115,26 @@ class Custom_clock_params : public Clock_params_t {
 	RunningMeanData rm_rtime_between_log;
 
 	uint64_t vtime = 0;
+	uint64_t decay_interval = 1000;
 
 	uint64_t dist_optimal_treshold = std::numeric_limits<uint64_t>::max();
 	bool generate_datasets;
 };
 
-static void BeforeEvictionTracking(const cache_obj_t* obj, Custom_clock_params* custom_params) {
+static void BeforeEvictionTracking(const cache_obj_t* obj, CustomClockParams* custom_params) {
 	auto& data = custom_params->objs_metadata[obj->obj_id];
 	data.clock_freq = 0;
+	data.clock_freq_decayed_0_4 = 0;
+	data.clock_freq_decayed_0_8 = 0;
 }
 
-static void PromotionTracking(const cache_obj_t* obj, Custom_clock_params* custom_params) {
+static void PromotionTracking(const cache_obj_t* obj, CustomClockParams* custom_params) {
 	auto& data = custom_params->objs_metadata[obj->obj_id];
 	// data.Reset();
 }
 
 std::unordered_map<std::string, float> CandidateMetadata(
-	const common::obj_metadata& data, common::Custom_clock_params* params, const cache_t* cache,
+	const common::ObjMetadata& data, common::CustomClockParams* params, const cache_t* cache,
 	const request_t* current_req, const cache_obj_t* obj_to_evict
 );
 
