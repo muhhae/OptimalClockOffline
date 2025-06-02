@@ -386,7 +386,7 @@ def GetModelResult(paths: T.List[str]):
         model = desc[-1]["model"]
         treshold = 0.5
         if "treshold" in desc[-1]:
-            treshold = desc["treshold"]
+            treshold = desc[-1]["treshold"]
         size = model.split("_")[-1]
         size_pos = model.rfind("_")
         model = model[:size_pos]
@@ -722,6 +722,9 @@ ALL_MODELS = [
     "LR_5_imba",
     "LR_6",
     "LR_6_imba",
+    "LR_7",
+    "LR_8",
+    "LR_9",
 ]
 
 Summarize("zipf1", "Zipf1", ["LR_1", "LR_5_imba"])
