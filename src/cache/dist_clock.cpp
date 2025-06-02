@@ -13,8 +13,7 @@ static void DistClockEvict(cache_t* cache, const request_t* req) {
 		bool wasted = obj_to_evict->obj_id >= c_params->dist_optimal_treshold;
 		if (c_params->generate_datasets) {
 			auto data = c_params->objs_metadata[obj_to_evict->obj_id];
-			auto features = common::CandidateMetadata(data, c_params, req);
-			features["obj_id"] = obj_to_evict->obj_id;
+			auto features = common::CandidateMetadata(data, c_params, cache, req, obj_to_evict);
 			features["wasted"] = wasted;
 			for (size_t i = 0; i < common::datasets_columns.size(); i++) {
 				c_params->datasets << features[common::datasets_columns[i]]

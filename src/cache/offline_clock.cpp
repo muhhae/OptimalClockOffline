@@ -17,12 +17,12 @@ static void OfflineClockEvict(cache_t* cache, const request_t* req) {
 		bool wasted =
 			data.wasted_promotions.find(data.last_promotion) != data.wasted_promotions.end();
 		if (custom_params->generate_datasets) {
-			auto features = common::CandidateMetadata(data, custom_params, req);
-			features["obj_id"] = obj_to_evict->obj_id;
+			auto features =
+				common::CandidateMetadata(data, custom_params, cache, req, obj_to_evict);
 			features["wasted"] = wasted;
 			for (size_t i = 0; i < common::datasets_columns.size(); i++) {
-				custom_params->datasets << features[common::datasets_columns[i]]
-										<< (i == common::datasets_columns.size() - 1 ? '\n' : ',');
+				custom_params->datasets << (i == 0 ? "" : ",")
+										<< features[common::datasets_columns[i]] << '\n';
 			}
 		}
 		common::BeforeEvictionTracking(obj_to_evict, custom_params);

@@ -43,7 +43,7 @@ void MLClockEvict(cache_t* cache, const request_t* req) {
 	cache_obj_t* obj_to_evict = params->q_tail;
 	while (obj_to_evict->clock.freq >= 1) {
 		auto data = custom_params->objs_metadata[obj_to_evict->obj_id];
-		auto features = common::CandidateMetadata(data, custom_params, req);
+		auto features = common::CandidateMetadata(data, custom_params, cache, req, obj_to_evict);
 		std::vector<T> input_features;
 		input_features.reserve(custom_params->features_name.size());
 		for (const auto& f : custom_params->features_name) {

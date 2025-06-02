@@ -5,8 +5,8 @@
 #include <unordered_map>
 
 std::unordered_map<std::string, float> common::CandidateMetadata(
-	const common::obj_metadata& data, common::Custom_clock_params* params,
-	const request_t* current_req
+	const common::obj_metadata& data, common::Custom_clock_params* params, const cache_t* cache,
+	const request_t* current_req, const cache_obj_t* obj_to_evict
 ) {
 	float rtime_since = current_req->clock_time - data.rtime;
 	float vtime_since = params->vtime - data.vtime;
@@ -18,6 +18,9 @@ std::unordered_map<std::string, float> common::CandidateMetadata(
 	TrackRunningMean(log(vtime_since + 1), params->rm_vtime_since_log);
 
 	std::unordered_map<std::string, float> features;
+
+	features["obj_id"] = obj_to_evict->obj_id;
+	features["obj_size_relative"] = (float)obj_to_evict->obj_size / cache->cache_size;
 
 	features["rtime_since"] = rtime_since;
 	features["rtime_since_std"] = common::RunningMeanNormalize(rtime_since, params->rm_rtime_since);

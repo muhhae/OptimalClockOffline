@@ -36,6 +36,7 @@ const static std::vector<std::string> datasets_columns = {
 	"lifetime_freq_log",
 	"lifetime_freq_std",
 	"lifetime_freq_log_std",
+	"obj_size_relative",
 	"wasted"
 };
 
@@ -121,8 +122,8 @@ static void PromotionTracking(const cache_obj_t* obj, Custom_clock_params* custo
 }
 
 std::unordered_map<std::string, float> CandidateMetadata(
-	const common::obj_metadata& data, common::Custom_clock_params* params,
-	const request_t* current_req
+	const common::obj_metadata& data, common::Custom_clock_params* params, const cache_t* cache,
+	const request_t* current_req, const cache_obj_t* obj_to_evict
 );
 
 void TrackRunningMean(const float X, RunningMeanData& d);
