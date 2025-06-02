@@ -511,6 +511,11 @@ def WriteModelSummaries(md, html, base_result, models_result):
         y="Miss Ratio Reduced (%)",
         color="Model",
     )
+    fig.update_traces(
+        marker_size=12,
+        marker_line=dict(width=2),
+        selector=dict(mode="markers"),
+    )
     fig.update_xaxes(dtick=10)
     fig.update_layout(
         xaxis_title="Promotion Reduced (%)",
@@ -535,6 +540,11 @@ def WriteModelSummaries(md, html, base_result, models_result):
             x="Promotion Reduced (%)",
             y="Miss Ratio Reduced (%)",
             color="Model",
+        )
+        fig.update_traces(
+            marker_size=12,
+            marker_line=dict(width=2),
+            selector=dict(mode="markers"),
         )
         fig.update_xaxes(dtick=10)
         fig.update_layout(
