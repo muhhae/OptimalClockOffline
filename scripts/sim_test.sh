@@ -1,4 +1,5 @@
 relative_cache_sizes=(0.001 0.01 0.1 0.2 0.4)
+ml_treshold=(0.3 0.5 0.6 0.7 0.8 0.9)
 max_iteration=1
 basedir="/mnt/v0"
 
@@ -97,6 +98,15 @@ case "$model" in
     "LR_6_imba")
         features="-I F32 -F rtime_since rtime_between clock_freq lifetime_freq"
         ;;
+    "LR_7")
+        features="-I F32 -F rtime_since_log vtime_since_log clock_freq lifetime_freq"
+        ;;
+    "LR_8")
+        features="-I F32 -F rtime_since_log clock_freq lifetime_freq"
+        ;;
+    "LR_9")
+        features="-I F32 -F vtime_since_log clock_freq lifetime_freq"
+        ;;
     *)
         echo "Unknown model using default features"
         ;;
@@ -120,29 +130,11 @@ while IFS= read -r link; do
     min_dram=$(( gb+1 ))
 
     for cache_size in "${relative_cache_sizes[@]}"; do
-        if [ -e "$model_dir[$cache_size,ignore_obj_size$add_desc].onnx" ]; then
-            log_file="$out_dir/log/${basename}[${cache_size},ignore_obj_size,ML$add_desc,model=${model}_${cache_size}].csv"
-            echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file $features -o $out_dir -r $cache_size -i 1 --ignore-obj-size -d ignore_obj_size,ML$add_desc,model=${model}_$cache_size -a ML -m $model_dir[$cache_size,ignore_obj_size$add_desc].onnx" >> $task_out
-        else
-            echo "Skipping processing: (model doesn't exists: $model[$cache_size,ignore_obj_size$add_desc])"
-        fi
-        if [ -e "$model_dir[All,ignore_obj_size$add_desc].onnx" ]; then
-            log_file="$out_dir/log/${basename}[${cache_size},ignore_obj_size,ML$add_desc,model=${model}_All].csv"
-            echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file $features -o $out_dir -r $cache_size -i 1 --ignore-obj-size -d ignore_obj_size,ML$add_desc,model=${model}_All -a ML -m $model_dir[All,ignore_obj_size$add_desc].onnx" >> $task_out
-        else
-            echo "Skipping processing: (model doesn't exists: $model[All,ignore_obj_size$add_desc])"
-        fi
-        if [ -e "$model_dir[$cache_size$add_desc].onnx" ]; then
-            log_file="$out_dir/log/${basename}[${cache_size},ML$add_desc,model=${model}_${cache_size}'].csv"
-            echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file $features -o $out_dir -r $cache_size -i 1 -d ML$add_desc,model=${model}_$cache_size -a ML -m $model_dir[$cache_size$add_desc].onnx" >> $task_out
-        else
-            echo "Skipping processing: (model doesn't exists: $model[$cache_size$add_desc])"
-        fi
-        if [ -e "$model_dir[All$add_desc].onnx" ]; then
-            log_file="$out_dir/log/${basename}[${cache_size},ML$add_desc,model=${model}_All].csv"
-            echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file $features -o $out_dir -r $cache_size -i 1 -d ML$add_desc,model=${model}_All -a ML -m $model_dir[All$add_desc].onnx" >> $task_out
-        else
-            echo "Skipping processing: (model doesn't exists: $model[All$add_desc])"
-        fi
+        for treshold in "${ml_treshold[@]}";do
+            echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file $features -o $out_dir -r $cache_size -i 1 -H $treshold --ignore-obj-size -d ignore_obj_size,ML$add_desc,model=${model}_$cache_size,treshold=$treshold -a ML -m $model_dir[$cache_size,ignore_obj_size$add_desc].onnx" >> $task_out
+            echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file $features -o $out_dir -r $cache_size -i 1 -H $treshold --ignore-obj-size -d ignore_obj_size,ML$add_desc,model=${model}_All,treshold=$treshold -a ML -m $model_dir[All,ignore_obj_size$add_desc].onnx" >> $task_out
+            echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file $features -o $out_dir -r $cache_size -i 1 -H $treshold -d ML$add_desc,model=${model}_$cache_size,treshold=$treshold -a ML -m $model_dir[$cache_size$add_desc].onnx" >> $task_out
+            echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file $features -o $out_dir -r $cache_size -i 1 -H $treshold -d ML$add_desc,model=${model}_All,treshold=$treshold -a ML -m $model_dir[All$add_desc].onnx" >> $task_out
+        done
     done
 done < "$traces_txt"
