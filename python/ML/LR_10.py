@@ -23,8 +23,8 @@ def SetupModel(max_iter: int = 1000):
     var.inputs = [
         "rtime_since_log",
         "vtime_since_log",
-        "clock_freq_decayed_0.8",
-        "lifetime_freq_decayed_0.8",
+        "clock_freq_decayed_0_8",
+        "lifetime_freq_decayed_0_8",
     ]
     var.input_dtype = np.float32
 
