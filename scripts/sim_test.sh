@@ -107,6 +107,24 @@ case "$model" in
     "LR_9")
         features="-I F32 -F vtime_since_log clock_freq lifetime_freq"
         ;;
+    "LR_10")
+        features="-I F32 -F rtime_since_log vtime_since_log clock_freq_decayed_0_8 lifetime_freq_decayed_0_8"
+        ;;
+    "LR_11")
+        features="-I F32 -F rtime_since_log clock_freq_decayed_0_8 lifetime_freq_decayed_0_8"
+        ;;
+    "LR_12")
+        features="-I F32 -F vtime_since_log clock_freq_decayed_0_8 lifetime_freq_decayed_0_8"
+        ;;
+    "LR_13")
+        features="-I F32 -F rtime_since_log vtime_since_log clock_freq_decayed_0_4 lifetime_freq_decayed_0_4"
+        ;;
+    "LR_14")
+        features="-I F32 -F rtime_since_log clock_freq_decayed_0_4 lifetime_freq_decayed_0_4"
+        ;;
+    "LR_15")
+        features="-I F32 -F vtime_since_log clock_freq_decayed_0_4 lifetime_freq_decayed_0_4"
+        ;;
     *)
         echo "Unknown model using default features"
         ;;
