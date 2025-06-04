@@ -22,7 +22,7 @@ struct options {
 	float treshold;
 
 	uint64_t dist_optimal_treshold = std::numeric_limits<uint64_t>::max();
-	uint64_t decay_interval = 1000;
+	float decay_power = 0.7;
 
 	bool id_num = false;
 	bool ignore_obj_size = false;

@@ -51,6 +51,10 @@ int main(int argc, char** argv) {
 	app.add_option("-T, --trace-type", o.trace_type, "Traces Type [oracleGeneral, csv]")
 		->default_val("oracleGeneral");
 	app.add_option("-H, --treshold", o.treshold, "Decision treshold")->default_val(0.5);
+	app.add_option(
+		   "-p, --decay-power", o.decay_power, "Decaying rate of clock and lifetime frequency"
+	)
+		->default_val(0.7);
 	app.add_flag("--ignore-obj-size", o.ignore_obj_size, "Would ignore object sizes from trace");
 	app.add_flag(
 		"--generate-datasets", o.generate_datasets, "Would generate datasets from simulation"

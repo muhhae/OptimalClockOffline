@@ -9,11 +9,12 @@ static void MyClockEvict(cache_t* cache, const request_t* req) {
 
 	cache_obj_t* obj_to_evict = params->q_tail;
 	while (obj_to_evict->clock.freq >= 1) {
-		if (c_params->objs_metadata[obj_to_evict->obj_id].clock_freq < 4) {
-			common::BeforeEvictionTracking(obj_to_evict, c_params);
+		bool wasted = c_params->objs_metadata[obj_to_evict->obj_id].clock_freq < 4;
+		common::BeforeEvictionTracking(obj_to_evict, c_params, req);
+		if (wasted) {
 			break;
 		}
-		common::BeforeEvictionTracking(obj_to_evict, c_params);
+		common::OnPromotionTracking(obj_to_evict, c_params, req);
 		obj_to_evict->clock.freq -= 1;
 		params->n_obj_rewritten += 1;
 		params->n_byte_rewritten += obj_to_evict->obj_size;

@@ -20,10 +20,10 @@ static void DistClockEvict(cache_t* cache, const request_t* req) {
 								   << (i == common::datasets_columns.size() - 1 ? '\n' : ',');
 			}
 		}
-		common::BeforeEvictionTracking(obj_to_evict, c_params);
+		common::BeforeEvictionTracking(obj_to_evict, c_params, req);
 		if (wasted)
 			break;
-		common::PromotionTracking(obj_to_evict, c_params);
+		common::OnPromotionTracking(obj_to_evict, c_params, req);
 		obj_to_evict->clock.freq -= 1;
 		params->n_obj_rewritten += 1;
 		params->n_byte_rewritten += obj_to_evict->obj_size;

@@ -29,14 +29,14 @@ const static std::vector<std::string> datasets_columns = {
 	"rtime_between_std",
 	"rtime_between_log_std",
 	"clock_freq",
-	"clock_freq_decayed_0_4",
-	"clock_freq_decayed_0_8",
+	"clock_freq_decayed_rtime",
+	"clock_freq_decayed_vtime",
 	"clock_freq_log",
 	"clock_freq_std",
 	"clock_freq_log_std",
 	"lifetime_freq",
-	"lifetime_freq_decayed_0_4",
-	"lifetime_freq_decayed_0_8",
+	"lifetime_freq_decayed_rtime",
+	"lifetime_freq_decayed_vtime",
 	"lifetime_freq_log",
 	"lifetime_freq_std",
 	"lifetime_freq_log_std",
@@ -45,32 +45,25 @@ const static std::vector<std::string> datasets_columns = {
 };
 
 struct ObjMetadata {
+	int64_t clock_freq = 0;
 	uint64_t lifetime_freq = 0;
 	uint64_t last_promotion = 0;
+
 	std::unordered_set<uint64_t> wasted_promotions;
 
-	void Track(const request_t* req);
 	void Reset();
 
-	int64_t rtime_since = 0;
-	int64_t obj_size_relative = 0;
-	int64_t clock_freq = 0;
-	int64_t rtime_between = 0;
 	int64_t rtime = 0;
-	int64_t last_access_vtime = 0;
-	int64_t last_access_rtime = 0;
-	int64_t obj_size = 0;
 	int64_t vtime = 0;
 
-	float lifetime_freq_decayed_0_4 = 0;
-	float lifetime_freq_decayed_0_8 = 0;
-	float clock_freq_decayed_0_4 = 0;
-	float clock_freq_decayed_0_8 = 0;
+	int64_t obj_size_relative = 0;
+	int64_t rtime_between = 0;
+	int64_t obj_size = 0;
 
-	int32_t create_rtime = 0;
-
-	bool first_seen = 0;
-	bool compulsory_miss = 0;
+	float lifetime_freq_decayed_vtime = 0;
+	float lifetime_freq_decayed_rtime = 0;
+	float clock_freq_decayed_vtime = 0;
+	float clock_freq_decayed_rtime = 0;
 };
 
 struct RunningMeanData {
@@ -85,7 +78,7 @@ class CustomClockParams : public Clock_params_t {
 	CustomClockParams(const Clock_params_t& base) {
 		*(Clock_params_t*)this = base;
 	}
-	void GlobalTrack(const ObjMetadata& data);
+	void GlobalTracking(const ObjMetadata& data);
 
    public:
 	std::ofstream datasets;
@@ -115,23 +108,21 @@ class CustomClockParams : public Clock_params_t {
 	RunningMeanData rm_rtime_between_log;
 
 	uint64_t vtime = 0;
-	uint64_t decay_interval = 1000;
+	float decay_power = 0.7;
 
 	uint64_t dist_optimal_treshold = std::numeric_limits<uint64_t>::max();
 	bool generate_datasets;
 };
 
-static void BeforeEvictionTracking(const cache_obj_t* obj, CustomClockParams* custom_params) {
-	auto& data = custom_params->objs_metadata[obj->obj_id];
-	data.clock_freq = 0;
-	data.clock_freq_decayed_0_4 = 0;
-	data.clock_freq_decayed_0_8 = 0;
-}
+void OnAccessTracking(ObjMetadata& data, CustomClockParams* custom_params, const request_t* req);
 
-static void PromotionTracking(const cache_obj_t* obj, CustomClockParams* custom_params) {
-	auto& data = custom_params->objs_metadata[obj->obj_id];
-	// data.Reset();
-}
+void BeforeEvictionTracking(
+	const cache_obj_t* obj, CustomClockParams* custom_params, const request_t* req
+);
+
+void OnPromotionTracking(
+	const cache_obj_t* obj, CustomClockParams* custom_params, const request_t* req
+);
 
 std::unordered_map<std::string, float> CandidateMetadata(
 	const common::ObjMetadata& data, common::CustomClockParams* params, const cache_t* cache,

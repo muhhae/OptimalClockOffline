@@ -1,7 +1,10 @@
 #include "common.hpp"
 #include <libCacheSim/reader.h>
+#include <libCacheSim/request.h>
 #include <sys/types.h>
 #include <cmath>
+#include <cstdlib>
+#include <iostream>
 #include <unordered_map>
 
 std::unordered_map<std::string, float> common::CandidateMetadata(
@@ -42,8 +45,8 @@ std::unordered_map<std::string, float> common::CandidateMetadata(
 		common::RunningMeanNormalize(log(data.rtime_between + 1), params->rm_rtime_between_log);
 
 	features["clock_freq"] = data.clock_freq;
-	features["clock_freq_decayed_0_4"] = data.clock_freq_decayed_0_4;
-	features["clock_freq_decayed_0_8"] = data.clock_freq_decayed_0_8;
+	features["clock_freq_decayed_rtime"] = data.clock_freq_decayed_rtime;
+	features["clock_freq_decayed_vtime"] = data.clock_freq_decayed_vtime;
 	features["clock_freq_std"] =
 		common::RunningMeanNormalize(data.clock_freq, params->rm_clock_freq);
 	features["clock_freq_log"] = log(data.clock_freq + 1);
@@ -51,8 +54,8 @@ std::unordered_map<std::string, float> common::CandidateMetadata(
 		common::RunningMeanNormalize(log(data.clock_freq + 1), params->rm_clock_freq_log);
 
 	features["lifetime_freq"] = data.lifetime_freq;
-	features["lifetime_freq_decayed_0_4"] = data.lifetime_freq_decayed_0_4;
-	features["lifetime_freq_decayed_0_8"] = data.lifetime_freq_decayed_0_8;
+	features["lifetime_freq_decayed_rtime"] = data.lifetime_freq_decayed_rtime;
+	features["lifetime_freq_decayed_vtime"] = data.lifetime_freq_decayed_vtime;
 	features["lifetime_freq_std"] =
 		common::RunningMeanNormalize(data.lifetime_freq, params->rm_lifetime_freq);
 	features["lifetime_freq_log"] = log(data.lifetime_freq + 1);
@@ -63,42 +66,73 @@ std::unordered_map<std::string, float> common::CandidateMetadata(
 }
 
 void common::ObjMetadata::Reset() {
-	rtime_since = 0;
 	obj_size_relative = 0;
 	clock_freq = 0;
 	rtime_between = 0;
 	rtime = 0;
-	last_access_vtime = 0;
-	last_access_rtime = 0;
 	obj_size = 0;
 	vtime = 0;
 
-	lifetime_freq_decayed_0_4 = 0;
-	lifetime_freq_decayed_0_8 = 0;
-	clock_freq_decayed_0_4 = 0;
-	clock_freq_decayed_0_8 = 0;
-
-	create_rtime = 0;
-
-	first_seen = 0;
-	compulsory_miss = 0;
+	lifetime_freq_decayed_rtime = 0;
+	lifetime_freq_decayed_vtime = 0;
+	clock_freq_decayed_rtime = 0;
+	clock_freq_decayed_vtime = 0;
 }
 
-void common::ObjMetadata::Track(const request_t* req) {
-	rtime_between = req->clock_time - rtime;
-	rtime = req->clock_time;
-	last_access_vtime = req->vtime_since_last_access;
-	last_access_rtime = req->rtime_since_last_access;
-	obj_size = req->obj_size;
-	create_rtime = req->create_rtime;
-	first_seen = req->first_seen_in_window;
-	compulsory_miss = req->compulsory_miss;
-	clock_freq++;
-	lifetime_freq++;
-	clock_freq_decayed_0_4++;
-	clock_freq_decayed_0_8++;
-	lifetime_freq_decayed_0_4++;
-	lifetime_freq_decayed_0_8++;
+void common::OnAccessTracking(
+	ObjMetadata& data, CustomClockParams* custom_params, const request_t* req
+) {
+	uint64_t rtime_since = req->clock_time - data.rtime;
+	uint64_t vtime_since = custom_params->vtime - data.vtime;
+
+	data.rtime_between = req->clock_time - data.rtime;
+	data.rtime = req->clock_time;
+	data.vtime = custom_params->vtime++;
+
+	data.obj_size = req->obj_size;
+
+	data.clock_freq++;
+	data.lifetime_freq++;
+
+	data.clock_freq_decayed_rtime =
+		data.clock_freq_decayed_rtime * exp(-custom_params->decay_power * rtime_since);
+	data.clock_freq_decayed_vtime =
+		data.clock_freq_decayed_vtime * exp(-custom_params->decay_power * vtime_since);
+
+	data.lifetime_freq_decayed_rtime =
+		data.lifetime_freq_decayed_rtime * exp(-custom_params->decay_power * rtime_since);
+	data.lifetime_freq_decayed_vtime =
+		data.lifetime_freq_decayed_vtime * exp(-custom_params->decay_power * vtime_since);
+
+	data.clock_freq_decayed_rtime++;
+	data.clock_freq_decayed_vtime++;
+	data.lifetime_freq_decayed_rtime++;
+	data.lifetime_freq_decayed_vtime++;
+}
+
+void common::BeforeEvictionTracking(
+	const cache_obj_t* obj, CustomClockParams* custom_params, const request_t* req
+) {
+	auto& data = custom_params->objs_metadata[obj->obj_id];
+
+	uint64_t rtime_since = req->clock_time - data.rtime;
+	uint64_t vtime_since = custom_params->vtime - data.vtime;
+
+	data.lifetime_freq_decayed_rtime =
+		data.lifetime_freq_decayed_rtime * exp(-custom_params->decay_power * rtime_since);
+	data.lifetime_freq_decayed_vtime =
+		data.lifetime_freq_decayed_vtime * exp(-custom_params->decay_power * vtime_since);
+
+	data.clock_freq_decayed_rtime = 0;
+	data.clock_freq_decayed_vtime = 0;
+	data.clock_freq = 0;
+}
+
+void common::OnPromotionTracking(
+	const cache_obj_t* obj, CustomClockParams* custom_params, const request_t* req
+) {
+	auto& data = custom_params->objs_metadata[obj->obj_id];
+	// data.Reset();
 }
 
 void common::TrackRunningMean(const float X, RunningMeanData& d) {
@@ -119,7 +153,7 @@ float common::RunningMeanNormalize(const float X, RunningMeanData& d) {
 	return norm;
 }
 
-void common::CustomClockParams::GlobalTrack(const common::ObjMetadata& data) {
+void common::CustomClockParams::GlobalTracking(const common::ObjMetadata& data) {
 	if (data.lifetime_freq > max_lifetime_freq) {
 		max_lifetime_freq = data.lifetime_freq;
 	}
@@ -132,10 +166,6 @@ void common::CustomClockParams::GlobalTrack(const common::ObjMetadata& data) {
 		max_rtime_between = data.rtime_between;
 	}
 
-	if (data.rtime_since > max_rtime) {
-		max_rtime = data.rtime_since;
-	}
-
 	TrackRunningMean(data.clock_freq, rm_clock_freq);
 	TrackRunningMean(data.lifetime_freq, rm_lifetime_freq);
 	TrackRunningMean(data.rtime_between, rm_rtime_between);
@@ -143,18 +173,4 @@ void common::CustomClockParams::GlobalTrack(const common::ObjMetadata& data) {
 	TrackRunningMean(log(data.clock_freq + 1), rm_clock_freq_log);
 	TrackRunningMean(log(data.lifetime_freq + 1), rm_lifetime_freq_log);
 	TrackRunningMean(log(data.rtime_between + 1), rm_rtime_between_log);
-
-	static uint64_t current_req = 0;
-	if (current_req < decay_interval) {
-		current_req++;
-		return;
-	}
-
-	current_req = 0;
-	for (auto& x : objs_metadata) {
-		x.second.clock_freq_decayed_0_4 *= 0.4;
-		x.second.clock_freq_decayed_0_8 *= 0.8;
-		x.second.lifetime_freq_decayed_0_4 *= 0.4;
-		x.second.lifetime_freq_decayed_0_8 *= 0.8;
-	}
 }

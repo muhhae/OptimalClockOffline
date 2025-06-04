@@ -89,7 +89,6 @@ void RunExperiment(options o) {
 		std::cout << csv_header;
 		for (const auto& fcs : o.fixed_cache_sizes) {
 			o.dist_optimal_treshold = o.ignore_obj_size ? fcs : fcs / wss_byte * wss_obj;
-			o.decay_interval = o.ignore_obj_size ? fcs : fcs / wss_byte * wss_obj;
 			std::string desc = "[" + std::to_string(fcs) + (o.ignore_obj_size ? "" : "MiB") +
 							   (o.desc != "" ? "," : "") + o.desc + "]";
 			tasks.emplace_back(std::async(
@@ -105,7 +104,6 @@ void RunExperiment(options o) {
 		}
 		for (const auto& rcs : o.relative_cache_sizes) {
 			o.dist_optimal_treshold = rcs * wss_obj;
-			o.decay_interval = rcs * wss_obj;
 			std::string s = std::to_string(rcs);
 			s = s.substr(0, s.find_last_not_of('0') + 1);
 			if (s.back() == '.')
@@ -181,9 +179,6 @@ void Simulate(
 		((mlclock::MLClockParam*)custom_params)->features_name = o.features_name;
 	}
 
-	bool first = true;
-	int64_t first_clock = 0;
-
 	for (size_t i = 0; i < o.max_iteration; ++i) {
 		auto tmp = clone_cache(cache);
 		auto tmp_custom_params = (common::CustomClockParams*)tmp->eviction_params;
@@ -205,21 +200,15 @@ void Simulate(
 		tmp_custom_params->n_req = 0;
 		tmp_custom_params->n_promoted = 0;
 		tmp_custom_params->dist_optimal_treshold = o.dist_optimal_treshold;
-		tmp_custom_params->decay_interval = o.decay_interval;
+		tmp_custom_params->decay_power = o.decay_power;
 		if (i == o.max_iteration - 1) {
 			tmp_custom_params->generate_datasets = o.generate_datasets;
 		}
 		while (read_one_req(reader, req) == 0) {
-			if (first) {
-				first = false;
-				first_clock = req->clock_time;
-			}
 			auto& data = tmp_custom_params->objs_metadata[req->obj_id];
 
-			data.Track(req);
-			data.vtime = tmp_custom_params->vtime++;
-			data.rtime_since = req->clock_time - first_clock;
-			tmp_custom_params->GlobalTrack(data);
+			common::OnAccessTracking(data, tmp_custom_params, req);
+			tmp_custom_params->GlobalTracking(data);
 
 			if (tmp->get(tmp, req)) {
 				tmp_custom_params->n_hit++;

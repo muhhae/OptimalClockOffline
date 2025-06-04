@@ -53,11 +53,11 @@ void MLClockEvict(cache_t* cache, const request_t* req) {
 			input_features, {1, static_cast<long>(input_features.size())}, custom_params->treshold
 		);
 
-		common::BeforeEvictionTracking(obj_to_evict, custom_params);
+		common::BeforeEvictionTracking(obj_to_evict, custom_params, req);
 		if (wasted) {
 			break;
 		}
-		common::PromotionTracking(obj_to_evict, custom_params);
+		common::OnPromotionTracking(obj_to_evict, custom_params, req);
 		obj_to_evict->clock.freq -= 1;
 		params->n_obj_rewritten += 1;
 		params->n_byte_rewritten += obj_to_evict->obj_size;
