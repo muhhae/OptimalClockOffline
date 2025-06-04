@@ -13,6 +13,7 @@ static void OfflineClockEvict(cache_t* cache, const request_t* req) {
 	while (obj_to_evict->clock.freq >= 1) {
 		auto& data = custom_params->objs_metadata[obj_to_evict->obj_id];
 		data.last_promotion = data.lifetime_freq;
+		common::BeforeEvaluationTracking(obj_to_evict, custom_params, req);
 		bool wasted =
 			data.wasted_promotions.find(data.last_promotion) != data.wasted_promotions.end();
 		if (custom_params->generate_datasets) {

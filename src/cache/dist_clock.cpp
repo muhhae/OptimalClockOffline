@@ -10,6 +10,7 @@ static void DistClockEvict(cache_t* cache, const request_t* req) {
 
 	cache_obj_t* obj_to_evict = params->q_tail;
 	while (obj_to_evict->clock.freq >= 1) {
+		common::BeforeEvaluationTracking(obj_to_evict, c_params, req);
 		bool wasted = obj_to_evict->obj_id >= c_params->dist_optimal_treshold;
 		if (c_params->generate_datasets) {
 			auto data = c_params->objs_metadata[obj_to_evict->obj_id];

@@ -9,6 +9,7 @@ static void MyClockEvict(cache_t* cache, const request_t* req) {
 
 	cache_obj_t* obj_to_evict = params->q_tail;
 	while (obj_to_evict->clock.freq >= 1) {
+		common::BeforeEvaluationTracking(obj_to_evict, c_params, req);
 		bool wasted = c_params->objs_metadata[obj_to_evict->obj_id].clock_freq < 4;
 		common::BeforeEvictionTracking(obj_to_evict, c_params, req);
 		if (wasted) {

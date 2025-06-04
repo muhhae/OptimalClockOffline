@@ -116,6 +116,10 @@ class CustomClockParams : public Clock_params_t {
 
 void OnAccessTracking(ObjMetadata& data, CustomClockParams* custom_params, const request_t* req);
 
+void BeforeEvaluationTracking(
+	const cache_obj_t* obj, CustomClockParams* custom_params, const request_t* req
+);
+
 void BeforeEvictionTracking(
 	const cache_obj_t* obj, CustomClockParams* custom_params, const request_t* req
 );

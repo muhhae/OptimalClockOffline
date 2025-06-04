@@ -1,4 +1,5 @@
 #include "common.hpp"
+#include <libCacheSim/cacheObj.h>
 #include <libCacheSim/reader.h>
 #include <libCacheSim/request.h>
 #include <sys/types.h>
@@ -110,7 +111,7 @@ void common::OnAccessTracking(
 	data.lifetime_freq_decayed_vtime++;
 }
 
-void common::BeforeEvictionTracking(
+void common::BeforeEvaluationTracking(
 	const cache_obj_t* obj, CustomClockParams* custom_params, const request_t* req
 ) {
 	auto& data = custom_params->objs_metadata[obj->obj_id];
@@ -118,10 +119,21 @@ void common::BeforeEvictionTracking(
 	uint64_t rtime_since = req->clock_time - data.rtime;
 	uint64_t vtime_since = custom_params->vtime - data.vtime;
 
+	data.clock_freq_decayed_rtime =
+		data.clock_freq_decayed_rtime * exp(-custom_params->decay_power * rtime_since);
+	data.clock_freq_decayed_vtime =
+		data.clock_freq_decayed_vtime * exp(-custom_params->decay_power * vtime_since);
+
 	data.lifetime_freq_decayed_rtime =
 		data.lifetime_freq_decayed_rtime * exp(-custom_params->decay_power * rtime_since);
 	data.lifetime_freq_decayed_vtime =
 		data.lifetime_freq_decayed_vtime * exp(-custom_params->decay_power * vtime_since);
+}
+
+void common::BeforeEvictionTracking(
+	const cache_obj_t* obj, CustomClockParams* custom_params, const request_t* req
+) {
+	auto& data = custom_params->objs_metadata[obj->obj_id];
 
 	data.clock_freq_decayed_rtime = 0;
 	data.clock_freq_decayed_vtime = 0;
