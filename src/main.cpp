@@ -50,8 +50,6 @@ int main(int argc, char** argv) {
 		});
 	app.add_option("-T, --trace-type", o.trace_type, "Traces Type [oracleGeneral, csv]")
 		->default_val("oracleGeneral");
-	app.add_option("-c, --decay-interval", o.decay_interval, "Freq decay interval")
-		->default_val(1000);
 	app.add_option("-H, --treshold", o.treshold, "Decision treshold")->default_val(0.5);
 	app.add_flag("--ignore-obj-size", o.ignore_obj_size, "Would ignore object sizes from trace");
 	app.add_flag(

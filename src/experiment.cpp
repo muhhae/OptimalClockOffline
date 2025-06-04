@@ -89,6 +89,7 @@ void RunExperiment(options o) {
 		std::cout << csv_header;
 		for (const auto& fcs : o.fixed_cache_sizes) {
 			o.dist_optimal_treshold = o.ignore_obj_size ? fcs : fcs / wss_byte * wss_obj;
+			o.decay_interval = o.ignore_obj_size ? fcs : fcs / wss_byte * wss_obj;
 			std::string desc = "[" + std::to_string(fcs) + (o.ignore_obj_size ? "" : "MiB") +
 							   (o.desc != "" ? "," : "") + o.desc + "]";
 			tasks.emplace_back(std::async(
@@ -104,6 +105,7 @@ void RunExperiment(options o) {
 		}
 		for (const auto& rcs : o.relative_cache_sizes) {
 			o.dist_optimal_treshold = rcs * wss_obj;
+			o.decay_interval = rcs * wss_obj;
 			std::string s = std::to_string(rcs);
 			s = s.substr(0, s.find_last_not_of('0') + 1);
 			if (s.back() == '.')
