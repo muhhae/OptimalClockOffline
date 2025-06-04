@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
 	app.add_option(
 		   "-p, --decay-power", o.decay_power, "Decaying rate of clock and lifetime frequency"
 	)
-		->default_val(0.7);
+		->default_val(0.001);
 	app.add_flag("--ignore-obj-size", o.ignore_obj_size, "Would ignore object sizes from trace");
 	app.add_flag(
 		"--generate-datasets", o.generate_datasets, "Would generate datasets from simulation"
