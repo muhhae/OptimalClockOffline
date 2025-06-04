@@ -21,10 +21,9 @@ def SetupModel(max_iter: int = 1000):
     ]
     var.model = Pipeline(steps)
     var.inputs = [
-        "rtime_since_log",
         "vtime_since_log",
-        "clock_freq_decayed_0_4",
-        "lifetime_freq_decayed_0_4",
+        "clock_freq_decayed_rtime",
+        "lifetime_freq_decayed_rtime",
     ]
     var.input_dtype = np.float32
 
