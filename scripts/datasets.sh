@@ -42,7 +42,7 @@ while IFS= read -r link; do
     min_dram=$(( gb+1 ))
 
     for cache_size in "${relative_cache_sizes[@]}"; do
-        echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file -o $result_out -r $cache_size --id-num -i $max_iteration -c 10000 --generate-datasets --ignore-obj-size -d ignore_obj_size $add_desc" >> $task_out
-        echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file -o $result_out -r $cache_size --id-num -i $max_iteration -c 10000 --generate-datasets -d $add_desc" >> $task_out
+        echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file -o $result_out -r $cache_size --id-num -i $max_iteration --generate-datasets --ignore-obj-size -d ignore_obj_size $add_desc" >> $task_out
+        echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file -o $result_out -r $cache_size --id-num -i $max_iteration --generate-datasets -d $add_desc" >> $task_out
     done
 done < "$traces_in"

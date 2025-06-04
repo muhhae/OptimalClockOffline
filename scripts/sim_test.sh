@@ -149,10 +149,10 @@ while IFS= read -r link; do
 
     for cache_size in "${relative_cache_sizes[@]}"; do
         for treshold in "${ml_treshold[@]}";do
-            echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file $features -o $out_dir -c 10000 -r $cache_size -i 1 -H $treshold --ignore-obj-size -d ignore_obj_size,ML$add_desc,model=${model}_$cache_size,treshold=$treshold -a ML -m $model_dir[$cache_size,ignore_obj_size$add_desc].onnx" >> $task_out
-            echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file $features -o $out_dir -c 10000 -r $cache_size -i 1 -H $treshold --ignore-obj-size -d ignore_obj_size,ML$add_desc,model=${model}_All,treshold=$treshold -a ML -m $model_dir[All,ignore_obj_size$add_desc].onnx" >> $task_out
-            echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file $features -o $out_dir -c 10000 -r $cache_size -i 1 -H $treshold -d ML$add_desc,model=${model}_$cache_size,treshold=$treshold -a ML -m $model_dir[$cache_size$add_desc].onnx" >> $task_out
-            echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file $features -o $out_dir -c 10000 -r $cache_size -i 1 -H $treshold -d ML$add_desc,model=${model}_All,treshold=$treshold -a ML -m $model_dir[All$add_desc].onnx" >> $task_out
+            echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file $features -o $out_dir -r $cache_size -i 1 -H $treshold --ignore-obj-size -d ignore_obj_size,ML$add_desc,model=${model}_$cache_size,treshold=$treshold -a ML -m $model_dir[$cache_size,ignore_obj_size$add_desc].onnx" >> $task_out
+            echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file $features -o $out_dir -r $cache_size -i 1 -H $treshold --ignore-obj-size -d ignore_obj_size,ML$add_desc,model=${model}_All,treshold=$treshold -a ML -m $model_dir[All,ignore_obj_size$add_desc].onnx" >> $task_out
+            echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file $features -o $out_dir -r $cache_size -i 1 -H $treshold -d ML$add_desc,model=${model}_$cache_size,treshold=$treshold -a ML -m $model_dir[$cache_size$add_desc].onnx" >> $task_out
+            echo "shell:1:$min_dram:1:~/OptimalClockOffline/build/cacheSimulator $file $features -o $out_dir -r $cache_size -i 1 -H $treshold -d ML$add_desc,model=${model}_All,treshold=$treshold -a ML -m $model_dir[All$add_desc].onnx" >> $task_out
         done
     done
 done < "$traces_txt"
