@@ -729,15 +729,15 @@ def Summarize(
         True: [f for f in files if "ignore_obj_size" in f],
     }
 
-    Analyze(
-        paths[0],
-        f"../../result/{title}_obj_size_not_ignored.md",
-        f"../../docs/{title}_obj_size_not_ignored.html",
-        f"{title} Test Data Result Obj Size Not Ignored",
-        model_metrics[0],
-        included_models,
-        included_treshold,
-    )
+    # Analyze(
+    #     paths[0],
+    #     f"../../result/{title}_obj_size_not_ignored.md",
+    #     f"../../docs/{title}_obj_size_not_ignored.html",
+    #     f"{title} Test Data Result Obj Size Not Ignored",
+    #     model_metrics[0],
+    #     included_models,
+    #     included_treshold,
+    # )
     Analyze(
         paths[1],
         f"../../result/{title}_obj_size_ignored.md",
@@ -747,15 +747,15 @@ def Summarize(
         included_models,
         included_treshold,
     )
-    Analyze(
-        files,
-        f"../../result/{title}.md",
-        f"../../docs/{title}.html",
-        f"{title} Test Data Result Combined",
-        model_metrics[0] + model_metrics[1],
-        included_models,
-        included_treshold,
-    )
+    # Analyze(
+    #     files,
+    #     f"../../result/{title}.md",
+    #     f"../../docs/{title}.html",
+    #     f"{title} Test Data Result Combined",
+    #     model_metrics[0] + model_metrics[1],
+    #     included_models,
+    #     included_treshold,
+    # )
 
 
 ALL_MODELS = [
@@ -787,12 +787,14 @@ ALL_MODELS = [
     "LR_7",
     "LR_8",
     "LR_9",
-    "LR_10",
-    "LR_11",
-    "LR_12",
-    "LR_13",
-    "LR_14",
-    "LR_15",
+    "LR_7_decay_rtime",
+    "LR_7_decay_vtime",
+    "LR_8_decay_rtime",
+    "LR_8_decay_vtime",
+    "LR_9_decay_rtime",
+    "LR_9_decay_vtime",
+    "LR_decay_rtime",
+    "LR_decay_vtime",
 ]
 BASE_MODELS = [
     "LR_1",
@@ -804,12 +806,14 @@ BASE_MODELS = [
     "LR_7",
     "LR_8",
     "LR_9",
-    "LR_10",
-    "LR_11",
-    "LR_12",
-    "LR_13",
-    "LR_14",
-    "LR_15",
+    "LR_7_decay_rtime",
+    "LR_7_decay_vtime",
+    "LR_8_decay_rtime",
+    "LR_8_decay_vtime",
+    "LR_9_decay_rtime",
+    "LR_9_decay_vtime",
+    "LR_decay_rtime",
+    "LR_decay_vtime",
 ]
 ALL_TRESHOLD = [
     0.3,
@@ -828,24 +832,44 @@ def main():
         ("zipf1", "Zipf1 New Model", ["LR_7", "LR_8", "LR_9"], ALL_TRESHOLD),
         (
             "zipf1",
-            "Zipf1 Decay Model",
-            ["LR_10", "LR_11", "LR_12", "LR_13", "LR_14", "LR_15"],
-            [0.5],
-        ),
-        (
-            "zipf1",
-            "Zipf1 Selected Non-Decay vs Decay Model",
-            ["LR_7", "LR_10"],
-            [0.5],
-        ),
-        (
-            "zipf1",
             "Zipf1 New Model With Selected Treshold",
             ["LR_7", "LR_8", "LR_9"],
             [0.8, 0.9],
         ),
         ("zipf1", "Zipf1 Base Model", BASE_MODELS, [0.5]),
     ]
+    for treshold in ALL_TRESHOLD:
+        summarize_calls_args.append(
+            (
+                "zipf1",
+                f"Zipf1 Decay Model with Treshold {treshold}",
+                [
+                    "LR_7_decay_rtime",
+                    "LR_7_decay_vtime",
+                    "LR_8_decay_rtime",
+                    "LR_8_decay_vtime",
+                    "LR_9_decay_rtime",
+                    "LR_9_decay_vtime",
+                    "LR_decay_rtime",
+                    "LR_decay_vtime",
+                ],
+                [treshold],
+            )
+        )
+        summarize_calls_args.append(
+            (
+                "zipf1",
+                f"Zipf1 Selected Non-Decay vs Decay Model with Treshold {treshold}",
+                [
+                    "LR_7",
+                    "LR_7_decay_rtime",
+                    "LR_7_decay_vtime",
+                    "LR_decay_vtime",
+                    "LR_decay_rtime",
+                ],
+                [treshold],
+            )
+        )
     with multiprocessing.Pool() as pool:
         pool.starmap(Summarize, summarize_calls_args)
 
