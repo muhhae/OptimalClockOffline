@@ -827,8 +827,24 @@ ALL_TRESHOLD = [
 
 def main():
     summarize_calls_args = [
-        ("zipf1", "Zipf1", ["LR_1", "LR_5_imba"], ALL_TRESHOLD),
-        ("zipf1", "Zipf1 All Model", ALL_MODELS, ALL_TRESHOLD),
+        (
+            "zipf1",
+            "Zipf1",
+            ["LR_1", "LR_5_imba"],
+            ALL_TRESHOLD,
+        ),
+        (
+            "zipf1",
+            "Zipf1 All Model with base treshold",
+            ALL_MODELS,
+            [0.5],
+        ),
+        (
+            "zipf1",
+            "Zipf1 All Model with all treshold",
+            ALL_MODELS,
+            ALL_TRESHOLD,
+        ),
         ("zipf1", "Zipf1 New Model", ["LR_7", "LR_8", "LR_9"], ALL_TRESHOLD),
         (
             "zipf1",
@@ -837,6 +853,33 @@ def main():
             [0.8, 0.9],
         ),
         ("zipf1", "Zipf1 Base Model", BASE_MODELS, [0.5]),
+        (
+            "zipf1",
+            "Zipf1 Decay Model with All Treshold ",
+            [
+                "LR_7_decay_rtime",
+                "LR_7_decay_vtime",
+                "LR_8_decay_rtime",
+                "LR_8_decay_vtime",
+                "LR_9_decay_rtime",
+                "LR_9_decay_vtime",
+                "LR_decay_rtime",
+                "LR_decay_vtime",
+            ],
+            ALL_TRESHOLD,
+        ),
+        (
+            "zipf1",
+            "Zipf1 Selected Non-Decay vs Decay Model with All Treshold",
+            [
+                "LR_7",
+                "LR_7_decay_rtime",
+                "LR_7_decay_vtime",
+                "LR_decay_vtime",
+                "LR_decay_rtime",
+            ],
+            ALL_TRESHOLD,
+        ),
     ]
     for treshold in ALL_TRESHOLD:
         summarize_calls_args.append(
