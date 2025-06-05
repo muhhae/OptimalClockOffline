@@ -125,6 +125,12 @@ case "$model" in
     "LR_9_decay_vtime")
         features="-I F32 -F vtime_since_log clock_freq_decayed_vtime lifetime_freq_decayed_vtime"
         ;;
+    "LR_decay_rtime")
+        features="-I F32 -F clock_freq_decayed_rtime"
+        ;;
+    "LR_decay_vtime")
+        features="-I F32 -F clock_freq_decayed_vtime"
+        ;;
     *)
         echo "Unknown model using default features"
         ;;
