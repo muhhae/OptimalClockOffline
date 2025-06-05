@@ -1,0 +1,3 @@
+trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted
+"w100.oracleGeneral.bin.zst",1,708567,0.533564,3645877,528957
+"w100.oracleGeneral.bin.zst",1,708567,0.526421,3645877,300515
