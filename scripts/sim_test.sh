@@ -101,29 +101,29 @@ case "$model" in
     "LR_7")
         features="-I F32 -F rtime_since_log vtime_since_log clock_freq lifetime_freq"
         ;;
+    "LR_7_decay_rtime")
+        features="-I F32 -F rtime_since_log vtime_since_log clock_freq_decayed_rtime lifetime_freq_decayed_rtime"
+        ;;
+    "LR_7_decay_vtime")
+        features="-I F32 -F rtime_since_log vtime_since_log clock_freq_decayed_vtime lifetime_freq_decayed_vtime"
+        ;;
     "LR_8")
         features="-I F32 -F rtime_since_log clock_freq lifetime_freq"
+        ;;
+    "LR_8_decay_rtime")
+        features="-I F32 -F rtime_since_log clock_freq_decayed_rtime lifetime_freq_decayed_rtime"
+        ;;
+    "LR_8_decay_vtime")
+        features="-I F32 -F rtime_since_log clock_freq_decayed_vtime lifetime_freq_decayed_vtime"
         ;;
     "LR_9")
         features="-I F32 -F vtime_since_log clock_freq lifetime_freq"
         ;;
-    "LR_10")
-        features="-I F32 -F rtime_since_log vtime_since_log clock_freq_decayed_0_8 lifetime_freq_decayed_0_8"
+    "LR_9_decay_rtime")
+        features="-I F32 -F vtime_since_log clock_freq_decayed_rtime lifetime_freq_decayed_rtime"
         ;;
-    "LR_11")
-        features="-I F32 -F rtime_since_log clock_freq_decayed_0_8 lifetime_freq_decayed_0_8"
-        ;;
-    "LR_12")
-        features="-I F32 -F vtime_since_log clock_freq_decayed_0_8 lifetime_freq_decayed_0_8"
-        ;;
-    "LR_13")
-        features="-I F32 -F rtime_since_log vtime_since_log clock_freq_decayed_0_4 lifetime_freq_decayed_0_4"
-        ;;
-    "LR_14")
-        features="-I F32 -F rtime_since_log clock_freq_decayed_0_4 lifetime_freq_decayed_0_4"
-        ;;
-    "LR_15")
-        features="-I F32 -F vtime_since_log clock_freq_decayed_0_4 lifetime_freq_decayed_0_4"
+    "LR_9_decay_vtime")
+        features="-I F32 -F vtime_since_log clock_freq_decayed_vtime lifetime_freq_decayed_vtime"
         ;;
     *)
         echo "Unknown model using default features"
