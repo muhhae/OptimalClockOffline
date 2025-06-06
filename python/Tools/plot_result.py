@@ -285,7 +285,7 @@ def ParseClassificationReport(report_string):
     )
 
 
-def GetModelMetrics(paths: T.List[str]):
+def GetModelMetrics(paths: T.List[str], included_sizes: T.List[str]):
     tmp = []
     for p in paths:
         f = open(p, "r")
@@ -312,6 +312,11 @@ def GetModelMetrics(paths: T.List[str]):
         model = Path(p).stem
         model, desc = extract_desc(model)
         size = desc[0]
+        if size not in included_sizes:
+            continue
+        top_dist = 1
+        if "top" in desc[-1]:
+            top_dist = desc[-1]["top"]
         # model = f"{model}_{'spec' if size != 'All' else size}"
         model = f"{model}_{size}"
 
@@ -326,6 +331,7 @@ def GetModelMetrics(paths: T.List[str]):
                 "False Negatives": FN / (TN + FN) * 100 if FN != 0 else 0,
                 "False Positives": FP / (TP + FP) * 100 if FP != 0 else 0,
                 "Report": report,
+                "Top (%)": top_dist * 100,
             }
         )
     return pd.DataFrame(tmp)
@@ -378,7 +384,7 @@ def GetOtherResult(paths: T.List[str], name: str):
     return pd.DataFrame(tmp)
 
 
-def GetModelResult(paths: T.List[str]):
+def GetModelResult(paths: T.List[str], included_sizes: T.List[str]):
     tmp = []
     for file in paths:
         if Path(file).stat().st_size == 0:
@@ -389,6 +395,8 @@ def GetModelResult(paths: T.List[str]):
         if "treshold" in desc[-1]:
             treshold = desc[-1]["treshold"]
         size = model.split("_")[-1]
+        if size not in included_sizes:
+            continue
         size_pos = model.rfind("_")
         model = model[:size_pos]
         # model = f"{model}_{'spec' if size != 'All' else size}"
@@ -410,7 +418,7 @@ def GetModelResult(paths: T.List[str]):
     return pd.DataFrame(tmp)
 
 
-def WriteModelSummaries(md, html, base_result, models_result):
+def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
     tmp = []
     for model in models_result["Model"].unique():
         current = models_result.query("Model == @model")
@@ -499,7 +507,7 @@ def WriteModelSummaries(md, html, base_result, models_result):
         if model not in symbol_map:
             symbol_map[model] = "circle"
 
-    Write(md, html, "# Promotion vs Miss Ratio  \n")
+    Write(md, html, "# Mean Promotion vs Miss Ratio  \n")
     Write(md, html, "## Cache Size All  \n")
     fig = px.scatter(
         data.groupby("Model")[["Promotion Reduced (%)", "Miss Ratio Reduced (%)"]]
@@ -529,11 +537,74 @@ def WriteModelSummaries(md, html, base_result, models_result):
     fig.update_yaxes(showgrid=True)
     WriteFig(md, html, fig)
     for size in data["Cache Size"].unique():
+        if str(size) not in included_sizes:
+            continue
         tmp = data[data["Cache Size"] == size]
         Write(md, html, f"## Cache Size {size}  \n")
         fig = px.scatter(
             tmp.groupby("Model")[["Promotion Reduced (%)", "Miss Ratio Reduced (%)"]]
             .mean()
+            .reset_index(),
+            symbol="Model",
+            symbol_map=symbol_map,
+            x="Promotion Reduced (%)",
+            y="Miss Ratio Reduced (%)",
+            color="Model",
+        )
+        fig.update_traces(
+            marker_size=12,
+            marker_line=dict(width=2),
+            selector=dict(mode="markers"),
+        )
+        fig.update_xaxes(dtick=10)
+        fig.update_layout(
+            xaxis_title="Promotion Reduced (%)",
+            yaxis_title="Miss Ratio Reduced (%)",
+            font=dict(size=14),
+            height=800,
+            width=800,
+            yaxis_tickformat=".6f",
+        )
+        fig.update_xaxes(showgrid=True)
+        fig.update_yaxes(showgrid=True)
+        WriteFig(md, html, fig)
+    Write(md, html, "# Median Promotion vs Miss Ratio  \n")
+    Write(md, html, "## Cache Size All  \n")
+    fig = px.scatter(
+        data.groupby("Model")[["Promotion Reduced (%)", "Miss Ratio Reduced (%)"]]
+        .median()
+        .reset_index(),
+        symbol="Model",
+        symbol_map=symbol_map,
+        x="Promotion Reduced (%)",
+        y="Miss Ratio Reduced (%)",
+        color="Model",
+    )
+    fig.update_traces(
+        marker_size=12,
+        marker_line=dict(width=2),
+        selector=dict(mode="markers"),
+    )
+    fig.update_xaxes(dtick=10)
+    fig.update_layout(
+        xaxis_title="Promotion Reduced (%)",
+        yaxis_title="Miss Ratio Reduced (%)",
+        font=dict(size=14),
+        height=800,
+        width=800,
+        yaxis_tickformat=".6f",
+    )
+    fig.update_xaxes(showgrid=True)
+    fig.update_yaxes(showgrid=True)
+    WriteFig(md, html, fig)
+    for size in data["Cache Size"].unique():
+        if str(size) not in included_sizes:
+            continue
+        tmp = data[data["Cache Size"] == size]
+        Write(md, html, f"## Cache Size {size}  \n")
+        fig = px.scatter(
+            tmp.groupby("Model")[["Promotion Reduced (%)", "Miss Ratio Reduced (%)"]]
+            .median()
             .reset_index(),
             symbol="Model",
             symbol_map=symbol_map,
@@ -564,9 +635,13 @@ def WriteModelMetrics(md, html, model_metrics: pd.DataFrame):
     Write(md, html, "# Model Classification Report  \n")
     for m in model_metrics["Model"].unique():
         Write(md, html, f"## {m}  \n")
-        report = model_metrics.query("Model == @m")["Report"].tolist()
-        for r in report:
-            Write(md, html, f"```\n{r}\n```  \n")
+        for top in model_metrics["Top (%)"].unique():
+            Write(md, html, f"### Top {top}%  \n")
+            report = model_metrics.query(
+                "Model == @m and `Top (%)` == @top",
+            )["Report"].tolist()
+            for r in report:
+                Write(md, html, f"```\n{r}\n```  \n")
     Write(md, html, "# Model Metrics  \n")
     for title in [
         "True Positives",
@@ -597,7 +672,7 @@ def WriteModelMetrics(md, html, model_metrics: pd.DataFrame):
         WriteFig(md, html, fig)
 
 
-def WriteIndividualResult(md, html, results):
+def WriteIndividualResult(md, html, results, included_sizes):
     Write(md, html, "# Individual Workload Result  \n")
     df = pd.concat(results, ignore_index=True)
 
@@ -613,6 +688,8 @@ def WriteIndividualResult(md, html, results):
             if ignore:
                 Write(md, html, "## Ignore Obj Size  \n")
             for size in sizes:
+                if str(size) not in included_sizes:
+                    continue
                 df_size = df_ignore[df_ignore["Cache Size"] == size]
                 Write(md, html, f"### {size}  \n")
                 fig = px.scatter(
@@ -641,6 +718,7 @@ def Analyze(
     models_metrics_paths: T.List[str],
     included_models: T.List[str],
     included_treshold: T.List[float],
+    included_sizes: T.List[str],
 ):
     print(f"Analyzing for {Title}")
 
@@ -683,9 +761,9 @@ def Analyze(
     html = open(Path(html_path), "w")
     Write(md, html, f"# {Title}  \n# Result  \n")
 
-    model_metrics = GetModelMetrics(models_metrics_paths)
+    model_metrics = GetModelMetrics(models_metrics_paths, included_sizes)
     base_result = GetBaseResult(base_paths)
-    model_result = GetModelResult(model_paths)
+    model_result = GetModelResult(model_paths, included_sizes)
     lru_result = GetOtherResult(lru_paths, "LRU")
     dist_optimal_result = GetOtherResult(
         dist_optimal_paths, "Zipf Optimal Distribution"
@@ -698,10 +776,14 @@ def Analyze(
         pd.concat(
             [model_result, base_result, dist_optimal_result],
         ),
+        included_sizes,
     )
     WriteModelMetrics(md, html, model_metrics)
     WriteIndividualResult(
-        md, html, [base_result, lru_result, model_result, dist_optimal_result]
+        md,
+        html,
+        [base_result, model_result, dist_optimal_result],
+        included_sizes,
     )
     WriteHTML(html)
     print(f"Finished analyzing for {Title}")
@@ -712,6 +794,7 @@ def Summarize(
     title: str,
     included_models: T.List[str],
     included_treshold: T.List[float],
+    included_sizes: T.List[str],
 ):
     files = sorted(glob.glob(os.path.join(result_dir, "*.csv")), key=sort_key)
     files = [f for f in files if f.count(additional_desc)]
@@ -743,6 +826,7 @@ def Summarize(
     #     model_metrics[0],
     #     included_models,
     #     included_treshold,
+    #     included_sizes,
     # )
     Analyze(
         paths[1],
@@ -752,6 +836,7 @@ def Summarize(
         model_metrics[1],
         included_models,
         included_treshold,
+        included_sizes,
     )
     # Analyze(
     #     files,
@@ -761,6 +846,7 @@ def Summarize(
     #     model_metrics[0] + model_metrics[1],
     #     included_models,
     #     included_treshold,
+    #     included_sizes,
     # )
 
 
@@ -840,36 +926,72 @@ def main():
                 title,
                 ["LR_1", "LR_5_imba"],
                 ALL_TRESHOLD,
+                [
+                    "0.01",
+                    "0.1",
+                    "0.2",
+                    "0.4",
+                ],
             ),
             (
                 trace,
                 f"{title} All Model with base treshold",
                 ALL_MODELS,
                 [0.5],
+                [
+                    "0.01",
+                    "0.1",
+                    "0.2",
+                    "0.4",
+                ],
             ),
             (
                 trace,
                 f"{title} All Model with all treshold",
                 ALL_MODELS,
                 ALL_TRESHOLD,
+                [
+                    "0.01",
+                    "0.1",
+                    "0.2",
+                    "0.4",
+                ],
             ),
             (
                 trace,
                 f"{title} New Model",
                 ["LR_7", "LR_8", "LR_9"],
                 ALL_TRESHOLD,
+                [
+                    "0.01",
+                    "0.1",
+                    "0.2",
+                    "0.4",
+                ],
             ),
             (
                 trace,
                 f"{title} New Model With Selected Treshold",
                 ["LR_7", "LR_8", "LR_9"],
                 [0.8, 0.9],
+                [
+                    "0.01",
+                    "0.1",
+                    "0.2",
+                    "0.4",
+                ],
             ),
             (
                 trace,
                 f"{title} Base Model",
                 BASE_MODELS,
                 [0.5],
+                [
+                    "0.01",
+                    "0.1",
+                    "0.2",
+                    "0.4",
+                ],
             ),
             (
                 trace,
@@ -885,6 +1007,12 @@ def main():
                     "LR_decay_vtime",
                 ],
                 ALL_TRESHOLD,
+                [
+                    "0.01",
+                    "0.1",
+                    "0.2",
+                    "0.4",
+                ],
             ),
             (
                 trace,
@@ -897,6 +1025,12 @@ def main():
                     "LR_decay_rtime",
                 ],
                 ALL_TRESHOLD,
+                [
+                    "0.01",
+                    "0.1",
+                    "0.2",
+                    "0.4",
+                ],
             ),
         ]
         for treshold in ALL_TRESHOLD:
@@ -915,6 +1049,12 @@ def main():
                         "LR_decay_vtime",
                     ],
                     [treshold],
+                    [
+                        "0.01",
+                        "0.1",
+                        "0.2",
+                        "0.4",
+                    ],
                 ),
                 (
                     trace,
@@ -927,6 +1067,12 @@ def main():
                         "LR_decay_rtime",
                     ],
                     [treshold],
+                    [
+                        "0.01",
+                        "0.1",
+                        "0.2",
+                        "0.4",
+                    ],
                 ),
             ]
     with multiprocessing.Pool() as pool:
