@@ -69,7 +69,6 @@ Metrics() {
     test_datasets=${test_datasets%?}
 
     for p in "${part[@]}"; do
-        id_treshold=$((p * obj_count))
         echo "shell:1:$ram_usage:10:cd $HOME/OptimalClockOffline/python/ML && \
 python -c \"\
 import $model as m;\
@@ -77,7 +76,7 @@ import var;\
 m.SetupModel();\
 m.LoadONNX('$model_dir/$model[$model_desc].onnx');\
 m.AddDatasets($test_datasets);\
-m.ZipfLoadDatasets($id_treshold);\
+m.ZipfLoadDatasets($p * $obj_count);\
 m.SetTestData();\
 m.Test()\" > $model_dir/$model[$model_desc,$p].md" >> $task_out
     done
