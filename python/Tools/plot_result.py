@@ -316,7 +316,7 @@ def GetModelMetrics(paths: T.List[str], included_sizes: T.List[str]):
             continue
         top_dist = 1
         if "top" in desc[-1]:
-            top_dist = desc[-1]["top"]
+            top_dist = float(desc[-1]["top"])
         # model = f"{model}_{'spec' if size != 'All' else size}"
         model = f"{model}_{size}"
 
