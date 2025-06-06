@@ -1,5 +1,5 @@
 import onnxruntime as ort
-import numpy as np
+import var
 
 
 class SklearnONNXPredictor:
@@ -10,6 +10,6 @@ class SklearnONNXPredictor:
     def predict(self, X):
         if hasattr(X, "to_numpy"):
             X = X.to_numpy()
-        X = X.astype(np.int64)
+        X = X.astype(var.input_dtype)
         outputs = self.session.run(None, {self.input_name: X})
         return outputs[0]
