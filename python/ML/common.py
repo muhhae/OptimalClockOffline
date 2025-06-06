@@ -41,7 +41,10 @@ def ZipfLoadDatasets(id_treshold: int):
         ],
         ignore_index=True,
     )
-    var.df = var.df[var.df["obj_id"] < id_treshold].drop(columns="obj_id")
+    var.df = var.df[var.df["obj_id"] < id_treshold].drop(
+        columns="obj_id",
+        axis=1,
+    )
 
 
 def LoadDatasets():
