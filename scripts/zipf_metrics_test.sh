@@ -78,7 +78,7 @@ m.LoadONNX('$model_dir/$model[$model_desc].onnx');\
 m.AddDatasets($test_datasets);\
 m.ZipfLoadDatasets($p * $obj_count);\
 m.SetTestData();\
-m.Test()\" > $model_dir/$model[$model_desc,$p].md" >> $task_out
+m.Test()\" > $model_dir/$model[$model_desc,top=$p].md" >> $task_out
     done
 }
 

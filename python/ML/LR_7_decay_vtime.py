@@ -5,6 +5,7 @@ import numpy as np
 
 import var
 import common as c
+from common import *
 
 
 def SetupModel(max_iter: int = 1000):
@@ -27,22 +28,3 @@ def SetupModel(max_iter: int = 1000):
         "lifetime_freq_decayed_vtime",
     ]
     var.input_dtype = np.float32
-
-
-Train = c.Train
-
-# Hardly Need Modification
-AddDatasets = c.AddDatasets
-ResetDatasets = c.ResetDatasets
-LoadDatasets = c.LoadDatasets
-SetTestData = c.SetTestData
-SetTrainData = c.SetTrainData
-SplitData = c.SplitData
-Test = c.Test
-DescribeData = c.DescribeData
-ExportONNX = c.ExportONNX
-LoadONNX = c.LoadONNX
-SaveModel = c.SaveModel
-LoadModel = c.LoadModel
-PlotSave = c.PlotSave
-PlotShow = c.PlotShow
