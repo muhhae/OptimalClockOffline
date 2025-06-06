@@ -46,7 +46,7 @@ fi
 shopt -s nullglob
 echo "" > $task_out
 
-part=(0.01 0.1 0.2 0.4 0.6)
+part=(0.01 0.1 0.2 0.4 0.8)
 
 Metrics() {
     descs="$1"
