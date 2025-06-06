@@ -643,12 +643,6 @@ def Analyze(
     included_treshold: T.List[float],
 ):
     print(f"Analyzing for {Title}")
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
-    os.makedirs(os.path.dirname(html_path), exist_ok=True)
-
-    md = open(output_path, "w")
-    html = open(Path(html_path), "w")
-    Write(md, html, f"# {Title}  \n# Result  \n")
 
     model_paths = [f for f in paths if "ML" in f]
     lru_paths = [f for f in paths if "lru" in f]
@@ -676,6 +670,18 @@ def Analyze(
         for f in models_metrics_paths
         if (p := Path(f).stem)[: p.rfind("[")] in included_models
     ]
+    if len(model_paths) == 0 or len(models_metrics_paths) == 0:
+        print(model_paths)
+        print(models_metrics_paths)
+        print(f"Empty data for {Title}")
+        return
+
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    os.makedirs(os.path.dirname(html_path), exist_ok=True)
+
+    md = open(output_path, "w")
+    html = open(Path(html_path), "w")
+    Write(md, html, f"# {Title}  \n# Result  \n")
 
     model_metrics = GetModelMetrics(models_metrics_paths)
     base_result = GetBaseResult(base_paths)
@@ -826,66 +832,48 @@ ALL_TRESHOLD = [
 
 
 def main():
-    summarize_calls_args = [
-        (
-            "zipf1",
-            "Zipf1",
-            ["LR_1", "LR_5_imba"],
-            ALL_TRESHOLD,
-        ),
-        (
-            "zipf1",
-            "Zipf1 All Model with base treshold",
-            ALL_MODELS,
-            [0.5],
-        ),
-        (
-            "zipf1",
-            "Zipf1 All Model with all treshold",
-            ALL_MODELS,
-            ALL_TRESHOLD,
-        ),
-        ("zipf1", "Zipf1 New Model", ["LR_7", "LR_8", "LR_9"], ALL_TRESHOLD),
-        (
-            "zipf1",
-            "Zipf1 New Model With Selected Treshold",
-            ["LR_7", "LR_8", "LR_9"],
-            [0.8, 0.9],
-        ),
-        ("zipf1", "Zipf1 Base Model", BASE_MODELS, [0.5]),
-        (
-            "zipf1",
-            "Zipf1 Decay Model with All Treshold ",
-            [
-                "LR_7_decay_rtime",
-                "LR_7_decay_vtime",
-                "LR_8_decay_rtime",
-                "LR_8_decay_vtime",
-                "LR_9_decay_rtime",
-                "LR_9_decay_vtime",
-                "LR_decay_rtime",
-                "LR_decay_vtime",
-            ],
-            ALL_TRESHOLD,
-        ),
-        (
-            "zipf1",
-            "Zipf1 Selected Non-Decay vs Decay Model with All Treshold",
-            [
-                "LR_7",
-                "LR_7_decay_rtime",
-                "LR_7_decay_vtime",
-                "LR_decay_vtime",
-                "LR_decay_rtime",
-            ],
-            ALL_TRESHOLD,
-        ),
-    ]
-    for treshold in ALL_TRESHOLD:
-        summarize_calls_args.append(
+    summarize_calls_args = []
+    for trace, title in [("zipf1", "Zipf1"), ("cloudphysics", "CloudPhysics")]:
+        summarize_calls_args += [
             (
-                "zipf1",
-                f"Zipf1 Decay Model with Treshold {treshold}",
+                trace,
+                title,
+                ["LR_1", "LR_5_imba"],
+                ALL_TRESHOLD,
+            ),
+            (
+                trace,
+                f"{title} All Model with base treshold",
+                ALL_MODELS,
+                [0.5],
+            ),
+            (
+                trace,
+                f"{title} All Model with all treshold",
+                ALL_MODELS,
+                ALL_TRESHOLD,
+            ),
+            (
+                trace,
+                f"{title} New Model",
+                ["LR_7", "LR_8", "LR_9"],
+                ALL_TRESHOLD,
+            ),
+            (
+                trace,
+                f"{title} New Model With Selected Treshold",
+                ["LR_7", "LR_8", "LR_9"],
+                [0.8, 0.9],
+            ),
+            (
+                trace,
+                f"{title} Base Model",
+                BASE_MODELS,
+                [0.5],
+            ),
+            (
+                trace,
+                f"{title} Decay Model with All Treshold ",
                 [
                     "LR_7_decay_rtime",
                     "LR_7_decay_vtime",
@@ -896,13 +884,11 @@ def main():
                     "LR_decay_rtime",
                     "LR_decay_vtime",
                 ],
-                [treshold],
-            )
-        )
-        summarize_calls_args.append(
+                ALL_TRESHOLD,
+            ),
             (
-                "zipf1",
-                f"Zipf1 Selected Non-Decay vs Decay Model with Treshold {treshold}",
+                trace,
+                f"{title} Selected Non-Decay vs Decay Model with All Treshold",
                 [
                     "LR_7",
                     "LR_7_decay_rtime",
@@ -910,9 +896,39 @@ def main():
                     "LR_decay_vtime",
                     "LR_decay_rtime",
                 ],
-                [treshold],
-            )
-        )
+                ALL_TRESHOLD,
+            ),
+        ]
+        for treshold in ALL_TRESHOLD:
+            summarize_calls_args += [
+                (
+                    trace,
+                    f"{title} Decay Model with Treshold {treshold}",
+                    [
+                        "LR_7_decay_rtime",
+                        "LR_7_decay_vtime",
+                        "LR_8_decay_rtime",
+                        "LR_8_decay_vtime",
+                        "LR_9_decay_rtime",
+                        "LR_9_decay_vtime",
+                        "LR_decay_rtime",
+                        "LR_decay_vtime",
+                    ],
+                    [treshold],
+                ),
+                (
+                    trace,
+                    f"{title} Selected Non-Decay vs Decay Model with Treshold {treshold}",
+                    [
+                        "LR_7",
+                        "LR_7_decay_rtime",
+                        "LR_7_decay_vtime",
+                        "LR_decay_vtime",
+                        "LR_decay_rtime",
+                    ],
+                    [treshold],
+                ),
+            ]
     with multiprocessing.Pool() as pool:
         pool.starmap(Summarize, summarize_calls_args)
 
