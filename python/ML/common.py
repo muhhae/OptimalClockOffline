@@ -25,6 +25,25 @@ def ResetDatasets():
     var.datasets = []
 
 
+def ZipfLoadDatasets(id_treshold: int):
+    var.df = pd.concat(
+        [
+            pd.read_csv(
+                p,
+                skipinitialspace=True,
+                usecols=var.inputs
+                + [
+                    "wasted",
+                    "obj_id",
+                ],
+            )
+            for p in var.datasets
+        ],
+        ignore_index=True,
+    )
+    var.df = var.df[var.df["obj_id"] < id_treshold].drop(columns="obj_id")
+
+
 def LoadDatasets():
     var.df = pd.concat(
         [
