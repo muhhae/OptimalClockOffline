@@ -46,8 +46,10 @@ std::unordered_map<std::string, float> common::CandidateMetadata(
 		common::RunningMeanNormalize(log(data.rtime_between + 1), params->rm_rtime_between_log);
 
 	features["clock_freq"] = data.clock_freq;
-	features["clock_freq_decayed_rtime"] = data.clock_freq_decayed_rtime;
-	features["clock_freq_decayed_vtime"] = data.clock_freq_decayed_vtime;
+	features["clock_freq_decayed_rtime"] =
+		data.clock_freq_decayed_rtime * exp(-params->decay_power * rtime_since);
+	features["clock_freq_decayed_vtime"] =
+		data.clock_freq_decayed_vtime * exp(-params->decay_power * vtime_since);
 	features["clock_freq_std"] =
 		common::RunningMeanNormalize(data.clock_freq, params->rm_clock_freq);
 	features["clock_freq_log"] = log(data.clock_freq + 1);
@@ -55,8 +57,10 @@ std::unordered_map<std::string, float> common::CandidateMetadata(
 		common::RunningMeanNormalize(log(data.clock_freq + 1), params->rm_clock_freq_log);
 
 	features["lifetime_freq"] = data.lifetime_freq;
-	features["lifetime_freq_decayed_rtime"] = data.lifetime_freq_decayed_rtime;
-	features["lifetime_freq_decayed_vtime"] = data.lifetime_freq_decayed_vtime;
+	features["lifetime_freq_decayed_rtime"] =
+		data.lifetime_freq_decayed_rtime * exp(-params->decay_power * rtime_since);
+	features["lifetime_freq_decayed_vtime"] =
+		data.lifetime_freq_decayed_vtime * exp(-params->decay_power * vtime_since);
 	features["lifetime_freq_std"] =
 		common::RunningMeanNormalize(data.lifetime_freq, params->rm_lifetime_freq);
 	features["lifetime_freq_log"] = log(data.lifetime_freq + 1);
@@ -115,19 +119,6 @@ void common::BeforeEvaluationTracking(
 	const cache_obj_t* obj, CustomClockParams* custom_params, const request_t* req
 ) {
 	auto& data = custom_params->objs_metadata[obj->obj_id];
-
-	uint64_t rtime_since = req->clock_time - data.rtime;
-	uint64_t vtime_since = custom_params->vtime - data.vtime;
-
-	data.clock_freq_decayed_rtime =
-		data.clock_freq_decayed_rtime * exp(-custom_params->decay_power * rtime_since);
-	data.clock_freq_decayed_vtime =
-		data.clock_freq_decayed_vtime * exp(-custom_params->decay_power * vtime_since);
-
-	data.lifetime_freq_decayed_rtime =
-		data.lifetime_freq_decayed_rtime * exp(-custom_params->decay_power * rtime_since);
-	data.lifetime_freq_decayed_vtime =
-		data.lifetime_freq_decayed_vtime * exp(-custom_params->decay_power * vtime_since);
 }
 
 void common::BeforeEvictionTracking(
