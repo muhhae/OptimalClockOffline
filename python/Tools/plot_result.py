@@ -300,14 +300,6 @@ def GetModelMetrics(paths: T.List[str], included_sizes: T.List[str]):
         content = content[content.find(kw) + len(kw) :]
         content = content[: content.find(kw)]
         content = content.replace(":", "").strip()
-
-        py_v = re.sub(r"\s+", " ", content.strip())
-        py_v = re.sub(r"(?<=\d) (?=\d)", ", ", py_v)
-        py_v = re.sub(r"\] \[", "], [", py_v)
-
-        if py_v == "":
-            continue
-
         model = p.replace(".md", "").replace(".txt", "")
         model = Path(p).stem
         model, desc = extract_desc(model)
@@ -320,20 +312,10 @@ def GetModelMetrics(paths: T.List[str], included_sizes: T.List[str]):
         # model = f"{model}_{'spec' if size != 'All' else size}"
         model = f"{model}_{size}"
 
-        TN = FP = FN = TP = 0
-        try:
-            (TN, FP), (FN, TP) = eval(py_v)
-        except:
-            continue
-
         tmp.append(
             {
                 "Model": model,
                 "Cache Size": size,
-                "True Negatives": TN / (TN + FN) * 100 if TN != 0 else 0,
-                "True Positives": TP / (TP + FP) * 100 if TP != 0 else 0,
-                "False Negatives": FN / (TN + FN) * 100 if FN != 0 else 0,
-                "False Positives": FP / (TP + FP) * 100 if FP != 0 else 0,
                 "Report": report,
                 "Top (%)": top_dist * 100,
             }
@@ -513,10 +495,15 @@ def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
 
     Write(md, html, "# Mean Promotion vs Miss Ratio  \n")
     Write(md, html, "## Cache Size All  \n")
-    fig = px.scatter(
+    df = (
         data.groupby("Model")[["Promotion Reduced (%)", "Miss Ratio Reduced (%)"]]
         .mean()
-        .reset_index(),
+        .reset_index()
+        .sort_values(by="Miss Ratio Reduced (%)", ascending=False)
+    )
+
+    fig = px.scatter(
+        df,
         symbol="Model",
         symbol_map=symbol_map,
         x="Promotion Reduced (%)",
@@ -540,15 +527,20 @@ def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
     fig.update_xaxes(showgrid=True)
     fig.update_yaxes(showgrid=True)
     WriteFig(md, html, fig)
+    Write(md, html, f"```\n{df}\n```  \n")
     for size in data["Cache Size"].unique():
         if str(size) not in included_sizes:
             continue
         tmp = data[data["Cache Size"] == size]
-        Write(md, html, f"## Cache Size {size}  \n")
-        fig = px.scatter(
+        df = (
             tmp.groupby("Model")[["Promotion Reduced (%)", "Miss Ratio Reduced (%)"]]
             .mean()
-            .reset_index(),
+            .reset_index()
+            .sort_values(by="Miss Ratio Reduced (%)", ascending=False)
+        )
+        Write(md, html, f"## Cache Size {size}  \n")
+        fig = px.scatter(
+            df,
             symbol="Model",
             symbol_map=symbol_map,
             x="Promotion Reduced (%)",
@@ -572,12 +564,17 @@ def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
         fig.update_xaxes(showgrid=True)
         fig.update_yaxes(showgrid=True)
         WriteFig(md, html, fig)
+        Write(md, html, f"```\n{df}\n```  \n")
     Write(md, html, "# Median Promotion vs Miss Ratio  \n")
     Write(md, html, "## Cache Size All  \n")
-    fig = px.scatter(
+    df = (
         data.groupby("Model")[["Promotion Reduced (%)", "Miss Ratio Reduced (%)"]]
         .median()
-        .reset_index(),
+        .reset_index()
+        .sort_values(by="Miss Ratio Reduced (%)", ascending=False)
+    )
+    fig = px.scatter(
+        df,
         symbol="Model",
         symbol_map=symbol_map,
         x="Promotion Reduced (%)",
@@ -601,15 +598,20 @@ def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
     fig.update_xaxes(showgrid=True)
     fig.update_yaxes(showgrid=True)
     WriteFig(md, html, fig)
+    Write(md, html, f"```\n{df}\n```  \n")
     for size in data["Cache Size"].unique():
         if str(size) not in included_sizes:
             continue
         tmp = data[data["Cache Size"] == size]
+        df = (
+            data.groupby("Model")[["Promotion Reduced (%)", "Miss Ratio Reduced (%)"]]
+            .median()
+            .reset_index()
+            .sort_values(by="Miss Ratio Reduced (%)", ascending=False)
+        )
         Write(md, html, f"## Cache Size {size}  \n")
         fig = px.scatter(
-            tmp.groupby("Model")[["Promotion Reduced (%)", "Miss Ratio Reduced (%)"]]
-            .median()
-            .reset_index(),
+            df,
             symbol="Model",
             symbol_map=symbol_map,
             x="Promotion Reduced (%)",
@@ -633,6 +635,7 @@ def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
         fig.update_xaxes(showgrid=True)
         fig.update_yaxes(showgrid=True)
         WriteFig(md, html, fig)
+        Write(md, html, f"```\n{df}\n```  \n")
 
 
 def WriteModelMetrics(md, html, model_metrics: pd.DataFrame):
@@ -646,34 +649,6 @@ def WriteModelMetrics(md, html, model_metrics: pd.DataFrame):
             )["Report"].tolist()
             for r in report:
                 Write(md, html, f"```\n{r}\n```  \n")
-    Write(md, html, "# Model Metrics  \n")
-    for title in [
-        "True Positives",
-        "True Negatives",
-        "False Positives",
-        "False Negatives",
-    ]:
-        fig = px.box(
-            model_metrics,
-            x=title,
-            y="Model",
-            title=title,
-            color="Model",
-        )
-        fig.update_xaxes(dtick=10)
-        fig.update_layout(
-            xaxis_title=title,
-            yaxis_title=None,
-            font=dict(size=14),
-            height=30 * len(model_metrics["Model"].unique()),
-            width=800,
-            showlegend=False,
-        )
-        fig.update_xaxes(showgrid=True)
-        fig.update_yaxes(showgrid=True)
-
-        Write(md, html, f"## {title} \n")
-        WriteFig(md, html, fig)
 
 
 def WriteIndividualResult(md, html, results, included_sizes):
@@ -712,6 +687,11 @@ def WriteIndividualResult(md, html, results, included_sizes):
                 fig.update_xaxes(showgrid=True)
                 fig.update_yaxes(showgrid=True)
                 WriteFig(md, html, fig)
+                Write(
+                    md,
+                    html,
+                    f"```\n{df_size.sort_values(by='Miss Ratio', ascending=False)}\n```  \n",
+                )
 
 
 def Analyze(
