@@ -320,7 +320,11 @@ def GetModelMetrics(paths: T.List[str], included_sizes: T.List[str]):
         # model = f"{model}_{'spec' if size != 'All' else size}"
         model = f"{model}_{size}"
 
-        (TN, FP), (FN, TP) = eval(py_v)
+        TN = FP = FN = TP = 0
+        try:
+            (TN, FP), (FN, TP) = eval(py_v)
+        except:
+            continue
 
         tmp.append(
             {
@@ -887,6 +891,11 @@ ALL_MODELS = [
     "LR_9_decay_vtime",
     "LR_decay_rtime",
     "LR_decay_vtime",
+    "LR_7_manual_weight_tuned",
+    "LR_7_decay_rtime_manual_weight_tuned",
+    "LR_7_decay_vtime_manual_weight_tuned",
+    "LR_decay_vtime_manual_weight_tuned",
+    "LR_decay_rtime_manual_weight_tuned",
 ]
 BASE_MODELS = [
     "LR_1",
@@ -1005,6 +1014,11 @@ def main():
                     "LR_9_decay_vtime",
                     "LR_decay_rtime",
                     "LR_decay_vtime",
+                    "LR_7_manual_weight_tuned",
+                    "LR_7_decay_rtime_manual_weight_tuned",
+                    "LR_7_decay_vtime_manual_weight_tuned",
+                    "LR_decay_vtime_manual_weight_tuned",
+                    "LR_decay_rtime_manual_weight_tuned",
                 ],
                 ALL_TRESHOLD,
                 [
@@ -1023,6 +1037,11 @@ def main():
                     "LR_7_decay_vtime",
                     "LR_decay_vtime",
                     "LR_decay_rtime",
+                    "LR_7_manual_weight_tuned",
+                    "LR_7_decay_rtime_manual_weight_tuned",
+                    "LR_7_decay_vtime_manual_weight_tuned",
+                    "LR_decay_vtime_manual_weight_tuned",
+                    "LR_decay_rtime_manual_weight_tuned",
                 ],
                 ALL_TRESHOLD,
                 [
@@ -1047,6 +1066,11 @@ def main():
                         "LR_9_decay_vtime",
                         "LR_decay_rtime",
                         "LR_decay_vtime",
+                        "LR_7_manual_weight_tuned",
+                        "LR_7_decay_rtime_manual_weight_tuned",
+                        "LR_7_decay_vtime_manual_weight_tuned",
+                        "LR_decay_vtime_manual_weight_tuned",
+                        "LR_decay_rtime_manual_weight_tuned",
                     ],
                     [treshold],
                     [
@@ -1065,6 +1089,11 @@ def main():
                         "LR_7_decay_vtime",
                         "LR_decay_vtime",
                         "LR_decay_rtime",
+                        "LR_7_manual_weight_tuned",
+                        "LR_7_decay_rtime_manual_weight_tuned",
+                        "LR_7_decay_vtime_manual_weight_tuned",
+                        "LR_decay_vtime_manual_weight_tuned",
+                        "LR_decay_rtime_manual_weight_tuned",
                     ],
                     [treshold],
                     [

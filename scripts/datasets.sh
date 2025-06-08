@@ -1,5 +1,5 @@
 relative_cache_sizes=(0.001 0.01 0.1 0.2 0.4)
-max_iteration=2
+max_iteration=5
 
 traces_dir=""
 traces_in=""
