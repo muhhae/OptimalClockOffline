@@ -43,7 +43,7 @@ train() {
     if [ -z "$model_desc" ]; then
         model_desc=$descs
     fi
-    ram_usage=64
+    ram_usage=48
 
     train_datasets=""
     for desc in $descs; do
