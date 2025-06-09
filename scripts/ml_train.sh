@@ -41,16 +41,16 @@ train() {
     descs="$1"
     model_desc="$2"
     if [ -z "$model_desc" ]; then
-      model_desc=$descs
+        model_desc=$descs
     fi
-    ram_usage=32
+    ram_usage=64
 
     train_datasets=""
     for desc in $descs; do
-      echo "desc: $desc"
-      for file in $datasets_dir/*\["$desc,train"\].csv; do
-          train_datasets+="'$file',"
-      done
+        echo "desc: $desc"
+        for file in $datasets_dir/*\["$desc,train"\].csv; do
+            train_datasets+="'$file',"
+        done
     done
     echo "train_datasets: $train_datasets"
     if [ -z "$train_datasets" ]; then
@@ -60,10 +60,10 @@ train() {
 
     test_datasets=""
     for desc in $descs; do
-      echo "desc: $desc"
-      for file in $datasets_dir/*\["$desc,test"\].csv; do
-          test_datasets+="'$file',"
-      done
+        echo "desc: $desc"
+        for file in $datasets_dir/*\["$desc,test"\].csv; do
+            test_datasets+="'$file',"
+        done
     done
     echo "test_datasets: $test_datasets"
     if [ -z "$test_datasets" ]; then
@@ -71,7 +71,7 @@ train() {
     fi
     test_datasets=${test_datasets%?}
 
-    echo "shell:1:$ram_usage:10:cd $HOME/OptimalClockOffline/python/ML && \
+    echo "shell:1:$ram_usage:8:cd $HOME/OptimalClockOffline/python/ML && \
 python -c \"\
 import $model as m;\
 m.SetupModel();\
@@ -95,13 +95,13 @@ done
 
 descs=""
 for s in ${relative_size[@]}; do
-  descs+="$s$add_desc "
+    descs+="$s$add_desc "
 done
 train "$descs" "All$add_desc"
 
 descs=""
 for s in ${relative_size[@]}; do
-  descs+="$s,ignore_obj_size$add_desc "
+    descs+="$s,ignore_obj_size$add_desc "
 done
 train "$descs" "All,ignore_obj_size$add_desc"
 
