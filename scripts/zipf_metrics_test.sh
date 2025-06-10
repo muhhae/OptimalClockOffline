@@ -54,7 +54,6 @@ Metrics() {
     if [ -z "$model_desc" ]; then
         model_desc=$descs
     fi
-    ram_usage=32
     test_datasets=""
     for desc in $descs; do
         echo "desc: $desc"
@@ -66,10 +65,26 @@ Metrics() {
     if [ -z "$test_datasets" ]; then
         return
     fi
+    ram_usage=32
+    cpu_usage=4
     test_datasets=${test_datasets%?}
-
+    treshold=(0.3 0.5 0.6 0.7 0.8 0.9)
+    for t in ${treshold[@]}; do
+        for p in "${part[@]}"; do
+            echo "shell:1:$ram_usage:$cpu_usage:cd $HOME/OptimalClockOffline/python/ML && \
+python -c \"\
+import $model as m;\
+import var;\
+m.SetupModel();\
+m.LoadONNX('$model_dir/$model[$model_desc].onnx');\
+m.AddDatasets($test_datasets);\
+m.ZipfLoadDatasets($p * $obj_count);\
+m.SetTestData();\
+m.Test($t)\" > $model_dir/$model[$model_desc,top=$p,treshold=$t].md" >> $task_out
+        done
+    done
     for p in "${part[@]}"; do
-        echo "shell:1:$ram_usage:10:cd $HOME/OptimalClockOffline/python/ML && \
+        echo "shell:1:$ram_usage:$cpu_usage:cd $HOME/OptimalClockOffline/python/ML && \
 python -c \"\
 import $model as m;\
 import var;\

@@ -44,13 +44,13 @@ fi
 shopt -s nullglob
 echo "" > $task_out
 
+
 Metrics() {
     descs="$1"
     model_desc="$2"
     if [ -z "$model_desc" ]; then
         model_desc=$descs
     fi
-    ram_usage=32
     test_datasets=""
     for desc in $descs; do
         echo "desc: $desc"
@@ -62,9 +62,22 @@ Metrics() {
     if [ -z "$test_datasets" ]; then
         return
     fi
+    ram_usage=32
+    cpu_usage=4
     test_datasets=${test_datasets%?}
-
-    echo "shell:1:$ram_usage:10:cd $HOME/OptimalClockOffline/python/ML && \
+    treshold=(0.3 0.5 0.6 0.7 0.8 0.9)
+    for t in ${treshold[@]}; do
+        echo "shell:1:$ram_usage:$cpu_usage:cd $HOME/OptimalClockOffline/python/ML && \
+python -c \"\
+import $model as m;\
+m.SetupModel();\
+m.LoadONNX('$out_dir/$model[$model_desc].onnx');\
+m.AddDatasets($test_datasets);\
+m.LoadDatasets();\
+m.SetTestData();\
+m.Test($t)\" > $out_dir/$model[$model_desc,treshold=$t].md" >> $task_out
+    done
+    echo "shell:1:$ram_usage:$cpu_usage:cd $HOME/OptimalClockOffline/python/ML && \
 python -c \"\
 import $model as m;\
 m.SetupModel();\
