@@ -275,11 +275,11 @@ def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
         p_data["Mdn"].append(current["Promotion Reduced (%)"].median())
 
     Write(md, html, "# Model Summaries  \n")
-    Write(md, html, tb.tabulate(bt_data, headers="keys", tablefmt="github") + "  \n\n")
+    Write(md, html, tb.tabulate(bt_data, headers="keys", tablefmt="html") + "  \n\n")
     Write(md, html, "## Promotion Reduced (%)  \n")
-    Write(md, html, tb.tabulate(p_data, headers="keys", tablefmt="github") + "  \n\n")
+    Write(md, html, tb.tabulate(p_data, headers="keys", tablefmt="html") + "  \n\n")
     Write(md, html, "## Miss Ratio Reduced (%)  \n")
-    Write(md, html, tb.tabulate(mr_data, headers="keys", tablefmt="github") + "  \n\n")
+    Write(md, html, tb.tabulate(mr_data, headers="keys", tablefmt="html") + "  \n\n")
     Write(md, html, "# Model Summaries Plot  \n")
 
     for title in ["Miss Ratio Reduced (%)", "Promotion Reduced (%)"]:
@@ -348,7 +348,13 @@ def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
     fig.update_xaxes(showgrid=True)
     fig.update_yaxes(showgrid=True)
     WriteFig(md, html, fig)
-    Write(md, html, f"```\n{df}\n```  \n")
+    headers = df.columns.tolist()
+    table_data = df.values.tolist()
+    Write(
+        md,
+        html,
+        f"{tb.tabulate(table_data, headers=headers, tablefmt='html')}  \n\n",
+    )
     for size in data["Cache Size"].unique():
         if str(size) not in included_sizes:
             continue
@@ -385,7 +391,16 @@ def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
         fig.update_xaxes(showgrid=True)
         fig.update_yaxes(showgrid=True)
         WriteFig(md, html, fig)
-        Write(md, html, f"```\n{df}\n```  \n")
+
+        headers = df.columns.tolist()
+        table_data = df.values.tolist()
+
+        Write(
+            md,
+            html,
+            f"{tb.tabulate(table_data, headers=headers, tablefmt='html')}  \n\n",
+        )
+
     Write(md, html, "# Median Promotion vs Miss Ratio  \n")
     Write(md, html, "## Cache Size All  \n")
     df = (
@@ -419,7 +434,16 @@ def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
     fig.update_xaxes(showgrid=True)
     fig.update_yaxes(showgrid=True)
     WriteFig(md, html, fig)
-    Write(md, html, f"```\n{df}\n```  \n")
+
+    headers = df.columns.tolist()
+    table_data = df.values.tolist()
+
+    Write(
+        md,
+        html,
+        f"{tb.tabulate(table_data, headers=headers, tablefmt='html')}  \n\n",
+    )
+
     for size in data["Cache Size"].unique():
         if str(size) not in included_sizes:
             continue
@@ -456,7 +480,14 @@ def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
         fig.update_xaxes(showgrid=True)
         fig.update_yaxes(showgrid=True)
         WriteFig(md, html, fig)
-        Write(md, html, f"```\n{df}\n```  \n")
+        headers = df.columns.tolist()
+        table_data = df.values.tolist()
+
+        Write(
+            md,
+            html,
+            f"\n{tb.tabulate(table_data, headers=headers, tablefmt='html')}  \n\n",
+        )
 
 
 def WriteModelMetrics(md, html, model_metrics: pd.DataFrame):
