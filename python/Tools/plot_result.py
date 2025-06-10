@@ -449,7 +449,7 @@ def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
             continue
         tmp = data[data["Cache Size"] == size]
         df = (
-            data.groupby("Model")[["Promotion Reduced (%)", "Miss Ratio Reduced (%)"]]
+            tmp.groupby("Model")[["Promotion Reduced (%)", "Miss Ratio Reduced (%)"]]
             .median()
             .reset_index()
             .sort_values(by="Miss Ratio Reduced (%)", ascending=False)
