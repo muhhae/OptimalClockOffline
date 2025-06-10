@@ -1,13 +1,5 @@
 import markdown as MD
-from common import extract_desc
 import typing as T
-
-
-def sort_key(filename):
-    desc = extract_desc(filename)[1]
-    if "model" in desc[-1]:
-        return (filename, desc[0], desc[-1]["model"])
-    return (filename, desc[0])
 
 
 def printls(ls: T.List):

@@ -11,6 +11,13 @@ def extract_desc(filename: str) -> (str, list):
     return (prefix, desc)
 
 
+def sort_key(filename):
+    desc = extract_desc(filename)[1]
+    if "model" in desc[-1]:
+        return (filename, desc[0], desc[-1]["model"])
+    return (filename, desc[0])
+
+
 @dataclass
 class OutputLog:
     trace_path: str
