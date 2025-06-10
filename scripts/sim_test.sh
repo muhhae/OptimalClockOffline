@@ -131,37 +131,70 @@ case "$model" in
     "LR_decay_vtime")
         features="-I F32 -F clock_freq_decayed_vtime"
         ;;
-    "LR_7_manual_weight_tuned")
+    "LR_7_w_0_5")
         features="-I F32 -F rtime_since_log vtime_since_log clock_freq lifetime_freq"
         ;;
-    "LR_7_decay_rtime_manual_weight_tuned")
+    "LR_7_decay_rtime_w_0_5")
         features="-I F32 -F rtime_since_log vtime_since_log clock_freq_decayed_rtime lifetime_freq_decayed_rtime"
         ;;
-    "LR_7_decay_vtime_manual_weight_tuned")
+    "LR_7_decay_vtime_w_0_5")
         features="-I F32 -F rtime_since_log vtime_since_log clock_freq_decayed_vtime lifetime_freq_decayed_vtime"
         ;;
-    "LR_8_manual_weight_tuned")
+    "LR_7_w_0_75")
+        features="-I F32 -F rtime_since_log vtime_since_log clock_freq lifetime_freq"
+        ;;
+    "LR_7_decay_rtime_w_0_75")
+        features="-I F32 -F rtime_since_log vtime_since_log clock_freq_decayed_rtime lifetime_freq_decayed_rtime"
+        ;;
+    "LR_7_decay_vtime_w_0_75")
+        features="-I F32 -F rtime_since_log vtime_since_log clock_freq_decayed_vtime lifetime_freq_decayed_vtime"
+        ;;
+    "LR_8_w_0_5")
         features="-I F32 -F rtime_since_log clock_freq lifetime_freq"
         ;;
-    "LR_8_decay_rtime_manual_weight_tuned")
+    "LR_8_decay_rtime_w_0_5")
         features="-I F32 -F rtime_since_log clock_freq_decayed_rtime lifetime_freq_decayed_rtime"
         ;;
-    "LR_8_decay_vtime_manual_weight_tuned")
+    "LR_8_decay_vtime_w_0_5")
         features="-I F32 -F rtime_since_log clock_freq_decayed_vtime lifetime_freq_decayed_vtime"
         ;;
-    "LR_9_manual_weight_tuned")
+    "LR_8_w_0_75")
+        features="-I F32 -F rtime_since_log clock_freq lifetime_freq"
+        ;;
+    "LR_8_decay_rtime_w_0_75")
+        features="-I F32 -F rtime_since_log clock_freq_decayed_rtime lifetime_freq_decayed_rtime"
+        ;;
+    "LR_8_decay_vtime_w_0_75")
+        features="-I F32 -F rtime_since_log clock_freq_decayed_vtime lifetime_freq_decayed_vtime"
+        ;;
+    "LR_9_w_0_5")
         features="-I F32 -F vtime_since_log clock_freq lifetime_freq"
         ;;
-    "LR_9_decay_rtime_manual_weight_tuned")
+    "LR_9_decay_rtime_w_0_5")
         features="-I F32 -F vtime_since_log clock_freq_decayed_rtime lifetime_freq_decayed_rtime"
         ;;
-    "LR_9_decay_vtime_manual_weight_tuned")
+    "LR_9_decay_vtime_w_0_5")
         features="-I F32 -F vtime_since_log clock_freq_decayed_vtime lifetime_freq_decayed_vtime"
         ;;
-    "LR_decay_rtime_manual_weight_tuned")
+    "LR_9_w_0_75")
+        features="-I F32 -F vtime_since_log clock_freq lifetime_freq"
+        ;;
+    "LR_9_decay_rtime_w_0_75")
+        features="-I F32 -F vtime_since_log clock_freq_decayed_rtime lifetime_freq_decayed_rtime"
+        ;;
+    "LR_9_decay_vtime_w_0_75")
+        features="-I F32 -F vtime_since_log clock_freq_decayed_vtime lifetime_freq_decayed_vtime"
+        ;;
+    "LR_decay_rtime_w_0_5")
         features="-I F32 -F clock_freq_decayed_rtime"
         ;;
-    "LR_decay_vtime_manual_weight_tuned")
+    "LR_decay_vtime_w_0_5")
+        features="-I F32 -F clock_freq_decayed_vtime"
+        ;;
+    "LR_decay_rtime_w_0_75")
+        features="-I F32 -F clock_freq_decayed_rtime"
+        ;;
+    "LR_decay_vtime_w_0_75")
         features="-I F32 -F clock_freq_decayed_vtime"
         ;;
     *)
