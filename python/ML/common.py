@@ -135,7 +135,7 @@ def ExportONNX(
     file.close()
 
 
-def Test():
+def Test(treshold=0.5):
     if var.X_test is None:
         raise Exception("X_test has not been set up")
     if var.y_test is None:
@@ -143,7 +143,8 @@ def Test():
     if var.model is None:
         raise Exception("Model has not been set up")
     print("#### Model")
-    predictions = var.model.predict(var.X_test)
+    predictions_probs = var.model.predict_proba(var.X_test)
+    predictions = (predictions_probs[:, 1] >= treshold).astype(int)
     print(predictions)
     print("Classification Report:")
     print(classification_report(var.y_test, predictions))
