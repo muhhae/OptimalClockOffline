@@ -1,2 +1,2 @@
 trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted
-"zipf_1_18.oracleGeneral",0,381,0.248415,100000000,295226
+"zipf_1_18.oracleGeneral",0,381,0.248165,100000000,321903
