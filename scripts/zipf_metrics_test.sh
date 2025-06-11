@@ -95,7 +95,7 @@ import var;\
 m.SetupModel();\
 m.LoadONNX('$model_dir/$model[$model_desc].onnx');\
 m.AddDatasets($test_datasets);\
-m.LoadDatasets($start,$stop);\
+m.ZipfLoadDatasets($start,$stop);\
 m.SetTestData();\
 m.Test($t)\" > $model_dir/$model[$model_desc,treshold=$t].md" >> $task_out
     done
