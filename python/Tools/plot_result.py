@@ -155,6 +155,8 @@ def GetBaseResult(paths: T.List[str]):
             continue
         logs = [OutputLog(**row) for row in df.to_dict(orient="records")]
         for i, log in enumerate(logs):
+            if i > 1:
+                break
             tmp.append(
                 {
                     "Model": f"Offline Clock {ordinal(i + 1)} iteration",
@@ -741,6 +743,10 @@ ALL_MODELS = [
     "LR_9_decay_vtime_w_0_75",
     "LR_decay_vtime_w_0_75",
     "LR_decay_rtime_w_0_75",
+    "LR_id",
+    "LR_7_id",
+    "LR_8_id",
+    "LR_9_id",
 ]
 BASE_MODELS = [
     "LR_1",
@@ -767,6 +773,43 @@ def main():
     summarize_calls_args = []
     for trace, title in [("zipf1", "Zipf1"), ("cloudphysics", "CloudPhysics")]:
         summarize_calls_args += [
+            (
+                trace,
+                f"{title} Models that use ObjID",
+                [
+                    "LR_id",
+                    "LR_7_id",
+                    "LR_8_id",
+                    "LR_9_id",
+                ],
+                ALL_TRESHOLD,
+                [
+                    "0.01",
+                    "0.1",
+                    "0.2",
+                    "0.4",
+                ],
+            ),
+            (
+                trace,
+                f"{title} Models that use ObjID vs Model that does not",
+                [
+                    "LR_id",
+                    "LR_7_id",
+                    "LR_8_id",
+                    "LR_9_id",
+                    "LR_7",
+                    "LR_8",
+                    "LR_9",
+                ],
+                ALL_TRESHOLD,
+                [
+                    "0.01",
+                    "0.1",
+                    "0.2",
+                    "0.4",
+                ],
+            ),
             (
                 trace,
                 title,
@@ -851,11 +894,6 @@ def main():
                     "LR_9_decay_vtime",
                     "LR_decay_rtime",
                     "LR_decay_vtime",
-                    "LR_7_w_0_5",
-                    "LR_7_decay_rtime_w_0_5",
-                    "LR_7_decay_vtime_w_0_5",
-                    "LR_decay_vtime_w_0_5",
-                    "LR_decay_rtime_w_0_5",
                 ],
                 ALL_TRESHOLD,
                 [
@@ -872,16 +910,46 @@ def main():
                     "LR_7",
                     "LR_7_decay_rtime",
                     "LR_7_decay_vtime",
-                    "LR_decay_vtime",
+                ],
+                ALL_TRESHOLD,
+                [
+                    "0.01",
+                    "0.1",
+                    "0.2",
+                    "0.4",
+                ],
+            ),
+            (
+                trace,
+                f"{title} Weighted Models with All Treshold",
+                [
+                    "LR_7",
+                    "LR_8",
+                    "LR_9",
+                    "LR_7_decay_rtime",
+                    "LR_7_decay_vtime",
+                    "LR_8_decay_rtime",
+                    "LR_8_decay_vtime",
+                    "LR_9_decay_rtime",
+                    "LR_9_decay_vtime",
                     "LR_decay_rtime",
+                    "LR_decay_vtime",
                     "LR_7_w_0_5",
                     "LR_7_decay_rtime_w_0_5",
                     "LR_7_decay_vtime_w_0_5",
+                    "LR_8_decay_rtime_w_0_5",
+                    "LR_8_decay_vtime_w_0_5",
+                    "LR_9_decay_rtime_w_0_5",
+                    "LR_9_decay_vtime_w_0_5",
                     "LR_decay_vtime_w_0_5",
                     "LR_decay_rtime_w_0_5",
                     "LR_7_w_0_75",
                     "LR_7_decay_rtime_w_0_75",
                     "LR_7_decay_vtime_w_0_75",
+                    "LR_8_decay_rtime_w_0_75",
+                    "LR_8_decay_vtime_w_0_75",
+                    "LR_9_decay_rtime_w_0_75",
+                    "LR_9_decay_vtime_w_0_75",
                     "LR_decay_vtime_w_0_75",
                     "LR_decay_rtime_w_0_75",
                 ],
@@ -900,6 +968,64 @@ def main():
                     trace,
                     f"{title} Decay Model with Treshold {treshold}",
                     [
+                        "LR_7_decay_rtime",
+                        "LR_7_decay_vtime",
+                        "LR_8_decay_rtime",
+                        "LR_8_decay_vtime",
+                        "LR_9_decay_rtime",
+                        "LR_9_decay_vtime",
+                        "LR_decay_rtime",
+                        "LR_decay_vtime",
+                        "LR_7_decay_rtime_w_0_5",
+                        "LR_7_decay_vtime_w_0_5",
+                        "LR_8_decay_rtime_w_0_5",
+                        "LR_8_decay_vtime_w_0_5",
+                        "LR_9_decay_rtime_w_0_5",
+                        "LR_9_decay_vtime_w_0_5",
+                        "LR_decay_vtime_w_0_5",
+                        "LR_decay_rtime_w_0_5",
+                        "LR_7_decay_rtime_w_0_75",
+                        "LR_7_decay_vtime_w_0_75",
+                        "LR_8_decay_rtime_w_0_75",
+                        "LR_8_decay_vtime_w_0_75",
+                        "LR_9_decay_rtime_w_0_75",
+                        "LR_9_decay_vtime_w_0_75",
+                        "LR_decay_vtime_w_0_75",
+                        "LR_decay_rtime_w_0_75",
+                    ],
+                    [treshold],
+                    [
+                        "0.01",
+                        "0.1",
+                        "0.2",
+                        "0.4",
+                    ],
+                ),
+                (
+                    trace,
+                    f"{title} Selected Non-Decay vs Decay Model with Treshold {treshold}",
+                    [
+                        "LR_7",
+                        "LR_7_decay_rtime",
+                        "LR_7_decay_vtime",
+                        "LR_decay_vtime",
+                        "LR_decay_rtime",
+                    ],
+                    [treshold],
+                    [
+                        "0.01",
+                        "0.1",
+                        "0.2",
+                        "0.4",
+                    ],
+                ),
+                (
+                    trace,
+                    f"{title} Weighted Models with Treshold {treshold}",
+                    [
+                        "LR_7",
+                        "LR_8",
+                        "LR_9",
                         "LR_7_decay_rtime",
                         "LR_7_decay_vtime",
                         "LR_8_decay_rtime",
@@ -935,36 +1061,8 @@ def main():
                         "0.4",
                     ],
                 ),
-                (
-                    trace,
-                    f"{title} Selected Non-Decay vs Decay Model with Treshold {treshold}",
-                    [
-                        "LR_7",
-                        "LR_7_decay_rtime",
-                        "LR_7_decay_vtime",
-                        "LR_decay_vtime",
-                        "LR_decay_rtime",
-                        "LR_7_w_0_5",
-                        "LR_7_decay_rtime_w_0_5",
-                        "LR_7_decay_vtime_w_0_5",
-                        "LR_decay_vtime_w_0_5",
-                        "LR_decay_rtime_w_0_5",
-                        "LR_7_w_0_75",
-                        "LR_7_decay_rtime_w_0_75",
-                        "LR_7_decay_vtime_w_0_75",
-                        "LR_decay_vtime_w_0_75",
-                        "LR_decay_rtime_w_0_75",
-                    ],
-                    [treshold],
-                    [
-                        "0.01",
-                        "0.1",
-                        "0.2",
-                        "0.4",
-                    ],
-                ),
             ]
-    with multiprocessing.Pool(processes=6) as pool:
+    with multiprocessing.Pool(processes=10) as pool:
         pool.starmap(Summarize, summarize_calls_args)
 
 
