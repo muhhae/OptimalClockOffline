@@ -12,8 +12,8 @@ result = out_path + "result/"
 
 cache_sizes = [0.01, 0.1, 0.2, 0.4]
 for s in cache_sizes:
-    md = open(docs + f"datasets[{s}].md", "w")
-    html = open(result + f"datasets[{s}].html", "w")
+    md = open(result + f"datasets[{s}].md", "w")
+    html = open(docs + f"datasets[{s}].html", "w")
     w.Write(md, html, f"# DATASETS FEATURES {s} \n")
     datasets = f"../../build/result/datasets/small_zipf[{s}].csv"
     df = pd.read_csv(datasets)
