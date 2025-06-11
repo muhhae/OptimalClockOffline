@@ -68,7 +68,7 @@ Metrics() {
     cpu_usage=4
     test_datasets=${test_datasets%?}
     treshold=(0.3 0.5 0.6 0.7 0.8 0.9)
-    part=(0.01 0.1 0.2 0.4 0.8 0.9)
+    part=(0.01 0.1 0.2 0.4 0.8 0.9 1)
     start=0
     stop=0
     for t in ${treshold[@]}; do
