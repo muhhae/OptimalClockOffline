@@ -964,7 +964,7 @@ def main():
                     ],
                 ),
             ]
-    with multiprocessing.Pool() as pool:
+    with multiprocessing.Pool(processes=6) as pool:
         pool.starmap(Summarize, summarize_calls_args)
 
 
