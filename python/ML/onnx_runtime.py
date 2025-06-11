@@ -1,5 +1,6 @@
 import onnxruntime as ort
 import var
+import numpy as np
 
 
 class SklearnONNXPredictor:
@@ -19,4 +20,7 @@ class SklearnONNXPredictor:
             X = X.to_numpy()
         X = X.astype(var.input_dtype)
         outputs = self.session.run(None, {self.input_name: X})
-        return outputs[1][0][1]
+        c_0 = [d[0] for d in outputs[1]]
+        c_1 = [d[1] for d in outputs[1]]
+        probs = np.column_stack((c_0, c_1))
+        return probs
