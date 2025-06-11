@@ -74,7 +74,7 @@ Metrics() {
     for t in ${treshold[@]}; do
         for p in "${part[@]}"; do
             start=$stop
-            stop=$(echo "$t*$obj_count")
+            stop="$p*$obj_count"
             echo "\
 shell:1:$ram_usage:$cpu_usage:cd $HOME/OptimalClockOffline/python/ML && \
 python -c \"\
