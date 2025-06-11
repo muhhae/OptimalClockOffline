@@ -13,3 +13,10 @@ class SklearnONNXPredictor:
         X = X.astype(var.input_dtype)
         outputs = self.session.run(None, {self.input_name: X})
         return outputs[0]
+
+    def predict_proba(self, X):
+        if hasattr(X, "to_numpy"):
+            X = X.to_numpy()
+        X = X.astype(var.input_dtype)
+        outputs = self.session.run(None, {self.input_name: X})
+        return outputs[1][0][1]
