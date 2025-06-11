@@ -72,6 +72,7 @@ Metrics() {
     start=0
     stop=0
     for t in ${treshold[@]}; do
+        stop=0
         for p in "${part[@]}"; do
             start=$stop
             stop="$p*$obj_count"
