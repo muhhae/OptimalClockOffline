@@ -197,8 +197,20 @@ case "$model" in
     "LR_decay_vtime_w_0_75")
         features="-I F32 -F clock_freq_decayed_vtime"
         ;;
+    "LR_7_id")
+        features="-I F32 -F obj_id rtime_since_log vtime_since_log clock_freq lifetime_freq"
+        ;;
+    "LR_8_id")
+        features="-I F32 -F obj_id rtime_since_log clock_freq lifetime_freq"
+        ;;
+    "LR_9_id")
+        features="-I F32 -F obj_id vtime_since_log clock_freq lifetime_freq"
+        ;;
+    "LR_id")
+        features="-I F32 -F obj_id"
+        ;;
     *)
-        echo "Unknown model using default features"
+        echo "Unknown model"; exit 1;
         ;;
 esac
 
