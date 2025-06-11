@@ -25,7 +25,7 @@ def ResetDatasets():
     var.datasets = []
 
 
-def ZipfLoadDatasets(id_treshold: int):
+def ZipfLoadDatasets(start: int, stop: int):
     var.df = pd.concat(
         [
             pd.read_csv(
@@ -41,7 +41,7 @@ def ZipfLoadDatasets(id_treshold: int):
         ],
         ignore_index=True,
     )
-    var.df = var.df[var.df["obj_id"] < id_treshold].drop(
+    var.df = var.df.query("obj_id >= @start and obj_id < @stop").drop(
         columns="obj_id",
         axis=1,
     )

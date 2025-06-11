@@ -46,7 +46,6 @@ fi
 shopt -s nullglob
 echo "" > $task_out
 
-part=(0.01 0.1 0.2 0.4 0.8)
 
 Metrics() {
     descs="$1"
@@ -69,31 +68,36 @@ Metrics() {
     cpu_usage=4
     test_datasets=${test_datasets%?}
     treshold=(0.3 0.5 0.6 0.7 0.8 0.9)
+    part=(0.01 0.1 0.2 0.4 0.8 0.9)
+    start=0
+    stop=0
     for t in ${treshold[@]}; do
         for p in "${part[@]}"; do
-            echo "shell:1:$ram_usage:$cpu_usage:cd $HOME/OptimalClockOffline/python/ML && \
+            start=$stop
+            stop=$(echo "$t*$obj_count")
+            echo "\
+shell:1:$ram_usage:$cpu_usage:cd $HOME/OptimalClockOffline/python/ML && \
 python -c \"\
 import $model as m;\
 import var;\
 m.SetupModel();\
 m.LoadONNX('$model_dir/$model[$model_desc].onnx');\
 m.AddDatasets($test_datasets);\
-m.ZipfLoadDatasets($p * $obj_count);\
+m.ZipfLoadDatasets($start,$stop);\
 m.SetTestData();\
 m.Test($t)\" > $model_dir/$model[$model_desc,top=$p,treshold=$t].md" >> $task_out
         done
-    done
-    for p in "${part[@]}"; do
-        echo "shell:1:$ram_usage:$cpu_usage:cd $HOME/OptimalClockOffline/python/ML && \
+        echo "\
+shell:1:$ram_usage:$cpu_usage:cd $HOME/OptimalClockOffline/python/ML && \
 python -c \"\
 import $model as m;\
 import var;\
 m.SetupModel();\
 m.LoadONNX('$model_dir/$model[$model_desc].onnx');\
 m.AddDatasets($test_datasets);\
-m.ZipfLoadDatasets($p * $obj_count);\
+m.LoadDatasets($start,$stop);\
 m.SetTestData();\
-m.Test()\" > $model_dir/$model[$model_desc,top=$p].md" >> $task_out
+m.Test($t)\" > $model_dir/$model[$model_desc,treshold=$t].md" >> $task_out
     done
 }
 
