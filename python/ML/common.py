@@ -41,10 +41,12 @@ def ZipfLoadDatasets(start: int, stop: int):
         ],
         ignore_index=True,
     )
-    var.df = var.df.query("obj_id >= @start and obj_id < @stop").drop(
-        columns="obj_id",
-        axis=1,
-    )
+    var.df = var.df.query("obj_id >= @start and obj_id < @stop")
+    if "obj_id" not in var.inputs:
+        var.df = var.df.drop(
+            columns="obj_id",
+            axis=1,
+        )
 
 
 def LoadDatasets():
