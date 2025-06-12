@@ -513,6 +513,15 @@ def WriteIndividualResult(md, html, results, included_sizes):
     traces = df["Trace"].unique()
     sizes = df["Cache Size"].unique()
 
+    symbol_map = {
+        "Offline Clock 1st iteration": "square-dot",
+        "Offline Clock 2nd iteration": "diamond-dot",
+        "Zipf Optimal Distribution": "x-dot",
+    }
+    for model in df["Model"].unique():
+        if model not in symbol_map:
+            symbol_map[model] = "circle"
+
     for trace in traces:
         df_trace = df[df["Trace"] == trace]
         Write(md, html, f"## {Path(trace).stem}  \n")
@@ -527,6 +536,8 @@ def WriteIndividualResult(md, html, results, included_sizes):
                 Write(md, html, f"### {size}  \n")
                 fig = px.scatter(
                     df_size,
+                    symbol="Model",
+                    symbol_map=symbol_map,
                     x="Promotion",
                     y="Miss Ratio",
                     color="Model",
@@ -538,13 +549,20 @@ def WriteIndividualResult(md, html, results, included_sizes):
                     height=800,
                     width=1000,
                 )
+                fig.update_traces(
+                    marker_size=12,
+                    marker_line=dict(width=2),
+                    selector=dict(mode="markers"),
+                )
                 fig.update_xaxes(showgrid=True)
                 fig.update_yaxes(showgrid=True)
                 WriteFig(md, html, fig)
+                headers = df.columns.tolist()
+                table_data = df_size.sort_values(by="Miss Ratio").values.tolist()
                 Write(
                     md,
                     html,
-                    f"```\n{df_size.sort_values(by='Miss Ratio', ascending=False)}\n```  \n",
+                    f"{tb.tabulate(table_data, headers=headers, tablefmt='html')}  \n\n",
                 )
 
 
