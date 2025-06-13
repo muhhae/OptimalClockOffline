@@ -106,7 +106,11 @@ def ParseClassificationReport(report_string):
     )
 
 
-def GetModelMetrics(paths: T.List[str], included_sizes: T.List[str]):
+def GetModelMetrics(
+    paths: T.List[str],
+    included_sizes: T.List[str],
+    included_treshold: T.List[str],
+):
     tmp = []
     for p in paths:
         f = open(p, "r")
@@ -128,13 +132,19 @@ def GetModelMetrics(paths: T.List[str], included_sizes: T.List[str]):
         if size not in included_sizes:
             continue
         top_dist = 1
+        treshold = 0.5
         if "top" in desc[-1]:
             top_dist = float(desc[-1]["top"])
+        if "treshold" in desc[-1]:
+            treshold = float(desc[-1]["treshold"])
+        if treshold not in included_treshold:
+            continue
         # model = f"{model}_{'spec' if size != 'All' else size}"
-        model = f"{model}_{size}"
+        model = f"{model}"
 
         tmp.append(
             {
+                "Treshold": treshold,
                 "Model": model,
                 "Cache Size": size,
                 "Report": report,
@@ -493,16 +503,28 @@ def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
 
 
 def WriteModelMetrics(md, html, model_metrics: pd.DataFrame):
+    if model_metrics.empty:
+        return
     Write(md, html, "# Model Classification Report  \n")
     for m in model_metrics["Model"].unique():
+        model_filtered = model_metrics.query("Model == @m").sort_values(by="Cache Size")
         Write(md, html, f"## {m}  \n")
-        for top in model_metrics["Top (%)"].unique():
-            Write(md, html, f"### Top {top}%  \n")
-            report = model_metrics.query(
-                "Model == @m and `Top (%)` == @top",
-            )["Report"].tolist()
-            for r in report:
-                Write(md, html, f"```\n{r}\n```  \n")
+        for size in model_filtered["Cache Size"].unique():
+            size_filtered = model_filtered.query(
+                "`Cache Size` == @size",
+            ).sort_values(by="Treshold")
+            Write(md, html, f"### {size}  \n")
+            for treshold in size_filtered["Treshold"].unique():
+                treshold_filtered = size_filtered.query(
+                    "Treshold == @treshold"
+                ).sort_values(by="Top (%)")
+                Write(md, html, f"#### Treshold: {treshold}  \n")
+                for top in treshold_filtered["Top (%)"].unique():
+                    Write(md, html, f"##### Top {top}%  \n")
+                    top_filtered = treshold_filtered.query("`Top (%)` == @top")
+                    report = top_filtered["Report"].tolist()
+                    for r in report:
+                        Write(md, html, f"```\n{r}\n```  \n")
 
 
 def WriteIndividualResult(md, html, results, included_sizes):
@@ -617,7 +639,9 @@ def Analyze(
     html = open(Path(html_path), "w")
     Write(md, html, f"# {Title}  \n# Result  \n")
 
-    model_metrics = GetModelMetrics(models_metrics_paths, included_sizes)
+    model_metrics = GetModelMetrics(
+        models_metrics_paths, included_sizes, included_treshold
+    )
     base_result = GetBaseResult(base_paths)
     model_result = GetModelResult(model_paths, included_sizes)
     lru_result = GetOtherResult(lru_paths, "LRU")
