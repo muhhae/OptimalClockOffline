@@ -786,11 +786,35 @@ ALL_TRESHOLD = [
     0.9,
 ]
 
+BEST_MODELS = [
+    "LR_7",
+    "LR_7_w_0_75",
+    "LR_7_w_0_5",
+]
+
+BEST_TRESHOLD = [
+    0.6,
+    0.7,
+    0.8,
+]
+
 
 def main():
     summarize_calls_args = []
     for trace, title in [("zipf1", "Zipf1"), ("cloudphysics", "CloudPhysics")]:
         summarize_calls_args += [
+            (
+                trace,
+                f"{title} Current Best Models",
+                BEST_MODELS,
+                BEST_TRESHOLD,
+                [
+                    "0.01",
+                    "0.1",
+                    "0.2",
+                    "0.4",
+                ],
+            ),
             (
                 trace,
                 f"{title} Models that use ObjID",
