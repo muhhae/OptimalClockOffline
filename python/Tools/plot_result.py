@@ -131,10 +131,10 @@ def GetModelMetrics(
         size = desc[0]
         if size not in included_sizes:
             continue
-        top_dist = 1
+        top_dist = -1
         treshold = 0.5
         if "top" in desc[-1]:
-            top_dist = float(desc[-1]["top"])
+            top_dist = float(desc[-1]["top"]) * 100
         if "treshold" in desc[-1]:
             treshold = float(desc[-1]["treshold"])
         if treshold not in included_treshold:
@@ -148,7 +148,7 @@ def GetModelMetrics(
                 "Model": model,
                 "Cache Size": size,
                 "Report": report,
-                "Top (%)": top_dist * 100,
+                "Top (%)": top_dist,
             }
         )
     return pd.DataFrame(tmp)
@@ -519,8 +519,13 @@ def WriteModelMetrics(md, html, model_metrics: pd.DataFrame):
                     "Treshold == @treshold"
                 ).sort_values(by="Top (%)")
                 Write(md, html, f"#### Treshold: {treshold}  \n")
+                prev = 0
                 for top in treshold_filtered["Top (%)"].unique():
-                    Write(md, html, f"##### Top {top}%  \n")
+                    if top != -1:
+                        Write(md, html, f"##### {prev:g}-{top:g}%  \n")
+                        prev = top
+                    else:
+                        Write(md, html, "##### All  \n")
                     top_filtered = treshold_filtered.query("`Top (%)` == @top")
                     report = top_filtered["Report"].tolist()
                     for r in report:

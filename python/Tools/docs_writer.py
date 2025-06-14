@@ -90,6 +90,9 @@ def WriteHTML(html: T.TextIO):
         text-decoration: none;
         transition: color 0.2s;
     }}
+    .sidenav li > ul {{
+        padding - left: 20px;
+    }}
     .sidenav h2 {{
         padding: 1px 1px 1px 1px;
         font-size: 20px;
