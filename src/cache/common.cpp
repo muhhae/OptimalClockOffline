@@ -4,8 +4,6 @@
 #include <libCacheSim/request.h>
 #include <sys/types.h>
 #include <cmath>
-#include <cstdlib>
-#include <iostream>
 #include <unordered_map>
 
 std::unordered_map<std::string, float> common::CandidateMetadata(
