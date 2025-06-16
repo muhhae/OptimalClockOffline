@@ -12,6 +12,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <string>
+#include <unordered_map>
 #include "cache/base.hpp"
 #include "cache/common.hpp"
 #include "cache/dist_clock.hpp"
@@ -21,44 +22,53 @@
 #include "lib/cache_size.h"
 
 const std::string csv_header =
-	"trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted\n";
+	"trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted,n_miss,n_hit\n";
 
-void RunExperiment(options o) {
-	std::vector<std::future<void>> tasks;
-	std::function<
-		cache_t*(const common_cache_params_t ccache_params, const char* cache_specific_params)>
-		CacheInit;
+std::function<
+	cache_t*(const common_cache_params_t ccache_params, const char* cache_specific_params)>
+AlgoSelector(const options& o) {
 	if (o.algorithm == "default") {
-		CacheInit = cclock::OfflineClockInit;
-	} else if (o.algorithm == "dist-optimal") {
-		CacheInit = distclock::DistClockInit;
-	} else if (o.algorithm == "lru") {
-		CacheInit = base::LRUInit;
-	} else if (o.algorithm == "base") {
-		CacheInit = base::BaseClockInit;
-	} else if (o.algorithm == "my") {
-		CacheInit = myclock::MyClockInit;
-	} else if (o.algorithm == "ML") {
-		if (o.input_type == "I32") {
-			CacheInit = mlclock::MLClockInit<int32_t>;
-		} else if (o.input_type == "I64") {
-			CacheInit = mlclock::MLClockInit<int64_t>;
-		} else if (o.input_type == "F32") {
-			CacheInit = mlclock::MLClockInit<float>;
-		} else if (o.input_type == "F64") {
-			CacheInit = mlclock::MLClockInit<double>;
-		} else {
-			throw std::runtime_error("Input type is not valid");
-		}
+		return cclock::OfflineClockInit;
+	}
+	if (o.algorithm == "dist-optimal") {
+		return distclock::DistClockInit;
+	}
+	if (o.algorithm == "lru") {
+		return base::LRUInit;
+	}
+	if (o.algorithm == "base") {
+		return base::BaseClockInit;
+	}
+	if (o.algorithm == "my") {
+		return myclock::MyClockInit;
+	}
+	if (o.algorithm == "ML") {
 		if (o.ml_model == "") {
 			throw std::runtime_error("ML model need to be provided in ONNX format");
 		}
-	} else if (o.algorithm == "bob") {
-		throw std::runtime_error("bob's algorithm hasn't been implemented");
-	} else {
-		throw std::runtime_error("algorithm not found");
+		if (o.input_type == "I32") {
+			return mlclock::MLClockInit<int32_t>;
+		}
+		if (o.input_type == "I64") {
+			return mlclock::MLClockInit<int64_t>;
+		}
+		if (o.input_type == "F32") {
+			return mlclock::MLClockInit<float>;
+		}
+		if (o.input_type == "F64") {
+			return mlclock::MLClockInit<double>;
+		}
+		throw std::runtime_error("Input type is not valid");
 	}
+	if (o.algorithm == "bob") {
+		throw std::runtime_error("bob's algorithm hasn't been implemented");
+	}
+	throw std::runtime_error("algorithm not found");
+}
 
+void RunExperiment(options o) {
+	std::vector<std::future<void>> tasks;
+	auto CacheInit = AlgoSelector(o);
 	std::filesystem::create_directories(o.output_directory / "log");
 	if (o.generate_datasets)
 		std::filesystem::create_directories(o.output_directory / "datasets");
@@ -91,16 +101,18 @@ void RunExperiment(options o) {
 			o.dist_optimal_treshold = o.ignore_obj_size ? fcs : fcs / wss_byte * wss_obj;
 			std::string desc = "[" + std::to_string(fcs) + (o.ignore_obj_size ? "" : "MiB") +
 							   (o.desc != "" ? "," : "") + o.desc + "]";
-			tasks.emplace_back(std::async(
-				std::launch::async,
-				Simulate,
-				CacheInit(
-					{.cache_size = o.ignore_obj_size ? fcs : fcs * MiB}, cache_specific_params
-				),
-				p,
-				o,
-				desc
-			));
+			tasks.emplace_back(
+				std::async(
+					std::launch::async,
+					Simulate,
+					CacheInit(
+						{.cache_size = o.ignore_obj_size ? fcs : fcs * MiB}, cache_specific_params
+					),
+					p,
+					o,
+					desc
+				)
+			);
 		}
 		for (const auto& rcs : o.relative_cache_sizes) {
 			o.dist_optimal_treshold = rcs * wss_obj;
@@ -110,14 +122,16 @@ void RunExperiment(options o) {
 				s.pop_back();
 
 			std::string desc = "[" + s + (o.desc != "" ? "," : "") + o.desc + "]";
-			tasks.emplace_back(std::async(
-				std::launch::async,
-				Simulate,
-				CacheInit({.cache_size = uint64_t(wss * rcs)}, cache_specific_params),
-				p,
-				o,
-				desc
-			));
+			tasks.emplace_back(
+				std::async(
+					std::launch::async,
+					Simulate,
+					CacheInit({.cache_size = uint64_t(wss * rcs)}, cache_specific_params),
+					p,
+					o,
+					desc
+				)
+			);
 		}
 	}
 
@@ -216,11 +230,18 @@ void Simulate(
 			tmp_custom_params->n_req++;
 		}
 
+		const std::string csv_header =
+			"trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted,n_miss,n_hit\n";
 		std::ostringstream s;
-		s << std::filesystem::path(reader->trace_path).filename() << "," << reader->ignore_obj_size
-		  << "," << (reader->ignore_obj_size ? cache->cache_size : cache->cache_size / MiB) << ","
-		  << 1 - (double)tmp_custom_params->n_hit / tmp_custom_params->n_req << ","
-		  << tmp_custom_params->n_req << "," << tmp_custom_params->n_promoted << "\n";
+		s << std::filesystem::path(reader->trace_path).filename();
+		s << "," << reader->ignore_obj_size;
+		s << "," << (reader->ignore_obj_size ? cache->cache_size : cache->cache_size / MiB);
+		s << "," << 1 - (double)tmp_custom_params->n_hit / tmp_custom_params->n_req;
+		s << "," << tmp_custom_params->n_req;
+		s << "," << tmp_custom_params->n_promoted;
+		s << "," << tmp_custom_params->n_req - tmp_custom_params->n_hit;
+		s << "," << tmp_custom_params->n_hit;
+		s << "\n";
 		std::cout << s.str();
 		csv_file << s.str();
 
