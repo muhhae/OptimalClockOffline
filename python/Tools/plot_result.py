@@ -1,240 +1,25 @@
-import multiprocessing
-import plotly.express as px
-import plotly.io as pio
-import plotly.graph_objs as go
-import typing as T
 import glob
+import multiprocessing
 import os
-import re
-from pathlib import Path
-from common import extract_desc, OutputLog, ordinal, sort_key
-from docs_writer import Write, WriteFig, WriteHTML
-import tabulate as tb
+import typing as T
 from collections import defaultdict
-
+from pathlib import Path
 
 import pandas as pd
+import plotly.io as pio
+import tabulate as tb
+
+from common import extract_desc, sort_key
+from data_reader import GetBaseResult, GetModelMetrics, GetModelResult, GetOtherResult
+from docs_writer import Write, WriteFig, WriteHTML
+from plotly_wrapper import Scatter, Box
 
 pd.set_option("display.max_rows", None)
-
-# Available templates:
-# ggplot2
-# seaborn
-# simple_white
-# plotly
-# plotly_white
-# plotly_dark
-# presentation
-# xgridoff
-# ygridoff
-# gridon
-# none
 pio.templates.default = "plotly_dark"
-
-
-result_dir = "../../result/log"
 
 urls = []
 with open("../../trace/reasonable_traces.txt") as f:
     urls = [line.strip() for line in f if line.strip()]
-
-
-def ParseClassificationReport(report_string):
-    overall = {}
-    avg_specific = []
-    class_specific = []
-    report_start_index = report_string.find("Classification Report:")
-    report_text = report_string[report_start_index:]
-    lines = report_text.strip().split("\n")
-    for line in lines:
-        line = line.strip()
-        if not line:
-            continue
-        match_overall_accuracy = re.match(r"^Accuracy:\s*([\d.]+)$", line)
-        if match_overall_accuracy:
-            overall["overall_accuracy"] = float(match_overall_accuracy.group(1))
-            continue
-
-        match_class = re.match(
-            r"^(?P<label>(?!\baccuracy\b|\bmacro\b|\bweighted\b)\S+)\s+(?P<precision>[\d.]+)\s+(?P<recall>[\d.]+)\s+(?P<f1_score>[\d.]+)\s+(?P<support>[\d]+)$",
-            line,
-        )
-        if match_class:
-            data = match_class.groupdict()
-            label = data["label"]
-            class_specific.append(
-                {
-                    "class": label,
-                    "precision": float(data["precision"]),
-                    "recall": float(data["recall"]),
-                    "f1-score": float(data["f1_score"]),
-                    "support": int(data["support"]),
-                }
-            )
-            continue
-
-        match_table_accuracy = re.match(
-            r"^accuracy\s+(?P<score>[\d.]+)\s+(?P<support>[\d]+)$", line
-        )
-        if match_table_accuracy:
-            data = match_table_accuracy.groupdict()
-            overall["accuracy_score"] = float(data["score"])
-            overall["accuracy_support"] = int(data["support"])
-            continue
-
-        match_avg = re.match(
-            r"^(?P<avg_type>macro avg|weighted avg)\s+(?P<precision>[\d.]+)\s+(?P<recall>[\d.]+)\s+(?P<f1_score>[\d.]+)\s+(?P<support>[\d]+)$",
-            line,
-        )
-        if match_avg:
-            data = match_avg.groupdict()
-            avg_type_key = data["avg_type"].replace("avg", "").strip()
-            avg_specific.append(
-                {
-                    "type": avg_type_key,
-                    "precision": float(data["precision"]),
-                    "recall": float(data["recall"]),
-                    "f1-score": float(data["f1_score"]),
-                    "support": int(data["support"]),
-                }
-            )
-            continue
-    return (
-        pd.DataFrame([overall]),
-        pd.DataFrame(avg_specific),
-        pd.DataFrame(class_specific),
-    )
-
-
-def GetModelMetrics(
-    paths: T.List[str],
-    included_sizes: T.List[str],
-    included_treshold: T.List[str],
-):
-    tmp = []
-    for p in paths:
-        f = open(p, "r")
-        content = f.read()
-        report = content[
-            content.find("Classification Report")
-            + len("Classification Report:\n") : content.find("Confusion Matrix") - 1
-        ]
-        overall, avg, class_specific = ParseClassificationReport(content)
-        kw = "Confusion Matrix"
-
-        content = content[content.find(kw) + len(kw) :]
-        content = content[: content.find(kw)]
-        content = content.replace(":", "").strip()
-        model = p.replace(".md", "").replace(".txt", "")
-        model = Path(p).stem
-        model, desc = extract_desc(model)
-        size = desc[0]
-        if size not in included_sizes:
-            continue
-        top_dist = -1
-        treshold = 0.5
-        if "top" in desc[-1]:
-            top_dist = float(desc[-1]["top"]) * 100
-        if "treshold" in desc[-1]:
-            treshold = float(desc[-1]["treshold"])
-        if treshold not in included_treshold:
-            continue
-        # model = f"{model}_{'spec' if size != 'All' else size}"
-        model = f"{model}"
-
-        tmp.append(
-            {
-                "Treshold": treshold,
-                "Model": model,
-                "Cache Size": size,
-                "Report": report,
-                "Top (%)": top_dist,
-            }
-        )
-    return pd.DataFrame(tmp)
-
-
-def GetBaseResult(paths: T.List[str]):
-    tmp = []
-    for file in paths:
-        if Path(file).stat().st_size == 0:
-            continue
-        prefix, desc = extract_desc(file)
-        df = pd.read_csv(file)
-        if df.empty:
-            continue
-        logs = [OutputLog(**row) for row in df.to_dict(orient="records")]
-        for i, log in enumerate(logs):
-            if i > 1:
-                break
-            tmp.append(
-                {
-                    "Model": f"Offline Clock {ordinal(i + 1)} iteration",
-                    "Promotion": log.n_promoted,
-                    "Miss Ratio": log.miss_ratio,
-                    "Trace": prefix,
-                    "Cache Size": float(desc[0]),
-                    "Ignore Obj Size": desc.count("ignore_obj_size"),
-                }
-            )
-    return pd.DataFrame(tmp)
-
-
-def GetOtherResult(paths: T.List[str], name: str):
-    tmp = []
-    for file in paths:
-        if Path(file).stat().st_size == 0:
-            continue
-        prefix, desc = extract_desc(file)
-        df = pd.read_csv(file)
-        if df.empty:
-            continue
-        logs = [OutputLog(**row) for row in df.to_dict(orient="records")]
-        tmp.append(
-            {
-                "Model": name,
-                "Promotion": logs[0].n_promoted,
-                "Miss Ratio": logs[0].miss_ratio,
-                "Trace": prefix,
-                "Cache Size": float(desc[0]),
-                "Ignore Obj Size": desc.count("ignore_obj_size"),
-            }
-        )
-    return pd.DataFrame(tmp)
-
-
-def GetModelResult(paths: T.List[str], included_sizes: T.List[str]):
-    tmp = []
-    for file in paths:
-        if Path(file).stat().st_size == 0:
-            continue
-        prefix, desc = extract_desc(file)
-        model = desc[-1]["model"]
-        treshold = 0.5
-        if "treshold" in desc[-1]:
-            treshold = desc[-1]["treshold"]
-        size = model.split("_")[-1]
-        if size not in included_sizes:
-            continue
-        size_pos = model.rfind("_")
-        model = model[:size_pos]
-        # model = f"{model}_{'spec' if size != 'All' else size}"
-        model = f"{model}[cache_size={size},treshold={treshold}]"
-        df = pd.read_csv(file)
-        if df.empty:
-            continue
-        logs = [OutputLog(**row) for row in df.to_dict(orient="records")]
-        tmp.append(
-            {
-                "Model": f"{model}",
-                "Promotion": logs[0].n_promoted,
-                "Miss Ratio": logs[0].miss_ratio,
-                "Trace": prefix,
-                "Cache Size": float(desc[0]),
-                "Ignore Obj Size": desc.count("ignore_obj_size"),
-            }
-        )
-    return pd.DataFrame(tmp)
 
 
 def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
@@ -271,7 +56,8 @@ def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
         current = data.query("Model == @model")
         bt_data["Model"].append(model)
         bt_data["Better than base % of the times"].append(
-            current["Better Than Base"].value_counts(normalize=True).get(True, 0) * 100
+            (current["Better Than Base"].value_counts(normalize=True).get(True) or 0)
+            * 100
         )
 
         mr_data["Model"].append(model)
@@ -295,25 +81,13 @@ def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
     Write(md, html, "# Model Summaries Plot  \n")
 
     for title in ["Miss Ratio Reduced (%)", "Promotion Reduced (%)"]:
-        fig = px.box(
+        fig = Box(
             data,
             x=title,
             y="Model",
             title=title,
             color="Model",
         )
-        fig.update_xaxes(dtick=10)
-        fig.update_layout(
-            xaxis_title=title,
-            yaxis_title=None,
-            font=dict(size=14),
-            height=30 * len(data["Model"].unique()),
-            width=1000,
-            showlegend=False,
-        )
-        fig.update_xaxes(showgrid=True)
-        fig.update_yaxes(showgrid=True)
-
         Write(md, html, f"## {title}\n")
         WriteFig(md, html, fig)
 
@@ -335,7 +109,7 @@ def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
         .sort_values(by="Miss Ratio Reduced (%)", ascending=False)
     )
 
-    fig = px.scatter(
+    fig = Scatter(
         df,
         symbol="Model",
         symbol_map=symbol_map,
@@ -343,22 +117,6 @@ def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
         y="Miss Ratio Reduced (%)",
         color="Model",
     )
-    fig.update_traces(
-        marker_size=12,
-        marker_line=dict(width=2),
-        selector=dict(mode="markers"),
-    )
-    fig.update_xaxes(dtick=10)
-    fig.update_layout(
-        xaxis_title="Promotion Reduced (%)",
-        yaxis_title="Miss Ratio Reduced (%)",
-        font=dict(size=14),
-        height=800,
-        width=1000,
-        yaxis_tickformat=".6f",
-    )
-    fig.update_xaxes(showgrid=True)
-    fig.update_yaxes(showgrid=True)
     WriteFig(md, html, fig)
     headers = df.columns.tolist()
     table_data = df.values.tolist()
@@ -378,7 +136,7 @@ def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
             .sort_values(by="Miss Ratio Reduced (%)", ascending=False)
         )
         Write(md, html, f"## Cache Size {size}  \n")
-        fig = px.scatter(
+        fig = Scatter(
             df,
             symbol="Model",
             symbol_map=symbol_map,
@@ -386,22 +144,6 @@ def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
             y="Miss Ratio Reduced (%)",
             color="Model",
         )
-        fig.update_traces(
-            marker_size=12,
-            marker_line=dict(width=2),
-            selector=dict(mode="markers"),
-        )
-        fig.update_xaxes(dtick=10)
-        fig.update_layout(
-            xaxis_title="Promotion Reduced (%)",
-            yaxis_title="Miss Ratio Reduced (%)",
-            font=dict(size=14),
-            height=800,
-            width=1000,
-            yaxis_tickformat=".6f",
-        )
-        fig.update_xaxes(showgrid=True)
-        fig.update_yaxes(showgrid=True)
         WriteFig(md, html, fig)
 
         headers = df.columns.tolist()
@@ -421,7 +163,7 @@ def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
         .reset_index()
         .sort_values(by="Miss Ratio Reduced (%)", ascending=False)
     )
-    fig = px.scatter(
+    fig = Scatter(
         df,
         symbol="Model",
         symbol_map=symbol_map,
@@ -429,22 +171,6 @@ def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
         y="Miss Ratio Reduced (%)",
         color="Model",
     )
-    fig.update_traces(
-        marker_size=12,
-        marker_line=dict(width=2),
-        selector=dict(mode="markers"),
-    )
-    fig.update_xaxes(dtick=10)
-    fig.update_layout(
-        xaxis_title="Promotion Reduced (%)",
-        yaxis_title="Miss Ratio Reduced (%)",
-        font=dict(size=14),
-        height=800,
-        width=1000,
-        yaxis_tickformat=".6f",
-    )
-    fig.update_xaxes(showgrid=True)
-    fig.update_yaxes(showgrid=True)
     WriteFig(md, html, fig)
 
     headers = df.columns.tolist()
@@ -467,7 +193,7 @@ def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
             .sort_values(by="Miss Ratio Reduced (%)", ascending=False)
         )
         Write(md, html, f"## Cache Size {size}  \n")
-        fig = px.scatter(
+        fig = Scatter(
             df,
             symbol="Model",
             symbol_map=symbol_map,
@@ -475,26 +201,9 @@ def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
             y="Miss Ratio Reduced (%)",
             color="Model",
         )
-        fig.update_traces(
-            marker_size=12,
-            marker_line=dict(width=2),
-            selector=dict(mode="markers"),
-        )
-        fig.update_xaxes(dtick=10)
-        fig.update_layout(
-            xaxis_title="Promotion Reduced (%)",
-            yaxis_title="Miss Ratio Reduced (%)",
-            font=dict(size=14),
-            height=800,
-            width=1000,
-            yaxis_tickformat=".6f",
-        )
-        fig.update_xaxes(showgrid=True)
-        fig.update_yaxes(showgrid=True)
         WriteFig(md, html, fig)
         headers = df.columns.tolist()
         table_data = df.values.tolist()
-
         Write(
             md,
             html,
@@ -504,6 +213,7 @@ def WriteModelSummaries(md, html, base_result, models_result, included_sizes):
 
 def WriteModelMetrics(md, html, model_metrics: pd.DataFrame):
     if model_metrics.empty:
+        print("Empty Model Metrics")
         return
     Write(md, html, "# Model Classification Report  \n")
     for m in model_metrics["Model"].unique():
@@ -550,18 +260,18 @@ def WriteIndividualResult(md, html, results, included_sizes):
             symbol_map[model] = "circle"
 
     for trace in traces:
-        df_trace = df[df["Trace"] == trace]
+        df_trace = df.query("`Trace` == @trace")
         Write(md, html, f"## {Path(trace).stem}  \n")
         for ignore in ignores:
-            df_ignore = df_trace[df_trace["Ignore Obj Size"] == ignore]
+            df_ignore = df_trace.query("`Ignore Obj Size` == @ignore")
             if ignore:
                 Write(md, html, "## Ignore Obj Size  \n")
             for size in sizes:
                 if str(size) not in included_sizes:
                     continue
-                df_size = df_ignore[df_ignore["Cache Size"] == size]
+                df_size = df_ignore.query("`Cache Size` == @size")
                 Write(md, html, f"### {size}  \n")
-                fig = px.scatter(
+                fig = Scatter(
                     df_size,
                     symbol="Model",
                     symbol_map=symbol_map,
@@ -569,20 +279,6 @@ def WriteIndividualResult(md, html, results, included_sizes):
                     y="Miss Ratio",
                     color="Model",
                 )
-                fig.update_layout(
-                    xaxis_title="Promotion",
-                    yaxis_title="Miss Ratio",
-                    font=dict(size=14),
-                    height=800,
-                    width=1000,
-                )
-                fig.update_traces(
-                    marker_size=12,
-                    marker_line=dict(width=2),
-                    selector=dict(mode="markers"),
-                )
-                fig.update_xaxes(showgrid=True)
-                fig.update_yaxes(showgrid=True)
                 WriteFig(md, html, fig)
                 headers = df.columns.tolist()
                 table_data = df_size.sort_values(by="Miss Ratio").values.tolist()
@@ -600,7 +296,7 @@ def Analyze(
     Title: str,
     models_metrics_paths: T.List[str],
     included_models: T.List[str],
-    included_treshold: T.List[float],
+    included_treshold: T.List[str],
     included_sizes: T.List[str],
 ):
     print(f"Analyzing for {Title}")
@@ -632,8 +328,6 @@ def Analyze(
         if (p := Path(f).stem)[: p.rfind("[")] in included_models
     ]
     if len(model_paths) == 0 or len(models_metrics_paths) == 0:
-        print(model_paths)
-        print(models_metrics_paths)
         print(f"Empty data for {Title}")
         return
 
@@ -678,8 +372,9 @@ def Summarize(
     additional_desc: str,
     title: str,
     included_models: T.List[str],
-    included_treshold: T.List[float],
+    included_treshold: T.List[str],
     included_sizes: T.List[str],
+    result_dir: str,
 ):
     files = sorted(glob.glob(os.path.join(result_dir, "*.csv")), key=sort_key)
     files = [f for f in files if f.count(additional_desc)]
@@ -714,11 +409,11 @@ def Summarize(
     #     included_sizes,
     # )
     Analyze(
-        paths[1],
+        paths[True],
         f"../../result/{title}_obj_size_ignored.md",
         f"../../docs/{title}_obj_size_ignored.html",
         f"{title} Test Data Result Obj Size Ignored",
-        model_metrics[1],
+        model_metrics[True],
         included_models,
         included_treshold,
         included_sizes,
@@ -826,6 +521,7 @@ BEST_TRESHOLD = [
     0.7,
     0.8,
 ]
+RESULT_DIR = "../../result/log"
 
 
 def main():
@@ -843,6 +539,7 @@ def main():
                     "0.2",
                     "0.4",
                 ],
+                RESULT_DIR,
             ),
             (
                 trace,
@@ -860,6 +557,7 @@ def main():
                     "0.2",
                     "0.4",
                 ],
+                RESULT_DIR,
             ),
             (
                 trace,
@@ -880,6 +578,7 @@ def main():
                     "0.2",
                     "0.4",
                 ],
+                RESULT_DIR,
             ),
             (
                 trace,
@@ -892,6 +591,7 @@ def main():
                     "0.2",
                     "0.4",
                 ],
+                RESULT_DIR,
             ),
             (
                 trace,
@@ -904,6 +604,7 @@ def main():
                     "0.2",
                     "0.4",
                 ],
+                RESULT_DIR,
             ),
             (
                 trace,
@@ -916,6 +617,7 @@ def main():
                     "0.2",
                     "0.4",
                 ],
+                RESULT_DIR,
             ),
             (
                 trace,
@@ -928,6 +630,7 @@ def main():
                     "0.2",
                     "0.4",
                 ],
+                RESULT_DIR,
             ),
             (
                 trace,
@@ -940,6 +643,7 @@ def main():
                     "0.2",
                     "0.4",
                 ],
+                RESULT_DIR,
             ),
             (
                 trace,
@@ -952,6 +656,7 @@ def main():
                     "0.2",
                     "0.4",
                 ],
+                RESULT_DIR,
             ),
             (
                 trace,
@@ -973,6 +678,7 @@ def main():
                     "0.2",
                     "0.4",
                 ],
+                RESULT_DIR,
             ),
             (
                 trace,
@@ -989,6 +695,7 @@ def main():
                     "0.2",
                     "0.4",
                 ],
+                RESULT_DIR,
             ),
             (
                 trace,
@@ -1031,6 +738,7 @@ def main():
                     "0.2",
                     "0.4",
                 ],
+                RESULT_DIR,
             ),
         ]
         for treshold in ALL_TRESHOLD:
@@ -1071,6 +779,7 @@ def main():
                         "0.2",
                         "0.4",
                     ],
+                    RESULT_DIR,
                 ),
                 (
                     trace,
@@ -1089,6 +798,7 @@ def main():
                         "0.2",
                         "0.4",
                     ],
+                    RESULT_DIR,
                 ),
                 (
                     trace,
@@ -1131,6 +841,7 @@ def main():
                         "0.2",
                         "0.4",
                     ],
+                    RESULT_DIR,
                 ),
             ]
     with multiprocessing.Pool(processes=10) as pool:
