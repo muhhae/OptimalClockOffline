@@ -27,7 +27,7 @@ const std::string csv_header =
 std::function<
 	cache_t*(const common_cache_params_t ccache_params, const char* cache_specific_params)>
 AlgoSelector(const options& o) {
-	if (o.algorithm == "default") {
+	if (o.algorithm == "offline-clock") {
 		return cclock::OfflineClockInit;
 	}
 	if (o.algorithm == "dist-optimal") {
@@ -36,7 +36,7 @@ AlgoSelector(const options& o) {
 	if (o.algorithm == "lru") {
 		return base::LRUInit;
 	}
-	if (o.algorithm == "base") {
+	if (o.algorithm == "clock") {
 		return base::BaseClockInit;
 	}
 	if (o.algorithm == "my") {

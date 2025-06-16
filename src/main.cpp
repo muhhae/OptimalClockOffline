@@ -23,15 +23,15 @@ int main(int argc, char** argv) {
 	app.add_option("-o,--output-directory", o.output_directory, "Output directory")
 		->default_val("./result");
 	app.add_option("-i,--max-iteration", o.max_iteration, "Offline clock max iteration")
-		->default_val(10);
+		->default_val(1);
 	app.add_option(
 		"-d,--descriptions",
 		o.descs,
 		"Additional description for experiment, would shows on filename, can be more than one"
 	);
 	app.add_option("trace_paths", o.trace_paths, "Can be more than one")->required();
-	app.add_option("-a,--algo", o.algorithm, "available [default, ML, my, base]")
-		->default_val("default");
+	app.add_option("-a,--algo", o.algorithm, "available [offline-clock ,clock, ML, my]")
+		->required();
 	app.add_option("-m,--model", o.ml_model, "ML model to use, required when algo = ML");
 	app.add_option(
 		   "-I, --input",
@@ -45,9 +45,11 @@ int main(int argc, char** argv) {
 		   "Features to use for Model Inference (The Sequence should "
 		   "exactly the same as model input or data it trained with)"
 	)
-		->default_val(std::vector<std::string>{
-			"rtime_between", "clock_freq", "lifetime_freq", "obj_size_relative"
-		});
+		->default_val(
+			std::vector<std::string>{
+				"rtime_between", "clock_freq", "lifetime_freq", "obj_size_relative"
+			}
+		);
 	app.add_option("-T, --trace-type", o.trace_type, "Traces Type [oracleGeneral, csv]")
 		->default_val("oracleGeneral");
 	app.add_option("-H, --treshold", o.treshold, "Decision treshold")->default_val(0.5);
