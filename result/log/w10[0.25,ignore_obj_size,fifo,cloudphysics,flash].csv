@@ -1,0 +1,2 @@
+trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted,n_miss,n_hit
+"w10.oracleGeneral.bin.zst",1,3132451,0.471014,48342350,0,22769911,25572439

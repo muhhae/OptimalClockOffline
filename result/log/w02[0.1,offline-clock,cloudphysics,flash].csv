@@ -1,0 +1,3 @@
+trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted,n_miss,n_hit
+"w02.oracleGeneral.bin.zst",0,2001,0.979214,122181000,1338321,119641285,2539715
+"w02.oracleGeneral.bin.zst",0,2001,0.977979,122181000,584627,119490415,2690585

@@ -1,0 +1,3 @@
+trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted,n_miss,n_hit
+"zipf_1_15.oracleGeneral",1,4347,0.471501,15640304,1631812,7374422,8265882
+"zipf_1_15.oracleGeneral",1,4347,0.470414,15640304,950473,7357424,8282880

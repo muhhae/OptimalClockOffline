@@ -1,0 +1,2 @@
+trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted,n_miss,n_hit
+"w46.oracleGeneral.bin.zst",1,22969,0.609017,11550125,0,7034217,4515908

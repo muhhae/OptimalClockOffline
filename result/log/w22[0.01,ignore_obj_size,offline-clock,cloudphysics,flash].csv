@@ -1,0 +1,3 @@
+trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted,n_miss,n_hit
+"w22.oracleGeneral.bin.zst",1,78136,0.889356,22248591,361336,19786910,2461681
+"w22.oracleGeneral.bin.zst",1,78136,0.889169,22248591,72536,19782756,2465835
