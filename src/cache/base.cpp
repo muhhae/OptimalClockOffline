@@ -62,3 +62,18 @@ cache_t* base::LRUInit(
 	cache->eviction_params = params;
 	return cache;
 }
+
+cache_t* base::FIFOInit(
+	const common_cache_params_t ccache_params, const char* cache_specific_params
+) {
+	auto cache = FIFO_init(ccache_params, cache_specific_params);
+
+	cache->cache_init = FIFOInit;
+
+	common::CustomClockParams* params =
+		new common::CustomClockParams(*(Clock_params_t*)cache->eviction_params);
+	free(cache->eviction_params);
+
+	cache->eviction_params = params;
+	return cache;
+}

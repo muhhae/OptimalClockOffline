@@ -1,6 +1,7 @@
 #include "experiment.hpp"
 #include <libCacheSim/cache.h>
 #include <libCacheSim/enum.h>
+#include <libCacheSim/evictionAlgo.h>
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
@@ -27,6 +28,9 @@ const std::string csv_header =
 std::function<
 	cache_t*(const common_cache_params_t ccache_params, const char* cache_specific_params)>
 AlgoSelector(const options& o) {
+	if (o.algorithm == "fifo") {
+		return base::FIFOInit;
+	}
 	if (o.algorithm == "offline-clock") {
 		return cclock::OfflineClockInit;
 	}
