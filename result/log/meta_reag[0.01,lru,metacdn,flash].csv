@@ -1,0 +1,2 @@
+trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted,n_miss,n_hit
+"meta_reag.oracleGeneral.zst",0,1727821,0.383445,45623306,28129295,17494011,28129295

@@ -1,0 +1,3 @@
+trace_path,ignore_obj_size,cache_size,miss_ratio,n_req,n_promoted,n_miss,n_hit
+"meta_rprn.oracleGeneral.zst",0,3493379,0.550903,88470732,9090868,48738803,39731929
+"meta_rprn.oracleGeneral.zst",0,3493379,0.543942,88470732,1502285,48122924,40347808
