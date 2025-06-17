@@ -11,7 +11,7 @@ def CalculateReduction(df: DataFrame, base_model: str, col: str):
         return df
 
     c_base = base_row[col].iloc[0]
-    df[f"{col} Reduction"] = ((c_base - df[col]) / c_base) * 100
+    df[f"{col} Reduction"] = (c_base - df[col]) / (c_base if c_base != 0 else 1) * 100
 
     return df
 

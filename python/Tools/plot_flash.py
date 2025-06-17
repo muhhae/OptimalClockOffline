@@ -59,7 +59,7 @@ def WriteMean(md, html, df: pd.DataFrame):
             md,
             html,
             tabulate(
-                data[["Model", "Miss Ratio", "Flash Write"]],
+                data[["Model", "Miss Ratio", "Miss", "Promotion", "Flash Write"]],
                 headers="keys",
                 tablefmt="html",
                 showindex="never",
@@ -75,7 +75,14 @@ def WriteMeanReduction(md, html, df: pd.DataFrame):
         Write(md, html, f"## {s}  \n")
         data = (
             df.query("`Cache Size` == @s")
-            .groupby("Model")[["Miss Ratio Reduction", "Flash Write Reduction"]]
+            .groupby("Model")[
+                [
+                    "Miss Ratio Reduction",
+                    "Flash Write Reduction",
+                    "Miss Reduction",
+                    "Promotion Reduction",
+                ]
+            ]
             .mean()
             .reset_index()
             .sort_values(by="Flash Write Reduction", ascending=False)
@@ -93,7 +100,15 @@ def WriteMeanReduction(md, html, df: pd.DataFrame):
             md,
             html,
             tabulate(
-                data[["Model", "Miss Ratio Reduction", "Flash Write Reduction"]],
+                data[
+                    [
+                        "Model",
+                        "Miss Ratio Reduction",
+                        "Miss Reduction",
+                        "Promotion Reduction",
+                        "Flash Write Reduction",
+                    ]
+                ],
                 headers="keys",
                 tablefmt="html",
                 showindex="never",
@@ -187,6 +202,16 @@ def Sumz(files: list[str], title: str, ignore_obj_size: bool = True, use_cache=T
             .apply(CalculateReduction, "FIFO", "Miss Ratio", include_groups=True)
             .reset_index(drop=True)
         )
+        combined = (
+            combined.groupby(["Ignore Obj Size", "Trace", "Cache Size"])
+            .apply(CalculateReduction, "FIFO", "Promotion", include_groups=True)
+            .reset_index(drop=True)
+        )
+        combined = (
+            combined.groupby(["Ignore Obj Size", "Trace", "Cache Size"])
+            .apply(CalculateReduction, "FIFO", "Miss", include_groups=True)
+            .reset_index(drop=True)
+        )
 
         with open(cache, "wb") as c:
             pickle.dump(combined, c)
@@ -209,8 +234,12 @@ def Sumz(files: list[str], title: str, ignore_obj_size: bool = True, use_cache=T
 def main():
     log_path = "../../result/log/"
     files = sorted(glob(os.path.join(log_path, "*flash*.csv")), key=sort_key)
-    Sumz([f for f in files if "zipf1" in f], "Zipf1", use_cache=False)
-    Sumz([f for f in files if "cloud" in f], "CloudPhysics")
+
+    use_cache = False
+
+    Sumz([f for f in files if "zipf1" in f], "Zipf1", use_cache=use_cache)
+    Sumz([f for f in files if "cloud" in f], "CloudPhysics", use_cache=use_cache)
+    Sumz([f for f in files if "metacdn" in f], "MetaCDN", use_cache=use_cache)
 
 
 if __name__ == "__main__":
