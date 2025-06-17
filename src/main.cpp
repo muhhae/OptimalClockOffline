@@ -30,13 +30,13 @@ int main(int argc, char** argv) {
 		"Additional description for experiment, would shows on filename, can be more than one"
 	);
 	app.add_option("trace_paths", o.trace_paths, "Can be more than one")->required();
-	app.add_option("-a,--algo", o.algorithm, "available [offline-clock, clock, fifo, ML]")
+	app.add_option(
+		   "-a,--algo", o.algorithm, "available [offline-clock, clock, fifo, ML, decayed-clock]"
+	)
 		->required();
 	app.add_option("-m,--model", o.ml_model, "ML model to use, required when algo = ML");
 	app.add_option(
-		   "-I, --input",
-		   o.input_type,
-		   "Input data type to use for Model Inference [I32, I64, F32, F64]"
+		   "-I, --input", o.input_type, "Input data type to use for Model Inference [I32, I64, F32]"
 	)
 		->default_val("I64");
 	app.add_option(

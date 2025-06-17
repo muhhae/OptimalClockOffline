@@ -39,6 +39,7 @@ add_executable(cacheSimulator
   src/cache/offline_clock.cpp
   src/cache/base.cpp
   src/cache/ml_clock.cpp
+  src/cache/decayed_clock.cpp
   src/cache/my_clock.cpp
   src/cache/dist_clock.cpp
 )

@@ -16,6 +16,7 @@
 #include <unordered_map>
 #include "cache/base.hpp"
 #include "cache/common.hpp"
+#include "cache/decayed_clock.hpp"
 #include "cache/dist_clock.hpp"
 #include "cache/ml_clock.hpp"
 #include "cache/my_clock.hpp"
@@ -28,6 +29,9 @@ const std::string csv_header =
 std::function<
 	cache_t*(const common_cache_params_t ccache_params, const char* cache_specific_params)>
 AlgoSelector(const options& o) {
+	if (o.algorithm == "decayed-clock") {
+		return decayed::DecayedClockInit;
+	}
 	if (o.algorithm == "fifo") {
 		return base::FIFOInit;
 	}
