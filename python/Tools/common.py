@@ -1,13 +1,28 @@
 from dataclasses import dataclass
 
+from pandas import DataFrame
 
-def extract_desc(filename: str) -> (str, list):
+
+def CalculateReduction(df: DataFrame, base_model: str, col: str):
+    base_row = df[df["Model"] == base_model]
+
+    if base_row.empty:
+        df[col] = float("nan")
+        return df
+
+    c_base = base_row[col].iloc[0]
+    df[f"{col} Reduction"] = ((c_base - df[col]) / c_base) * 100
+
+    return df
+
+
+def extract_desc(filename: str) -> tuple[str, list[str | dict]]:
     prefix = filename[: filename.rfind("[")]
     desc = filename[filename.rfind("[") + 1 : filename.rfind("]")]
     desc = desc.split(",")
     dict_data = {x[: x.find("=")]: x[x.find("=") + 1 :] for x in desc if "=" in x}
     desc = [x for x in desc if "=" not in x]
-    desc.append(dict_data)
+    desc += [dict_data]
     return (prefix, desc)
 
 
@@ -26,6 +41,8 @@ class OutputLog:
     miss_ratio: float
     n_req: int
     n_promoted: int
+    n_hit: int
+    n_miss: int
 
 
 def ordinal(n):

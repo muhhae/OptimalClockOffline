@@ -15,7 +15,6 @@ from docs_writer import Write, WriteFig, WriteHTML
 from plotly_wrapper import Scatter, Box
 
 pd.set_option("display.max_rows", None)
-pio.templates.default = "plotly_dark"
 
 urls = []
 with open("../../trace/reasonable_traces.txt") as f:

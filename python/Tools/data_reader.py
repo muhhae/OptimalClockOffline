@@ -55,6 +55,8 @@ def GetOtherResult(paths: List[str], name: str):
                 "Model": name,
                 "Promotion": logs[0].n_promoted,
                 "Miss Ratio": logs[0].miss_ratio,
+                "Hit": logs[0].n_hit,
+                "Miss": logs[0].n_miss,
                 "Trace": prefix,
                 "Cache Size": float(desc[0]),
                 "Ignore Obj Size": desc.count("ignore_obj_size"),
@@ -199,6 +201,8 @@ def GetBaseResult(paths: List[str]):
                     "Trace": prefix,
                     "Cache Size": float(desc[0]),
                     "Ignore Obj Size": desc.count("ignore_obj_size"),
+                    "Hit": log.n_hit,
+                    "Miss": log.n_miss,
                 }
             )
     return pd.DataFrame(tmp)

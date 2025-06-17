@@ -1,6 +1,10 @@
 import plotly.express as px
 import plotly.graph_objs as go
+
 import pandas as pd
+from plotly.io import templates
+
+templates.default = "plotly_dark"
 
 
 def Scatter(df: pd.DataFrame, **kwargs) -> go.Figure:
