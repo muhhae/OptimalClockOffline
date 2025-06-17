@@ -5,6 +5,8 @@ from pathlib import Path
 from pprint import pprint
 
 import pandas as pd
+from plotly.express import bar
+from plotly.graph_objs import Bar, Figure
 from common import CalculateReduction, sort_key
 from data_reader import GetBaseResult, GetOtherResult
 from docs_writer import Write, WriteFig, WriteHTML
@@ -18,7 +20,7 @@ def WriteMean(md, html, df: pd.DataFrame):
         Write(md, html, f"## {s}  \n")
         data = (
             df.query("`Cache Size` == @s")
-            .groupby("Model")[["Miss Ratio", "Flash Write"]]
+            .groupby("Model")[["Miss Ratio", "Flash Write", "Promotion", "Miss"]]
             .mean()
             .reset_index()
             .sort_values(by="Flash Write")
@@ -29,6 +31,28 @@ def WriteMean(md, html, df: pd.DataFrame):
             y="Miss Ratio",
             color="Model",
             symbol="Model",
+        )
+        WriteFig(md, html, fig)
+        fig = Figure()
+        fig.add_trace(
+            Bar(
+                x=data["Model"],
+                y=data["Promotion"],
+                name="Reinsertion",
+            )
+        )
+        fig.add_trace(
+            Bar(
+                x=data["Model"],
+                y=data["Miss"],
+                name="Cache Miss",
+            )
+        )
+        fig.update_layout(
+            barmode="stack",
+            title_text="Flash Write (Reinsertion + Miss) by Algorithm",
+            xaxis_title="Algorithm",
+            yaxis_title="Flash Write",
         )
         WriteFig(md, html, fig)
         Write(
@@ -96,6 +120,29 @@ def WriteIndividual(md, html, df: pd.DataFrame):
                 symbol="Model",
             )
             WriteFig(md, html, fig)
+            fig = Figure()
+            fig.add_trace(
+                Bar(
+                    x=data["Model"],
+                    y=data["Promotion"],
+                    name="Reinsertion",
+                )
+            )
+            fig.add_trace(
+                Bar(
+                    x=data["Model"],
+                    y=data["Miss"],
+                    name="Cache Miss",
+                )
+            )
+            fig.update_layout(
+                barmode="stack",
+                title_text="Flash Write (Reinsertion + Miss) by Algorithm",
+                xaxis_title="Algorithm",
+                yaxis_title="Flash Write",
+            )
+            WriteFig(md, html, fig)
+
             Write(
                 md,
                 html,
