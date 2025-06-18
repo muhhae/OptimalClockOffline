@@ -5,7 +5,6 @@ from pathlib import Path
 from pprint import pprint
 
 import pandas as pd
-from plotly.express import bar
 from plotly.graph_objs import Bar, Figure
 from common import CalculateReduction, sort_key
 from data_reader import GetBaseResult, GetOtherResult

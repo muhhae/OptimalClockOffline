@@ -1,3 +1,4 @@
+from os import name
 import re
 from pathlib import Path
 from typing import List
@@ -182,6 +183,7 @@ def GetModelMetrics(
 
 def GetBaseResult(paths: List[str]):
     tmp = []
+    names = ["CLOCK", "Offline CLOCK"]
     for file in paths:
         if Path(file).stat().st_size == 0:
             continue
@@ -195,7 +197,7 @@ def GetBaseResult(paths: List[str]):
                 break
             tmp.append(
                 {
-                    "Model": f"Offline Clock {ordinal(i + 1)} iteration",
+                    "Model": names[i],
                     "Promotion": log.n_promoted,
                     "Miss Ratio": log.miss_ratio,
                     "Trace": prefix,
