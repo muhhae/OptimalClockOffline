@@ -13,7 +13,6 @@ struct options {
 	std::string trace_type;
 	std::string algorithm;
 	std::vector<std::filesystem::path> trace_paths;
-	// std::vector<std::string> custom_suffixes;
 
 	std::vector<std::string> features_name;
 	std::vector<uint64_t> fixed_cache_sizes;

@@ -63,13 +63,7 @@ AlgoSelector(const options& o) {
 		if (o.input_type == "F32") {
 			return mlclock::MLClockInit<float>;
 		}
-		if (o.input_type == "F64") {
-			return mlclock::MLClockInit<double>;
-		}
 		throw std::runtime_error("Input type is not valid");
-	}
-	if (o.algorithm == "bob") {
-		throw std::runtime_error("bob's algorithm hasn't been implemented");
 	}
 	throw std::runtime_error("algorithm not found");
 }
