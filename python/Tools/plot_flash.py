@@ -5,12 +5,27 @@ from pathlib import Path
 from pprint import pprint
 
 import pandas as pd
-from plotly.graph_objs import Bar, Figure
 from common import CalculateReduction, sort_key
 from data_reader import GetBaseResult, GetOtherResult
 from docs_writer import Write, WriteFig, WriteHTML
-from plotly_wrapper import Scatter
+from plotly.graph_objs import Figure
+from plotly_wrapper import Scatter, VerticalCompositionBar
 from tabulate import tabulate
+
+
+def CreateFlashWriteComposition(df: pd.DataFrame) -> Figure:
+    return VerticalCompositionBar(
+        df,
+        X="Model",
+        Ys=[
+            ("Miss", "Cache Miss"),
+            ("Promotion", "Reinsertion"),
+        ],
+        title="Flash Write (Reinsertion + Miss) by Algorithm",
+        yaxis_title="Flash Write",
+        xaxis_title="Algorithm",
+        mode="stack",
+    )
 
 
 def WriteMean(md, html, df: pd.DataFrame):
@@ -32,34 +47,20 @@ def WriteMean(md, html, df: pd.DataFrame):
             symbol="Model",
         )
         WriteFig(md, html, fig)
-        fig = Figure()
-        fig.add_trace(
-            Bar(
-                x=data["Model"],
-                y=data["Promotion"],
-                name="Reinsertion",
-            )
-        )
-        fig.add_trace(
-            Bar(
-                x=data["Model"],
-                y=data["Miss"],
-                name="Cache Miss",
-            )
-        )
-        fig.update_layout(
-            barmode="stack",
-            title_text="Flash Write (Reinsertion + Miss) by Algorithm",
-            xaxis_title="Algorithm",
-            yaxis_title="Flash Write",
-        )
+        fig = CreateFlashWriteComposition(data)
         WriteFig(md, html, fig)
         Write(
             md,
             html,
             tabulate(
                 data[["Model", "Miss Ratio", "Miss", "Promotion", "Flash Write"]],
-                headers="keys",
+                headers=[
+                    "Algorithm",
+                    "Miss Ratio",
+                    "Cache Miss",
+                    "Reinsertion",
+                    "Flash Write",
+                ],
                 tablefmt="html",
                 showindex="never",
                 intfmt=",",
@@ -108,7 +109,13 @@ def WriteMeanReduction(md, html, df: pd.DataFrame):
                         "Flash Write Reduction",
                     ]
                 ],
-                headers="keys",
+                headers=[
+                    "Algorithm",
+                    "Miss Ratio Reduction",
+                    "Cache Miss Reduction",
+                    "Reinsertion Reduction",
+                    "Flash Write Reduction",
+                ],
                 tablefmt="html",
                 showindex="never",
                 intfmt=",",
@@ -134,35 +141,65 @@ def WriteIndividual(md, html, df: pd.DataFrame):
                 symbol="Model",
             )
             WriteFig(md, html, fig)
-            fig = Figure()
-            fig.add_trace(
-                Bar(
-                    x=data["Model"],
-                    y=data["Promotion"],
-                    name="Reinsertion",
-                )
-            )
-            fig.add_trace(
-                Bar(
-                    x=data["Model"],
-                    y=data["Miss"],
-                    name="Cache Miss",
-                )
-            )
-            fig.update_layout(
-                barmode="stack",
-                title_text="Flash Write (Reinsertion + Miss) by Algorithm",
-                xaxis_title="Algorithm",
-                yaxis_title="Flash Write",
-            )
+            fig = CreateFlashWriteComposition(data)
             WriteFig(md, html, fig)
-
             Write(
                 md,
                 html,
                 tabulate(
                     data[["Model", "Miss Ratio", "Miss", "Promotion", "Flash Write"]],
-                    headers="keys",
+                    headers=[
+                        "Algorithm",
+                        "Miss Ratio",
+                        "Cache Miss",
+                        "Reinsertion",
+                        "Flash Write",
+                    ],
+                    tablefmt="html",
+                    showindex="never",
+                    intfmt=",",
+                )
+                + "  \n\n",
+            )
+
+
+def WriteIndividualReduction(md, html, df: pd.DataFrame):
+    Write(md, html, "# Individual Reduction Result  \n")
+    for s in df["Cache Size"].unique():
+        Write(md, html, f"## {s}  \n")
+        for t in df["Trace"].unique():
+            Write(md, html, f"### {Path(t).stem}  \n")
+            data = df.query("`Cache Size` == @s and `Trace` == @t").sort_values(
+                by="Flash Write Reduction", ascending=False
+            )
+            fig = Scatter(
+                data,
+                x="Flash Write Reduction",
+                y="Miss Ratio Reduction",
+                color="Model",
+                symbol="Model",
+            )
+            WriteFig(md, html, fig)
+            Write(
+                md,
+                html,
+                tabulate(
+                    data[
+                        [
+                            "Model",
+                            "Miss Ratio Reduction",
+                            "Miss Reduction",
+                            "Promotion Reduction",
+                            "Flash Write Reduction",
+                        ]
+                    ],
+                    headers=[
+                        "Algorithm",
+                        "Miss Ratio Reduction",
+                        "Cache Miss Reduction",
+                        "Reinsertion Reduction",
+                        "Flash Write Reduction",
+                    ],
                     tablefmt="html",
                     showindex="never",
                     intfmt=",",
@@ -226,6 +263,7 @@ def Sumz(files: list[str], title: str, ignore_obj_size: bool = True, use_cache=T
     WriteMean(md, html, combined)
     WriteMeanReduction(md, html, combined)
     WriteIndividual(md, html, combined)
+    WriteIndividualReduction(md, html, combined)
 
     WriteHTML(html)
 

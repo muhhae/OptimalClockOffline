@@ -1,3 +1,5 @@
+from typing import List
+from pandas.core.base import NoNewAttributesMixin
 import plotly.express as px
 import plotly.graph_objs as go
 
@@ -35,4 +37,31 @@ def Box(df: pd.DataFrame, **kwargs) -> go.Figure:
     )
     fig.update_xaxes(showgrid=True)
     fig.update_yaxes(showgrid=True)
+    return fig
+
+
+def VerticalCompositionBar(
+    df: pd.DataFrame,
+    X: str,
+    Ys: List[str | tuple[str, str]],
+    title: str | None = None,
+    yaxis_title: str | None = None,
+    xaxis_title: str | None = None,
+    mode: str = "stack",
+) -> go.Figure:
+    fig = go.Figure()
+    for Y in Ys:
+        fig.add_trace(
+            go.Bar(
+                x=df[X],
+                y=df[Y] if isinstance(Y, str) else df[Y[0]],
+                name=Y if isinstance(Y, str) else Y[1],
+            )
+        )
+    fig.update_layout(
+        barmode=mode,
+        title_text=title,
+        xaxis_title=xaxis_title,
+        yaxis_title=yaxis_title,
+    )
     return fig

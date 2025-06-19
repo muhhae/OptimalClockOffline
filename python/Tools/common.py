@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Any
 
 from pandas import DataFrame
 
@@ -10,13 +11,13 @@ def CalculateReduction(df: DataFrame, base_model: str, col: str):
         df[col] = float("nan")
         return df
 
-    c_base = base_row[col].iloc[0]
+    c_base = base_row[col].item()
     df[f"{col} Reduction"] = (c_base - df[col]) / (c_base if c_base != 0 else 1) * 100
 
     return df
 
 
-def extract_desc(filename: str) -> tuple[str, list[str | dict]]:
+def extract_desc(filename: str) -> tuple[str, list[str | dict[str, Any]]]:
     prefix = filename[: filename.rfind("[")]
     desc = filename[filename.rfind("[") + 1 : filename.rfind("]")]
     desc = desc.split(",")
@@ -28,7 +29,7 @@ def extract_desc(filename: str) -> tuple[str, list[str | dict]]:
 
 def sort_key(filename):
     desc = extract_desc(filename)[1]
-    if "model" in desc[-1]:
+    if "model" in desc[-1] and isinstance(desc[-1], dict):
         return (filename, desc[0], desc[-1]["model"])
     return (filename, desc[0])
 
