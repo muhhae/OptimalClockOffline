@@ -200,9 +200,6 @@ void Simulate(
 		auto tmp_custom_params = (common::CustomClockParams*)tmp->eviction_params;
 		std::swap(tmp_custom_params->objs_metadata, custom_params->objs_metadata);
 		std::swap(tmp_custom_params->datasets, custom_params->datasets);
-		std::swap(tmp_custom_params->n_hit, custom_params->n_hit);
-		std::swap(tmp_custom_params->n_req, custom_params->n_req);
-		std::swap(tmp_custom_params->n_promoted, custom_params->n_promoted);
 		if (o.algorithm == "ML") {
 			auto tmp_ml_param = (mlclock::MLClockParam*)tmp_custom_params;
 			auto ml_param = (mlclock::MLClockParam*)custom_params;
@@ -257,9 +254,6 @@ void Simulate(
 		}
 		std::swap(tmp_custom_params->objs_metadata, custom_params->objs_metadata);
 		std::swap(tmp_custom_params->datasets, custom_params->datasets);
-		std::swap(tmp_custom_params->n_hit, custom_params->n_hit);
-		std::swap(tmp_custom_params->n_req, custom_params->n_req);
-		std::swap(tmp_custom_params->n_promoted, custom_params->n_promoted);
 		if (o.algorithm == "ML") {
 			auto tmp_ml_param = (mlclock::MLClockParam*)tmp_custom_params;
 			auto ml_param = (mlclock::MLClockParam*)custom_params;
