@@ -26,6 +26,8 @@ flowchart TD
     EvictFromDram --> EvictedObjFreqMtN{Evicted Object Freq > N}
 
     EvictedObjFreqMtN -- YES --> InsertingToFlash(Inserting To Flash)
+    EvictedObjFreqMtN -- NO --> DramHasSpace
+
     InsertToFlash --> FlashWriteTracked(Flash Write Tracked)
 
     InsertingToFlash --> FlashHasSpace{Flash Has Enough Space}
