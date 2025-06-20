@@ -225,9 +225,6 @@ void Simulate(
 		auto dram_param = (dram::DramParam*)dram_cache->eviction_params;
 		dram_param->main_cache = tmp;
 
-		std::cout << "dram_cache_size: " << dram_cache->cache_size << '\n';
-		std::cout << "flash_cache_size: " << tmp->cache_size << '\n';
-
 		while (read_one_req(reader, req) == 0) {
 			if (o.dram_enabled) {
 				bool hit = dram_cache->get(dram_cache, req);
