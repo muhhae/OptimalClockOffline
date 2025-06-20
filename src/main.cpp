@@ -62,6 +62,7 @@ int main(int argc, char** argv) {
 		"--generate-datasets", o.generate_datasets, "Would generate datasets from simulation"
 	);
 	app.add_flag("--id-num", o.id_num, "Id is already numeric so we can skip the hashing process");
+	app.add_flag("--dram", o.dram_enabled, "Enable Dram Cache (1\% of the cache)");
 
 	CLI11_PARSE(app, argc, argv);
 

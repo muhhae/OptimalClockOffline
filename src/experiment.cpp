@@ -18,6 +18,7 @@
 #include "cache/common.hpp"
 #include "cache/decayed_clock.hpp"
 #include "cache/dist_clock.hpp"
+#include "cache/dram.hpp"
 #include "cache/ml_clock.hpp"
 #include "cache/my_clock.hpp"
 #include "cache/offline_clock.hpp"
@@ -214,19 +215,44 @@ void Simulate(
 		tmp_custom_params->n_promoted = 0;
 		tmp_custom_params->dist_optimal_treshold = o.dist_optimal_treshold;
 		tmp_custom_params->decay_power = o.decay_power;
+
 		if (i == o.max_iteration - 1) {
 			tmp_custom_params->generate_datasets = o.generate_datasets;
 		}
+
+		uint64_t dram_cache_size = tmp->cache_size / 100;
+		cache_t* dram_cache = dram::LRUInit({.cache_size = dram_cache_size}, NULL);
+		auto dram_param = (dram::DramParam*)dram_cache->eviction_params;
+		dram_param->main_cache = tmp;
+
+		std::cout << "dram_cache_size: " << dram_cache->cache_size << '\n';
+		std::cout << "flash_cache_size: " << tmp->cache_size << '\n';
+
 		while (read_one_req(reader, req) == 0) {
-			auto& data = tmp_custom_params->objs_metadata[req->obj_id];
-
-			common::OnAccessTracking(data, tmp_custom_params, req);
-			tmp_custom_params->GlobalTracking(data);
-
-			if (tmp->get(tmp, req)) {
-				tmp_custom_params->n_hit++;
+			if (o.dram_enabled) {
+				bool hit = dram_cache->get(dram_cache, req);
+				if (dram_param->req_map[req->obj_id] != NULL) {
+					free(dram_param->req_map[req->obj_id]);
+				}
+				dram_param->req_map[req->obj_id] = clone_request(req);
+				if (!hit) {
+					auto& data = tmp_custom_params->objs_metadata[req->obj_id];
+					common::OnAccessTracking(data, tmp_custom_params, req);
+					tmp_custom_params->GlobalTracking(data);
+					if (tmp->find(tmp, req, false) != NULL) {
+						tmp_custom_params->n_hit++;
+					}
+					tmp_custom_params->n_req++;
+				}
+			} else {
+				auto& data = tmp_custom_params->objs_metadata[req->obj_id];
+				common::OnAccessTracking(data, tmp_custom_params, req);
+				tmp_custom_params->GlobalTracking(data);
+				if (tmp->get(tmp, req)) {
+					tmp_custom_params->n_hit++;
+				}
+				tmp_custom_params->n_req++;
 			}
-			tmp_custom_params->n_req++;
 		}
 
 		const std::string csv_header =

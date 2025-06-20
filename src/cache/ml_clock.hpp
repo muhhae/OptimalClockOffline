@@ -6,9 +6,7 @@
 #include <onnxruntime/onnxruntime_cxx_api.h>
 #include <array>
 #include <cstdint>
-#include <cstdlib>
 #include <filesystem>
-#include <iostream>
 #include <optional>
 #include <stdexcept>
 #include <string>

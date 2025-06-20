@@ -42,6 +42,7 @@ add_executable(cacheSimulator
   src/cache/decayed_clock.cpp
   src/cache/my_clock.cpp
   src/cache/dist_clock.cpp
+  src/cache/dram.cpp
 )
 target_include_directories(cacheSimulator PRIVATE src .)
 
