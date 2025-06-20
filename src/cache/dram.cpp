@@ -2,6 +2,7 @@
 #include <config.h>
 #include <libCacheSim/cache.h>
 #include <libCacheSim/evictionAlgo.h>
+#include <iostream>
 #include "common.hpp"
 
 void dram::DramParam::InsertToMain(obj_id_t obj_id) {
@@ -25,8 +26,6 @@ static void LRUEvict(cache_t* cache, const request_t* req) {
 	LRU_params_t* params = (LRU_params_t*)cache->eviction_params;
 	cache_obj_t* obj_to_evict = params->q_tail;
 	DEBUG_ASSERT(params->q_tail != NULL);
-
-	remove_obj_from_list(&params->q_head, &params->q_tail, obj_to_evict);
 
 	params->q_tail = params->q_tail->queue.prev;
 	if (likely(params->q_tail != NULL)) {
